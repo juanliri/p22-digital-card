@@ -1,0 +1,132 @@
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="pmGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0066CC;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#004499;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="pmAccentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFA500;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#28A745;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#20C997;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background Circle -->
+  <circle cx="60" cy="60" r="55" fill="url(#pmGradient)" opacity="0.1"/>
+  <circle cx="60" cy="60" r="50" fill="white" stroke="url(#pmGradient)" stroke-width="2"/>
+  
+  <!-- Central Project Management Hub -->
+  <g transform="translate(60, 60)">
+    <!-- Main project board/dashboard -->
+    <rect x="-30" y="-20" width="60" height="40" fill="white" stroke="url(#pmGradient)" stroke-width="2" rx="4"/>
+    
+    <!-- Project timeline/Gantt chart representation -->
+    <g transform="translate(-25, -15)">
+      <!-- Timeline header -->
+      <rect x="0" y="0" width="50" height="6" fill="url(#pmGradient)" opacity="0.8"/>
+      <text x="25" y="4" text-anchor="middle" font-family="Arial, sans-serif" font-size="3" font-weight="bold" fill="white">PROJECT TIMELINE</text>
+      
+      <!-- Task bars -->
+      <rect x="2" y="8" width="20" height="4" fill="url(#progressGradient)" rx="2"/>
+      <rect x="5" y="14" width="30" height="4" fill="url(#pmAccentGradient)" rx="2"/>
+      <rect x="8" y="20" width="15" height="4" fill="url(#progressGradient)" rx="2"/>
+      <rect x="3" y="26" width="25" height="4" fill="url(#pmGradient)" opacity="0.6" rx="2"/>
+      
+      <!-- Progress indicators -->
+      <circle cx="12" cy="10" r="2" fill="url(#progressGradient)"/>
+      <circle cx="20" cy="16" r="2" fill="url(#pmAccentGradient)"/>
+      <circle cx="15.5" cy="22" r="2" fill="url(#progressGradient)"/>
+      <circle cx="15.5" cy="28" r="2" fill="url(#pmGradient)" opacity="0.6"/>
+    </g>
+    
+    <!-- Resource allocation circles around the board -->
+    <!-- Team coordination -->
+    <g transform="translate(-45, -10)">
+      <circle cx="0" cy="0" r="8" fill="url(#pmGradient)" opacity="0.9"/>
+      <circle cx="-3" cy="-2" r="3" fill="white"/>
+      <circle cx="3" cy="-2" r="3" fill="white"/>
+      <circle cx="0" cy="4" r="3" fill="white"/>
+      <text x="0" y="18" text-anchor="middle" font-family="Arial, sans-serif" font-size="3" fill="url(#pmGradient)">TEAM</text>
+    </g>
+    
+    <!-- Budget/Resources -->
+    <g transform="translate(45, -10)">
+      <circle cx="0" cy="0" r="8" fill="url(#pmAccentGradient)" opacity="0.9"/>
+      <text x="0" y="2" text-anchor="middle" font-family="Arial, sans-serif" font-size="6" font-weight="bold" fill="white">$</text>
+      <text x="0" y="18" text-anchor="middle" font-family="Arial, sans-serif" font-size="3" fill="url(#pmGradient)">BUDGET</text>
+    </g>
+    
+    <!-- Quality control -->
+    <g transform="translate(-45, 30)">
+      <circle cx="0" cy="0" r="8" fill="url(#progressGradient)" opacity="0.9"/>
+      <path d="M -4 -1 L -2 2 L 4 -4" stroke="white" stroke-width="2" fill="none"/>
+      <text x="0" y="18" text-anchor="middle" font-family="Arial, sans-serif" font-size="3" fill="url(#pmGradient)">QC</text>
+    </g>
+    
+    <!-- Risk management -->
+    <g transform="translate(45, 30)">
+      <circle cx="0" cy="0" r="8" fill="#DC3545" opacity="0.9"/>
+      <polygon points="0,-4 -3,3 3,3" fill="white"/>
+      <text x="0" y="1" text-anchor="middle" font-family="Arial, sans-serif" font-size="3" font-weight="bold" fill="#DC3545">!</text>
+      <text x="0" y="18" text-anchor="middle" font-family="Arial, sans-serif" font-size="3" fill="url(#pmGradient)">RISK</text>
+    </g>
+    
+    <!-- Communication/coordination lines -->
+    <g opacity="0.4">
+      <line x1="-37" y1="-10" x2="-30" y2="-10" stroke="url(#pmGradient)" stroke-width="2"/>
+      <line x1="30" y1="-10" x2="37" y2="-10" stroke="url(#pmGradient)" stroke-width="2"/>
+      <line x1="-37" y1="30" x2="-30" y2="20" stroke="url(#pmGradient)" stroke-width="2"/>
+      <line x1="30" y1="20" x2="37" y2="30" stroke="url(#pmGradient)" stroke-width="2"/>
+    </g>
+    
+    <!-- Project phases indicator -->
+    <g transform="translate(0, -35)">
+      <rect x="-20" y="0" width="40" height="8" fill="url(#pmGradient)" opacity="0.8" rx="4"/>
+      <text x="0" y="5" text-anchor="middle" font-family="Arial, sans-serif" font-size="3" font-weight="bold" fill="white">PROJECT PHASES</text>
+      
+      <!-- Phase indicators -->
+      <circle cx="-15" cy="12" r="3" fill="url(#progressGradient)"/>
+      <circle cx="-5" cy="12" r="3" fill="url(#progressGradient)"/>
+      <circle cx="5" cy="12" r="3" fill="url(#pmAccentGradient)"/>
+      <circle cx="15" cy="12" r="3" fill="url(#pmGradient)" opacity="0.4"/>
+      
+      <!-- Phase labels -->
+      <text x="-15" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="2" fill="url(#pmGradient)">PLAN</text>
+      <text x="-5" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="2" fill="url(#pmGradient)">EXEC</text>
+      <text x="5" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="2" fill="url(#pmGradient)">MON</text>
+      <text x="15" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="2" fill="url(#pmGradient)">CLOSE</text>
+    </g>
+    
+    <!-- Delivery/completion indicator -->
+    <g transform="translate(0, 40)">
+      <rect x="-15" y="0" width="30" height="6" fill="url(#progressGradient)" rx="3"/>
+      <text x="0" y="4" text-anchor="middle" font-family="Arial, sans-serif" font-size="3" font-weight="bold" fill="white">ON-TIME DELIVERY</text>
+      
+      <!-- Delivery truck icon -->
+      <g transform="translate(0, 10)">
+        <rect x="-8" y="0" width="12" height="6" fill="url(#pmAccentGradient)" rx="1"/>
+        <rect x="4" y="2" width="4" height="4" fill="url(#pmGradient)"/>
+        <circle cx="-4" cy="8" r="2" fill="url(#pmGradient)"/>
+        <circle cx="6" cy="8" r="2" fill="url(#pmGradient)"/>
+      </g>
+    </g>
+    
+    <!-- Coordination arrows -->
+    <g opacity="0.6">
+      <path d="M -25 -25 L -20 -20" stroke="url(#pmAccentGradient)" stroke-width="2" marker-end="url(#arrowhead)"/>
+      <path d="M 20 -20 L 25 -25" stroke="url(#pmAccentGradient)" stroke-width="2" marker-end="url(#arrowhead)"/>
+      <path d="M -25 25 L -20 20" stroke="url(#pmAccentGradient)" stroke-width="2" marker-end="url(#arrowhead)"/>
+      <path d="M 20 20 L 25 25" stroke="url(#pmAccentGradient)" stroke-width="2" marker-end="url(#arrowhead)"/>
+    </g>
+  </g>
+  
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="url(#pmAccentGradient)"/>
+    </marker>
+  </defs>
+</svg>

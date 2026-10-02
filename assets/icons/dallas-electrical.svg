@@ -1,0 +1,268 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="warehouseGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8f9fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e9ecef;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="floorGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#dee2e6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ced4da;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="shelfGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#6c757d;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#495057;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="electricalGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFA500;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Warehouse background -->
+  <rect width="800" height="600" fill="url(#warehouseGradient)"/>
+  
+  <!-- Floor -->
+  <rect x="0" y="400" width="800" height="200" fill="url(#floorGradient)"/>
+  
+  <!-- Warehouse ceiling structure -->
+  <g opacity="0.6">
+    <!-- Ceiling beams -->
+    <rect x="0" y="50" width="800" height="15" fill="#495057"/>
+    <rect x="0" y="80" width="800" height="8" fill="#6c757d"/>
+    <rect x="100" y="50" width="8" height="350" fill="#495057"/>
+    <rect x="200" y="50" width="8" height="350" fill="#495057"/>
+    <rect x="300" y="50" width="8" height="350" fill="#495057"/>
+    <rect x="400" y="50" width="8" height="350" fill="#495057"/>
+    <rect x="500" y="50" width="8" height="350" fill="#495057"/>
+    <rect x="600" y="50" width="8" height="350" fill="#495057"/>
+    <rect x="700" y="50" width="8" height="350" fill="#495057"/>
+  </g>
+  
+  <!-- Industrial lighting -->
+  <g opacity="0.8">
+    <rect x="150" y="65" width="40" height="15" fill="#f8f9fa" stroke="#495057" stroke-width="1" rx="7"/>
+    <rect x="350" y="65" width="40" height="15" fill="#f8f9fa" stroke="#495057" stroke-width="1" rx="7"/>
+    <rect x="550" y="65" width="40" height="15" fill="#f8f9fa" stroke="#495057" stroke-width="1" rx="7"/>
+    <!-- Light beams -->
+    <polygon points="170,80 130,400 210,400" fill="white" opacity="0.1"/>
+    <polygon points="370,80 330,400 410,400" fill="white" opacity="0.1"/>
+    <polygon points="570,80 530,400 610,400" fill="white" opacity="0.1"/>
+  </g>
+  
+  <!-- Shelving units with electrical supplies -->
+  
+  <!-- Left shelving unit -->
+  <g transform="translate(50, 150)">
+    <!-- Shelf structure -->
+    <rect x="0" y="0" width="150" height="250" fill="url(#shelfGradient)" opacity="0.3"/>
+    <rect x="0" y="0" width="150" height="8" fill="url(#shelfGradient)"/>
+    <rect x="0" y="60" width="150" height="8" fill="url(#shelfGradient)"/>
+    <rect x="0" y="120" width="150" height="8" fill="url(#shelfGradient)"/>
+    <rect x="0" y="180" width="150" height="8" fill="url(#shelfGradient)"/>
+    <rect x="0" y="240" width="150" height="8" fill="url(#shelfGradient)"/>
+    
+    <!-- Electrical boxes and supplies -->
+    <!-- Top shelf - Circuit breakers -->
+    <rect x="10" y="10" width="25" height="40" fill="#2c3e50" rx="2"/>
+    <rect x="12" y="12" width="21" height="36" fill="#34495e" rx="1"/>
+    <text x="22.5" y="32" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="white">CB</text>
+    
+    <rect x="40" y="10" width="25" height="40" fill="#2c3e50" rx="2"/>
+    <rect x="42" y="12" width="21" height="36" fill="#34495e" rx="1"/>
+    <text x="52.5" y="32" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="white">CB</text>
+    
+    <rect x="70" y="10" width="25" height="40" fill="#2c3e50" rx="2"/>
+    <rect x="72" y="12" width="21" height="36" fill="#34495e" rx="1"/>
+    <text x="82.5" y="32" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="white">CB</text>
+    
+    <!-- Second shelf - Conduit and pipes -->
+    <circle cx="20" cy="90" r="15" fill="#6c757d"/>
+    <circle cx="20" cy="90" r="12" fill="#495057"/>
+    <circle cx="50" cy="90" r="15" fill="#6c757d"/>
+    <circle cx="50" cy="90" r="12" fill="#495057"/>
+    <circle cx="80" cy="90" r="15" fill="#6c757d"/>
+    <circle cx="80" cy="90" r="12" fill="#495057"/>
+    <circle cx="110" cy="90" r="15" fill="#6c757d"/>
+    <circle cx="110" cy="90" r="12" fill="#495057"/>
+    
+    <!-- Third shelf - Wire spools -->
+    <ellipse cx="25" cy="150" rx="20" ry="8" fill="url(#electricalGradient)"/>
+    <ellipse cx="25" cy="145" rx="20" ry="8" fill="url(#electricalGradient)" opacity="0.8"/>
+    <circle cx="25" cy="145" r="3" fill="#2c3e50"/>
+    
+    <ellipse cx="75" cy="150" rx="20" ry="8" fill="#DC3545"/>
+    <ellipse cx="75" cy="145" rx="20" ry="8" fill="#DC3545" opacity="0.8"/>
+    <circle cx="75" cy="145" r="3" fill="#2c3e50"/>
+    
+    <ellipse cx="125" cy="150" rx="20" ry="8" fill="#28A745"/>
+    <ellipse cx="125" cy="145" rx="20" ry="8" fill="#28A745" opacity="0.8"/>
+    <circle cx="125" cy="145" r="3" fill="#2c3e50"/>
+    
+    <!-- Fourth shelf - Electrical panels -->
+    <rect x="10" y="200" width="40" height="30" fill="#f8f9fa" stroke="#2c3e50" stroke-width="2" rx="2"/>
+    <rect x="15" y="205" width="30" height="20" fill="#34495e" rx="1"/>
+    <circle cx="20" cy="210" r="2" fill="#28A745"/>
+    <circle cx="25" cy="210" r="2" fill="#FFD700"/>
+    <circle cx="30" cy="210" r="2" fill="#DC3545"/>
+    
+    <rect x="60" y="200" width="40" height="30" fill="#f8f9fa" stroke="#2c3e50" stroke-width="2" rx="2"/>
+    <rect x="65" y="205" width="30" height="20" fill="#34495e" rx="1"/>
+    <circle cx="70" cy="210" r="2" fill="#28A745"/>
+    <circle cx="75" cy="210" r="2" fill="#FFD700"/>
+    <circle cx="80" cy="210" r="2" fill="#DC3545"/>
+  </g>
+  
+  <!-- Center shelving unit -->
+  <g transform="translate(250, 150)">
+    <!-- Shelf structure -->
+    <rect x="0" y="0" width="150" height="250" fill="url(#shelfGradient)" opacity="0.3"/>
+    <rect x="0" y="0" width="150" height="8" fill="url(#shelfGradient)"/>
+    <rect x="0" y="60" width="150" height="8" fill="url(#shelfGradient)"/>
+    <rect x="0" y="120" width="150" height="8" fill="url(#shelfGradient)"/>
+    <rect x="0" y="180" width="150" height="8" fill="url(#shelfGradient)"/>
+    <rect x="0" y="240" width="150" height="8" fill="url(#shelfGradient)"/>
+    
+    <!-- Lighting fixtures and electrical components -->
+    <!-- LED fixtures -->
+    <rect x="10" y="15" width="30" height="8" fill="#f8f9fa" stroke="#2c3e50" stroke-width="1" rx="4"/>
+    <rect x="50" y="15" width="30" height="8" fill="#f8f9fa" stroke="#2c3e50" stroke-width="1" rx="4"/>
+    <rect x="90" y="15" width="30" height="8" fill="#f8f9fa" stroke="#2c3e50" stroke-width="1" rx="4"/>
+    
+    <!-- Outlets and switches -->
+    <rect x="15" y="75" width="20" height="15" fill="white" stroke="#2c3e50" stroke-width="1" rx="2"/>
+    <circle cx="20" cy="82.5" r="3" fill="#2c3e50"/>
+    <circle cx="30" cy="82.5" r="3" fill="#2c3e50"/>
+    
+    <rect x="45" y="75" width="20" height="15" fill="white" stroke="#2c3e50" stroke-width="1" rx="2"/>
+    <rect x="48" y="78" width="14" height="9" fill="#2c3e50" rx="1"/>
+    
+    <rect x="75" y="75" width="20" height="15" fill="white" stroke="#2c3e50" stroke-width="1" rx="2"/>
+    <circle cx="80" cy="82.5" r="3" fill="#2c3e50"/>
+    <circle cx="90" cy="82.5" r="3" fill="#2c3e50"/>
+    
+    <!-- Cable management -->
+    <rect x="10" y="135" width="120" height="25" fill="#495057" rx="3"/>
+    <rect x="15" y="140" width="110" height="15" fill="#6c757d" rx="2"/>
+    <!-- Cable slots -->
+    <circle cx="25" cy="147.5" r="4" fill="#2c3e50"/>
+    <circle cx="40" cy="147.5" r="4" fill="#2c3e50"/>
+    <circle cx="55" cy="147.5" r="4" fill="#2c3e50"/>
+    <circle cx="70" cy="147.5" r="4" fill="#2c3e50"/>
+    <circle cx="85" cy="147.5" r="4" fill="#2c3e50"/>
+    <circle cx="100" cy="147.5" r="4" fill="#2c3e50"/>
+    <circle cx="115" cy="147.5" r="4" fill="#2c3e50"/>
+    
+    <!-- Electrical meters -->
+    <rect x="20" y="195" width="35" height="35" fill="#2c3e50" rx="3"/>
+    <circle cx="37.5" cy="212.5" r="12" fill="white"/>
+    <circle cx="37.5" cy="212.5" r="8" fill="#34495e"/>
+    <line x1="37.5" y1="212.5" x2="37.5" y2="205" stroke="white" stroke-width="2"/>
+    <line x1="37.5" y1="212.5" x2="42" y2="212.5" stroke="white" stroke-width="1"/>
+    
+    <rect x="70" y="195" width="35" height="35" fill="#2c3e50" rx="3"/>
+    <circle cx="87.5" cy="212.5" r="12" fill="white"/>
+    <circle cx="87.5" cy="212.5" r="8" fill="#34495e"/>
+    <line x1="87.5" y1="212.5" x2="87.5" y2="205" stroke="white" stroke-width="2"/>
+    <line x1="87.5" y1="212.5" x2="92" y2="212.5" stroke="white" stroke-width="1"/>
+  </g>
+  
+  <!-- Right shelving unit -->
+  <g transform="translate(450, 150)">
+    <!-- Shelf structure -->
+    <rect x="0" y="0" width="150" height="250" fill="url(#shelfGradient)" opacity="0.3"/>
+    <rect x="0" y="0" width="150" height="8" fill="url(#shelfGradient)"/>
+    <rect x="0" y="60" width="150" height="8" fill="url(#shelfGradient)"/>
+    <rect x="0" y="120" width="150" height="8" fill="url(#shelfGradient)"/>
+    <rect x="0" y="180" width="150" height="8" fill="url(#shelfGradient)"/>
+    <rect x="0" y="240" width="150" height="8" fill="url(#shelfGradient)"/>
+    
+    <!-- Safety equipment and tools -->
+    <!-- Hard hats -->
+    <ellipse cx="25" cy="35" rx="12" ry="8" fill="url(#electricalGradient)"/>
+    <ellipse cx="25" cy="30" rx="12" ry="8" fill="url(#electricalGradient)" opacity="0.8"/>
+    
+    <ellipse cx="55" cy="35" rx="12" ry="8" fill="#DC3545"/>
+    <ellipse cx="55" cy="30" rx="12" ry="8" fill="#DC3545" opacity="0.8"/>
+    
+    <ellipse cx="85" cy="35" rx="12" ry="8" fill="white"/>
+    <ellipse cx="85" cy="30" rx="12" ry="8" fill="white" opacity="0.8"/>
+    
+    <!-- Tool boxes -->
+    <rect x="15" y="75" width="40" height="25" fill="#DC3545" rx="3"/>
+    <rect x="17" y="77" width="36" height="21" fill="#B71C1C" rx="2"/>
+    <rect x="30" y="82" width="10" height="3" fill="#FFD700" rx="1"/>
+    
+    <rect x="70" y="75" width="40" height="25" fill="#2c3e50" rx="3"/>
+    <rect x="72" y="77" width="36" height="21" fill="#34495e" rx="2"/>
+    <rect x="85" y="82" width="10" height="3" fill="#FFD700" rx="1"/>
+    
+    <!-- Electrical testing equipment -->
+    <rect x="20" y="135" width="30" height="20" fill="#f8f9fa" stroke="#2c3e50" stroke-width="2" rx="2"/>
+    <circle cx="35" cy="145" r="6" fill="#2c3e50"/>
+    <circle cx="35" cy="145" r="4" fill="#28A745"/>
+    <text x="35" y="148" text-anchor="middle" font-family="Arial, sans-serif" font-size="6" fill="white">V</text>
+    
+    <rect x="70" y="135" width="30" height="20" fill="#f8f9fa" stroke="#2c3e50" stroke-width="2" rx="2"/>
+    <rect x="75" y="140" width="20" height="10" fill="#2c3e50" rx="1"/>
+    <text x="85" y="147" text-anchor="middle" font-family="Arial, sans-serif" font-size="6" fill="white">AMP</text>
+    
+    <!-- Emergency equipment -->
+    <rect x="25" y="195" width="25" height="35" fill="#DC3545" rx="2"/>
+    <rect x="27" y="197" width="21" height="31" fill="#B71C1C" rx="1"/>
+    <circle cx="37.5" cy="212.5" r="8" fill="white"/>
+    <path d="M 34 209 L 34 216 M 30.5 212.5 L 37.5 212.5" stroke="#DC3545" stroke-width="2"/>
+    
+    <rect x="70" y="195" width="25" height="35" fill="#FFD700" rx="2"/>
+    <rect x="72" y="197" width="21" height="31" fill="#FFA500" rx="1"/>
+    <text x="82.5" y="217" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#2c3e50">AED</text>
+  </g>
+  
+  <!-- Forklift -->
+  <g transform="translate(650, 300)">
+    <!-- Forklift body -->
+    <rect x="0" y="50" width="80" height="40" fill="#FFD700" rx="5"/>
+    <rect x="5" y="55" width="70" height="30" fill="#FFA500" rx="3"/>
+    
+    <!-- Operator seat -->
+    <rect x="15" y="40" width="20" height="15" fill="#2c3e50" rx="3"/>
+    <rect x="17" y="42" width="16" height="11" fill="#495057" rx="2"/>
+    
+    <!-- Mast -->
+    <rect x="70" y="10" width="8" height="80" fill="#6c757d"/>
+    <rect x="72" y="12" width="4" height="76" fill="#495057"/>
+    
+    <!-- Forks -->
+    <rect x="78" y="70" width="25" height="4" fill="#6c757d"/>
+    <rect x="78" y="80" width="25" height="4" fill="#6c757d"/>
+    
+    <!-- Wheels -->
+    <circle cx="20" cy="95" r="8" fill="#2c3e50"/>
+    <circle cx="20" cy="95" r="5" fill="#495057"/>
+    <circle cx="60" cy="95" r="8" fill="#2c3e50"/>
+    <circle cx="60" cy="95" r="5" fill="#495057"/>
+    
+    <!-- Load on forks -->
+    <rect x="103" y="65" width="15" height="15" fill="#8B4513" rx="2"/>
+    <rect x="103" y="75" width="15" height="15" fill="#8B4513" rx="2"/>
+  </g>
+  
+  <!-- Signage -->
+  <g transform="translate(50, 100)">
+    <rect x="0" y="0" width="120" height="30" fill="#0066CC" rx="4"/>
+    <text x="60" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">ELECTRICAL SUPPLIES</text>
+  </g>
+  
+  <g transform="translate(300, 100)">
+    <rect x="0" y="0" width="100" height="30" fill="#28A745" rx="4"/>
+    <text x="50" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">GOV READY</text>
+  </g>
+  
+  <!-- Company branding -->
+  <g transform="translate(400, 500)" opacity="0.8">
+    <rect x="-100" y="-15" width="200" height="30" fill="white" stroke="#0066CC" stroke-width="2" rx="6"/>
+    <text x="0" y="0" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#0066CC">P-22 CORP DALLAS ELECTRICAL HUB</text>
+  </g>
+  
+  <!-- Professional lighting effect -->
+  <ellipse cx="400" cy="200" rx="350" ry="150" fill="white" opacity="0.05"/>
+</svg>

@@ -1,0 +1,118 @@
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="serviceGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0066CC;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#004499;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFA500;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background Circle -->
+  <circle cx="60" cy="60" r="55" fill="url(#serviceGradient)" opacity="0.1"/>
+  <circle cx="60" cy="60" r="50" fill="white" stroke="url(#serviceGradient)" stroke-width="2"/>
+  
+  <!-- Central Hub -->
+  <g transform="translate(60, 60)">
+    <!-- Main service hub -->
+    <circle cx="0" cy="0" r="18" fill="url(#serviceGradient)"/>
+    <circle cx="0" cy="0" r="12" fill="white"/>
+    <circle cx="0" cy="0" r="6" fill="url(#accentGradient)"/>
+    
+    <!-- Service nodes around hub -->
+    <!-- Facility Management -->
+    <g transform="translate(-30, -20)">
+      <circle cx="0" cy="0" r="12" fill="url(#accentGradient)" opacity="0.9"/>
+      <circle cx="0" cy="0" r="8" fill="white"/>
+      <!-- Building icon -->
+      <rect x="-4" y="2" width="8" height="6" fill="url(#serviceGradient)"/>
+      <polygon points="-4,2 0,-3 4,2" fill="url(#serviceGradient)"/>
+      <rect x="-2" y="3" width="1" height="5" fill="white"/>
+      <rect x="1" y="3" width="1" height="5" fill="white"/>
+      
+      <!-- Connection line -->
+      <line x1="10" y1="8" x2="18" y2="12" stroke="url(#serviceGradient)" stroke-width="2" opacity="0.6"/>
+    </g>
+    
+    <!-- Logistics -->
+    <g transform="translate(30, -20)">
+      <circle cx="0" cy="0" r="12" fill="url(#accentGradient)" opacity="0.9"/>
+      <circle cx="0" cy="0" r="8" fill="white"/>
+      <!-- Truck icon -->
+      <rect x="-4" y="-1" width="8" height="3" rx="1" fill="url(#serviceGradient)"/>
+      <circle cx="-2" cy="3" r="1.5" fill="url(#serviceGradient)"/>
+      <circle cx="2" cy="3" r="1.5" fill="url(#serviceGradient)"/>
+      <rect x="-3" y="-3" width="2" height="2" rx="0.5" fill="url(#serviceGradient)"/>
+      
+      <!-- Connection line -->
+      <line x1="-10" y1="8" x2="-18" y2="12" stroke="url(#serviceGradient)" stroke-width="2" opacity="0.6"/>
+    </g>
+    
+    <!-- Infrastructure Consulting -->
+    <g transform="translate(-30, 20)">
+      <circle cx="0" cy="0" r="12" fill="url(#accentGradient)" opacity="0.9"/>
+      <circle cx="0" cy="0" r="8" fill="white"/>
+      <!-- Blueprint/plan icon -->
+      <rect x="-4" y="-3" width="8" height="6" fill="white" stroke="url(#serviceGradient)" stroke-width="1"/>
+      <line x1="-2" y1="-1" x2="2" y2="-1" stroke="url(#serviceGradient)" stroke-width="0.5"/>
+      <line x1="-2" y1="1" x2="2" y2="1" stroke="url(#serviceGradient)" stroke-width="0.5"/>
+      <rect x="-1" y="-2" width="2" height="1" fill="url(#accentGradient)"/>
+      
+      <!-- Connection line -->
+      <line x1="10" y1="-8" x2="18" y2="-12" stroke="url(#serviceGradient)" stroke-width="2" opacity="0.6"/>
+    </g>
+    
+    <!-- Supply Chain -->
+    <g transform="translate(30, 20)">
+      <circle cx="0" cy="0" r="12" fill="url(#accentGradient)" opacity="0.9"/>
+      <circle cx="0" cy="0" r="8" fill="white"/>
+      <!-- Chain/link icon -->
+      <ellipse cx="-2" cy="0" rx="2" ry="3" fill="none" stroke="url(#serviceGradient)" stroke-width="1.5"/>
+      <ellipse cx="2" cy="0" rx="2" ry="3" fill="none" stroke="url(#serviceGradient)" stroke-width="1.5"/>
+      <ellipse cx="0" cy="0" rx="3" ry="2" fill="none" stroke="url(#accentGradient)" stroke-width="1"/>
+      
+      <!-- Connection line -->
+      <line x1="-10" y1="-8" x2="-18" y2="-12" stroke="url(#serviceGradient)" stroke-width="2" opacity="0.6"/>
+    </g>
+    
+    <!-- Service flow arrows -->
+    <g opacity="0.5">
+      <!-- Circular flow -->
+      <path d="M 15 -10 A 18 18 0 0 1 10 15" stroke="url(#accentGradient)" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+      <path d="M -10 15 A 18 18 0 0 1 -15 -10" stroke="url(#accentGradient)" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+    </g>
+  </g>
+  
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="url(#accentGradient)"/>
+    </marker>
+  </defs>
+  
+  <!-- Service quality indicators -->
+  <g transform="translate(20, 20)">
+    <circle cx="0" cy="0" r="8" fill="url(#serviceGradient)" opacity="0.8"/>
+    <polygon points="0,-4 2,0 0,4 -2,0" fill="white"/>
+  </g>
+  
+  <g transform="translate(100, 20)">
+    <circle cx="0" cy="0" r="8" fill="url(#accentGradient)" opacity="0.8"/>
+    <rect x="-3" y="-3" width="6" height="6" fill="white"/>
+    <path d="M -2 -1 L -1 1 L 2 -2" stroke="url(#serviceGradient)" stroke-width="1.5" fill="none"/>
+  </g>
+  
+  <g transform="translate(20, 100)">
+    <circle cx="0" cy="0" r="8" fill="url(#serviceGradient)" opacity="0.8"/>
+    <circle cx="0" cy="0" r="3" fill="white"/>
+    <circle cx="0" cy="0" r="1" fill="url(#accentGradient)"/>
+  </g>
+  
+  <g transform="translate(100, 100)">
+    <circle cx="0" cy="0" r="8" fill="url(#accentGradient)" opacity="0.8"/>
+    <rect x="-2" y="-4" width="4" height="8" rx="2" fill="white"/>
+    <circle cx="0" cy="-2" r="1" fill="url(#serviceGradient)"/>
+  </g>
+</svg>

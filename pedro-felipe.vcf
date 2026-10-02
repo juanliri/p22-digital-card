@@ -1,0 +1,14 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Felipe;Pedro;;;
+FN:Pedro Felipe
+ORG:P-22 Corp Construction Material Solutions LLC
+TITLE:Managing Director & Government Procurement Lead
+TEL;TYPE=WORK,VOICE:1-888-722-2675
+EMAIL;TYPE=PREF,INTERNET:pfelipe@p22corp.com
+EMAIL;TYPE=WORK,INTERNET:bids@p22corp.com
+URL:https://p22corp.com
+ADR;TYPE=WORK:;;18383 Preston Rd, Suite 202;Dallas;TX;75252;USA
+NOTE:CAGE: 169D8 | UEI: X3HUQZ66P6N3\nSBA Certified Small Minority-Owned Business\nGovernment Construction Materials & Industrial Electrical Logistics Hub
+REV:2026-10-02T19:00:00Z
+END:VCARD

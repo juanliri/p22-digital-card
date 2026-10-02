@@ -1,0 +1,114 @@
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="govGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0066CC;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#004499;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFA500;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background Circle -->
+  <circle cx="60" cy="60" r="55" fill="url(#govGradient)" opacity="0.1"/>
+  <circle cx="60" cy="60" r="50" fill="white" stroke="url(#govGradient)" stroke-width="2"/>
+  
+  <!-- Government Building -->
+  <g transform="translate(60, 60)">
+    <!-- Main building structure -->
+    <rect x="-25" y="5" width="50" height="30" fill="url(#govGradient)"/>
+    <polygon points="-25,5 0,-15 25,5" fill="url(#accentGradient)"/>
+    
+    <!-- Classical columns -->
+    <rect x="-20" y="5" width="4" height="30" fill="white" opacity="0.9"/>
+    <rect x="-10" y="5" width="4" height="30" fill="white" opacity="0.9"/>
+    <rect x="0" y="5" width="4" height="30" fill="white" opacity="0.9"/>
+    <rect x="10" y="5" width="4" height="30" fill="white" opacity="0.9"/>
+    <rect x="20" y="5" width="4" height="30" fill="white" opacity="0.9"/>
+    
+    <!-- Steps -->
+    <rect x="-30" y="35" width="60" height="3" fill="url(#govGradient)" opacity="0.8"/>
+    <rect x="-28" y="38" width="56" height="3" fill="url(#govGradient)" opacity="0.6"/>
+    
+    <!-- Flag pole -->
+    <rect x="30" y="-20" width="2" height="40" fill="#7A8B99"/>
+    <rect x="32" y="-20" width="15" height="10" fill="#B22234"/>
+    <rect x="32" y="-20" width="6" height="5" fill="#002868"/>
+    
+    <!-- Document/RFP symbols around building -->
+    <!-- RFP Document -->
+    <g transform="translate(-40, -10)">
+      <rect x="0" y="0" width="12" height="16" fill="white" stroke="url(#govGradient)" stroke-width="1"/>
+      <polygon points="12,0 12,4 8,0" fill="url(#accentGradient)"/>
+      <line x1="2" y1="6" x2="10" y2="6" stroke="url(#govGradient)" stroke-width="0.5"/>
+      <line x1="2" y1="8" x2="10" y2="8" stroke="url(#govGradient)" stroke-width="0.5"/>
+      <line x1="2" y1="10" x2="8" y2="10" stroke="url(#govGradient)" stroke-width="0.5"/>
+      <text x="6" y="4" text-anchor="middle" font-family="Arial, sans-serif" font-size="3" font-weight="bold" fill="url(#accentGradient)">RFP</text>
+    </g>
+    
+    <!-- RFQ Document -->
+    <g transform="translate(35, -10)">
+      <rect x="0" y="0" width="12" height="16" fill="white" stroke="url(#govGradient)" stroke-width="1"/>
+      <polygon points="12,0 12,4 8,0" fill="url(#accentGradient)"/>
+      <line x1="2" y1="6" x2="10" y2="6" stroke="url(#govGradient)" stroke-width="0.5"/>
+      <line x1="2" y1="8" x2="10" y2="8" stroke="url(#govGradient)" stroke-width="0.5"/>
+      <line x1="2" y1="10" x2="8" y2="10" stroke="url(#govGradient)" stroke-width="0.5"/>
+      <text x="6" y="4" text-anchor="middle" font-family="Arial, sans-serif" font-size="3" font-weight="bold" fill="url(#accentGradient)">RFQ</text>
+    </g>
+    
+    <!-- BPA Contract -->
+    <g transform="translate(-40, 15)">
+      <rect x="0" y="0" width="12" height="16" fill="white" stroke="url(#accentGradient)" stroke-width="1"/>
+      <polygon points="12,0 12,4 8,0" fill="url(#govGradient)"/>
+      <line x1="2" y1="6" x2="10" y2="6" stroke="url(#accentGradient)" stroke-width="0.5"/>
+      <line x1="2" y1="8" x2="10" y2="8" stroke="url(#accentGradient)" stroke-width="0.5"/>
+      <line x1="2" y1="10" x2="8" y2="10" stroke="url(#accentGradient)" stroke-width="0.5"/>
+      <text x="6" y="4" text-anchor="middle" font-family="Arial, sans-serif" font-size="3" font-weight="bold" fill="url(#govGradient)">BPA</text>
+    </g>
+    
+    <!-- Emergency Response -->
+    <g transform="translate(35, 15)">
+      <circle cx="6" cy="8" r="8" fill="url(#accentGradient)" opacity="0.9"/>
+      <circle cx="6" cy="8" r="5" fill="white"/>
+      <text x="6" y="10" text-anchor="middle" font-family="Arial, sans-serif" font-size="4" font-weight="bold" fill="url(#govGradient)">!</text>
+      <text x="6" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="2" fill="url(#govGradient)">EMERGENCY</text>
+    </g>
+    
+    <!-- Compliance checkmarks -->
+    <g transform="translate(-15, -30)">
+      <circle cx="0" cy="0" r="6" fill="url(#accentGradient)" opacity="0.8"/>
+      <path d="M -3 -1 L -1 2 L 3 -3" stroke="white" stroke-width="1.5" fill="none"/>
+    </g>
+    
+    <g transform="translate(15, -30)">
+      <circle cx="0" cy="0" r="6" fill="url(#accentGradient)" opacity="0.8"/>
+      <path d="M -3 -1 L -1 2 L 3 -3" stroke="white" stroke-width="1.5" fill="none"/>
+    </g>
+    
+    <!-- Process flow arrows -->
+    <g opacity="0.6">
+      <path d="M -35 0 L -30 0" stroke="url(#accentGradient)" stroke-width="2" marker-end="url(#arrowhead)"/>
+      <path d="M 30 0 L 35 0" stroke="url(#accentGradient)" stroke-width="2" marker-end="url(#arrowhead)"/>
+      <path d="M -35 25 L -30 25" stroke="url(#accentGradient)" stroke-width="2" marker-end="url(#arrowhead)"/>
+      <path d="M 30 25 L 35 25" stroke="url(#accentGradient)" stroke-width="2" marker-end="url(#arrowhead)"/>
+    </g>
+    
+    <!-- Rapid response indicator -->
+    <g transform="translate(0, -35)">
+      <circle cx="0" cy="0" r="8" fill="url(#govGradient)" opacity="0.9"/>
+      <circle cx="0" cy="0" r="5" fill="white"/>
+      <!-- Clock hands -->
+      <line x1="0" y1="0" x2="0" y2="-3" stroke="url(#accentGradient)" stroke-width="1"/>
+      <line x1="0" y1="0" x2="2" y2="0" stroke="url(#accentGradient)" stroke-width="1"/>
+      <circle cx="0" cy="0" r="1" fill="url(#accentGradient)"/>
+    </g>
+  </g>
+  
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="url(#accentGradient)"/>
+    </marker>
+  </defs>
+</svg>

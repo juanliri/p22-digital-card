@@ -1,0 +1,325 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="warehouseGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8f9fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e9ecef;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="floorGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#dee2e6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ced4da;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="boxGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B4513;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#654321;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="truckGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0066CC;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#004499;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Warehouse background -->
+  <rect width="800" height="600" fill="url(#warehouseGradient)"/>
+  
+  <!-- Floor -->
+  <rect x="0" y="450" width="800" height="150" fill="url(#floorGradient)"/>
+  
+  <!-- Warehouse structure -->
+  <g opacity="0.3">
+    <!-- Ceiling beams -->
+    <rect x="0" y="40" width="800" height="15" fill="#495057"/>
+    <rect x="0" y="80" width="800" height="8" fill="#6c757d"/>
+    
+    <!-- Support columns -->
+    <rect x="150" y="55" width="12" height="395" fill="#495057"/>
+    <rect x="350" y="55" width="12" height="395" fill="#495057"/>
+    <rect x="550" y="55" width="12" height="395" fill="#495057"/>
+    <rect x="750" y="55" width="12" height="395" fill="#495057"/>
+    
+    <!-- High windows -->
+    <rect x="50" y="100" width="80" height="40" fill="#87CEEB" opacity="0.7" rx="5"/>
+    <rect x="200" y="100" width="80" height="40" fill="#87CEEB" opacity="0.7" rx="5"/>
+    <rect x="400" y="100" width="80" height="40" fill="#87CEEB" opacity="0.7" rx="5"/>
+    <rect x="600" y="100" width="80" height="40" fill="#87CEEB" opacity="0.7" rx="5"/>
+  </g>
+  
+  <!-- Storage racks with inventory -->
+  
+  <!-- Rack 1 -->
+  <g transform="translate(50, 200)">
+    <!-- Rack structure -->
+    <rect x="0" y="0" width="8" height="200" fill="#6c757d"/>
+    <rect x="92" y="0" width="8" height="200" fill="#6c757d"/>
+    <rect x="0" y="50" width="100" height="6" fill="#6c757d"/>
+    <rect x="0" y="100" width="100" height="6" fill="#6c757d"/>
+    <rect x="0" y="150" width="100" height="6" fill="#6c757d"/>
+    
+    <!-- Boxes on shelves -->
+    <!-- Top shelf -->
+    <rect x="10" y="25" width="25" height="20" fill="url(#boxGradient)" rx="2"/>
+    <rect x="40" y="25" width="25" height="20" fill="#8B4513" rx="2"/>
+    <rect x="70" y="25" width="20" height="20" fill="url(#boxGradient)" rx="2"/>
+    
+    <!-- Middle shelf -->
+    <rect x="10" y="75" width="30" height="20" fill="#654321" rx="2"/>
+    <rect x="45" y="75" width="20" height="20" fill="url(#boxGradient)" rx="2"/>
+    <rect x="70" y="75" width="25" height="20" fill="#8B4513" rx="2"/>
+    
+    <!-- Bottom shelf -->
+    <rect x="10" y="125" width="25" height="20" fill="url(#boxGradient)" rx="2"/>
+    <rect x="40" y="125" width="30" height="20" fill="#654321" rx="2"/>
+    <rect x="75" y="125" width="20" height="20" fill="#8B4513" rx="2"/>
+    
+    <!-- Inventory labels -->
+    <rect x="12" y="27" width="21" height="8" fill="white" opacity="0.9"/>
+    <text x="22.5" y="32" text-anchor="middle" font-family="Arial, sans-serif" font-size="4" fill="#2c3e50">ELC-001</text>
+    <rect x="42" y="27" width="21" height="8" fill="white" opacity="0.9"/>
+    <text x="52.5" y="32" text-anchor="middle" font-family="Arial, sans-serif" font-size="4" fill="#2c3e50">ELC-002</text>
+  </g>
+  
+  <!-- Rack 2 -->
+  <g transform="translate(200, 200)">
+    <!-- Rack structure -->
+    <rect x="0" y="0" width="8" height="200" fill="#6c757d"/>
+    <rect x="92" y="0" width="8" height="200" fill="#6c757d"/>
+    <rect x="0" y="50" width="100" height="6" fill="#6c757d"/>
+    <rect x="0" y="100" width="100" height="6" fill="#6c757d"/>
+    <rect x="0" y="150" width="100" height="6" fill="#6c757d"/>
+    
+    <!-- Boxes on shelves -->
+    <!-- Top shelf -->
+    <rect x="10" y="25" width="20" height="20" fill="#28A745" rx="2"/>
+    <rect x="35" y="25" width="30" height="20" fill="#20C997" rx="2"/>
+    <rect x="70" y="25" width="25" height="20" fill="#28A745" rx="2"/>
+    
+    <!-- Middle shelf -->
+    <rect x="10" y="75" width="25" height="20" fill="#20C997" rx="2"/>
+    <rect x="40" y="75" width="25" height="20" fill="#28A745" rx="2"/>
+    <rect x="70" y="75" width="20" height="20" fill="#20C997" rx="2"/>
+    
+    <!-- Bottom shelf -->
+    <rect x="10" y="125" width="30" height="20" fill="#28A745" rx="2"/>
+    <rect x="45" y="125" width="20" height="20" fill="#20C997" rx="2"/>
+    <rect x="70" y="125" width="25" height="20" fill="#28A745" rx="2"/>
+    
+    <!-- Inventory labels -->
+    <rect x="12" y="27" width="16" height="8" fill="white" opacity="0.9"/>
+    <text x="20" y="32" text-anchor="middle" font-family="Arial, sans-serif" font-size="4" fill="#2c3e50">FAC-001</text>
+    <rect x="37" y="27" width="26" height="8" fill="white" opacity="0.9"/>
+    <text x="50" y="32" text-anchor="middle" font-family="Arial, sans-serif" font-size="4" fill="#2c3e50">FAC-002</text>
+  </g>
+  
+  <!-- Forklift with operator -->
+  <g transform="translate(400, 320)">
+    <!-- Forklift body -->
+    <rect x="0" y="20" width="60" height="40" fill="url(#truckGradient)" rx="4"/>
+    <rect x="5" y="25" width="50" height="30" fill="#004499" rx="2"/>
+    
+    <!-- Mast -->
+    <rect x="55" y="-20" width="8" height="60" fill="#6c757d"/>
+    <rect x="63" y="-20" width="8" height="60" fill="#6c757d"/>
+    
+    <!-- Forks -->
+    <rect x="70" y="15" width="25" height="4" fill="#495057"/>
+    <rect x="70" y="25" width="25" height="4" fill="#495057"/>
+    
+    <!-- Load on forks -->
+    <rect x="95" y="10" width="20" height="20" fill="url(#boxGradient)" rx="2"/>
+    <rect x="97" y="12" width="16" height="8" fill="white" opacity="0.9"/>
+    <text x="105" y="17" text-anchor="middle" font-family="Arial, sans-serif" font-size="4" fill="#2c3e50">LOG-001</text>
+    
+    <!-- Wheels -->
+    <circle cx="15" cy="65" r="8" fill="#2c3e50"/>
+    <circle cx="45" cy="65" r="8" fill="#2c3e50"/>
+    <circle cx="15" cy="65" r="5" fill="#495057"/>
+    <circle cx="45" cy="65" r="5" fill="#495057"/>
+    
+    <!-- Operator -->
+    <g transform="translate(25, -10)">
+      <!-- Seat -->
+      <rect x="-8" y="15" width="16" height="12" fill="#6c757d" rx="2"/>
+      
+      <!-- Body -->
+      <ellipse cx="0" cy="10" rx="12" ry="8" fill="#0066CC"/>
+      <!-- Work shirt -->
+      <path d="M -8 5 L -4 10 L 0 8 L 4 10 L 8 5 L 4 2 L 0 5 L -4 2 Z" fill="#f8f9fa"/>
+      <!-- Company logo on shirt -->
+      <circle cx="3" cy="7" r="2" fill="#0066CC"/>
+      <text x="3" y="8" text-anchor="middle" font-family="Arial, sans-serif" font-size="2" font-weight="bold" fill="white">P22</text>
+      
+      <!-- Neck -->
+      <ellipse cx="0" cy="-5" rx="4" ry="6" fill="#d4a574"/>
+      <!-- Head -->
+      <ellipse cx="0" cy="-20" rx="10" ry="12" fill="#d4a574"/>
+      <!-- Hard hat -->
+      <ellipse cx="0" cy="-28" rx="11" ry="6" fill="#FFD700"/>
+      <ellipse cx="0" cy="-30" rx="11" ry="6" fill="#FFD700" opacity="0.8"/>
+      
+      <!-- Eyes -->
+      <circle cx="-3" cy="-22" r="1" fill="white"/>
+      <circle cx="3" cy="-22" r="1" fill="white"/>
+      <circle cx="-3" cy="-22" r="0.8" fill="#2c3e50"/>
+      <circle cx="3" cy="-22" r="0.8" fill="#2c3e50"/>
+      
+      <!-- Mouth -->
+      <path d="M -2 -16 Q 0 -14 2 -16" stroke="#c49464" stroke-width="0.8" fill="none"/>
+      
+      <!-- Arms on steering wheel -->
+      <ellipse cx="-8" cy="5" rx="6" ry="3" fill="#d4a574" transform="rotate(-20 -8 5)"/>
+      <ellipse cx="8" cy="5" rx="6" ry="3" fill="#d4a574" transform="rotate(20 8 5)"/>
+      
+      <!-- Steering wheel -->
+      <circle cx="0" cy="8" r="6" fill="#2c3e50"/>
+      <circle cx="0" cy="8" r="4" fill="#495057"/>
+    </g>
+    
+    <!-- Safety light -->
+    <circle cx="30" cy="5" r="3" fill="#FFD700"/>
+    <circle cx="30" cy="5" r="2" fill="#FFA500" opacity="0.8"/>
+  </g>
+  
+  <!-- Delivery truck -->
+  <g transform="translate(550, 350)">
+    <!-- Truck cab -->
+    <rect x="0" y="0" width="40" height="30" fill="url(#truckGradient)" rx="4"/>
+    <rect x="2" y="2" width="36" height="26" fill="#004499" rx="2"/>
+    
+    <!-- Windshield -->
+    <rect x="5" y="5" width="30" height="15" fill="#87CEEB" opacity="0.8" rx="2"/>
+    
+    <!-- Truck bed/container -->
+    <rect x="40" y="5" width="80" height="25" fill="#f8f9fa" stroke="#2c3e50" stroke-width="2" rx="2"/>
+    
+    <!-- Company logo on truck -->
+    <rect x="50" y="10" width="60" height="15" fill="#0066CC" rx="2"/>
+    <text x="80" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="white">P-22 CORP</text>
+    
+    <!-- Wheels -->
+    <circle cx="15" cy="35" r="6" fill="#2c3e50"/>
+    <circle cx="45" cy="35" r="6" fill="#2c3e50"/>
+    <circle cx="105" cy="35" r="6" fill="#2c3e50"/>
+    <circle cx="15" cy="35" r="4" fill="#495057"/>
+    <circle cx="45" cy="35" r="4" fill="#495057"/>
+    <circle cx="105" cy="35" r="4" fill="#495057"/>
+    
+    <!-- Loading dock -->
+    <rect x="120" y="15" width="15" height="15" fill="#6c757d"/>
+    <rect x="122" y="17" width="11" height="11" fill="#495057"/>
+  </g>
+  
+  <!-- Warehouse workers -->
+  
+  <!-- Worker 1 - Scanning inventory -->
+  <g transform="translate(150, 350)">
+    <!-- Body -->
+    <ellipse cx="0" cy="40" rx="18" ry="12" fill="#0066CC"/>
+    <!-- Work shirt -->
+    <path d="M -10 30 L -5 35 L 0 32 L 5 35 L 10 30 L 5 27 L 0 30 L -5 27 Z" fill="#f8f9fa"/>
+    <!-- Company logo on shirt -->
+    <circle cx="4" cy="31" r="2" fill="#0066CC"/>
+    <text x="4" y="32" text-anchor="middle" font-family="Arial, sans-serif" font-size="1.5" font-weight="bold" fill="white">P22</text>
+    
+    <!-- Neck -->
+    <ellipse cx="0" cy="25" rx="4" ry="6" fill="#c49464"/>
+    <!-- Head -->
+    <ellipse cx="0" cy="10" rx="10" ry="12" fill="#c49464"/>
+    <!-- Hard hat -->
+    <ellipse cx="0" cy="2" rx="11" ry="6" fill="#28A745"/>
+    <ellipse cx="0" cy="0" rx="11" ry="6" fill="#28A745" opacity="0.8"/>
+    
+    <!-- Eyes -->
+    <circle cx="-3" cy="8" r="1" fill="white"/>
+    <circle cx="3" cy="8" r="1" fill="white"/>
+    <circle cx="-3" cy="8" r="0.8" fill="#2c3e50"/>
+    <circle cx="3" cy="8" r="0.8" fill="#2c3e50"/>
+    
+    <!-- Mouth -->
+    <path d="M -2 14 Q 0 16 2 14" stroke="#b8845f" stroke-width="0.8" fill="none"/>
+    
+    <!-- Handheld scanner -->
+    <rect x="15" y="32" width="8" height="12" fill="#2c3e50" rx="1"/>
+    <rect x="16" y="33" width="6" height="10" fill="#34495e" rx="0.5"/>
+    <circle cx="19" cy="36" r="1.5" fill="#DC3545"/>
+    
+    <!-- Scanning beam -->
+    <line x1="23" y1="36" x2="35" y2="36" stroke="#DC3545" stroke-width="2" opacity="0.6"/>
+  </g>
+  
+  <!-- Worker 2 - Checking clipboard -->
+  <g transform="translate(300, 360)">
+    <!-- Body -->
+    <ellipse cx="0" cy="40" rx="18" ry="12" fill="#0066CC"/>
+    <!-- Work shirt -->
+    <path d="M -10 30 L -5 35 L 0 32 L 5 35 L 10 30 L 5 27 L 0 30 L -5 27 Z" fill="#f8f9fa"/>
+    <!-- Company logo on shirt -->
+    <circle cx="4" cy="31" r="2" fill="#0066CC"/>
+    <text x="4" y="32" text-anchor="middle" font-family="Arial, sans-serif" font-size="1.5" font-weight="bold" fill="white">P22</text>
+    
+    <!-- Neck -->
+    <ellipse cx="0" cy="25" rx="4" ry="6" fill="#d4a574"/>
+    <!-- Head -->
+    <ellipse cx="0" cy="10" rx="10" ry="12" fill="#d4a574"/>
+    <!-- Hard hat -->
+    <ellipse cx="0" cy="2" rx="11" ry="6" fill="#DC3545"/>
+    <ellipse cx="0" cy="0" rx="11" ry="6" fill="#DC3545" opacity="0.8"/>
+    
+    <!-- Eyes -->
+    <circle cx="-3" cy="8" r="1" fill="white"/>
+    <circle cx="3" cy="8" r="1" fill="white"/>
+    <circle cx="-3" cy="8" r="0.8" fill="#2c3e50"/>
+    <circle cx="3" cy="8" r="0.8" fill="#2c3e50"/>
+    
+    <!-- Mouth -->
+    <path d="M -2 14 Q 0 16 2 14" stroke="#c49464" stroke-width="0.8" fill="none"/>
+    
+    <!-- Clipboard -->
+    <rect x="-20" y="25" width="12" height="16" fill="#8B4513" rx="1"/>
+    <rect x="-19" y="26" width="10" height="14" fill="white" rx="0.5"/>
+    
+    <!-- Checklist on clipboard -->
+    <line x1="-17" y1="28" x2="-11" y2="28" stroke="#2c3e50" stroke-width="0.5"/>
+    <line x1="-17" y1="30" x2="-11" y2="30" stroke="#2c3e50" stroke-width="0.5"/>
+    <line x1="-17" y1="32" x2="-11" y2="32" stroke="#2c3e50" stroke-width="0.5"/>
+    <line x1="-17" y1="34" x2="-11" y2="34" stroke="#2c3e50" stroke-width="0.5"/>
+    
+    <!-- Checkmarks -->
+    <text x="-18" y="29" font-family="Arial, sans-serif" font-size="2" fill="#28A745">✓</text>
+    <text x="-18" y="31" font-family="Arial, sans-serif" font-size="2" fill="#28A745">✓</text>
+    <text x="-18" y="33" font-family="Arial, sans-serif" font-size="2" fill="#FFD700">○</text>
+  </g>
+  
+  <!-- Shipping and receiving area -->
+  <g transform="translate(600, 200)">
+    <rect x="0" y="0" width="150" height="80" fill="white" stroke="#2c3e50" stroke-width="2" rx="4"/>
+    <rect x="0" y="0" width="150" height="20" fill="#0066CC" rx="4"/>
+    <text x="75" y="13" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">SHIPPING & RECEIVING</text>
+    
+    <!-- Status board -->
+    <text x="10" y="35" font-family="Arial, sans-serif" font-size="8" fill="#2c3e50">Today's Shipments:</text>
+    <text x="10" y="48" font-family="Arial, sans-serif" font-size="7" fill="#28A745">✓ Order #1001 - Electrical Supplies</text>
+    <text x="10" y="58" font-family="Arial, sans-serif" font-size="7" fill="#28A745">✓ Order #1002 - Facility Equipment</text>
+    <text x="10" y="68" font-family="Arial, sans-serif" font-size="7" fill="#FFD700">○ Order #1003 - Logistics Materials</text>
+  </g>
+  
+  <!-- Inventory management system -->
+  <g transform="translate(50, 480)">
+    <rect x="0" y="0" width="200" height="80" fill="white" stroke="#2c3e50" stroke-width="2" rx="4"/>
+    <rect x="0" y="0" width="200" height="20" fill="#17a2b8" rx="4"/>
+    <text x="100" y="13" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">INVENTORY MANAGEMENT</text>
+    
+    <!-- Real-time data -->
+    <text x="10" y="35" font-family="Arial, sans-serif" font-size="8" fill="#2c3e50">Real-time Inventory Status:</text>
+    <text x="10" y="48" font-family="Arial, sans-serif" font-size="7" fill="#2c3e50">Electrical Supplies: 85% Capacity</text>
+    <text x="10" y="58" font-family="Arial, sans-serif" font-size="7" fill="#2c3e50">Facility Equipment: 72% Capacity</text>
+    <text x="10" y="68" font-family="Arial, sans-serif" font-size="7" fill="#2c3e50">Logistics Materials: 91% Capacity</text>
+  </g>
+  
+  <!-- Company branding -->
+  <g transform="translate(400, 550)" opacity="0.8">
+    <rect x="-150" y="-15" width="300" height="30" fill="white" stroke="#0066CC" stroke-width="2" rx="6"/>
+    <text x="0" y="0" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#0066CC">P-22 CORP LOGISTICS & DISTRIBUTION</text>
+  </g>
+  
+  <!-- Professional lighting -->
+  <ellipse cx="400" cy="300" rx="350" ry="200" fill="white" opacity="0.05"/>
+</svg>

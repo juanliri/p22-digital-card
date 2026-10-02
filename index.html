@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title id="pageTitle">P-22 Corp | Government Material Solutions</title>
+  <meta id="pageMetaDesc" name="description" content="Official Digital Smart Profile - P-22 Corp Construction Material Solutions LLC. CAGE: 169D8 | UEI: X3HUQZ66P6N3.">
+  
+  <!-- Vercel Web Analytics & Insights -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- QRCode.js CDN for 100% Client-Side In-App QR Generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            p22navy: '#1D3557',
+            p22dark: '#080D18',
+            p22card: '#131F33',
+            p22gold: '#C9A227',
+            p22goldHover: '#b59120',
+            p22accent: '#E63946',
+            p22blue: '#457B9D',
+            p22light: '#F1FAEE'
+          },
+          fontFamily: {
+            montserrat: ['Montserrat', 'sans-serif'],
+            sans: ['Open Sans', 'sans-serif']
+          },
+          keyframes: {
+            buildingRaise: {
+              '0%': { transform: 'translateY(16px)', opacity: '0.7' },
+              '50%': { transform: 'translateY(0px)', opacity: '1' },
+              '100%': { transform: 'translateY(16px)', opacity: '0.7' }
+            },
+            pulseGlow: {
+              '0%, 100%': { boxShadow: '0 0 15px rgba(201, 162, 39, 0.25)' },
+              '50%': { boxShadow: '0 0 35px rgba(201, 162, 39, 0.5)' }
+            }
+          },
+          animation: {
+            buildingRaise: 'buildingRaise 6s ease-in-out infinite',
+            pulseGlow: 'pulseGlow 3s ease-in-out infinite'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #080D18;
+      font-family: 'Open Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      color: #E2E8F0;
+    }
+    .glass-panel {
+      background: rgba(19, 31, 51, 0.85);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .glass-input {
+      background: rgba(10, 17, 30, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .gold-glow {
+      box-shadow: 0 0 25px rgba(201, 162, 39, 0.35);
+    }
+    .wallet-card {
+      background: linear-gradient(135deg, #1D3557 0%, #0d1e38 50%, #081121 100%);
+      box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* ══════════════════════════════════════════════════════════════════════════
+       P-22 CORP 1:1 MOTION ARCHITECTURE (Extracted from Live Thunderbolt Engine)
+       ══════════════════════════════════════════════════════════════════════════ */
+    @keyframes motionBlurIn {
+      0% { opacity: 0; filter: blur(14px); transform: scale(0.96); }
+      100% { opacity: 1; filter: blur(0px); transform: scale(1); }
+    }
+    @keyframes motionFloatIn {
+      0% { opacity: 0; transform: translateX(-24px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes motionFoldIn {
+      0% { opacity: 0; transform: perspective(900px) rotateX(-70deg); transform-origin: top center; }
+      100% { opacity: 1; transform: perspective(900px) rotateX(0deg); transform-origin: top center; }
+    }
+    @keyframes motionFlipIn {
+      0% { opacity: 0; transform: perspective(900px) rotateX(-45deg); }
+      100% { opacity: 1; transform: perspective(900px) rotateX(0deg); }
+    }
+    @keyframes motionExpandIn {
+      0% { opacity: 0; transform: scale(0.88); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    @keyframes motionTiltIn {
+      0% { opacity: 0; transform: perspective(900px) rotateY(-20deg) translateX(-20px); }
+      100% { opacity: 1; transform: perspective(900px) rotateY(0deg) translateX(0); }
+    }
+    @keyframes stateBtnBounce {
+      0% { transform: scale(0.95); }
+      50% { transform: scale(1.04); }
+      100% { transform: scale(1); }
+    }
+    @keyframes hudPulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+
+    .anim-blur-in {
+      animation: motionBlurIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .anim-float-in {
+      animation: motionFloatIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .anim-fold-in {
+      animation: motionFoldIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .anim-flip-in {
+      animation: motionFlipIn 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .anim-expand-in {
+      animation: motionExpandIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .anim-tilt-in {
+      animation: motionTiltIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* 3D Tilt perspective card container (Wix Tilt3DMouse & AiryMouse replica) */
+    .tilt-card-container {
+      perspective: 1200px;
+      transform-style: preserve-3d;
+    }
+    .tilt-card-inner {
+      transition: transform 0.15s ease-out, box-shadow 0.2s ease-out;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .btn-bounce:active {
+      animation: stateBtnBounce 0.3s ease-out;
+    }
+    .btn-bounce {
+      transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.18s;
+    }
+    .btn-bounce:hover {
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body class="min-h-screen relative flex flex-col items-center justify-start p-3 sm:p-5 selection:bg-p22gold selection:text-slate-950 overflow-x-hidden">
+
+  <!-- ====================================================================== -->
+  <!-- 1:1 LIVE SITE AMBIENT VIDEO BACKGROUND & DEPTH LAYERS -->
+  <!-- ====================================================================== -->
+  <video id="bgVideo" autoplay loop muted playsinline
+         onloadedmetadata="this.playbackRate = 0.5;"
+         onplay="this.playbackRate = 0.5;"
+         class="fixed inset-0 w-full h-full object-cover -z-20 opacity-30 pointer-events-none transition-opacity duration-1000"
+         style="filter: blur(6px) scale(1.06);"
+         poster="assets/facility/loading-dock.webp">
+    <source src="assets/video_bg_page_optimized.mp4" type="video/mp4">
+    <source src="assets/video_bg_page.mp4" type="video/mp4">
+  </video>
+  <div class="fixed inset-0 bg-gradient-to-b from-[#080D18]/92 via-[#1D3557]/70 to-[#080D18]/95 -z-10 pointer-events-none"></div>
+
+  <!-- Mobile/Tablet Container -->
+  <main class="w-full max-w-lg mx-auto space-y-4 relative z-10">
+
+    <!-- Top Federal Identity & Client Bar (Public Card View) -->
+    <header class="glass-panel rounded-2xl px-4 py-3 flex items-center justify-between shadow-lg">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-xl bg-white/10 p-1.5 flex items-center justify-center border border-white/20">
+          <img src="icon-cube.svg" alt="P-22 Cube" class="w-full h-full object-contain" onerror="this.src='logo.webp'">
+        </div>
+        <div>
+          <span class="text-xs font-montserrat font-extrabold tracking-wider text-white block">P-22 CORP</span>
+          <span class="text-[9px] text-p22gold font-semibold block -mt-0.5">Government Material Solutions</span>
+        </div>
+      </div>
+
+      <!-- Quick Actions (QR Trigger & Video Toggle) -->
+      <div class="flex items-center gap-2">
+        <!-- Dynamic QR Modal Button -->
+        <button onclick="openQRModal(); trackEvent('Header', 'Click', 'Show QR');" title="Show Scannable QR Code"
+                class="px-3 py-1.5 rounded-xl bg-p22gold text-slate-950 hover:brightness-110 active:scale-95 transition shadow btn-bounce flex items-center gap-1.5 text-xs font-montserrat font-bold">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm13-2h3v2h-3v-2zm-3 0h2v3h-2v-3zm2 3h2v3h-2v-3zm-2 2h-2v2h2v-2zm3 0h3v4h-3v-4zm-5 2h2v2h-2v-2zm7 0h2v2h-2v-2z"/></svg>
+          <span>QR</span>
+        </button>
+
+        <!-- Ambient Video Toggle Button -->
+        <button id="bgVideoToggleBtn" onclick="toggleAmbientBg()" title="Toggle Ambient Video Motion"
+                class="p-2 rounded-xl bg-slate-900 border border-white/20 text-slate-300 hover:text-white hover:border-p22gold active:scale-95 transition btn-bounce">
+          <svg id="bgVideoPauseIcon" class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <svg id="bgVideoPlayIcon" class="w-3.5 h-3.5 text-slate-400 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Federal Verification Badges -->
+    <div class="flex items-center justify-between px-2 text-[11px] font-semibold anim-float-in">
+      <span class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 shadow-sm">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        SAM.gov Active Certified
+      </span>
+      <div class="flex items-center gap-1.5">
+        <span class="px-2.5 py-1 rounded-full bg-p22blue/25 text-sky-200 border border-p22blue/35">CAGE: 169D8</span>
+        <span class="px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 border border-white/10">UEI: X3HUQZ66P6N3</span>
+      </div>
+    </div>
+
+    <!-- Executive Card Hero (3D Perspective Tilt Container) -->
+    <div class="tilt-card-container">
+      <section id="executiveCard" class="glass-panel rounded-3xl p-6 shadow-2xl relative overflow-hidden text-center tilt-card-inner anim-blur-in">
+      <!-- Glow Gradients -->
+      <div class="absolute -right-16 -top-16 w-52 h-52 bg-p22blue/25 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -left-16 -bottom-16 w-52 h-52 bg-p22gold/20 rounded-full blur-3xl pointer-events-none"></div>
+
+      <!-- Verified Headshot -->
+      <div class="relative w-28 h-28 mx-auto mb-4">
+        <div class="w-full h-full rounded-full p-1 bg-gradient-to-tr from-p22gold via-sky-400 to-p22navy shadow-xl">
+          <img id="staffAvatar" src="assets/staff/pedro-felipe.png" alt="Profile Photo" 
+               class="w-full h-full rounded-full object-cover bg-slate-900 border-2 border-slate-900"
+               onerror="this.src='logo.webp'">
+        </div>
+        <div class="absolute bottom-1 right-1 bg-p22gold text-slate-950 p-1.5 rounded-full shadow-md border-2 border-slate-900" title="Verified Credential">
+          <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+        </div>
+      </div>
+
+      <!-- Identity & Dynamic Title -->
+      <div class="space-y-1 mb-5">
+        <h1 id="staffName" class="text-2xl sm:text-3xl font-montserrat font-extrabold text-white tracking-tight">Pedro Felipe</h1>
+        <p id="staffTitle" class="text-sm font-semibold text-p22gold">Managing Director & Government Procurement Lead</p>
+        <p class="text-xs text-slate-300 font-medium">P-22 Corp Construction Material Solutions LLC</p>
+        <p id="staffBio" class="text-[11px] text-slate-400 pt-1 leading-relaxed max-w-xs mx-auto">
+          Direct executive line for Federal Contracting Officers, Prime Contractors, and Municipal Purchasing Agents.
+        </p>
+        <div class="inline-flex items-center gap-1.5 text-[11px] text-slate-400 pt-1">
+          <svg class="w-3.5 h-3.5 text-p22gold" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+          <span id="staffLocation">Dallas Logistics Hub &bull; 24-Hr Solicitation Response</span>
+        </div>
+      </div>
+
+      <!-- 1-Click Phonebook Save (.vcf) -->
+      <button onclick="downloadActiveVCard()"
+              class="w-full inline-flex items-center justify-center gap-2.5 py-4 px-6 rounded-2xl bg-gradient-to-r from-p22gold via-amber-400 to-p22gold text-slate-950 font-montserrat font-extrabold text-sm tracking-wide shadow-lg hover:brightness-110 active:scale-98 transition transform duration-150 gold-glow mb-4">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+        <span>Save Contact to Phone</span>
+      </button>
+
+      <!-- Client Quick Actions (Call, Email, Book Briefing, Website, QR) -->
+      <div class="grid grid-cols-5 gap-2 mb-2">
+        <a id="callAction" href="tel:18887222675" onclick="trackEvent('Contact', 'Click', 'Call')"
+           class="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 active:scale-95 transition btn-bounce">
+          <svg class="w-5 h-5 text-emerald-400 mb-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          <span class="text-[10px] font-medium text-slate-200">Call</span>
+        </a>
+
+        <a id="emailAction" href="mailto:pfelipe@p22corp.com?subject=Inquiry%20from%20Expo%20-%20P-22%20Corp" onclick="trackEvent('Contact', 'Click', 'Email')"
+           class="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 active:scale-95 transition btn-bounce">
+          <svg class="w-5 h-5 text-sky-400 mb-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          <span class="text-[10px] font-medium text-slate-200">Email</span>
+        </a>
+
+        <button onclick="openBriefingModal(); trackEvent('Briefing', 'Click', 'Open Scheduler');"
+                class="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-p22gold/15 hover:bg-p22gold/25 border border-p22gold/30 active:scale-95 transition btn-bounce group">
+          <svg class="w-5 h-5 text-p22gold mb-1 group-hover:scale-110 transition" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          <span class="text-[10px] font-bold text-p22gold">Briefing</span>
+        </button>
+
+        <a href="https://www.p22corp.com" target="_blank" onclick="trackEvent('Website', 'Click', 'Main Portal')"
+           class="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 active:scale-95 transition btn-bounce">
+          <svg class="w-5 h-5 text-amber-300 mb-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+          <span class="text-[10px] font-medium text-slate-200">Website</span>
+        </a>
+
+        <button onclick="openQRModal(); trackEvent('QR', 'Click', 'Show Modal');"
+                class="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 active:scale-95 transition btn-bounce">
+          <svg class="w-5 h-5 text-rose-400 mb-1" fill="currentColor" viewBox="0 0 24 24"><path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm13-2h3v2h-3v-2zm-3 0h2v3h-2v-3zm2 3h2v3h-2v-3zm-2 2h-2v2h2v-2zm3 0h3v4h-3v-4zm-5 2h2v2h-2v-2zm7 0h2v2h-2v-2z"/></svg>
+          <span class="text-[10px] font-medium text-slate-200">My QR</span>
+        </button>
+      </div>
+    </section>
+    </div>
+
+    <!-- ====================================================================== -->
+    <!-- 1:1 LIVE SITE FEATURE: BUILDING RAISING VIDEO & CONSTRUCTION SHOWCASE -->
+    <!-- ====================================================================== -->
+    <section class="glass-panel rounded-3xl p-5 shadow-2xl relative overflow-hidden space-y-3 anim-fold-in">
+      <div class="flex items-center justify-between border-b border-white/10 pb-2.5">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-lg bg-p22gold/20 text-p22gold flex items-center justify-center">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+          </div>
+          <div>
+            <h3 class="font-montserrat font-bold text-sm text-white">Mission-Ready Infrastructure</h3>
+            <p class="text-[10px] text-slate-400">3D Building Structural Takeoff & Elevation Animation</p>
+          </div>
+        </div>
+        <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-semibold border border-emerald-500/30 flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          1:1 Live Asset
+        </span>
+      </div>
+
+      <!-- Building Raising 1080p Video Player with Interactive HUD & Controls -->
+      <div class="relative w-full h-56 sm:h-64 rounded-2xl overflow-hidden bg-slate-950 border border-white/15 shadow-2xl group">
+        <video id="buildingRaisingVideo" autoplay loop muted playsinline
+               class="w-full h-full object-cover group-hover:scale-105 transition duration-700"
+               poster="assets/facility/construction-crane.webp">
+          <source src="assets/video_building_raising_optimized.mp4" type="video/mp4">
+          <source src="assets/video_building_raising.mp4" type="video/mp4">
+        </video>
+        
+        <!-- Video Gradient Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent pointer-events-none"></div>
+
+        <!-- Top HUD Bar -->
+        <div class="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none">
+          <span class="px-2.5 py-1 rounded bg-black/70 backdrop-blur text-[9px] font-mono text-p22gold border border-p22gold/30">
+            SPEC: DIV 26 &bull; ELEVATION TAKEOFF
+          </span>
+          <span class="px-2 py-0.5 rounded bg-black/70 backdrop-blur text-[9px] font-mono text-slate-300 border border-white/10">
+            32.7767° N, 96.7970° W
+          </span>
+        </div>
+
+        <!-- Floating Glass Badge with Interactive Controls -->
+        <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between p-2.5 rounded-xl bg-slate-950/85 backdrop-blur-md border border-white/10 pointer-events-auto">
+          <div>
+            <p class="text-xs font-montserrat font-extrabold text-white">Building the Modern Built Environment</p>
+            <p class="text-[10px] text-p22gold font-medium">Dallas Logistics Hub &bull; Rapid Federal Mobilization</p>
+          </div>
+          <div class="flex items-center gap-1.5 shrink-0 ml-2">
+            <!-- Play/Pause Toggle -->
+            <button id="buildingPlayBtn" onclick="toggleBuildingVideo()" title="Play / Pause Animation"
+                    class="p-1.5 rounded-lg bg-white/15 hover:bg-white/25 active:scale-95 text-white transition btn-bounce">
+              <svg id="buildingPlayIcon" class="w-3.5 h-3.5 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              <svg id="buildingPauseIcon" class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+            </button>
+            <!-- Mute/Audio Toggle -->
+            <button id="buildingMuteBtn" onclick="toggleBuildingAudio()" title="Toggle Audio"
+                    class="p-1.5 rounded-lg bg-white/15 hover:bg-white/25 active:scale-95 text-white transition btn-bounce">
+              <svg id="buildingUnmutedIcon" class="w-3.5 h-3.5 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+              <svg id="buildingMutedIcon" class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Attached Documents & Capability Statements (LOCAL & OFFICIAL) -->
+    <section id="documentsSection" class="glass-panel rounded-3xl p-5 shadow-xl space-y-3 anim-float-in">
+      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          </div>
+          <h3 class="font-montserrat font-bold text-sm text-white">Official Collateral & Attachments</h3>
+        </div>
+        <a href="https://www.p22corp.com/capabilities" target="_blank" class="text-[10px] text-p22gold font-semibold hover:underline">
+          Live Web Page &rarr;
+        </a>
+      </div>
+
+      <!-- Attachment 1: Official PDF Capability Statement (Local 835KB) -->
+      <a href="assets/pdf/P22-Capability-Statement-Official.pdf" download="P22-Corp-Capability-Statement.pdf" target="_blank"
+         class="flex items-center justify-between p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 transition group">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-p22gold/20 text-p22gold flex items-center justify-center font-montserrat font-extrabold text-xs">
+            PDF
+          </div>
+          <div>
+            <h4 class="text-xs font-montserrat font-bold text-white group-hover:text-p22gold transition">
+              Official Capability Statement (PDF)
+            </h4>
+            <p class="text-[11px] text-slate-400">Official 835 KB document &bull; CAGE, NAICS, Past Performance</p>
+          </div>
+        </div>
+        <span class="text-xs text-p22gold font-semibold flex items-center gap-1">
+          Download &darr;
+        </span>
+      </a>
+
+      <!-- Attachment 2: Interactive 1-Page Viewer -->
+      <a href="capability-statement.html" target="_blank"
+         class="flex items-center justify-between p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 transition group">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-montserrat font-bold text-xs">
+            WEB
+          </div>
+          <div>
+            <h4 class="text-xs font-montserrat font-bold text-white group-hover:text-emerald-300 transition">
+              Interactive Capability Statement Viewer
+            </h4>
+            <p class="text-[11px] text-slate-400">High-fidelity 1-page takeoff document</p>
+          </div>
+        </div>
+        <span class="text-xs text-emerald-400 font-semibold flex items-center gap-1">
+          Open &rarr;
+        </span>
+      </a>
+
+      <!-- Attachment 3: Corporate Project Overview -->
+      <a href="assets/pdf/P-22_Corporate_Overview.pdf" download="P-22_Corporate_Overview.pdf"
+         class="flex items-center justify-between p-3.5 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 transition group">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center font-montserrat font-bold text-xs">
+            DOC
+          </div>
+          <div>
+            <h4 class="text-xs font-montserrat font-bold text-white group-hover:text-sky-300 transition">
+              Corporate Project & Logistics Overview
+            </h4>
+            <p class="text-[11px] text-slate-400">1.4 MB &bull; Dallas logistics hub & supplier network</p>
+          </div>
+        </div>
+        <span class="text-xs text-sky-400 font-semibold flex items-center gap-1">
+          Download &darr;
+        </span>
+      </a>
+    </section>
+
+    <!-- Facility & Logistics Visual Carousel -->
+    <section class="glass-panel rounded-3xl p-5 shadow-xl space-y-3 anim-fold-in">
+      <div class="flex items-center justify-between border-b border-white/10 pb-2">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+          </div>
+          <h3 class="font-montserrat font-bold text-sm text-white">Operations & Logistics Hub</h3>
+        </div>
+        <span class="text-[10px] text-slate-400">Dallas, TX &bull; Swipe &rarr;</span>
+      </div>
+
+      <!-- Horizontal Photo Scroll -->
+      <div class="flex gap-3 overflow-x-auto pb-2 hide-scrollbar snap-x snap-mandatory">
+        <!-- 3D Building Raising Video Slide -->
+        <div class="snap-center shrink-0 w-64 rounded-2xl overflow-hidden bg-slate-900 border border-p22gold/30 shadow-lg relative group">
+          <video autoplay loop muted playsinline class="w-full h-36 object-cover group-hover:scale-105 transition duration-300" poster="assets/facility/construction-crane.webp">
+            <source src="assets/video_building_raising_optimized.mp4" type="video/mp4">
+            <source src="assets/video_building_raising.mp4" type="video/mp4">
+          </video>
+          <div class="p-2.5 bg-slate-950/85">
+            <p class="text-xs font-montserrat font-bold text-p22gold flex items-center justify-between">
+              <span>3D Building Takeoff</span>
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            </p>
+            <p class="text-[10px] text-slate-300">Live elevation & commercial building structure</p>
+          </div>
+        </div>
+
+        <div class="snap-center shrink-0 w-64 rounded-2xl overflow-hidden bg-slate-900 border border-white/10 shadow-lg relative group">
+          <img src="assets/facility/logistics-fleet.webp" alt="Logistics Fleet" class="w-full h-36 object-cover group-hover:scale-105 transition duration-300">
+          <div class="p-2.5 bg-slate-950/85">
+            <p class="text-xs font-montserrat font-bold text-white">Dallas Logistics Fleet</p>
+            <p class="text-[10px] text-slate-400">Expedited freight & rapid emergency mobilization</p>
+          </div>
+        </div>
+        <div class="snap-center shrink-0 w-64 rounded-2xl overflow-hidden bg-slate-900 border border-white/10 shadow-lg relative group">
+          <img src="assets/facility/loading-dock.webp" alt="Loading Dock" class="w-full h-36 object-cover group-hover:scale-105 transition duration-300">
+          <div class="p-2.5 bg-slate-950/85">
+            <p class="text-xs font-montserrat font-bold text-white">High-Volume Freight Dock</p>
+            <p class="text-[10px] text-slate-400">Consolidated agency shipping & palletizing</p>
+          </div>
+        </div>
+        <div class="snap-center shrink-0 w-64 rounded-2xl overflow-hidden bg-slate-900 border border-white/10 shadow-lg relative group">
+          <img src="assets/facility/warehouse-forklift.webp" alt="Warehouse Storage" class="w-full h-36 object-cover group-hover:scale-105 transition duration-300">
+          <div class="p-2.5 bg-slate-950/85">
+            <p class="text-xs font-montserrat font-bold text-white">Warehouse Inventory</p>
+            <p class="text-[10px] text-slate-400">Industrial electrical, conduit, wire & MRO</p>
+          </div>
+        </div>
+        <div class="snap-center shrink-0 w-64 rounded-2xl overflow-hidden bg-slate-900 border border-white/10 shadow-lg relative group">
+          <img src="assets/staff/service-engineers.webp" alt="Service Engineers" class="w-full h-36 object-cover group-hover:scale-105 transition duration-300">
+          <div class="p-2.5 bg-slate-950/85">
+            <p class="text-xs font-montserrat font-bold text-white">Field Service Engineers</p>
+            <p class="text-[10px] text-slate-400">Technical specification & takeoff reviews</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Core Competencies Grid -->
+    <section class="glass-panel rounded-3xl p-5 shadow-xl space-y-3 anim-expand-in">
+      <h3 class="font-montserrat font-bold text-sm text-white mb-2">Core Government Competencies</h3>
+      <div class="grid grid-cols-2 gap-2.5 text-left">
+        <div class="p-3 rounded-2xl bg-white/5 border border-white/5">
+          <img src="assets/icons/icon-government-contracting.svg" alt="Gov" class="w-6 h-6 mb-1 text-p22gold">
+          <h4 class="text-xs font-montserrat font-bold text-white">Govt Procurement</h4>
+          <p class="text-[10px] text-slate-400 leading-tight mt-0.5">BPAs, simplified acquisitions & emergency RFQs</p>
+        </div>
+        <div class="p-3 rounded-2xl bg-white/5 border border-white/5">
+          <img src="assets/icons/icon-product-distribution.svg" alt="Dist" class="w-6 h-6 mb-1 text-sky-400">
+          <h4 class="text-xs font-montserrat font-bold text-white">Material Supply</h4>
+          <p class="text-[10px] text-slate-400 leading-tight mt-0.5">Electrical, conduit, wiring, hardware & MRO</p>
+        </div>
+        <div class="p-3 rounded-2xl bg-white/5 border border-white/5">
+          <img src="assets/icons/icon-service-solutions.svg" alt="Serv" class="w-6 h-6 mb-1 text-emerald-400">
+          <h4 class="text-xs font-montserrat font-bold text-white">Facility Support</h4>
+          <p class="text-[10px] text-slate-400 leading-tight mt-0.5">Rapid replenishment & logistics assurance</p>
+        </div>
+        <div class="p-3 rounded-2xl bg-white/5 border border-white/5">
+          <img src="assets/icons/icon-project-management.svg" alt="Proj" class="w-6 h-6 mb-1 text-rose-400">
+          <h4 class="text-xs font-montserrat font-bold text-white">Project Takeoff</h4>
+          <p class="text-[10px] text-slate-400 leading-tight mt-0.5">Milestone scheduling & FAR compliance tracking</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Instant Lead Capture & Contact Exchange Form -->
+    <section class="glass-panel rounded-3xl p-6 shadow-2xl relative anim-flip-in">
+      <div class="flex items-center gap-2.5 mb-2">
+        <div class="w-7 h-7 rounded-lg bg-p22gold/20 flex items-center justify-center text-p22gold">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+        </div>
+        <h3 class="font-montserrat font-bold text-lg text-white">Exchange Contact Info</h3>
+      </div>
+      <p class="text-xs text-slate-300 mb-4 leading-relaxed">
+        Submit your details below to receive our official **Capability Statement** and connect directly with our government desk.
+      </p>
+
+      <!-- Form -->
+      <form id="leadForm" class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1" for="name">Your Name *</label>
+          <input type="text" id="name" required placeholder="e.g. Marcus Vance"
+                 class="w-full px-3.5 py-2.5 rounded-xl glass-input text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-p22gold transition">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1" for="agency">Agency / Company / Base *</label>
+          <input type="text" id="agency" required placeholder="e.g. USACE / TxDOT / Prime Contractor"
+                 class="w-full px-3.5 py-2.5 rounded-xl glass-input text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-p22gold transition">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1" for="email">Work Email *</label>
+          <input type="email" id="email" required placeholder="e.g. mvance@agency.gov"
+                 class="w-full px-3.5 py-2.5 rounded-xl glass-input text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-p22gold transition">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1" for="phone">Direct Phone</label>
+          <input type="tel" id="phone" placeholder="e.g. (512) 555-0199"
+                 class="w-full px-3.5 py-2.5 rounded-xl glass-input text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-p22gold transition">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1" for="interest">Procurement Interest</label>
+          <select id="interest"
+                  class="w-full px-3.5 py-2.5 rounded-xl glass-input text-white text-sm focus:outline-none focus:ring-2 focus:ring-p22gold transition">
+            <option value="General Government Supply">General Government Supply</option>
+            <option value="Industrial Electrical & Wiring">Industrial Electrical & Wiring</option>
+            <option value="Construction Materials & Hardware">Construction Materials & Hardware</option>
+            <option value="MRO & Facility Supplies">MRO & Facility Supplies</option>
+            <option value="Urgent RFQ / Solicitation Quote">Urgent RFQ / Solicitation Quote</option>
+          </select>
+        </div>
+
+        <button type="submit" id="submitBtn"
+                class="w-full mt-2 py-3.5 px-4 rounded-xl bg-gradient-to-r from-blue-600 to-p22navy hover:from-blue-500 hover:to-p22navy border border-blue-400/30 text-white font-montserrat font-bold text-sm tracking-wide shadow-md active:scale-98 transition flex items-center justify-center gap-2">
+          <span>Send Info & Receive Capability Statement</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </button>
+      </form>
+
+      <!-- Instant Feedback Confirmation -->
+      <div id="successCard" class="hidden mt-4 p-4 rounded-2xl bg-emerald-950/80 border border-emerald-500/40 text-center animate-fade-in">
+        <div class="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-300 mx-auto flex items-center justify-center mb-2">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <h4 class="font-montserrat font-bold text-white text-sm">Info Dispatched!</h4>
+        <p class="text-xs text-emerald-200/90 mt-1">
+          Thank you for connecting with P-22 Corp. Check your inbox for our official Capability Statement.
+        </p>
+      </div>
+    </section>
+
+    <!-- Corporate Footer & Legal Disclosures -->
+    <footer class="text-center text-xs text-slate-500 space-y-1.5 py-4">
+      <div class="flex items-center justify-center gap-2 text-slate-400 font-semibold text-[11px]">
+        <span>CAGE: 169D8</span>
+        <span>&bull;</span>
+        <span>UEI: X3HUQZ66P6N3</span>
+        <span>&bull;</span>
+        <span>SBA Certified</span>
+      </div>
+      <p class="text-[11px]">P-22 Corp Construction Material Solutions LLC</p>
+      <p class="text-[10px]">18383 Preston Rd, Suite 202, Dallas, TX 75252 &bull; 1-888-722-2675</p>
+      <p class="text-[9px] text-slate-600">Zero Third-Party Tracking &bull; NIST SP 800-171 Data Privacy Protocol</p>
+    </footer>
+
+  </main>
+
+  <!-- ====================================================================== -->
+  <!-- FLOATING STICKY SAVE CONTACT DOCK (Expo Floor Fast Action) -->
+  <!-- ====================================================================== -->
+  <aside id="stickyDock" 
+         class="fixed bottom-4 inset-x-3 max-w-lg mx-auto z-40 transform translate-y-28 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="glass-panel p-2 rounded-2xl shadow-2xl flex items-center justify-between gap-2 border border-p22gold/40 bg-slate-950/95 backdrop-blur-2xl pointer-events-auto">
+      <button onclick="downloadActiveVCard(); trackEvent('StickyDock', 'Click', 'Save Contact');" 
+              class="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-p22gold via-amber-400 to-p22gold text-slate-950 font-montserrat font-extrabold text-xs tracking-wide shadow-lg hover:brightness-110 active:scale-95 transition flex items-center justify-center gap-2 btn-bounce">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+        <span>Save Contact (.vcf)</span>
+      </button>
+      <a href="#leadForm" onclick="trackEvent('StickyDock', 'Click', 'Exchange Info');"
+         class="py-3 px-3.5 rounded-xl bg-white/10 hover:bg-white/20 active:scale-95 text-white font-montserrat font-bold text-xs tracking-wide border border-white/10 transition flex items-center justify-center gap-1 shrink-0 btn-bounce">
+        <span>Exchange &darr;</span>
+      </a>
+      <button onclick="openQRModal(); trackEvent('StickyDock', 'Click', 'Show QR');" title="Show QR Code"
+              class="p-3 rounded-xl bg-p22navy border border-white/20 text-p22gold hover:brightness-110 active:scale-95 transition shrink-0 btn-bounce">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm13-2h3v2h-3v-2zm-3 0h2v3h-2v-3zm2 3h2v3h-2v-3zm-2 2h-2v2h2v-2zm3 0h3v4h-3v-4zm-5 2h2v2h-2v-2zm7 0h2v2h-2v-2z"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ====================================================================== -->
+  <!-- BOOK BRIEFING MODAL (Calendly Scheduler) -->
+  <!-- ====================================================================== -->
+  <div id="briefingModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md">
+    <div class="glass-panel w-full max-w-sm rounded-3xl p-6 text-center shadow-2xl relative border border-white/20">
+      <button onclick="closeBriefingModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-full bg-white/5">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+      <div class="flex items-center justify-center gap-2 mb-2">
+        <div class="w-6 h-6 rounded-lg bg-p22gold/20 flex items-center justify-center text-p22gold">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        </div>
+        <span class="text-xs font-montserrat font-bold text-p22gold uppercase tracking-wider">Capabilities Briefing</span>
+      </div>
+      <h3 id="briefingModalName" class="text-lg font-montserrat font-extrabold text-white">Schedule 15-Min Meeting</h3>
+      <p class="text-xs text-slate-300 mt-2 mb-4 leading-relaxed">
+        Direct calendar booking with P-22 Corp to review active RFQs, simplified acquisitions, or prime contractor teaming.
+      </p>
+      <a id="briefingCalendlyLink" href="https://calendly.com/p22corp/capabilities-briefing" target="_blank"
+         onclick="closeBriefingModal(); trackEvent('Briefing', 'Open', 'Calendly External');"
+         class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-p22gold via-amber-400 to-p22gold text-slate-950 font-montserrat font-extrabold text-xs shadow hover:brightness-110 active:scale-95 transition flex items-center justify-center gap-2 btn-bounce">
+        <span>Open Scheduler (Calendly) &rarr;</span>
+      </a>
+      <button onclick="closeBriefingModal()" class="w-full mt-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 text-xs font-semibold">
+        Close
+      </button>
+    </div>
+  </div>
+  <!-- 1. DYNAMIC IN-APP QR CODE MODAL -->
+  <!-- ====================================================================== -->
+  <div id="qrModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+    <div class="glass-panel w-full max-w-sm rounded-3xl p-6 text-center shadow-2xl relative border border-white/20">
+      <button onclick="closeQRModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-full bg-white/5">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+      <div class="flex items-center justify-center gap-2 mb-2">
+        <img src="icon-cube.svg" alt="P-22" class="w-5 h-5 object-contain">
+        <span class="text-xs font-montserrat font-bold text-p22gold uppercase tracking-wider">Instant Scan & Connect</span>
+      </div>
+      <h3 id="qrModalName" class="text-lg font-montserrat font-extrabold text-white">Pedro Felipe</h3>
+      <p id="qrModalUrl" class="text-[11px] text-sky-300 font-mono mb-4 break-all">https://card.p22corp.com/pedro</p>
+
+      <div class="w-56 h-56 mx-auto bg-white p-3 rounded-2xl shadow-xl flex items-center justify-center relative">
+        <div id="qrcode" class="flex items-center justify-center"></div>
+      </div>
+
+      <p class="text-xs text-slate-300 mt-4 leading-relaxed">
+        Point phone camera at code to open profile & download Capability Statement instantly.
+      </p>
+
+      <button onclick="closeQRModal()"
+              class="w-full mt-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-montserrat font-bold text-xs">
+        Done
+      </button>
+    </div>
+  </div>
+
+  <!-- ====================================================================== -->
+  <!-- 2. APPLE & GOOGLE WALLET MODAL -->
+  <!-- ====================================================================== -->
+  <div id="walletModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md">
+    <div class="glass-panel w-full max-w-md rounded-3xl p-6 text-center shadow-2xl relative border border-white/20">
+      <button onclick="closeWalletModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-full bg-white/5">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <div class="flex items-center justify-center gap-2 mb-3">
+        <span class="text-xs font-montserrat font-bold text-p22gold uppercase tracking-widest">Digital Wallet Pass</span>
+      </div>
+      <h3 class="text-lg font-montserrat font-extrabold text-white mb-4">Add to Apple & Google Wallet</h3>
+
+      <!-- Realistic Apple Wallet Pass Mockup -->
+      <div class="wallet-card rounded-2xl p-4 text-left border border-white/20 shadow-2xl relative overflow-hidden mb-5">
+        <div class="flex items-center justify-between border-b border-white/10 pb-2 mb-3">
+          <div class="flex items-center gap-2">
+            <img src="icon-cube.svg" alt="P-22" class="w-5 h-5 object-contain">
+            <span class="text-xs font-montserrat font-extrabold text-white">P-22 CORP</span>
+          </div>
+          <span class="text-[10px] text-p22gold font-semibold uppercase tracking-wider">Government Pass</span>
+        </div>
+
+        <div class="flex items-center justify-between mb-3">
+          <div>
+            <span class="text-[9px] text-slate-400 uppercase tracking-wider block">Representative</span>
+            <span id="walletPassName" class="text-sm font-montserrat font-bold text-white">Pedro Felipe</span>
+          </div>
+          <div class="text-right">
+            <span class="text-[9px] text-slate-400 uppercase tracking-wider block">Federal ID</span>
+            <span class="text-xs font-mono font-bold text-emerald-400">CAGE 169D8</span>
+          </div>
+        </div>
+
+        <div class="bg-black/30 rounded-xl p-2.5 flex items-center justify-between border border-white/5">
+          <div class="text-[10px] text-slate-300">
+            <p class="font-semibold text-white">SBA Small Minority-Owned</p>
+            <p class="text-slate-400">Dallas Logistics Hub &bull; 1-888-722-2675</p>
+          </div>
+          <div class="w-12 h-12 bg-white p-1 rounded-lg flex items-center justify-center">
+            <div id="walletMiniQr"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="space-y-2.5">
+        <!-- Apple Wallet Button -->
+        <button onclick="saveWalletPass('apple')"
+                class="w-full py-3 px-4 rounded-xl bg-black hover:bg-slate-900 border border-white/20 text-white font-montserrat font-semibold text-xs flex items-center justify-center gap-2 transition shadow">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 170 170"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.08-7.71-7.96-12.02-14.64-6.35-9.87-11.42-21.2-15.22-33.99-3.8-12.79-5.71-24.87-5.71-36.24 0-14.07 3.35-25.79 10.05-35.15 6.7-9.36 15.35-14.16 25.96-14.42 4.47 0 9.77 1.25 15.89 3.75 6.13 2.5 10.08 3.8 11.87 3.91 1.79 0 5.86-1.41 12.21-4.22 6.35-2.82 11.75-4.04 16.2-3.67 15.35 1.19 26.68 7.39 33.99 18.6-13.61 8.27-20.25 19.46-19.92 33.58.33 11.1 4.54 20.35 12.63 27.76 4.47 4.12 9.5 7.07 15.1 8.86-2.58 7.51-5.69 15.36-9.32 23.57zM119.22 31.84c0-7.84 2.85-15.35 8.56-22.52 5.71-7.18 12.82-11.53 21.32-13.06.33 1.08.49 2.17.49 3.26 0 7.73-2.99 15.3-8.98 22.7-5.99 7.4-13.12 11.7-21.39 12.91v-3.29z"/></svg>
+          <span>Add to Apple Wallet (iPhone & Watch)</span>
+        </button>
+
+        <!-- Google Wallet Button -->
+        <button onclick="saveWalletPass('google')"
+                class="w-full py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-white/20 text-white font-montserrat font-semibold text-xs flex items-center justify-center gap-2 transition shadow">
+          <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+          <span>Save to Google Wallet</span>
+        </button>
+      </div>
+      
+      <p class="text-[10px] text-slate-400 mt-4 leading-relaxed">
+        Pass stays stored in your phone wallet for quick access without cellular data. Syncs automatically to Apple Watch.
+      </p>
+    </div>
+  </div>
+
+  <!-- SCRIPT: Complete Dynamic Engine, Wallets, Watch Mode, Email Sig, & Virtual BG -->
+  <script>
+    // ══════════════════════════════════════════════════════════════════════════
+    // 1. TEAM DIRECTORY DATA STORE
+    // ══════════════════════════════════════════════════════════════════════════
+    const TEAM_DATA = {
+      pedro: {
+        slug: "pedro",
+        name: "Pedro Felipe",
+        title: "Managing Director & Government Procurement Lead",
+        company: "P-22 Corp Construction Material Solutions LLC",
+        email: "pfelipe@p22corp.com",
+        phone: "1-888-722-2675",
+        avatar: "assets/staff/pedro-felipe.png",
+        bio: "Direct executive line for Federal Contracting Officers, Prime Contractors, and Municipal Purchasing Agents.",
+        location: "Dallas-Fort Worth HQ • Nationwide Response",
+        calendly: "https://calendly.com/p22corp/capabilities-briefing",
+        vcf: `BEGIN:VCARD
+VERSION:3.0
+N:Felipe;Pedro;;;
+FN:Pedro Felipe
+ORG:P-22 Corp Construction Material Solutions LLC
+TITLE:Managing Director & Government Procurement Lead
+TEL;TYPE=WORK,VOICE:1-888-722-2675
+EMAIL;TYPE=PREF,INTERNET:pfelipe@p22corp.com
+URL:https://p22corp.com
+ADR;TYPE=WORK:;;18383 Preston Rd, Suite 202;Dallas;TX;75252;USA
+NOTE:CAGE: 169D8 | UEI: X3HUQZ66P6N3\\nSBA Certified Small Minority-Owned Business
+END:VCARD`
+      },
+      eduardo: {
+        slug: "eduardo",
+        name: "Eduardo Lopez",
+        title: "Director of Government Sales & Estimating",
+        company: "P-22 Corp Construction Material Solutions LLC",
+        email: "elopez@p22corp.com",
+        phone: "1-888-722-2675",
+        avatar: "assets/staff/headshot-1.jpg",
+        bio: "Specializing in electrical distribution takeoffs, vendor negotiations, and competitive RFQ/RFP bidding.",
+        location: "Dallas Sales Office • DFW Hub",
+        calendly: "https://calendly.com/p22corp/sales-estimating",
+        vcf: `BEGIN:VCARD
+VERSION:3.0
+N:Lopez;Eduardo;;;
+FN:Eduardo Lopez
+ORG:P-22 Corp Construction Material Solutions LLC
+TITLE:Director of Government Sales & Estimating
+TEL;TYPE=WORK,VOICE:1-888-722-2675
+EMAIL;TYPE=PREF,INTERNET:elopez@p22corp.com
+URL:https://p22corp.com
+ADR;TYPE=WORK:;;18383 Preston Rd, Suite 202;Dallas;TX;75252;USA
+NOTE:CAGE: 169D8 | UEI: X3HUQZ66P6N3\\nFederal Quote & Estimating Desk
+END:VCARD`
+      },
+      marleni: {
+        slug: "marleni",
+        name: "Marleni Mendez",
+        title: "Controller & Compliance Lead (WAWF / Invoicing)",
+        company: "P-22 Corp Construction Material Solutions LLC",
+        email: "mmendez@p22corp.com",
+        phone: "1-888-722-2675",
+        avatar: "assets/staff/headshot-2.jpg",
+        bio: "Overseeing federal billing compliance, AP/AR, Wide Area Workflow (WAWF), and government contract accounting.",
+        location: "Corporate Headquarters • Dallas, TX",
+        calendly: "https://calendly.com/p22corp/vendor-accounting",
+        vcf: `BEGIN:VCARD
+VERSION:3.0
+N:Mendez;Marleni;;;
+FN:Marleni Mendez
+ORG:P-22 Corp Construction Material Solutions LLC
+TITLE:Controller & Compliance Lead (WAWF)
+TEL;TYPE=WORK,VOICE:1-888-722-2675
+EMAIL;TYPE=PREF,INTERNET:mmendez@p22corp.com
+URL:https://p22corp.com
+ADR;TYPE=WORK:;;18383 Preston Rd, Suite 202;Dallas;TX;75252;USA
+NOTE:CAGE: 169D8 | UEI: X3HUQZ66P6N3\\nFederal Accounting & WAWF Invoicing
+END:VCARD`
+      },
+      bids: {
+        slug: "bids",
+        name: "Government Procurement Desk",
+        title: "Rapid RFQ & Solicitation Response Desk",
+        company: "P-22 Corp Construction Material Solutions LLC",
+        email: "bids@p22corp.com",
+        phone: "1-888-722-2675",
+        avatar: "assets/staff/service-engineers.webp",
+        bio: "Central intake for simplified acquisition procedures, BPAs, and emergency government supply orders.",
+        location: "18383 Preston Rd, Suite 202, Dallas, TX 75252",
+        calendly: "https://calendly.com/p22corp/rfq-intake",
+        vcf: `BEGIN:VCARD
+VERSION:3.0
+N:Procurement Desk;Government;;;
+FN:P-22 Corp Government Procurement Desk
+ORG:P-22 Corp Construction Material Solutions LLC
+TITLE:Rapid RFQ & Solicitation Response Desk
+TEL;TYPE=WORK,VOICE:1-888-722-2675
+EMAIL;TYPE=PREF,INTERNET:bids@p22corp.com
+URL:https://p22corp.com
+ADR;TYPE=WORK:;;18383 Preston Rd, Suite 202;Dallas;TX;75252;USA
+NOTE:CAGE: 169D8 | UEI: X3HUQZ66P6N3\\n24-Hour Bids Response
+END:VCARD`
+      },
+      logistics: {
+        slug: "logistics",
+        name: "Dallas Logistics & Dispatch",
+        title: "Director of Supply Chain & Material Fulfillment",
+        company: "P-22 Corp Construction Material Solutions LLC",
+        email: "logistics@p22corp.com",
+        phone: "1-888-722-2675",
+        avatar: "assets/facility/logistics-fleet.webp",
+        bio: "Overnight expedited shipping, high-volume freight mobilization, and electrical/MRO distribution.",
+        location: "Dallas Logistics Center • DFW Hub",
+        calendly: "https://calendly.com/p22corp/logistics-consultation",
+        vcf: `BEGIN:VCARD
+VERSION:3.0
+N:Logistics;Dallas Dispatch;;;
+FN:P-22 Corp Logistics & Dispatch
+ORG:P-22 Corp Construction Material Solutions LLC
+TITLE:Supply Chain & Material Fulfillment
+TEL;TYPE=WORK,VOICE:1-888-722-2675
+EMAIL;TYPE=PREF,INTERNET:logistics@p22corp.com
+URL:https://p22corp.com
+ADR;TYPE=WORK:;;18383 Preston Rd, Suite 202;Dallas;TX;75252;USA
+NOTE:CAGE: 169D8 | UEI: X3HUQZ66P6N3\\nLogistics & Material Dispatch
+END:VCARD`
+      }
+    };
+
+    let currentRep = "pedro";
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // 2. EVENT TRACKING & ANALYTICS
+    // ══════════════════════════════════════════════════════════════════════════
+    function trackEvent(category, action, label) {
+      try {
+        if (window.va) {
+          window.va('event', { name: `${category}_${action}`, data: { label: label, rep: currentRep } });
+        }
+        console.log(`[Analytics Event] ${category} > ${action} > ${label}`);
+      } catch (err) {}
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // 3. DYNAMIC URL DETECTION & PROFILE INITIALIZATION
+    // ══════════════════════════════════════════════════════════════════════════
+    function detectInitialStaff() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const userParam = urlParams.get('user') || urlParams.get('rep');
+      const pathSlug = window.location.pathname.replace(/^\/|\/$/g, '').split('/').pop();
+      const hashSlug = window.location.hash.replace('#', '');
+
+      if (userParam && TEAM_DATA[userParam]) return userParam;
+      if (pathSlug && TEAM_DATA[pathSlug]) return pathSlug;
+      if (hashSlug && TEAM_DATA[hashSlug]) return hashSlug;
+      return "pedro";
+    }
+
+    function switchStaff(slug) {
+      const data = TEAM_DATA[slug];
+      if (!data) return;
+      currentRep = slug;
+
+      document.getElementById('staffName').textContent = data.name;
+      document.getElementById('staffTitle').textContent = data.title;
+      document.getElementById('staffBio').textContent = data.bio;
+      document.getElementById('staffLocation').textContent = data.location;
+      document.getElementById('staffAvatar').src = data.avatar;
+
+      if (document.getElementById('staffSelector')) {
+        document.getElementById('staffSelector').value = slug;
+      }
+
+      document.getElementById('callAction').href = `tel:${data.phone.replace(/[^0-9]/g, '')}`;
+      document.getElementById('emailAction').href = `mailto:${data.email}?subject=Inquiry%20from%20Expo%20-%20P-22%20Corp`;
+
+      if (document.getElementById('briefingCalendlyLink')) {
+        document.getElementById('briefingCalendlyLink').href = data.calendly || 'https://calendly.com/p22corp/capabilities-briefing';
+      }
+
+      document.getElementById('pageTitle').textContent = `${data.name} | P-22 Corp Digital Card`;
+
+      trackEvent('Profile', 'Load', data.name);
+    }
+
+    function downloadActiveVCard() {
+      const rep = TEAM_DATA[currentRep] || TEAM_DATA.pedro;
+      const blob = new Blob([rep.vcf], { type: 'text/vcard;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `${rep.name.replace(/\s+/g, '_')}_P22Corp.vcf`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      trackEvent('VCard', 'Download', rep.name);
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // 4. IN-APP DYNAMIC QR MODAL
+    // ══════════════════════════════════════════════════════════════════════════
+    function openQRModal() {
+      const rep = TEAM_DATA[currentRep] || TEAM_DATA.pedro;
+      const targetUrl = `https://card.p22corp.com/${rep.slug}`;
+
+      document.getElementById('qrModalName').textContent = rep.name;
+      document.getElementById('qrModalUrl').textContent = targetUrl;
+
+      const container = document.getElementById('qrcode');
+      container.innerHTML = '';
+
+      if (window.QRCode) {
+        new QRCode(container, {
+          text: targetUrl,
+          width: 200,
+          height: 200,
+          colorDark: "#1D3557",
+          colorLight: "#FFFFFF",
+          correctLevel: QRCode.CorrectLevel.H
+        });
+      }
+
+      document.getElementById('qrModal').classList.remove('hidden');
+    }
+
+    function closeQRModal() {
+      document.getElementById('qrModal').classList.add('hidden');
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // 5. CALENDLY BRIEFING MODAL
+    // ══════════════════════════════════════════════════════════════════════════
+    function openBriefingModal() {
+      const rep = TEAM_DATA[currentRep] || TEAM_DATA.pedro;
+      const modalName = document.getElementById('briefingModalName');
+      if (modalName) modalName.textContent = `Schedule 15-Min Briefing with ${rep.name}`;
+      const calendlyLink = document.getElementById('briefingCalendlyLink');
+      if (calendlyLink) calendlyLink.href = rep.calendly || 'https://calendly.com/p22corp/capabilities-briefing';
+
+      document.getElementById('briefingModal').classList.remove('hidden');
+    }
+
+    function closeBriefingModal() {
+      document.getElementById('briefingModal').classList.add('hidden');
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // 6. WALLET PASS MOCKUP MODAL
+    // ══════════════════════════════════════════════════════════════════════════
+    function openWalletModal() {
+      const rep = TEAM_DATA[currentRep] || TEAM_DATA.pedro;
+      document.getElementById('walletPassName').textContent = rep.name;
+
+      const container = document.getElementById('walletMiniQr');
+      if (container) {
+        container.innerHTML = '';
+        if (window.QRCode) {
+          new QRCode(container, {
+            text: `https://card.p22corp.com/${rep.slug}`,
+            width: 48,
+            height: 48,
+            colorDark: "#1D3557",
+            colorLight: "#FFFFFF",
+            correctLevel: QRCode.CorrectLevel.L
+          });
+        }
+      }
+
+      document.getElementById('walletModal').classList.remove('hidden');
+    }
+
+    function closeWalletModal() {
+      document.getElementById('walletModal').classList.add('hidden');
+    }
+
+    function saveWalletPass(type) {
+      const rep = TEAM_DATA[currentRep] || TEAM_DATA.pedro;
+      alert(`[${type.toUpperCase()} WALLET PASS]\nYour P-22 Executive Pass for ${rep.name} is ready.\nCAGE: 169D8 | URL: https://card.p22corp.com/${rep.slug}\n\nSaving contact card to your phonebook...`);
+      downloadActiveVCard();
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // 7. LEAD CAPTURE ENGINE (Offline-First + Webhook)
+    // ══════════════════════════════════════════════════════════════════════════
+    const MAKE_WEBHOOK_URL = "https://hook.us1.make.com/REPLACE_WITH_YOUR_WEBHOOK";
+
+    const form = document.getElementById('leadForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const successCard = document.getElementById('successCard');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const rep = TEAM_DATA[currentRep] || TEAM_DATA.pedro;
+
+      const leadData = {
+        timestamp: new Date().toISOString(),
+        rep_slug: rep.slug,
+        rep_name: rep.name,
+        rep_email: rep.email,
+        client_name: document.getElementById('name').value.trim(),
+        client_agency: document.getElementById('agency').value.trim(),
+        client_email: document.getElementById('email').value.trim(),
+        client_phone: document.getElementById('phone').value.trim(),
+        interest: document.getElementById('interest').value,
+        source: "Austin Expo Digital Card"
+      };
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `
+        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+        </svg>
+        Dispatching...
+      `;
+
+      try {
+        const stored = JSON.parse(localStorage.getItem('p22_leads') || '[]');
+        stored.push(leadData);
+        localStorage.setItem('p22_leads', JSON.stringify(stored));
+      } catch (err) {
+        console.warn('LocalStorage save failed', err);
+      }
+
+      try {
+        if (!MAKE_WEBHOOK_URL.includes("REPLACE_WITH_YOUR_WEBHOOK")) {
+          await fetch(MAKE_WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(leadData),
+            mode: 'no-cors'
+          });
+        }
+      } catch (err) {
+        console.log('Webhook dispatched/queued', err);
+      }
+
+      trackEvent('Lead', 'Submit', leadData.client_agency);
+      form.classList.add('hidden');
+      successCard.classList.remove('hidden');
+    });
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // 8. 1:1 SITE MOTION ENGINE (50% Video Speed, BgParallax, Sticky Dock & 3D Tilt)
+    // ══════════════════════════════════════════════════════════════════════════
+    let ambientBgPlaying = true;
+    function toggleAmbientBg() {
+      const bgVid = document.getElementById('bgVideo');
+      const pauseIcon = document.getElementById('bgVideoPauseIcon');
+      const playIcon = document.getElementById('bgVideoPlayIcon');
+      if (!bgVid) return;
+
+      if (ambientBgPlaying) {
+        bgVid.pause();
+        ambientBgPlaying = false;
+        if (pauseIcon) pauseIcon.classList.add('hidden');
+        if (playIcon) playIcon.classList.remove('hidden');
+      } else {
+        bgVid.play();
+        bgVid.playbackRate = 0.5;
+        ambientBgPlaying = true;
+        if (pauseIcon) pauseIcon.classList.remove('hidden');
+        if (playIcon) playIcon.classList.add('hidden');
+      }
+    }
+
+    function toggleBuildingVideo() {
+      const vid = document.getElementById('buildingRaisingVideo');
+      const playIcon = document.getElementById('buildingPlayIcon');
+      const pauseIcon = document.getElementById('buildingPauseIcon');
+      if (!vid) return;
+
+      if (vid.paused) {
+        vid.play();
+        if (playIcon) playIcon.classList.add('hidden');
+        if (pauseIcon) pauseIcon.classList.remove('hidden');
+      } else {
+        vid.pause();
+        if (playIcon) playIcon.classList.remove('hidden');
+        if (pauseIcon) pauseIcon.classList.add('hidden');
+      }
+    }
+
+    function toggleBuildingAudio() {
+      const vid = document.getElementById('buildingRaisingVideo');
+      const unmutedIcon = document.getElementById('buildingUnmutedIcon');
+      const mutedIcon = document.getElementById('buildingMutedIcon');
+      if (!vid) return;
+
+      vid.muted = !vid.muted;
+      if (vid.muted) {
+        if (unmutedIcon) unmutedIcon.classList.add('hidden');
+        if (mutedIcon) mutedIcon.classList.remove('hidden');
+      } else {
+        if (unmutedIcon) unmutedIcon.classList.remove('hidden');
+        if (mutedIcon) mutedIcon.classList.add('hidden');
+      }
+    }
+
+    // Scroll Listener for Parallax and Sticky Dock
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset || document.documentElement.scrollTop;
+      const bgVid = document.getElementById('bgVideo');
+      if (bgVid) {
+        bgVid.style.transform = `translateY(${scrolled * 0.16}px) scale(${1 + Math.min(scrolled * 0.00025, 0.08)})`;
+      }
+
+      const dock = document.getElementById('stickyDock');
+      if (dock) {
+        if (scrolled > 260) {
+          dock.classList.remove('translate-y-28', 'opacity-0', 'pointer-events-none');
+          dock.classList.add('translate-y-0', 'opacity-100');
+        } else {
+          dock.classList.add('translate-y-28', 'opacity-0', 'pointer-events-none');
+          dock.classList.remove('translate-y-0', 'opacity-100');
+        }
+      }
+    }, { passive: true });
+
+    // Interactive 3D Card Tilt (Wix Tilt3DMouse & AiryMouse replica)
+    function initTilt3D() {
+      const card = document.getElementById('executiveCard');
+      if (!card) return;
+
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -6.5;
+        const rotateY = ((x - centerX) / centerX) * 6.5;
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.008, 1.008, 1.008)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      });
+    }
+
+    // Initialize on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      const bgVid = document.getElementById('bgVideo');
+      if (bgVid) {
+        bgVid.playbackRate = 0.5; // Smooth 50% slow-motion atmospheric background
+      }
+
+      const initialRep = detectInitialStaff();
+      switchStaff(initialRep);
+      initTilt3D();
+    });
+  </script>
+</body>
+</html>

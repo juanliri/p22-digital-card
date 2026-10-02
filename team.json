@@ -1,0 +1,72 @@
+{
+  "pedro": {
+    "slug": "pedro",
+    "name": "Pedro Felipe",
+    "title": "Managing Director & Government Procurement Lead",
+    "company": "P-22 Corp Construction Material Solutions LLC",
+    "email": "pfelipe@p22corp.com",
+    "phone": "1-888-722-2675",
+    "directPhone": "1-888-722-2675",
+    "avatar": "assets/staff/pedro-felipe.png",
+    "badge": "SAM.gov Active Certified Rep",
+    "bio": "Direct executive line for Federal Contracting Officers, Prime Contractors, and Municipal Purchasing Agents.",
+    "location": "Dallas-Fort Worth HQ • Nationwide Response",
+    "calendly": "https://calendly.com/p22corp/capabilities-briefing"
+  },
+  "eduardo": {
+    "slug": "eduardo",
+    "name": "Eduardo Lopez",
+    "title": "Director of Government Sales & Estimating",
+    "company": "P-22 Corp Construction Material Solutions LLC",
+    "email": "elopez@p22corp.com",
+    "phone": "1-888-722-2675",
+    "directPhone": "1-888-722-2675",
+    "avatar": "assets/staff/headshot-1.jpg",
+    "badge": "Federal Quote & Estimating Desk",
+    "bio": "Specializing in electrical distribution takeoffs, vendor negotiations, and competitive RFQ/RFP bidding.",
+    "location": "Dallas Sales Office • DFW Hub",
+    "calendly": "https://calendly.com/p22corp/sales-estimating"
+  },
+  "marleni": {
+    "slug": "marleni",
+    "name": "Marleni Mendez",
+    "title": "Controller & Compliance Lead (WAWF / Invoicing)",
+    "company": "P-22 Corp Construction Material Solutions LLC",
+    "email": "mmendez@p22corp.com",
+    "phone": "1-888-722-2675",
+    "directPhone": "1-888-722-2675",
+    "avatar": "assets/staff/headshot-2.jpg",
+    "badge": "WAWF & Federal Accounting Certified",
+    "bio": "Overseeing federal billing compliance, AP/AR, Wide Area Workflow (WAWF), and government contract accounting.",
+    "location": "Corporate Headquarters • Dallas, TX",
+    "calendly": "https://calendly.com/p22corp/vendor-accounting"
+  },
+  "bids": {
+    "slug": "bids",
+    "name": "Government Procurement Desk",
+    "title": "Rapid RFQ & Solicitation Response Desk",
+    "company": "P-22 Corp Construction Material Solutions LLC",
+    "email": "bids@p22corp.com",
+    "phone": "1-888-722-2675",
+    "directPhone": "1-888-722-2675",
+    "avatar": "assets/staff/service-engineers.webp",
+    "badge": "24-Hr Solicitation Response",
+    "bio": "Central intake for simplified acquisition procedures, BPAs, and emergency government supply orders.",
+    "location": "18383 Preston Rd, Suite 202, Dallas, TX 75252",
+    "calendly": "https://calendly.com/p22corp/rfq-intake"
+  },
+  "logistics": {
+    "slug": "logistics",
+    "name": "Dallas Logistics & Dispatch",
+    "title": "Director of Supply Chain & Material Fulfillment",
+    "company": "P-22 Corp Construction Material Solutions LLC",
+    "email": "logistics@p22corp.com",
+    "phone": "1-888-722-2675",
+    "directPhone": "1-888-722-2675",
+    "avatar": "assets/facility/logistics-fleet.webp",
+    "badge": "DFW Freight & Dispatch Hub",
+    "bio": "Overnight expedited shipping, high-volume freight mobilization, and electrical/MRO distribution.",
+    "location": "Dallas Logistics Center • DFW Hub",
+    "calendly": "https://calendly.com/p22corp/logistics-consultation"
+  }
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="180" viewBox="0 0 400 180" role="img" aria-labelledby="title desc">
+  <title id="title">P‑22 Corp cube icon</title>
+  <desc id="desc">A simplified cube with arrows representing P‑22 Corp’s logo icon.</desc>
+  <g stroke="#0F2D4A" stroke-width="2">
+    <!-- Top face -->
+    <polygon points="200,20 260,50 200,80 140,50" fill="#D2B37E" />
+    <!-- Left face -->
+    <polygon points="140,50 140,120 200,150 200,80" fill="#0F2D4A" />
+    <!-- Right face -->
+    <polygon points="200,80 200,150 260,120 260,50" fill="#D94B3D" />
+  </g>
+  <!-- Left arrow -->
+  <polygon points="140,90 70,60 70,120" fill="#1260CC" />
+  <!-- Right arrow -->
+  <polygon points="260,60 330,90 330,120" fill="#D94B3D" />
+</svg>

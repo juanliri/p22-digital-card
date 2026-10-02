@@ -1,0 +1,267 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="buildingGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8f9fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e9ecef;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="floorGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#dee2e6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ced4da;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="equipmentGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#6c757d;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#495057;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="hvacGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#17a2b8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#138496;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Government building background -->
+  <rect width="800" height="600" fill="url(#buildingGradient)"/>
+  
+  <!-- Floor -->
+  <rect x="0" y="450" width="800" height="150" fill="url(#floorGradient)"/>
+  
+  <!-- Building structure -->
+  <g opacity="0.3">
+    <!-- Columns -->
+    <rect x="100" y="50" width="15" height="400" fill="#495057"/>
+    <rect x="200" y="50" width="15" height="400" fill="#495057"/>
+    <rect x="300" y="50" width="15" height="400" fill="#495057"/>
+    <rect x="500" y="50" width="15" height="400" fill="#495057"/>
+    <rect x="600" y="50" width="15" height="400" fill="#495057"/>
+    <rect x="700" y="50" width="15" height="400" fill="#495057"/>
+    
+    <!-- Ceiling -->
+    <rect x="0" y="50" width="800" height="20" fill="#495057"/>
+    
+    <!-- Windows -->
+    <rect x="50" y="80" width="60" height="120" fill="#87CEEB" opacity="0.7" rx="5"/>
+    <rect x="650" y="80" width="60" height="120" fill="#87CEEB" opacity="0.7" rx="5"/>
+  </g>
+  
+  <!-- HVAC System -->
+  <g transform="translate(150, 100)">
+    <!-- Main HVAC unit -->
+    <rect x="0" y="0" width="120" height="80" fill="url(#hvacGradient)" rx="8"/>
+    <rect x="5" y="5" width="110" height="70" fill="url(#equipmentGradient)" rx="5"/>
+    
+    <!-- Ventilation grilles -->
+    <rect x="15" y="15" width="90" height="50" fill="#2c3e50" rx="3"/>
+    <g opacity="0.8">
+      <line x1="20" y1="20" x2="100" y2="20" stroke="#6c757d" stroke-width="2"/>
+      <line x1="20" y1="30" x2="100" y2="30" stroke="#6c757d" stroke-width="2"/>
+      <line x1="20" y1="40" x2="100" y2="40" stroke="#6c757d" stroke-width="2"/>
+      <line x1="20" y1="50" x2="100" y2="50" stroke="#6c757d" stroke-width="2"/>
+      <line x1="20" y1="60" x2="100" y2="60" stroke="#6c757d" stroke-width="2"/>
+    </g>
+    
+    <!-- Control panel -->
+    <rect x="110" y="15" width="25" height="50" fill="#f8f9fa" stroke="#2c3e50" stroke-width="2" rx="3"/>
+    <circle cx="122.5" cy="25" r="3" fill="#28A745"/>
+    <circle cx="122.5" cy="35" r="3" fill="#FFD700"/>
+    <circle cx="122.5" cy="45" r="3" fill="#DC3545"/>
+    <rect x="115" y="55" width="15" height="8" fill="#0066CC" rx="2"/>
+    
+    <!-- Ductwork -->
+    <rect x="140" y="30" width="80" height="20" fill="#6c757d" rx="10"/>
+    <rect x="220" y="25" width="20" height="30" fill="#6c757d" rx="10"/>
+    <rect x="240" y="30" width="60" height="20" fill="#6c757d" rx="10"/>
+    
+    <!-- Air flow indicators -->
+    <g opacity="0.6">
+      <path d="M 150 40 L 160 40" stroke="#17a2b8" stroke-width="3" marker-end="url(#airflow)"/>
+      <path d="M 170 40 L 180 40" stroke="#17a2b8" stroke-width="3" marker-end="url(#airflow)"/>
+      <path d="M 190 40 L 200 40" stroke="#17a2b8" stroke-width="3" marker-end="url(#airflow)"/>
+      <path d="M 250 40 L 260 40" stroke="#17a2b8" stroke-width="3" marker-end="url(#airflow)"/>
+      <path d="M 270 40 L 280 40" stroke="#17a2b8" stroke-width="3" marker-end="url(#airflow)"/>
+    </g>
+  </g>
+  
+  <!-- Maintenance team working -->
+  
+  <!-- Technician 1 - Working on HVAC -->
+  <g transform="translate(200, 200)">
+    <!-- Body -->
+    <ellipse cx="0" cy="80" rx="35" ry="25" fill="#0066CC"/>
+    <!-- Work shirt -->
+    <path d="M -20 60 L -10 70 L 0 65 L 10 70 L 20 60 L 10 55 L 0 60 L -10 55 Z" fill="#f8f9fa"/>
+    <!-- Company logo on shirt -->
+    <circle cx="8" cy="62" r="4" fill="#0066CC"/>
+    <text x="8" y="65" text-anchor="middle" font-family="Arial, sans-serif" font-size="3" font-weight="bold" fill="white">P22</text>
+    <!-- Neck -->
+    <ellipse cx="0" cy="50" rx="8" ry="12" fill="#d4a574"/>
+    <!-- Head -->
+    <ellipse cx="0" cy="20" rx="20" ry="25" fill="#d4a574"/>
+    <!-- Hard hat -->
+    <ellipse cx="0" cy="5" rx="22" ry="12" fill="#FFD700"/>
+    <ellipse cx="0" cy="0" rx="22" ry="12" fill="#FFD700" opacity="0.8"/>
+    <!-- Eyes -->
+    <circle cx="-7" cy="18" r="2" fill="white"/>
+    <circle cx="7" cy="18" r="2" fill="white"/>
+    <circle cx="-7" cy="18" r="1.5" fill="#2c3e50"/>
+    <circle cx="7" cy="18" r="1.5" fill="#2c3e50"/>
+    <!-- Mouth -->
+    <path d="M -5 28 Q 0 32 5 28" stroke="#c49464" stroke-width="1.5" fill="none"/>
+    
+    <!-- Tool in hand -->
+    <ellipse cx="-30" cy="70" rx="12" ry="6" fill="#d4a574" transform="rotate(-20 -30 70)"/>
+    <rect x="-45" y="65" width="20" height="4" fill="#8B4513" transform="rotate(-20 -45 67)"/>
+    <rect x="-50" y="63" width="8" height="8" fill="#6c757d" transform="rotate(-20 -50 67)"/>
+  </g>
+  
+  <!-- Technician 2 - Checking electrical panel -->
+  <g transform="translate(450, 220)">
+    <!-- Body -->
+    <ellipse cx="0" cy="80" rx="35" ry="25" fill="#0066CC"/>
+    <!-- Work shirt -->
+    <path d="M -20 60 L -10 70 L 0 65 L 10 70 L 20 60 L 10 55 L 0 60 L -10 55 Z" fill="#f8f9fa"/>
+    <!-- Company logo on shirt -->
+    <circle cx="8" cy="62" r="4" fill="#0066CC"/>
+    <text x="8" y="65" text-anchor="middle" font-family="Arial, sans-serif" font-size="3" font-weight="bold" fill="white">P22</text>
+    <!-- Neck -->
+    <ellipse cx="0" cy="50" rx="8" ry="12" fill="#c49464"/>
+    <!-- Head -->
+    <ellipse cx="0" cy="20" rx="20" ry="25" fill="#c49464"/>
+    <!-- Hard hat -->
+    <ellipse cx="0" cy="5" rx="22" ry="12" fill="#DC3545"/>
+    <ellipse cx="0" cy="0" rx="22" ry="12" fill="#DC3545" opacity="0.8"/>
+    <!-- Eyes -->
+    <circle cx="-7" cy="18" r="2" fill="white"/>
+    <circle cx="7" cy="18" r="2" fill="white"/>
+    <circle cx="-7" cy="18" r="1.5" fill="#2c3e50"/>
+    <circle cx="7" cy="18" r="1.5" fill="#2c3e50"/>
+    <!-- Mouth -->
+    <path d="M -5 28 Q 0 32 5 28" stroke="#b8845f" stroke-width="1.5" fill="none"/>
+    
+    <!-- Multimeter in hand -->
+    <rect x="25" y="65" width="15" height="20" fill="#2c3e50" rx="2"/>
+    <rect x="27" y="67" width="11" height="16" fill="#34495e" rx="1"/>
+    <circle cx="32.5" cy="72" r="3" fill="#28A745"/>
+    <text x="32.5" y="74" text-anchor="middle" font-family="Arial, sans-serif" font-size="4" fill="white">V</text>
+  </g>
+  
+  <!-- Electrical panel being serviced -->
+  <g transform="translate(500, 150)">
+    <rect x="0" y="0" width="60" height="80" fill="#f8f9fa" stroke="#2c3e50" stroke-width="3" rx="4"/>
+    <rect x="5" y="5" width="50" height="70" fill="#34495e" rx="2"/>
+    
+    <!-- Circuit breakers -->
+    <rect x="10" y="15" width="8" height="15" fill="#2c3e50" rx="1"/>
+    <rect x="22" y="15" width="8" height="15" fill="#2c3e50" rx="1"/>
+    <rect x="34" y="15" width="8" height="15" fill="#2c3e50" rx="1"/>
+    <rect x="46" y="15" width="8" height="15" fill="#2c3e50" rx="1"/>
+    
+    <rect x="10" y="35" width="8" height="15" fill="#2c3e50" rx="1"/>
+    <rect x="22" y="35" width="8" height="15" fill="#2c3e50" rx="1"/>
+    <rect x="34" y="35" width="8" height="15" fill="#2c3e50" rx="1"/>
+    <rect x="46" y="35" width="8" height="15" fill="#2c3e50" rx="1"/>
+    
+    <!-- Status lights -->
+    <circle cx="15" cy="60" r="3" fill="#28A745"/>
+    <circle cx="25" cy="60" r="3" fill="#28A745"/>
+    <circle cx="35" cy="60" r="3" fill="#FFD700"/>
+    <circle cx="45" cy="60" r="3" fill="#28A745"/>
+    
+    <!-- Panel door (open) -->
+    <rect x="-15" y="0" width="12" height="80" fill="#f8f9fa" stroke="#2c3e50" stroke-width="2" rx="2"/>
+    <circle cx="-7" cy="40" r="2" fill="#6c757d"/>
+  </g>
+  
+  <!-- Cleaning equipment -->
+  <g transform="translate(100, 350)">
+    <!-- Cleaning cart -->
+    <rect x="0" y="0" width="60" height="40" fill="#6c757d" rx="4"/>
+    <rect x="5" y="5" width="50" height="30" fill="#495057" rx="2"/>
+    
+    <!-- Supplies on cart -->
+    <rect x="10" y="10" width="12" height="20" fill="#17a2b8" rx="2"/>
+    <rect x="25" y="10" width="12" height="20" fill="#28A745" rx="2"/>
+    <rect x="40" y="10" width="12" height="20" fill="#FFD700" rx="2"/>
+    
+    <!-- Mop bucket -->
+    <ellipse cx="15" cy="50" rx="12" ry="8" fill="#17a2b8"/>
+    <ellipse cx="15" cy="45" rx="12" ry="8" fill="#17a2b8" opacity="0.8"/>
+    
+    <!-- Mop -->
+    <rect x="35" y="20" width="3" height="40" fill="#8B4513"/>
+    <ellipse cx="36.5" cy="15" rx="8" ry="5" fill="#f8f9fa"/>
+    
+    <!-- Wheels -->
+    <circle cx="10" cy="45" r="4" fill="#2c3e50"/>
+    <circle cx="50" cy="45" r="4" fill="#2c3e50"/>
+  </g>
+  
+  <!-- Security system -->
+  <g transform="translate(650, 120)">
+    <!-- Security panel -->
+    <rect x="0" y="0" width="40" height="60" fill="#2c3e50" rx="4"/>
+    <rect x="3" y="3" width="34" height="54" fill="#34495e" rx="2"/>
+    
+    <!-- Display screen -->
+    <rect x="8" y="8" width="24" height="16" fill="#000000" rx="2"/>
+    <text x="20" y="18" text-anchor="middle" font-family="Arial, sans-serif" font-size="6" fill="#28A745">SECURE</text>
+    
+    <!-- Keypad -->
+    <circle cx="12" cy="32" r="3" fill="#6c757d"/>
+    <circle cx="20" cy="32" r="3" fill="#6c757d"/>
+    <circle cx="28" cy="32" r="3" fill="#6c757d"/>
+    <circle cx="12" cy="42" r="3" fill="#6c757d"/>
+    <circle cx="20" cy="42" r="3" fill="#6c757d"/>
+    <circle cx="28" cy="42" r="3" fill="#6c757d"/>
+    <circle cx="12" cy="52" r="3" fill="#6c757d"/>
+    <circle cx="20" cy="52" r="3" fill="#6c757d"/>
+    <circle cx="28" cy="52" r="3" fill="#6c757d"/>
+    
+    <!-- Status LED -->
+    <circle cx="35" cy="10" r="2" fill="#28A745"/>
+  </g>
+  
+  <!-- Fire safety equipment -->
+  <g transform="translate(50, 250)">
+    <!-- Fire extinguisher -->
+    <rect x="0" y="0" width="15" height="40" fill="#DC3545" rx="7"/>
+    <rect x="2" y="2" width="11" height="36" fill="#B71C1C" rx="5"/>
+    <rect x="5" y="-5" width="5" height="8" fill="#2c3e50" rx="2"/>
+    <circle cx="7.5" cy="20" r="6" fill="white"/>
+    <path d="M 4.5 17 L 4.5 23 M 1.5 20 L 7.5 20" stroke="#DC3545" stroke-width="2"/>
+    
+    <!-- Fire alarm -->
+    <circle cx="30" cy="20" r="12" fill="#DC3545"/>
+    <circle cx="30" cy="20" r="8" fill="#B71C1C"/>
+    <circle cx="30" cy="20" r="4" fill="white"/>
+    <text x="30" y="23" text-anchor="middle" font-family="Arial, sans-serif" font-size="6" font-weight="bold" fill="#DC3545">!</text>
+  </g>
+  
+  <!-- Maintenance schedule board -->
+  <g transform="translate(300, 300)">
+    <rect x="0" y="0" width="200" height="120" fill="white" stroke="#2c3e50" stroke-width="2" rx="4"/>
+    <rect x="0" y="0" width="200" height="25" fill="#0066CC" rx="4"/>
+    <text x="100" y="17" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">MAINTENANCE SCHEDULE</text>
+    
+    <!-- Schedule items -->
+    <text x="10" y="45" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">✓ HVAC System Check - Daily</text>
+    <text x="10" y="60" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">✓ Electrical Panel Inspection - Weekly</text>
+    <text x="10" y="75" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">✓ Fire Safety Equipment - Monthly</text>
+    <text x="10" y="90" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">✓ Security System Test - Bi-weekly</text>
+    <text x="10" y="105" font-family="Arial, sans-serif" font-size="10" fill="#2c3e50">• Deep Cleaning - Quarterly</text>
+  </g>
+  
+  <!-- Company branding -->
+  <g transform="translate(400, 520)" opacity="0.8">
+    <rect x="-120" y="-15" width="240" height="30" fill="white" stroke="#0066CC" stroke-width="2" rx="6"/>
+    <text x="0" y="0" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#0066CC">P-22 CORP FACILITY SUPPORT SERVICES</text>
+  </g>
+  
+  <!-- Professional lighting -->
+  <ellipse cx="400" cy="250" rx="350" ry="200" fill="white" opacity="0.05"/>
+  
+  <!-- Arrow marker for airflow -->
+  <defs>
+    <marker id="airflow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#17a2b8"/>
+    </marker>
+  </defs>
+</svg>
