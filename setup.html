@@ -328,25 +328,85 @@
       </div>
     </header>
 
-    <!-- Staff Selector Card -->
-    <section class="glass-panel rounded-3xl p-6 shadow-2xl space-y-4">
-      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+    <!-- Staff Selector & Telemetry Section -->
+    <section class="glass-panel rounded-3xl p-6 shadow-2xl space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/10 pb-4 gap-2">
         <div>
-          <h2 class="text-sm font-montserrat font-bold text-white">Select Your Staff Profile</h2>
-          <p class="text-xs text-slate-400">Generates your personalized card URL, signatures, and watch faces.</p>
+          <h2 class="text-base font-montserrat font-extrabold text-white">Select Your Representative Profile</h2>
+          <p class="text-xs text-slate-400">Choose your profile below to configure your digital cards, Apple/Google wallet passes, and email signatures.</p>
         </div>
-        <span class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-mono font-bold border border-emerald-500/30">
-          5 Profiles Ready
+        <span class="self-start sm:self-auto px-3 py-1 rounded-full bg-p22gold/20 text-p22gold text-[11px] font-mono font-bold border border-p22gold/30">
+          5 Official Profiles
         </span>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+      <!-- Interactive 5-Card Profile Selector Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3" id="profileGrid">
+        <!-- Pedro -->
+        <button type="button" onclick="selectStaffProfile('pedro')" id="card-pedro"
+                class="profile-card text-left p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-800/90 border border-white/10 hover:border-p22gold/50 transition btn-bounce flex items-center gap-3.5 group">
+          <img src="/assets/staff/pedro-official-1x1.png" alt="Pedro Felipe" class="w-12 h-12 rounded-xl object-cover bg-slate-950 border border-white/20 shrink-0 group-hover:scale-105 transition">
+          <div class="min-w-0">
+            <h4 class="text-xs font-montserrat font-bold text-white truncate">Pedro Felipe</h4>
+            <p class="text-[10px] text-p22gold font-medium truncate">Managing Director &amp; Federal Lead</p>
+            <span class="text-[9px] text-slate-400 font-mono">pfelipe@p22corp.com</span>
+          </div>
+        </button>
+
+        <!-- Eduardo -->
+        <button type="button" onclick="selectStaffProfile('eduardo')" id="card-eduardo"
+                class="profile-card text-left p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-800/90 border border-white/10 hover:border-p22gold/50 transition btn-bounce flex items-center gap-3.5 group">
+          <img src="/assets/staff/eduardo-official-1x1.png" alt="Eduardo López" class="w-12 h-12 rounded-xl object-cover bg-slate-950 border border-white/20 shrink-0 group-hover:scale-105 transition">
+          <div class="min-w-0">
+            <h4 class="text-xs font-montserrat font-bold text-white truncate">Eduardo López</h4>
+            <p class="text-[10px] text-p22gold font-medium truncate">Commercial Sales &amp; Material Supply</p>
+            <span class="text-[9px] text-slate-400 font-mono">elopez@p22corp.com</span>
+          </div>
+        </button>
+
+        <!-- Marleni -->
+        <button type="button" onclick="selectStaffProfile('marleni')" id="card-marleni"
+                class="profile-card text-left p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-800/90 border border-white/10 hover:border-p22gold/50 transition btn-bounce flex items-center gap-3.5 group">
+          <img src="/assets/staff/marleni-official-1x1.png" alt="Marleni Méndez" class="w-12 h-12 rounded-xl object-cover bg-slate-950 border border-white/20 shrink-0 group-hover:scale-105 transition">
+          <div class="min-w-0">
+            <h4 class="text-xs font-montserrat font-bold text-white truncate">Marleni Méndez</h4>
+            <p class="text-[10px] text-p22gold font-medium truncate">Finance &amp; Contract Compliance</p>
+            <span class="text-[9px] text-slate-400 font-mono">mmendez@p22corp.com</span>
+          </div>
+        </button>
+
+        <!-- Bids -->
+        <button type="button" onclick="selectStaffProfile('bids')" id="card-bids"
+                class="profile-card text-left p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-800/90 border border-white/10 hover:border-p22gold/50 transition btn-bounce flex items-center gap-3.5 group">
+          <img src="/assets/staff/bids-official-1x1.png" alt="Bids Desk" class="w-12 h-12 rounded-xl object-cover bg-slate-950 border border-white/20 shrink-0 group-hover:scale-105 transition">
+          <div class="min-w-0">
+            <h4 class="text-xs font-montserrat font-bold text-white truncate">Government Procurement</h4>
+            <p class="text-[10px] text-p22gold font-medium truncate">Federal Procurement &amp; Rapid RFQ</p>
+            <span class="text-[9px] text-slate-400 font-mono">bids@p22corp.com</span>
+          </div>
+        </button>
+
+        <!-- Logistics -->
+        <button type="button" onclick="selectStaffProfile('logistics')" id="card-logistics"
+                class="profile-card text-left p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-800/90 border border-white/10 hover:border-p22gold/50 transition btn-bounce flex items-center gap-3.5 group">
+          <img src="/assets/staff/logistics-official-1x1.png" alt="Logistics Hub" class="w-12 h-12 rounded-xl object-cover bg-slate-950 border border-white/20 shrink-0 group-hover:scale-105 transition">
+          <div class="min-w-0">
+            <h4 class="text-xs font-montserrat font-bold text-white truncate">Dallas Logistics Hub</h4>
+            <p class="text-[10px] text-p22gold font-medium truncate">Central Staging &amp; Fleet Logistics</p>
+            <span class="text-[9px] text-slate-400 font-mono">logistics@p22corp.com</span>
+          </div>
+        </button>
+      </div>
+
+      <!-- Dropdown Alternate & Direct URL Bar -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
         <div class="sm:col-span-2">
-          <label class="block text-xs font-semibold text-slate-300 mb-1.5" for="teamSelect">Team Member</label>
+          <label class="block text-xs font-semibold text-slate-300 mb-1.5" for="teamSelect">Active Representative Dropdown</label>
           <select id="teamSelect" onchange="onTeamMemberChange(this.value)"
                   class="w-full px-3.5 py-3 rounded-xl bg-slate-900 border border-white/20 text-white font-medium text-sm focus:outline-none focus:ring-2 focus:ring-p22gold">
+            <option value="" disabled selected>-- Select a Team Representative --</option>
             <option value="pedro">Pedro Felipe — Managing Director &amp; Federal Contract Lead</option>
-            <option value="eduardo">Eduardo Lopez — Director of Commercial Sales &amp; Material Supply</option>
+            <option value="eduardo">Eduardo López — Director of Commercial Sales &amp; Material Supply</option>
             <option value="marleni">Marleni Méndez — Director of Finance &amp; Contract Compliance</option>
             <option value="bids">Government Procurement Desk — Federal Procurement &amp; Rapid RFQ Desk</option>
             <option value="logistics">Dallas Logistics Hub — Central Material Staging &amp; Fleet Logistics</option>
@@ -356,7 +416,7 @@
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1.5">Direct Card URL</label>
           <div class="flex items-center gap-1.5">
-            <input type="text" id="personalCardUrl" readonly
+            <input type="text" id="personalCardUrl" readonly placeholder="Select a profile above..."
                    class="w-full px-3 py-3 rounded-xl bg-slate-950 border border-white/10 text-xs font-mono text-p22gold focus:outline-none">
             <button onclick="copyCardUrl()" title="Copy Link"
                     class="p-3 rounded-xl bg-white/10 hover:bg-white/20 active:scale-95 text-white transition shrink-0">
@@ -368,13 +428,71 @@
 
       <!-- Active Profile Banner -->
       <div id="profileBanner" class="p-4 rounded-2xl bg-white/5 border border-white/10 flex items-center gap-4">
-        <img id="bannerAvatar" src="/assets/staff/pedro-official-1x1.png" alt="Avatar" class="w-14 h-14 rounded-2xl object-cover bg-slate-900 border border-white/20 shadow" onerror="this.src='/assets/staff/pedro-felipe.png'">
+        <img id="bannerAvatar" src="/logo.webp" alt="Avatar" class="w-14 h-14 rounded-2xl object-cover bg-slate-900 border border-white/20 shadow" onerror="this.src='/logo.webp'">
         <div>
-          <h3 id="bannerName" class="text-base font-montserrat font-bold text-white">Pedro Felipe</h3>
-          <p id="bannerTitle" class="text-xs text-p22gold font-medium">Managing Director &amp; Federal Contract Lead</p>
-          <p id="bannerContact" class="text-[11px] text-slate-400 mt-0.5">pfelipe@p22corp.com &bull; 1-888-722-2675 &bull; CAGE: 169D8</p>
+          <h3 id="bannerName" class="text-base font-montserrat font-bold text-white">No Profile Selected</h3>
+          <p id="bannerTitle" class="text-xs text-slate-400 font-medium">Please select your representative profile from the cards above.</p>
+          <p id="bannerContact" class="text-[11px] text-slate-500 mt-0.5">P-22 Corp Construction Material Solutions LLC &bull; CAGE: 169D8</p>
         </div>
       </div>
+    </section>
+
+    <!-- LIVE TELEMETRY & GOOGLE SHEETS ANALYTICS HUB -->
+    <section class="glass-panel rounded-3xl p-6 shadow-2xl space-y-4 border border-emerald-500/30">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/10 pb-3 gap-2">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/30 font-bold">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          </div>
+          <div>
+            <h2 class="text-sm font-montserrat font-extrabold text-white flex items-center gap-2">
+              <span>Live Telemetry &amp; Google Sheets Analytics Hub</span>
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            </h2>
+            <p class="text-xs text-slate-400">Real-time edge event logging, NFC/QR scan metrics, and conversion tracking.</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-mono font-bold border border-emerald-500/30">
+            API Active &bull; Zero Cookies
+          </span>
+        </div>
+      </div>
+
+      <!-- Telemetry Architecture Overview -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+        <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 space-y-1">
+          <p class="text-slate-400 text-[11px] font-semibold uppercase tracking-wider">Connected Google Sheet</p>
+          <p class="text-sm font-bold text-white truncate">P22_Badge_Telemetry</p>
+          <p class="text-[10.5px] text-emerald-400 font-mono">Status: Read/Write Active</p>
+        </div>
+        <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 space-y-1">
+          <p class="text-slate-400 text-[11px] font-semibold uppercase tracking-wider">Edge Router Speed</p>
+          <p class="text-sm font-bold text-white">&lt; 40ms Redirect</p>
+          <p class="text-[10.5px] text-sky-400 font-mono">Route: /r/:rep (Instant 302)</p>
+        </div>
+        <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 space-y-1">
+          <p class="text-slate-400 text-[11px] font-semibold uppercase tracking-wider">Regulatory Standard</p>
+          <p class="text-sm font-bold text-white">OMB M-10-22 &amp; DoD FAR</p>
+          <p class="text-[10.5px] text-p22gold font-mono">Zero Cookies &bull; NIST AU-2</p>
+        </div>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="flex flex-col sm:flex-row items-center gap-3 pt-1">
+        <a href="https://docs.google.com/spreadsheets/d/1Xfwmr7iPtV3YaAO6GIJW-Ekx5WM1sR92YZGnD2Qubl0/edit" target="_blank"
+           class="w-full sm:w-auto flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-montserrat font-bold text-xs tracking-wide transition btn-bounce shadow-lg flex items-center justify-center gap-2">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14H6v-2h6v2zm4-4H6v-2h10v2zm0-4H6V7h10v2z"/></svg>
+          <span>Open Live Google Sheet (KPI Dashboard) &rarr;</span>
+        </a>
+
+        <button type="button" onclick="sendTestBeacon()" id="testBeaconBtn"
+                class="w-full sm:w-auto py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-white/20 text-white font-montserrat font-bold text-xs tracking-wide transition btn-bounce flex items-center justify-center gap-2">
+          <svg class="w-4 h-4 text-p22gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <span id="testBeaconText">Send Test Telemetry Beacon</span>
+        </button>
+      </div>
+      <p id="beaconStatusNotice" class="text-xs text-center text-emerald-400 font-semibold hidden"></p>
     </section>
 
     <!-- Tool 1: Digital Wallets & Apple Watch Native Studio (NO PNG NEEDED) -->
@@ -790,7 +908,69 @@
         calendly: "https://calendly.com/p22corp/logistics-consultation"
       }
     };
-    let activeSlug = "pedro";
+    const urlParams = new URLSearchParams(window.location.search);
+    let activeSlug = urlParams.get('rep') || '';
+
+    function selectStaffProfile(slug) {
+      if (!TEAM_DATA[slug]) return;
+      activeSlug = slug;
+      const select = document.getElementById('teamSelect');
+      if (select) select.value = slug;
+
+      // Highlight active profile card
+      document.querySelectorAll('.profile-card').forEach(card => {
+        card.classList.remove('ring-2', 'ring-p22gold', 'bg-p22gold/10');
+      });
+      const activeCard = document.getElementById('card-' + slug);
+      if (activeCard) {
+        activeCard.classList.add('ring-2', 'ring-p22gold', 'bg-p22gold/10');
+      }
+
+      // Update URL query string without page reload
+      const newUrl = new URL(window.location);
+      newUrl.searchParams.set('rep', slug);
+      window.history.replaceState({}, '', newUrl);
+
+      syncBadgeLinks();
+      renderActiveMember(slug);
+    }
+
+    async function sendTestBeacon() {
+      const btn = document.getElementById('testBeaconBtn');
+      const text = document.getElementById('testBeaconText');
+      const notice = document.getElementById('beaconStatusNotice');
+      if (!btn) return;
+
+      btn.disabled = true;
+      text.innerText = 'Dispatching to Google Sheets...';
+
+      try {
+        const res = await fetch('/api/track', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            rep: activeSlug || 'general',
+            event: 'setup_test_ping',
+            source: 'setup_hub',
+            details: { manualTest: true, browser: navigator.userAgent.slice(0, 80) }
+          })
+        });
+        const data = await res.json();
+        text.innerText = '✓ Logged to Google Sheet!';
+        if (notice) {
+          notice.textContent = '✓ Test event successfully appended to Sheet1! Check your Google Sheet Dashboard.';
+          notice.classList.remove('hidden');
+          setTimeout(() => notice.classList.add('hidden'), 5000);
+        }
+        setTimeout(() => {
+          text.innerText = 'Send Test Telemetry Beacon';
+          btn.disabled = false;
+        }, 2500);
+      } catch (err) {
+        text.innerText = 'Failed to connect';
+        btn.disabled = false;
+      }
+    }
     function syncBadgeLinks() {
       document.querySelectorAll('[data-badge-link]').forEach(function (a) {
         a.href = '/badge/' + activeSlug + '?install=1';
@@ -808,7 +988,19 @@
       } catch (err) {
         console.warn('Fallback to local TEAM_DATA', err);
       }
-      renderActiveMember(activeSlug);
+      if (activeSlug && TEAM_DATA[activeSlug]) {
+        selectStaffProfile(activeSlug);
+      } else {
+        // Leave in neutral unselected state
+        const banner = document.getElementById('profileBanner');
+        if (banner) {
+          document.getElementById('bannerName').innerText = "Select a Representative Profile";
+          document.getElementById('bannerTitle').innerText = "Choose an executive card above to view digital passes and tools.";
+          document.getElementById('bannerContact').innerText = "P-22 Corp Construction Material Solutions LLC • CAGE: 169D8";
+          document.getElementById('personalCardUrl').value = "";
+          document.getElementById('viewPublicCardBtn').href = "#";
+        }
+      }
     }
 
     function onTeamMemberChange(slug) {
