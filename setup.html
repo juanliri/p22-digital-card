@@ -49,6 +49,13 @@
       color: #E2E8F0;
       -webkit-tap-highlight-color: transparent;
     }
+    /* Prevent body scroll when PIN gate is active (stops iOS keyboard revealing content) */
+    body.auth-locked {
+      overflow: hidden;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+    }
     .glass-panel {
       background: rgba(19, 31, 51, 0.85);
       backdrop-filter: blur(24px);
@@ -67,6 +74,26 @@
     .btn-bounce:active {
       transform: scale(0.96);
     }
+    /* PIN gate overlay: use 100dvh so it covers the full screen even with keyboard open */
+    #staffAuthModal {
+      height: 100dvh;
+      height: 100vh; /* fallback */
+    }
+    /* Modal panels: sticky close button so X always stays at top */
+    .modal-close-bar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(19, 31, 51, 0.97);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      margin: -1.5rem -1.5rem 0.5rem -1.5rem;
+      padding: 0.75rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
   </style>
 </head>
 <body class="min-h-screen relative flex flex-col items-center justify-start p-3 sm:p-6 selection:bg-p22gold selection:text-slate-950">
@@ -77,7 +104,7 @@
   <!-- ====================================================================== -->
   <!-- PIN GATE OVERLAY: Executive Staff Access Control -->
   <!-- ====================================================================== -->
-  <div id="staffAuthModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/95 backdrop-blur-2xl transition-opacity duration-300">
+  <div id="staffAuthModal" class="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-slate-950/97 backdrop-blur-3xl transition-opacity duration-300">
     <div class="glass-panel w-full max-w-sm rounded-3xl p-6 sm:p-8 text-center shadow-2xl relative border border-p22gold/30 gold-glow">
       <div class="w-16 h-16 rounded-2xl bg-white/10 p-2 mx-auto mb-4 border border-white/20 shadow-lg flex items-center justify-center">
         <img src="logo.webp" alt="P-22 Corp Logo" class="w-full h-full object-contain" onerror="this.src='assets/branding/p22-logo-tight.png'">
@@ -106,111 +133,118 @@
   </div>
 
   <!-- Modal: Apple Wallet & Apple Watch Pass (NO PNG NEEDED) -->
-  <div id="appleWalletModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md">
-    <div class="glass-panel w-full max-w-md rounded-3xl p-6 shadow-2xl relative border border-white/20 space-y-4 max-h-[90vh] overflow-y-auto">
-      <button onclick="closeAppleWalletModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-full bg-white/5">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
-      </button>
-
-      <div class="flex items-center gap-2.5">
-        <div class="w-9 h-9 rounded-xl bg-black border border-white/20 flex items-center justify-center text-white">
-          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.77 1.06-1.85.94-2.93-.91.04-2.02.61-2.67 1.38-.58.67-1.09 1.77-.95 2.82 1.02.08 2.05-.5 2.68-1.27z"/></svg>
-        </div>
-        <div>
-          <h3 class="text-base font-montserrat font-extrabold text-white">Apple Wallet &amp; Apple Watch Pass</h3>
-          <p class="text-xs text-p22gold font-medium" id="appleWalletRepLabel">Pedro Felipe &bull; P-22 Corp</p>
-        </div>
-      </div>
-
-      <!-- Pass Card Visual Mockup -->
-      <div class="rounded-2xl p-4 bg-gradient-to-b from-[#1D3557] to-[#0A1322] border border-white/20 shadow-xl space-y-3">
-        <div class="flex items-center justify-between border-b border-white/10 pb-2">
-          <div class="flex items-center gap-2">
-            <img src="logo.webp" class="w-6 h-6 object-contain" alt="Logo">
-            <span class="text-xs font-montserrat font-extrabold text-white tracking-wider">P-22 CORP</span>
+  <div id="appleWalletModal" class="hidden fixed inset-0 z-[250] flex items-center justify-center p-4 bg-slate-950/92 backdrop-blur-md">
+    <div class="glass-panel w-full max-w-md rounded-3xl shadow-2xl relative border border-white/20 max-h-[92dvh] overflow-y-auto" style="overscroll-behavior:contain;">
+      <!-- Sticky Close Bar -->
+      <div class="modal-close-bar sticky top-0 z-20 rounded-t-3xl bg-[#0F1E33]/95 backdrop-blur px-5 py-3.5 border-b border-white/10 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-black border border-white/20 flex items-center justify-center text-white">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.77 1.06-1.85.94-2.93-.91.04-2.02.61-2.67 1.38-.58.67-1.09 1.77-.95 2.82 1.02.08 2.05-.5 2.68-1.27z"/></svg>
           </div>
-          <span class="text-[10px] font-mono text-p22gold font-bold">CAGE: 169D8</span>
+          <div>
+            <h3 class="text-sm font-montserrat font-extrabold text-white">Apple Wallet &amp; Watch Pass</h3>
+            <p class="text-xs text-p22gold font-medium" id="appleWalletRepLabel">Pedro Felipe &bull; P-22 Corp</p>
+          </div>
         </div>
-        <div>
-          <p class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Government Material Solutions</p>
-          <h4 class="text-base font-montserrat font-bold text-white" id="appleWalletModalName">Pedro Felipe</h4>
-          <p class="text-xs text-sky-200" id="appleWalletModalTitle">Managing Director</p>
-        </div>
-        <div class="p-3 bg-white rounded-xl flex items-center justify-center">
-          <div id="appleWalletQrCode"></div>
-        </div>
-        <p class="text-[10px] text-center font-mono text-slate-400">Scan at Booth &bull; Direct Agency Intake</p>
+        <button onclick="closeAppleWalletModal()" class="text-slate-400 hover:text-white p-2 rounded-full bg-white/10 hover:bg-white/20 transition" aria-label="Close">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
       </div>
 
-      <!-- Native Installation Actions -->
-      <div class="space-y-2.5 text-xs text-slate-300">
-        <!-- Watch Sync Explainer Callout -->
-        <div class="p-3.5 rounded-2xl bg-sky-500/10 border border-sky-500/20 text-sky-200 space-y-1">
-          <p class="font-bold text-white flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-sky-400"></span>
-            Automatic Apple Watch Wrist Mirroring:
-          </p>
-          <p class="text-[11px] leading-relaxed text-slate-300">
-            Adding this pass to Apple Wallet on your iPhone <strong>automatically adds it to the Wallet app on your Apple Watch</strong>. Double-click the side button on your Apple Watch anytime to bring up your badge and QR code on your wrist—no photo wallpapers needed!
-          </p>
+      <!-- Modal Content -->
+      <div class="px-6 pb-6 pt-4 space-y-4">
+        <!-- Pass Card Visual Mockup -->
+        <div class="rounded-2xl p-4 bg-gradient-to-b from-[#1D3557] to-[#0A1322] border border-white/20 shadow-xl space-y-3">
+          <div class="flex items-center justify-between border-b border-white/10 pb-2">
+            <div class="flex items-center gap-2">
+              <img src="logo.webp" class="w-6 h-6 object-contain" alt="Logo">
+              <span class="text-xs font-montserrat font-extrabold text-white tracking-wider">P-22 CORP</span>
+            </div>
+            <span class="text-[10px] font-mono text-p22gold font-bold">CAGE: 169D8</span>
+          </div>
+          <div>
+            <p class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Government Material Solutions</p>
+            <h4 class="text-base font-montserrat font-bold text-white" id="appleWalletModalName">Pedro Felipe</h4>
+            <p class="text-xs text-sky-200" id="appleWalletModalTitle">Managing Director</p>
+          </div>
+          <div class="p-3 bg-white rounded-xl flex items-center justify-center">
+            <div id="appleWalletQrCode"></div>
+          </div>
+          <p class="text-[10px] text-center font-mono text-slate-400">Scan at Booth &bull; Direct Agency Intake</p>
         </div>
 
-        <!-- 1-Tap iOS Contacts Button (100% Working on Safari) -->
-        <a id="appleWalletVcfDirect" href="assets/vcf/pedro.vcf"
-           class="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-montserrat font-bold text-xs tracking-wide transition btn-bounce shadow-lg flex items-center justify-center gap-2">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-          <span>Save Contact Card to iPhone Contacts (1-Tap Native .VCF)</span>
-        </a>
-        <p class="text-[10px] text-emerald-400 text-center -mt-1 font-medium">
-          ✓ 100% Native in Safari &bull; Adds photo, CAGE 169D8, direct phone &amp; email into Contacts
-        </p>
+        <!-- Native Installation Actions -->
+        <div class="space-y-2.5 text-xs text-slate-300">
+          <!-- Watch Sync Explainer Callout -->
+          <div class="p-3.5 rounded-2xl bg-sky-500/10 border border-sky-500/20 text-sky-200 space-y-1">
+            <p class="font-bold text-white flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+              Automatic Apple Watch Wrist Mirroring:
+            </p>
+            <p class="text-[11px] leading-relaxed text-slate-300">
+              Adding this pass to Apple Wallet on your iPhone <strong>automatically adds it to the Wallet app on your Apple Watch</strong>. Double-click the side button on your Apple Watch anytime to bring up your badge and QR code on your wrist—no photo wallpapers needed!
+            </p>
+          </div>
 
-        <!-- Built-in Native Apple Watch Shortcuts Guide -->
-        <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 space-y-2 text-[11px] text-slate-300">
-          <p class="font-bold text-white flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-sky-400"></span>
-            Built-in Apple Watch Wrist Complication (No Extra Apps):
+          <!-- 1-Tap iOS Contacts Button (100% Working on Safari) -->
+          <a id="appleWalletVcfDirect" href="assets/vcf/pedro.vcf"
+             class="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-montserrat font-bold text-xs tracking-wide transition btn-bounce shadow-lg flex items-center justify-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+            <span>Save Contact Card to iPhone Contacts (1-Tap Native .VCF)</span>
+          </a>
+          <p class="text-[10px] text-emerald-400 text-center -mt-1 font-medium">
+            ✓ 100% Native in Safari &bull; Adds photo, CAGE 169D8, direct phone &amp; email into Contacts
           </p>
-          <ol class="list-decimal list-inside space-y-1.5 text-slate-300">
-            <li>Open the built-in <strong>Shortcuts</strong> app on your iPhone.</li>
-            <li>Tap <strong>"+"</strong> &rarr; Add Action &rarr; Search <strong>"Open URL"</strong>.</li>
-            <li>Paste your card link: <code class="text-p22gold font-mono text-[10px]" id="shortcutUrlDisplay">https://p22-digital-card.vercel.app/pedro</code>.</li>
-            <li>Tap Shortcut Details (top icon) &rarr; turn on <strong>"Show on Apple Watch"</strong>.</li>
-            <li>Edit your Apple Watch Face &rarr; add the Shortcut as a <strong>Complication</strong>!</li>
-          </ol>
-          <p class="text-[10.5px] text-p22gold font-semibold pt-0.5">
-            ✓ Tap your watch dial anytime at the expo booth to launch your digital card instantly on your wrist!
-          </p>
-        </div>
 
-        <!-- PWA Home Screen Tip -->
-        <div class="p-3 rounded-xl bg-white/5 border border-white/10 text-center">
-          <p class="text-[11px] text-slate-300">
-            💡 <strong>1-Tap Home Screen App:</strong> In Safari, tap <strong class="text-white">Share &rarr; Add to Home Screen</strong> to install P-22 Corp as a standalone native app icon on your iPhone.
-          </p>
+          <!-- Built-in Native Apple Watch Shortcuts Guide -->
+          <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 space-y-2 text-[11px] text-slate-300">
+            <p class="font-bold text-white flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+              Built-in Apple Watch Wrist Complication (No Extra Apps):
+            </p>
+            <ol class="list-decimal list-inside space-y-1.5 text-slate-300">
+              <li>Open the built-in <strong>Shortcuts</strong> app on your iPhone.</li>
+              <li>Tap <strong>"+"</strong> &rarr; Add Action &rarr; Search <strong>"Open URL"</strong>.</li>
+              <li>Paste your card link: <code class="text-p22gold font-mono text-[10px]" id="shortcutUrlDisplay">https://p22-digital-card.vercel.app/pedro</code>.</li>
+              <li>Tap Shortcut Details (top icon) &rarr; turn on <strong>"Show on Apple Watch"</strong>.</li>
+              <li>Edit your Apple Watch Face &rarr; add the Shortcut as a <strong>Complication</strong>!</li>
+            </ol>
+            <p class="text-[10.5px] text-p22gold font-semibold pt-0.5">
+              ✓ Tap your watch dial anytime at the expo booth to launch your digital card instantly on your wrist!
+            </p>
+          </div>
+
+          <!-- PWA Home Screen Tip -->
+          <div class="p-3 rounded-xl bg-white/5 border border-white/10 text-center">
+            <p class="text-[11px] text-slate-300">
+              💡 <strong>1-Tap Home Screen App:</strong> In Safari, tap <strong class="text-white">Share &rarr; Add to Home Screen</strong> to install P-22 Corp as a standalone native app icon on your iPhone.
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Modal: Google Wallet Pass -->
-  <div id="googleWalletModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md">
-    <div class="glass-panel w-full max-w-md rounded-3xl p-6 shadow-2xl relative border border-white/20 space-y-4">
-      <button onclick="closeGoogleWalletModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-full bg-white/5">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
-      </button>
-
-      <div class="flex items-center gap-2.5">
-        <div class="w-9 h-9 rounded-xl bg-slate-900 border border-white/20 flex items-center justify-center">
-          <svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+  <div id="googleWalletModal" class="hidden fixed inset-0 z-[250] flex items-center justify-center p-4 bg-slate-950/92 backdrop-blur-md">
+    <div class="glass-panel w-full max-w-md rounded-3xl shadow-2xl relative border border-white/20 max-h-[92dvh] overflow-y-auto" style="overscroll-behavior:contain;">
+      <!-- Sticky Close Bar -->
+      <div class="modal-close-bar sticky top-0 z-20 rounded-t-3xl bg-[#0F1E33]/95 backdrop-blur px-5 py-3.5 border-b border-white/10 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-slate-900 border border-white/20 flex items-center justify-center">
+            <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+          </div>
+          <div>
+            <h3 class="text-sm font-montserrat font-extrabold text-white">Google Wallet &amp; Android</h3>
+            <p class="text-xs text-amber-300 font-medium" id="googleWalletRepLabel">Pedro Felipe &bull; P-22 Corp</p>
+          </div>
         </div>
-        <div>
-          <h3 class="text-base font-montserrat font-extrabold text-white">Google Wallet &amp; Android Pass</h3>
-          <p class="text-xs text-amber-300 font-medium" id="googleWalletRepLabel">Pedro Felipe &bull; P-22 Corp</p>
-        </div>
+        <button onclick="closeGoogleWalletModal()" class="text-slate-400 hover:text-white p-2 rounded-full bg-white/10 hover:bg-white/20 transition" aria-label="Close">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
       </div>
 
-      <div class="space-y-3 text-xs text-slate-300">
+      <div class="px-6 pb-6 pt-4 space-y-4 text-xs text-slate-300">
         <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 space-y-2">
           <p class="font-bold text-white flex items-center gap-1.5">
             <span class="w-2 h-2 rounded-full bg-amber-400"></span>
@@ -235,7 +269,8 @@
       </div>
     </div>
   </div>
-  <main class="w-full max-w-2xl mx-auto space-y-6 relative z-10 pb-12">
+
+  <main id="setupMainContent" class="hidden w-full max-w-2xl mx-auto space-y-6 relative z-10 pb-12">
 
     <!-- Top Admin Header -->
     <header class="glass-panel rounded-3xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xl">
@@ -1181,11 +1216,16 @@
     function checkStaffAuth() {
       const isAuth = sessionStorage.getItem('p22_staff_auth') === 'true';
       const modal = document.getElementById('staffAuthModal');
+      const main = document.getElementById('setupMainContent');
       if (modal) {
         if (isAuth) {
           modal.classList.add('hidden');
+          if (main) main.classList.remove('hidden');
+          document.body.classList.remove('overflow-hidden');
         } else {
           modal.classList.remove('hidden');
+          if (main) main.classList.add('hidden');
+          document.body.classList.add('overflow-hidden');
           const input = document.getElementById('staffPinInput');
           if (input) setTimeout(() => input.focus(), 150);
         }
