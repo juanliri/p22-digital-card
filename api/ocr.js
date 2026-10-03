@@ -109,35 +109,63 @@ If any field is missing or illegible, set its value to an empty string "".
       },
     });
 
-    const options = {
-      hostname: 'generativelanguage.googleapis.com',
-      path: '/v1beta/models/gemini-flash-latest:generateContent',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-goog-api-key': apiKey,
-        'Content-Length': Buffer.byteLength(requestBody),
-      },
-    };
+    const candidateModels = [
+      'gemini-3.5-flash',
+      'gemini-flash-latest',
+      'gemini-flash-lite-latest'
+    ];
 
-    const aiResponse = await new Promise((resolve, reject) => {
-      const apiReq = https.request(options, (apiRes) => {
-        let data = '';
-        apiRes.on('data', (chunk) => (data += chunk));
-        apiRes.on('end', () => {
-          if (apiRes.statusCode >= 200 && apiRes.statusCode < 300) {
-            resolve(data);
-          } else {
-            reject(new Error(`Gemini API error (${apiRes.statusCode}): ${data}`));
-          }
+    async function callGemini(modelName) {
+      const options = {
+        hostname: 'generativelanguage.googleapis.com',
+        path: `/v1beta/models/${modelName}:generateContent`,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-goog-api-key': apiKey,
+          'Content-Length': Buffer.byteLength(requestBody),
+        },
+      };
+
+      return new Promise((resolve, reject) => {
+        const apiReq = https.request(options, (apiRes) => {
+          let data = '';
+          apiRes.on('data', (chunk) => (data += chunk));
+          apiRes.on('end', () => {
+            if (apiRes.statusCode >= 200 && apiRes.statusCode < 300) {
+              resolve({ model: modelName, data });
+            } else {
+              reject(new Error(`Model ${modelName} returned (${apiRes.statusCode}): ${data.slice(0, 180)}`));
+            }
+          });
         });
+        apiReq.on('error', reject);
+        apiReq.setTimeout(12000, () => {
+          apiReq.destroy(new Error(`Timeout calling ${modelName}`));
+        });
+        apiReq.write(requestBody);
+        apiReq.end();
       });
-      apiReq.on('error', reject);
-      apiReq.write(requestBody);
-      apiReq.end();
-    });
+    }
 
-    const parsed = JSON.parse(aiResponse);
+    let aiResult = null;
+    let lastError = null;
+
+    for (const model of candidateModels) {
+      try {
+        aiResult = await callGemini(model);
+        if (aiResult) break;
+      } catch (err) {
+        lastError = err;
+        console.warn(`[-] Gemini model ${model} failed, trying next:`, err.message);
+      }
+    }
+
+    if (!aiResult) {
+      throw lastError || new Error('All Gemini Vision models failed');
+    }
+
+    const parsed = JSON.parse(aiResult.data);
     const candidateText =
       parsed.candidates &&
       parsed.candidates[0] &&
@@ -160,6 +188,7 @@ If any field is missing or illegible, set its value to an empty string "".
     return res.status(200).json({
       ok: true,
       ai_powered: true,
+      model: aiResult.model,
       data: structured,
     });
   } catch (err) {
