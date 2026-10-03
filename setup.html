@@ -359,7 +359,7 @@
         </div>
         <div class="flex items-start gap-2.5 p-3 rounded-xl bg-white/5 border border-white/5">
           <span class="w-5 h-5 rounded-full bg-p22gold text-slate-950 font-bold flex items-center justify-center shrink-0 text-[10px]">3</span>
-          <p>Paste your exact link: <strong id="nfcUrlText" class="text-p22gold font-mono">https://card.p22corp.com/pedro</strong> and hold your physical card to the top edge of your phone.</p>
+          <p>Paste your exact link: <strong id="nfcUrlText" class="text-p22gold font-mono">https://p22-digital-card.vercel.app/pedro</strong> and hold your physical card to the top edge of your phone.</p>
         </div>
       </div>
     </section>
@@ -426,6 +426,33 @@
 
   <!-- Setup Hub Logic -->
   <script>
+    // Canvas roundRect Polyfill for iOS Safari < 16.4 and mobile WebViews
+    if (typeof CanvasRenderingContext2D !== 'undefined' && !CanvasRenderingContext2D.prototype.roundRect) {
+      CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
+        if (typeof r === 'undefined') r = 0;
+        if (typeof r === 'number') r = { tl: r, tr: r, br: r, bl: r };
+        this.beginPath();
+        this.moveTo(x + r.tl, y);
+        this.lineTo(x + w - r.tr, y);
+        this.quadraticCurveTo(x + w, y, x + w, y + r.tr);
+        this.lineTo(x + w, y + h - r.br);
+        this.quadraticCurveTo(x + w, y + h, x + w - r.br, y + h);
+        this.lineTo(x + r.bl, y + h);
+        this.quadraticCurveTo(x, y + h, x, y + h - r.bl);
+        this.lineTo(x, y + r.tl);
+        this.quadraticCurveTo(x, y, x + r.tl, y);
+        this.closePath();
+        return this;
+      };
+    }
+
+    function getAppBaseUrl() {
+      if (typeof window !== 'undefined' && window.location && window.location.origin && window.location.origin !== 'null' && !window.location.origin.includes('file://')) {
+        return window.location.origin;
+      }
+      return 'https://p22-digital-card.vercel.app';
+    }
+
     let TEAM_DATA = {
       pedro: {
         slug: "pedro",
@@ -507,7 +534,7 @@
       const rep = TEAM_DATA[slug] || TEAM_DATA.pedro;
       if (!rep) return;
 
-      const url = `https://card.p22corp.com/${rep.slug}`;
+      const url = `${getAppBaseUrl()}/${rep.slug}`;
       document.getElementById('personalCardUrl').value = url;
       document.getElementById('nfcUrlText').innerText = url;
       document.getElementById('viewPublicCardBtn').href = `/${rep.slug}`;
@@ -531,53 +558,42 @@
     }
 
     // ══════════════════════════════════════════════════════════════════════════
-    // WATCH FACE GENERATOR
+    // WATCH FACE GENERATOR (iOS & Mobile Hardened)
     // ══════════════════════════════════════════════════════════════════════════
     function renderWatchFace(rep) {
       const canvas = document.getElementById('watchCanvas');
+      if (!canvas) return;
       const ctx = canvas.getContext('2d');
 
       canvas.width = 396;
       canvas.height = 484;
 
-      // Background
-      const grad = ctx.createLinearGradient(0, 0, 0, 484);
-      grad.addColorStop(0, '#080D18');
-      grad.addColorStop(1, '#1D3557');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, 396, 484);
+      function drawBaseLayout() {
+        // Background
+        const grad = ctx.createLinearGradient(0, 0, 0, 484);
+        grad.addColorStop(0, '#080D18');
+        grad.addColorStop(1, '#1D3557');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, 396, 484);
 
-      // Gold Accent Header
-      ctx.fillStyle = '#C9A227';
-      ctx.font = 'bold 22px Montserrat, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('P-22 CORP', 198, 48);
+        // Gold Accent Header
+        ctx.fillStyle = '#C9A227';
+        ctx.font = 'bold 22px Montserrat, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('P-22 CORP', 198, 48);
 
-      ctx.fillStyle = '#94A3B8';
-      ctx.font = '600 13px Montserrat, sans-serif';
-      ctx.fillText('CAGE 169D8 • TAP TO CONNECT', 198, 72);
+        ctx.fillStyle = '#94A3B8';
+        ctx.font = '600 13px Montserrat, sans-serif';
+        ctx.fillText('CAGE 169D8 • TAP TO CONNECT', 198, 72);
 
-      // White QR Container Box
-      ctx.fillStyle = '#FFFFFF';
-      ctx.beginPath();
-      ctx.roundRect(58, 92, 280, 280, 24);
-      ctx.fill();
-
-      // In-Memory QR Generation
-      const tempDiv = document.createElement('div');
-      new QRCode(tempDiv, {
-        text: `https://card.p22corp.com/${rep.slug}`,
-        width: 240,
-        height: 240,
-        colorDark: '#1D3557',
-        colorLight: '#FFFFFF',
-        correctLevel: QRCode.CorrectLevel.H
-      });
-
-      setTimeout(() => {
-        const qrImg = tempDiv.querySelector('img') || tempDiv.querySelector('canvas');
-        if (qrImg) {
-          ctx.drawImage(qrImg, 78, 112, 240, 240);
+        // White QR Container Box
+        ctx.fillStyle = '#FFFFFF';
+        if (ctx.roundRect) {
+          ctx.beginPath();
+          ctx.roundRect(58, 92, 280, 280, 24);
+          ctx.fill();
+        } else {
+          ctx.fillRect(58, 92, 280, 280);
         }
 
         // Rep Name & Title Below QR
@@ -592,8 +608,53 @@
 
         ctx.fillStyle = '#94A3B8';
         ctx.font = '11px "Open Sans", sans-serif';
-        ctx.fillText('card.p22corp.com', 198, 460);
-      }, 50);
+        const displayHost = getAppBaseUrl().replace(/^https?:\/\//, '');
+        ctx.fillText(displayHost, 198, 460);
+      }
+
+      drawBaseLayout();
+
+      // Ensure offscreen container attached to DOM for QRCode.js reliability on iOS Safari
+      let offscreen = document.getElementById('offscreenWatchQr');
+      if (!offscreen) {
+        offscreen = document.createElement('div');
+        offscreen.id = 'offscreenWatchQr';
+        offscreen.style.cssText = 'position:fixed;left:-9999px;top:-9999px;width:240px;height:240px;visibility:hidden;';
+        document.body.appendChild(offscreen);
+      }
+      offscreen.innerHTML = '';
+
+      const targetUrl = `${getAppBaseUrl()}/${rep.slug}`;
+      new QRCode(offscreen, {
+        text: targetUrl,
+        width: 240,
+        height: 240,
+        colorDark: '#1D3557',
+        colorLight: '#FFFFFF',
+        correctLevel: QRCode.CorrectLevel.H
+      });
+
+      function tryDrawQr(attempts) {
+        const qrEl = offscreen.querySelector('canvas') || offscreen.querySelector('img');
+        if (qrEl) {
+          if (qrEl.tagName === 'IMG' && !qrEl.complete) {
+            qrEl.onload = () => {
+              try { ctx.drawImage(qrEl, 78, 112, 240, 240); } catch(e) {}
+            };
+            return;
+          }
+          try {
+            ctx.drawImage(qrEl, 78, 112, 240, 240);
+            return;
+          } catch (e) {
+            console.warn('Canvas draw error:', e);
+          }
+        }
+        if (attempts > 0) {
+          setTimeout(() => tryDrawQr(attempts - 1), 60);
+        }
+      }
+      setTimeout(() => tryDrawQr(6), 40);
     }
 
     function downloadWatchGraphic() {
@@ -614,7 +675,7 @@
         <table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Open Sans', Arial, sans-serif; font-size: 13px; color: #1D3557; line-height: 1.4;">
           <tr>
             <td style="padding-right: 18px; vertical-align: middle; border-right: 3px solid #C9A227;">
-              <img src="https://card.p22corp.com/icon-cube.svg" width="64" height="64" alt="P-22 Corp" style="display: block; border-radius: 8px;">
+              <img src="${getAppBaseUrl()}/logo.webp" width="64" height="64" alt="P-22 Corp" style="display: block; border-radius: 8px;">
             </td>
             <td style="padding-left: 18px; vertical-align: middle;">
               <div style="font-family: 'Montserrat', Arial, sans-serif; font-size: 16px; font-weight: 800; color: #1D3557; text-transform: uppercase;">
@@ -634,10 +695,10 @@
                 <strong>CAGE:</strong> 169D8 &bull; <strong>UEI:</strong> X3HUQZ66P6N3 &bull; 18383 Preston Rd, Ste 202, Dallas, TX
               </div>
               <div style="margin-top: 8px;">
-                <a href="https://card.p22corp.com/${rep.slug}" style="display: inline-block; padding: 4px 10px; background-color: #1D3557; color: #FFFFFF; font-size: 10px; font-weight: bold; border-radius: 4px; text-decoration: none;">
+                <a href="${getAppBaseUrl()}/${rep.slug}" style="display: inline-block; padding: 4px 10px; background-color: #1D3557; color: #FFFFFF; font-size: 10px; font-weight: bold; border-radius: 4px; text-decoration: none;">
                   View Digital Card &rarr;
                 </a>
-                <a href="https://www.p22corp.com/capabilities" style="display: inline-block; padding: 4px 10px; background-color: #C9A227; color: #080D18; font-size: 10px; font-weight: bold; border-radius: 4px; text-decoration: none; margin-left: 6px;">
+                <a href="${getAppBaseUrl()}/capability-statement" style="display: inline-block; padding: 4px 10px; background-color: #C9A227; color: #080D18; font-size: 10px; font-weight: bold; border-radius: 4px; text-decoration: none; margin-left: 6px;">
                   Capability Statement (PDF) &rarr;
                 </a>
               </div>
@@ -721,18 +782,30 @@
 
       // Top Right QR Plaque
       ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
-      ctx.beginPath();
-      ctx.roundRect(1540, 80, 280, 340, 24);
-      ctx.fill();
+      if (ctx.roundRect) {
+        ctx.beginPath();
+        ctx.roundRect(1540, 80, 280, 340, 24);
+        ctx.fill();
+      } else {
+        ctx.fillRect(1540, 80, 280, 340);
+      }
 
       ctx.fillStyle = '#1D3557';
       ctx.font = 'bold 20px Montserrat, sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText('SCAN TO CONNECT', 1680, 120);
 
-      const tempQr = document.createElement('div');
-      new QRCode(tempQr, {
-        text: `https://card.p22corp.com/${rep.slug}`,
+      let offscreenBg = document.getElementById('offscreenBgQr');
+      if (!offscreenBg) {
+        offscreenBg = document.createElement('div');
+        offscreenBg.id = 'offscreenBgQr';
+        offscreenBg.style.cssText = 'position:fixed;left:-9999px;top:-9999px;width:200px;height:200px;visibility:hidden;';
+        document.body.appendChild(offscreenBg);
+      }
+      offscreenBg.innerHTML = '';
+
+      new QRCode(offscreenBg, {
+        text: `${getAppBaseUrl()}/${rep.slug}`,
         width: 200,
         height: 200,
         colorDark: '#1D3557',
@@ -740,15 +813,29 @@
         correctLevel: QRCode.CorrectLevel.H
       });
 
-      setTimeout(() => {
-        const qrImg = tempQr.querySelector('img') || tempQr.querySelector('canvas');
+      function tryDrawBgQr(attempts) {
+        const qrImg = offscreenBg.querySelector('img') || offscreenBg.querySelector('canvas');
         if (qrImg) {
-          ctx.drawImage(qrImg, 1580, 140, 200, 200);
+          if (qrImg.tagName === 'IMG' && !qrImg.complete) {
+            qrImg.onload = () => {
+              try { ctx.drawImage(qrImg, 1580, 140, 200, 200); } catch(e) {}
+            };
+            return;
+          }
+          try {
+            ctx.drawImage(qrImg, 1580, 140, 200, 200);
+            return;
+          } catch(e) {}
         }
-        ctx.fillStyle = '#64748B';
-        ctx.font = '600 13px Montserrat, sans-serif';
-        ctx.fillText('Capability Statement (PDF)', 1680, 390);
-      }, 50);
+        if (attempts > 0) {
+          setTimeout(() => tryDrawBgQr(attempts - 1), 60);
+        }
+      }
+      setTimeout(() => tryDrawBgQr(6), 40);
+
+      ctx.fillStyle = '#64748B';
+      ctx.font = '600 13px Montserrat, sans-serif';
+      ctx.fillText('Capability Statement (PDF)', 1680, 390);
     }
 
     // Expo Leads Management for Setup Hub

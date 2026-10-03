@@ -9,8 +9,7 @@
     { "source": "/marleni", "destination": "/index.html" },
     { "source": "/bids", "destination": "/index.html" },
     { "source": "/logistics", "destination": "/index.html" },
-    { "source": "/rep/:slug", "destination": "/index.html" },
-    { "source": "/((?!assets/|.*\\.(?:vcf|pdf|png|jpg|jpeg|webp|svg|mp4|json|ico|html|css|js)$).*)", "destination": "/index.html" }
+    { "source": "/rep/:slug", "destination": "/index.html" }
   ],
   "headers": [
     {
