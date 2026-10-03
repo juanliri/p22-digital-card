@@ -165,7 +165,8 @@ for s in staff_definitions:
         raw_lines.append(f"EMAIL;TYPE=WORK,INTERNET:{s['secondaryEmail']}")
         
     raw_lines.extend([
-        f"URL:{s['url']}",
+        f"URL;TYPE=PREF:{s['url']}",
+        'URL;TYPE=WORK:https://www.p22corp.com',
         'ADR;TYPE=WORK:;;18383 Preston Rd, Suite 202;Dallas;TX;75252;USA',
         f"NOTE:{s['note']}",
         f"CATEGORIES:Government Contractor,P-22 Corp,Procurement",
