@@ -462,16 +462,11 @@
               <!-- Dark gradient melting canopy into card body -->
               <div class="absolute inset-0 bg-gradient-to-b from-[#060B14]/30 via-[#0D1829]/55 to-[#0D1829] pointer-events-none"></div>
 
-              <!-- Federal Verification Status & Dallas Clock Overlays -->
+              <!-- Federal Verification Status Overlay -->
               <div class="absolute top-2.5 inset-x-3.5 flex items-center justify-between pointer-events-none">
                 <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-950/85 border border-emerald-500/40 text-[10px] font-mono font-bold text-emerald-400 backdrop-blur-md shadow">
                   <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                   <span id="fedVerificationBadge">SAM.GOV ACTIVE</span>
-                </div>
-                <div id="dallasClockBadge" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-950/85 border border-p22gold/30 text-[10px] font-mono text-slate-200 backdrop-blur-md shadow">
-                  <span class="w-1.5 h-1.5 rounded-full bg-p22gold animate-pulse"></span>
-                  <span class="text-p22gold font-bold">DFW:</span>
-                  <span id="dallasTimeDisplay" class="text-white font-semibold">--:-- CST</span>
                 </div>
               </div>
             </div>
@@ -967,6 +962,14 @@
             <span>UEI: X3HUQZ66P6N3</span>
             <span>&bull;</span>
             <span>SBA Certified</span>
+          </div>
+          <!-- DFW HQ Live Clock -->
+          <div class="flex justify-center my-1.5">
+            <div id="dallasClockBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-950/85 border border-p22gold/30 text-[10.5px] font-mono text-slate-200 backdrop-blur-md shadow">
+              <span class="w-1.5 h-1.5 rounded-full bg-p22gold animate-pulse"></span>
+              <span class="text-p22gold font-bold">DFW HQ:</span>
+              <span id="dallasTimeDisplay" class="text-white font-semibold">--:-- CST</span>
+            </div>
           </div>
           <p class="text-[11px]">P-22 Corp Construction Material Solutions LLC</p>
           <p class="text-[10px]">18383 Preston Rd, Suite 202, Dallas, TX 75252 &bull; 1-888-722-2675</p>
