@@ -7,10 +7,15 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
   <link rel="icon" type="image/webp" href="/favicon.webp">
   <link rel="shortcut icon" href="/favicon.ico">
-  <link rel="apple-touch-icon" href="/favicon.png">
   <title id="pageTitle">P-22 Corp | Government Material Solutions</title>
   <meta id="pageMetaDesc" name="description" content="Official Digital Smart Profile - P-22 Corp Construction Material Solutions LLC. CAGE: 169D8 | UEI: X3HUQZ66P6N3.">
-  
+  <!-- PWA Manifest & App Standalone Meta -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#060B14">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="P-22 Card">
+
   <!-- Vercel Web Analytics & Insights -->
   <script defer src="/_vercel/insights/script.js"></script>
   <!-- Tailwind CSS CDN -->
@@ -32,8 +37,12 @@
             p22card: '#0D1829',
             p22gold: '#C9A227',
             p22goldHover: '#b59120',
+            p22goldShine: '#E8D48B',
+            p22goldDeep: '#8B6914',
             p22accent: '#E63946',
             p22blue: '#457B9D',
+            p22navyGlow: '#1A3A6B',
+            p22cardGlow: '#0F1F38',
             p22light: '#F1FAEE'
           },
           fontFamily: {
@@ -66,18 +75,54 @@
       -webkit-tap-highlight-color: transparent;
       color: #E2E8F0;
     }
+
+    /* ══════════════════════════════════════════════════════════════════════════
+       LUXURY GLASS PANEL SYSTEM (Phase 1 Upgrade)
+       ══════════════════════════════════════════════════════════════════════════ */
     .glass-panel {
-      background: rgba(13, 24, 41, 0.88);
-      backdrop-filter: blur(28px);
-      -webkit-backdrop-filter: blur(28px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(13, 24, 41, 0.90);
+      backdrop-filter: blur(36px) saturate(1.3);
+      -webkit-backdrop-filter: blur(36px) saturate(1.3);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.35),
+        inset 0 1px 1px rgba(255, 255, 255, 0.06),
+        inset 0 -1px 1px rgba(0, 0, 0, 0.15);
+      position: relative;
+      overflow: hidden;
     }
+    /* Animated shimmer sweep across glass panel borders */
+    .glass-panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(
+        135deg,
+        transparent 40%,
+        rgba(201, 162, 39, 0.25) 50%,
+        transparent 60%
+      );
+      background-size: 300% 300%;
+      animation: shimmerSweep 5s ease-in-out infinite;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      z-index: 1;
+    }
+
     .glass-input {
       background: rgba(6, 11, 20, 0.88);
       border: 1px solid rgba(255, 255, 255, 0.14);
     }
     .gold-glow {
-      box-shadow: 0 0 25px rgba(201, 162, 39, 0.35);
+      box-shadow:
+        0 0 30px rgba(201, 162, 39, 0.35),
+        0 0 60px rgba(201, 162, 39, 0.12),
+        0 4px 20px rgba(0, 0, 0, 0.3);
     }
     .hide-scrollbar::-webkit-scrollbar {
       display: none;
@@ -88,8 +133,23 @@
     }
 
     /* ══════════════════════════════════════════════════════════════════════════
-       P-22 CORP 1:1 MOTION ARCHITECTURE (Extracted from Live Thunderbolt Engine)
+       LUXURY KEYFRAMES (Phase 1 — Shimmer, Avatar Ring, Scroll Reveal)
        ══════════════════════════════════════════════════════════════════════════ */
+    @keyframes shimmerSweep {
+      0%, 100% { background-position: 100% 100%; }
+      50% { background-position: 0% 0%; }
+    }
+
+    @keyframes avatarRingSpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes ctaShimmer {
+      0% { background-position: 200% center; }
+      100% { background-position: -200% center; }
+    }
+
     @keyframes motionBlurIn {
       0% { opacity: 0; filter: blur(14px); transform: scale(0.96); }
       100% { opacity: 1; filter: blur(0px); transform: scale(1); }
@@ -107,7 +167,14 @@
       50% { transform: scale(1.03); }
       100% { transform: scale(1); }
     }
+    @keyframes scrollRevealUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
 
+    /* ══════════════════════════════════════════════════════════════════════════
+       MOTION CLASSES
+       ══════════════════════════════════════════════════════════════════════════ */
     .anim-blur-in {
       animation: motionBlurIn 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
@@ -118,7 +185,82 @@
       animation: motionFoldIn 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
-    /* 3D Tilt perspective card container */
+    /* Scroll-triggered reveal — graceful transitions */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .scroll-reveal.revealed {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    /* ══════════════════════════════════════════════════════════════════════════
+       ANIMATED AVATAR RING (Rotating conic gradient)
+       ══════════════════════════════════════════════════════════════════════════ */
+    .avatar-ring-outer {
+      position: relative;
+      padding: 3px;
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+    .avatar-ring-outer::before {
+      content: '';
+      position: absolute;
+      inset: -50%;
+      background: conic-gradient(
+        from 0deg,
+        #C9A227 0%,
+        #E8D48B 25%,
+        #457B9D 50%,
+        #E8D48B 75%,
+        #C9A227 100%
+      );
+      animation: avatarRingSpin 6s linear infinite;
+    }
+    .avatar-ring-inner {
+      position: relative;
+      z-index: 1;
+      border-radius: 9999px;
+      background: #0D1829;
+      padding: 2px;
+    }
+
+    /* ══════════════════════════════════════════════════════════════════════════
+       LUXURY CTA BUTTON (Champagne shimmer)
+       ══════════════════════════════════════════════════════════════════════════ */
+    .cta-luxury {
+      background: linear-gradient(
+        110deg,
+        #8B6914 0%,
+        #C9A227 20%,
+        #E8D48B 40%,
+        #C9A227 60%,
+        #8B6914 80%,
+        #C9A227 100%
+      );
+      background-size: 250% auto;
+      animation: ctaShimmer 4s linear infinite;
+    }
+
+    /* ══════════════════════════════════════════════════════════════════════════
+       CAPABILITY PILL HOVER FX
+       ══════════════════════════════════════════════════════════════════════════ */
+    .pill-hover {
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      border-left: 2px solid transparent;
+    }
+    .pill-hover:hover {
+      transform: scale(1.03);
+      border-left-color: #C9A227;
+      box-shadow: 0 0 20px rgba(201, 162, 39, 0.12);
+      background: rgba(255, 255, 255, 0.08) !important;
+    }
+
+    /* ══════════════════════════════════════════════════════════════════════════
+       3D TILT + BUTTON SYSTEMS
+       ══════════════════════════════════════════════════════════════════════════ */
     .tilt-card-container {
       perspective: 1200px;
       transform-style: preserve-3d;
@@ -137,6 +279,19 @@
     }
     .btn-bounce:hover {
       transform: translateY(-2px);
+    }
+
+    /* ══════════════════════════════════════════════════════════════════════════
+       BLUEPRINT PARTICLE CANVAS
+       ══════════════════════════════════════════════════════════════════════════ */
+    #particleCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -5;
+      pointer-events: none;
+      opacity: 0.35;
     }
   </style>
 </head>
@@ -158,10 +313,19 @@
   <div class="fixed inset-0 bg-[#060B14]/80 -z-20 pointer-events-none"></div>
   <div class="fixed inset-0 bg-gradient-to-b from-[#060B14]/96 via-[#091222]/90 to-[#060B14]/98 -z-10 pointer-events-none"></div>
 
-  <!-- Mobile/Tablet Container (Clean, Enterprise Width) -->
-  <main class="w-full max-w-lg mx-auto space-y-4 relative z-10 pb-12">
+  <!-- Floating Blueprint Particle Canvas (Phase 1 — Luxury Atmospheric Depth) -->
+  <canvas id="particleCanvas"></canvas>
 
-    <!-- Top Federal Identity & Client Bar (Clean, Zero Clutter) -->
+  <!-- Responsive Executive Cockpit Container (Phase 2 — Dual-Panel Desktop Cockpit / Native Single-Column Mobile) -->
+  <main class="w-full max-w-lg lg:max-w-6xl xl:max-w-7xl mx-auto relative z-10 pb-12 transition-all duration-300">
+    <div class="lg:grid lg:grid-cols-12 lg:gap-8 items-start">
+      
+      <!-- ====================================================================== -->
+      <!-- LEFT COCKPIT PANEL (Executive Pass, Sticky Navigation, Expo Booth QR)  -->
+      <!-- ====================================================================== -->
+      <div class="lg:col-span-5 space-y-4 lg:sticky lg:top-5">
+
+        <!-- Top Federal Identity & Client Bar (Clean, Zero Clutter) -->
     <header class="glass-panel rounded-2xl px-4 py-2.5 flex items-center justify-between shadow-lg">
       <div class="flex items-center gap-2.5">
         <div class="h-10 w-10 rounded-xl bg-white/10 p-1 flex items-center justify-center border border-white/20 shrink-0 shadow-sm">
@@ -252,10 +416,12 @@
 
           <!-- Verified Executive Headshot (Overlaps the video canopy seam) -->
           <div class="relative w-28 h-28 mx-auto -mt-14 mb-3.5 z-20">
-            <div class="w-full h-full rounded-full p-1 bg-gradient-to-tr from-p22gold via-amber-300 to-p22blue shadow-2xl">
-              <img id="staffAvatar" src="assets/staff/pedro-felipe.png" alt="Profile Photo" 
-                   class="w-full h-full rounded-full object-cover bg-slate-900 border-2 border-slate-900 shadow-inner"
-                   onerror="this.src='logo.webp'">
+            <div class="avatar-ring-outer w-full h-full shadow-2xl">
+              <div class="avatar-ring-inner w-full h-full">
+                <img id="staffAvatar" src="assets/staff/pedro-felipe.png" alt="Profile Photo" 
+                     class="w-full h-full rounded-full object-cover bg-slate-900 shadow-inner"
+                     onerror="this.src='logo.webp'">
+              </div>
             </div>
             <div class="absolute bottom-1 right-1 bg-p22gold text-slate-950 p-1.5 rounded-full shadow-md border-2 border-slate-900" title="Verified SAM.gov Credential">
               <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
@@ -278,7 +444,7 @@
 
           <!-- High-Conversion Primary Golden CTA: Save Contact to Phone -->
           <button onclick="downloadActiveVCard()"
-                  class="w-full inline-flex items-center justify-center gap-2.5 py-4 px-6 rounded-2xl bg-gradient-to-r from-p22gold via-amber-400 to-p22gold text-slate-950 font-montserrat font-extrabold text-sm tracking-wide shadow-xl hover:brightness-110 active:scale-98 transition transform duration-150 gold-glow mb-4">
+                  class="w-full inline-flex items-center justify-center gap-2.5 py-4 px-6 rounded-2xl cta-luxury text-slate-950 font-montserrat font-extrabold text-sm tracking-wide shadow-xl hover:brightness-110 active:scale-98 transition transform duration-150 gold-glow mb-4">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
             <span>Save Contact to Phone (.vcf)</span>
           </button>
@@ -314,10 +480,62 @@
       </section>
     </div>
 
-    <!-- ====================================================================== -->
-    <!-- CONSOLIDATED MODULE 1: OFFICIAL FEDERAL COLLATERAL & OPERATIONS -->
-    <!-- ====================================================================== -->
-    <section id="capabilitiesSection" class="glass-panel rounded-3xl p-5 shadow-2xl space-y-4 anim-fold-in border border-white/10">
+        <!-- Desktop Walk-Up Expo QR Station (Instant phone camera scanning at the booth) -->
+        <div class="hidden lg:block glass-panel rounded-3xl p-5 border border-white/10 shadow-2xl text-center space-y-3">
+          <div class="flex items-center justify-between border-b border-white/10 pb-2.5">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-p22gold animate-ping"></span>
+              <h4 class="font-montserrat font-bold text-xs text-white uppercase tracking-wider">Expo Walk-Up QR Station</h4>
+            </div>
+            <span class="text-[10px] text-p22gold font-semibold tracking-wide px-2 py-0.5 rounded-full bg-p22gold/15 border border-p22gold/30">Instant Scan</span>
+          </div>
+          <div class="p-3 bg-white rounded-2xl inline-flex items-center justify-center shadow-xl mx-auto border border-slate-200" id="desktopQrContainer" style="min-width: 194px; min-height: 194px;">
+            <!-- Dynamically populated via QRCode.js -->
+          </div>
+          <p class="text-[11px] text-slate-300 font-medium">
+            Scan with any phone camera to instantly save contact (.vcf) & download verified federal credentials
+          </p>
+          <div class="flex items-center justify-center gap-1.5 text-[10px] text-slate-400 font-mono">
+            <svg class="w-3 h-3 text-p22gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+            <span id="desktopQrUrl">card.p22corp.com/pedro</span>
+          </div>
+        </div>
+
+        <!-- Executive Trust & Federal Alignment Strip -->
+        <div class="glass-panel rounded-2xl p-3.5 border border-white/10 text-center space-y-2">
+          <div class="flex items-center justify-between text-[10px] font-montserrat font-bold text-slate-300 tracking-wider uppercase">
+            <span>Federal & Infrastructure Readiness</span>
+            <span class="text-emerald-400 font-semibold">100% Verified</span>
+          </div>
+          <div class="grid grid-cols-2 gap-1.5 text-[10px] text-slate-300 font-medium text-left">
+            <div class="flex items-center gap-1.5 p-1.5 rounded-lg bg-white/5 border border-white/5">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              <span>USACE Project Bids</span>
+            </div>
+            <div class="flex items-center gap-1.5 p-1.5 rounded-lg bg-white/5 border border-white/5">
+              <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+              <span>TxDOT Rapid Staging</span>
+            </div>
+            <div class="flex items-center gap-1.5 p-1.5 rounded-lg bg-white/5 border border-white/5">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+              <span>VA Medical Centers</span>
+            </div>
+            <div class="flex items-center gap-1.5 p-1.5 rounded-lg bg-white/5 border border-white/5">
+              <span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
+              <span>DFARS / TAA Compliant</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ====================================================================== -->
+      <!-- RIGHT COCKPIT PANEL (Collateral Vault, Dallas Fleet, Intake & Bids)    -->
+      <!-- ====================================================================== -->
+      <div class="lg:col-span-7 space-y-4 mt-4 lg:mt-0">
+
+        <!-- CONSOLIDATED MODULE 1: OFFICIAL FEDERAL COLLATERAL & OPERATIONS -->
+        <section id="capabilitiesSection" class="glass-panel rounded-3xl p-5 shadow-2xl space-y-4 anim-float-in border border-white/10">
       
       <div class="flex items-center justify-between border-b border-white/10 pb-3">
         <div class="flex items-center gap-2.5">
@@ -404,29 +622,29 @@
           <span class="text-[10px] text-slate-400">DFW Logistics Hub</span>
         </div>
 
-        <div class="flex gap-2.5 overflow-x-auto pb-2 hide-scrollbar snap-x snap-mandatory">
-          <div class="snap-center shrink-0 w-48 rounded-xl overflow-hidden bg-slate-900 border border-white/10 shadow relative">
+        <div class="flex gap-2.5 overflow-x-auto pb-2 hide-scrollbar snap-x snap-mandatory lg:grid lg:grid-cols-4 lg:overflow-visible">
+          <div class="snap-center shrink-0 w-48 lg:w-auto rounded-xl overflow-hidden bg-slate-900 border border-white/10 shadow relative">
             <img src="assets/facility/logistics-fleet.webp" alt="Logistics Fleet" class="w-full h-24 object-cover">
             <div class="p-2 bg-slate-950/90 text-left">
               <p class="text-[11px] font-montserrat font-bold text-white">Logistics Fleet</p>
               <p class="text-[9px] text-slate-400">24-Hr Emergency freight</p>
             </div>
           </div>
-          <div class="snap-center shrink-0 w-48 rounded-xl overflow-hidden bg-slate-900 border border-white/10 shadow relative">
+          <div class="snap-center shrink-0 w-48 lg:w-auto rounded-xl overflow-hidden bg-slate-900 border border-white/10 shadow relative">
             <img src="assets/facility/loading-dock.webp" alt="Loading Dock" class="w-full h-24 object-cover">
             <div class="p-2 bg-slate-950/90 text-left">
               <p class="text-[11px] font-montserrat font-bold text-white">Freight Dock</p>
               <p class="text-[9px] text-slate-400">High-volume palletized staging</p>
             </div>
           </div>
-          <div class="snap-center shrink-0 w-48 rounded-xl overflow-hidden bg-slate-900 border border-white/10 shadow relative">
+          <div class="snap-center shrink-0 w-48 lg:w-auto rounded-xl overflow-hidden bg-slate-900 border border-white/10 shadow relative">
             <img src="assets/facility/warehouse-forklift.webp" alt="Warehouse Storage" class="w-full h-24 object-cover">
             <div class="p-2 bg-slate-950/90 text-left">
               <p class="text-[11px] font-montserrat font-bold text-white">Warehouse Inventory</p>
               <p class="text-[9px] text-slate-400">Div 26 electrical & conduit</p>
             </div>
           </div>
-          <div class="snap-center shrink-0 w-48 rounded-xl overflow-hidden bg-slate-900 border border-white/10 shadow relative">
+          <div class="snap-center shrink-0 w-48 lg:w-auto rounded-xl overflow-hidden bg-slate-900 border border-white/10 shadow relative">
             <img src="assets/facility/construction-crane.webp" alt="Site Crane Operations" class="w-full h-24 object-cover">
             <div class="p-2 bg-slate-950/90 text-left">
               <p class="text-[11px] font-montserrat font-bold text-white">Heavy Site Staging</p>
@@ -438,19 +656,19 @@
 
       <!-- Core Federal Supply Corridors (Clean Pill Grid) -->
       <div class="grid grid-cols-2 gap-2 pt-1 text-left">
-        <div class="p-2.5 rounded-xl bg-white/5 border border-white/5">
+        <div class="p-2.5 rounded-xl bg-white/5 border border-white/5 pill-hover cursor-default">
           <div class="text-[11px] font-montserrat font-bold text-p22gold">Division 26 Electrical</div>
           <div class="text-[9px] text-slate-400">Transformers, switchgear & wire</div>
         </div>
-        <div class="p-2.5 rounded-xl bg-white/5 border border-white/5">
+        <div class="p-2.5 rounded-xl bg-white/5 border border-white/5 pill-hover cursor-default">
           <div class="text-[11px] font-montserrat font-bold text-sky-400">MRO & Facility Supplies</div>
           <div class="text-[9px] text-slate-400">Fast replenishment & safety</div>
         </div>
-        <div class="p-2.5 rounded-xl bg-white/5 border border-white/5">
+        <div class="p-2.5 rounded-xl bg-white/5 border border-white/5 pill-hover cursor-default">
           <div class="text-[11px] font-montserrat font-bold text-emerald-400">Logistics Mobilization</div>
           <div class="text-[9px] text-slate-400">Overnight freight & dispatch</div>
         </div>
-        <div class="p-2.5 rounded-xl bg-white/5 border border-white/5">
+        <div class="p-2.5 rounded-xl bg-white/5 border border-white/5 pill-hover cursor-default">
           <div class="text-[11px] font-montserrat font-bold text-amber-300">Fast Takeoff Reviews</div>
           <div class="text-[9px] text-slate-400">FAR compliant bid quotes</div>
         </div>
@@ -461,7 +679,7 @@
     <!-- ====================================================================== -->
     <!-- CONSOLIDATED MODULE 2: FAST-TRACK PROCUREMENT INTAKE & RFQ PACKAGE -->
     <!-- ====================================================================== -->
-    <section id="procurementIntake" class="glass-panel rounded-3xl p-6 shadow-2xl relative anim-fold-in border border-white/10">
+    <section id="procurementIntake" class="glass-panel rounded-3xl p-6 shadow-2xl relative anim-float-in border border-white/10">
       <div class="flex items-center gap-2.5 mb-2">
         <div class="w-8 h-8 rounded-xl bg-p22gold/20 flex items-center justify-center text-p22gold">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
@@ -477,27 +695,28 @@
 
       <!-- Form -->
       <form id="leadForm" class="space-y-3 text-left">
-        <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1" for="name">Your Name *</label>
-          <input type="text" id="name" required placeholder="e.g. Marcus Vance"
-                 class="w-full px-3.5 py-2.5 rounded-xl glass-input text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-p22gold transition">
-        </div>
-
-        <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1" for="agency">Agency / Prime Contractor / Base *</label>
-          <input type="text" id="agency" required placeholder="e.g. USACE / TxDOT / Balfour Beatty / VA"
-                 class="w-full px-3.5 py-2.5 rounded-xl glass-input text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-p22gold transition">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1" for="name">Your Name *</label>
+            <input type="text" id="name" required autocomplete="name" placeholder="e.g. Marcus Vance"
+                   class="w-full px-3.5 py-2.5 rounded-xl glass-input text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-p22gold transition">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1" for="agency">Agency / Prime / Base *</label>
+            <input type="text" id="agency" required autocomplete="organization" placeholder="e.g. USACE / TxDOT / Balfour Beatty"
+                   class="w-full px-3.5 py-2.5 rounded-xl glass-input text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-p22gold transition">
+          </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1" for="email">Work Email *</label>
-            <input type="email" id="email" required placeholder="e.g. mvance@agency.gov"
+            <input type="email" id="email" required autocomplete="email" placeholder="e.g. mvance@agency.gov"
                    class="w-full px-3.5 py-2.5 rounded-xl glass-input text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-p22gold transition">
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1" for="phone">Direct Phone</label>
-            <input type="tel" id="phone" placeholder="e.g. (512) 555-0199"
+            <input type="tel" id="phone" autocomplete="tel" placeholder="e.g. (512) 555-0199"
                    class="w-full px-3.5 py-2.5 rounded-xl glass-input text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-p22gold transition">
           </div>
         </div>
@@ -533,7 +752,7 @@
     </section>
 
     <!-- Corporate Footer & Legal Disclosures -->
-    <footer class="text-center text-xs text-slate-500 space-y-1.5 py-4">
+    <footer class="text-center text-xs text-slate-500 space-y-2 py-4">
       <div class="flex items-center justify-center gap-2 text-slate-400 font-semibold text-[11px]">
         <span>CAGE: 169D8</span>
         <span>&bull;</span>
@@ -544,15 +763,31 @@
       <p class="text-[11px]">P-22 Corp Construction Material Solutions LLC</p>
       <p class="text-[10px]">18383 Preston Rd, Suite 202, Dallas, TX 75252 &bull; 1-888-722-2675</p>
       <p class="text-[9px] text-slate-600">NIST SP 800-171 Data Privacy Protocol &bull; Zero Commercial Watermarks</p>
+      <div class="pt-2 flex items-center justify-center gap-3">
+        <button onclick="exportLeadsToCSV()" class="text-[10px] text-slate-400 hover:text-p22gold transition flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 hover:border-p22gold/30">
+          <svg class="w-3 h-3 text-p22gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          <span>Export Leads (.CSV)</span>
+        </button>
+        <span class="text-slate-600">&bull;</span>
+        <a href="/setup" class="text-[10px] text-slate-400 hover:text-sky-400 transition flex items-center gap-1">
+          <span>Team Setup Hub</span>
+          <span>&rarr;</span>
+        </a>
+      </div>
     </footer>
+
+      </div> <!-- Closes lg:col-span-7 -->
+
+    </div> <!-- Closes lg:grid -->
 
   </main>
 
   <!-- ====================================================================== -->
-  <!-- MINIMALIST FLOATING BOTTOM DOCK (Expo Floor Fast Action) -->
+  <!-- MINIMALIST FLOATING BOTTOM DOCK (Mobile & Tablet Fast Action) -->
   <!-- ====================================================================== -->
   <aside id="stickyDock" 
-         class="fixed bottom-4 inset-x-3 max-w-lg mx-auto z-40 transform translate-y-28 opacity-0 transition-all duration-300 pointer-events-none">
+         class="lg:hidden fixed bottom-4 inset-x-3 max-w-lg mx-auto z-40 transform translate-y-28 opacity-0 transition-all duration-300 pointer-events-none"
+         style="padding-bottom: env(safe-area-inset-bottom, 0px);">
     <div class="glass-panel p-2 rounded-2xl shadow-2xl flex items-center justify-between gap-2.5 border border-p22gold/40 bg-slate-950/95 backdrop-blur-2xl pointer-events-auto">
       <button onclick="downloadActiveVCard(); trackEvent('StickyDock', 'Click', 'Save Contact');" 
               class="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-p22gold via-amber-400 to-p22gold text-slate-950 font-montserrat font-extrabold text-xs tracking-wide shadow-lg hover:brightness-110 active:scale-95 transition flex items-center justify-center gap-2 btn-bounce">
@@ -730,20 +965,47 @@
       if (!data) return;
       currentRep = slug;
 
-      document.getElementById('staffName').textContent = data.name;
-      document.getElementById('staffTitle').textContent = data.title;
-      document.getElementById('staffBio').textContent = data.bio;
-      document.getElementById('staffLocation').textContent = data.location;
-      document.getElementById('staffAvatar').src = data.avatar;
+      if (document.getElementById('staffName')) document.getElementById('staffName').textContent = data.name;
+      if (document.getElementById('staffTitle')) document.getElementById('staffTitle').textContent = data.title;
+      if (document.getElementById('staffBio')) document.getElementById('staffBio').textContent = data.bio;
+      if (document.getElementById('staffLocation')) document.getElementById('staffLocation').textContent = data.location;
+      if (document.getElementById('staffAvatar')) document.getElementById('staffAvatar').src = data.avatar;
 
-      document.getElementById('callAction').href = `tel:${data.phone.replace(/[^0-9]/g, '')}`;
-      document.getElementById('emailAction').href = `mailto:${data.email}?subject=Inquiry%20from%20Expo%20-%20P-22%20Corp`;
+      if (document.getElementById('callAction')) document.getElementById('callAction').href = `tel:${data.phone.replace(/[^0-9]/g, '')}`;
+      if (document.getElementById('emailAction')) document.getElementById('emailAction').href = `mailto:${data.email}?subject=Inquiry%20from%20Expo%20-%20P-22%20Corp`;
 
       if (document.getElementById('briefingCalendlyLink')) {
         document.getElementById('briefingCalendlyLink').href = data.calendly || 'https://calendly.com/p22corp/capabilities-briefing';
       }
 
-      document.getElementById('pageTitle').textContent = `${data.name} | P-22 Corp Digital Card`;
+      if (document.getElementById('pageTitle')) {
+        document.getElementById('pageTitle').textContent = `${data.name} | P-22 Corp Digital Card`;
+      }
+      document.title = `${data.name} | P-22 Corp Digital Card`;
+
+      // Update Desktop Walk-Up Expo QR Station
+      const desktopQrUrl = document.getElementById('desktopQrUrl');
+      const targetUrl = `https://card.p22corp.com/${data.slug}`;
+      if (desktopQrUrl) desktopQrUrl.textContent = targetUrl.replace('https://', '');
+
+      function renderDesktopQr() {
+        const desktopQrContainer = document.getElementById('desktopQrContainer');
+        if (!desktopQrContainer) return;
+        if (window.QRCode) {
+          desktopQrContainer.innerHTML = '';
+          new QRCode(desktopQrContainer, {
+            text: targetUrl,
+            width: 170,
+            height: 170,
+            colorDark: "#0D1829",
+            colorLight: "#FFFFFF",
+            correctLevel: QRCode.CorrectLevel.H
+          });
+        } else {
+          setTimeout(renderDesktopQr, 100);
+        }
+      }
+      renderDesktopQr();
 
       trackEvent('Profile', 'Load', data.name);
     }
@@ -1008,6 +1270,117 @@
       });
     }
 
+    // ══════════════════════════════════════════════════════════════════════════
+    // 8. SCROLL-TRIGGERED SECTION REVEALS (Phase 1 — IntersectionObserver)
+    // ══════════════════════════════════════════════════════════════════════════
+    function initScrollReveal() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.05, rootMargin: '100px 0px 100px 0px' });
+
+      document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // 9. FLOATING BLUEPRINT PARTICLES (Phase 1 — Luxury Atmospheric Depth)
+    // ══════════════════════════════════════════════════════════════════════════
+    function initParticles() {
+      const canvas = document.getElementById('particleCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let w, h;
+      const particles = [];
+      const PARTICLE_COUNT = 18;
+
+      function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: (Math.random() - 0.5) * 0.15,
+          size: Math.random() * 2.5 + 0.5,
+          alpha: Math.random() * 0.35 + 0.08
+        });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, w, h);
+        particles.forEach((p, i) => {
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0) p.x = w;
+          if (p.x > w) p.x = 0;
+          if (p.y < 0) p.y = h;
+          if (p.y > h) p.y = 0;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(201, 162, 39, ${p.alpha})`;
+          ctx.fill();
+
+          // Connect nearby particles with faint lines
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = p.x - particles[j].x;
+            const dy = p.y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 160) {
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.strokeStyle = `rgba(201, 162, 39, ${0.06 * (1 - dist / 160)})`;
+              ctx.lineWidth = 0.5;
+              ctx.stroke();
+            }
+          }
+        });
+        requestAnimationFrame(draw);
+      }
+      draw();
+    }
+
+    // Export Captured Leads to CSV
+    function exportLeadsToCSV() {
+      const stored = JSON.parse(localStorage.getItem('p22_leads') || '[]');
+      if (stored.length === 0) {
+        alert('No expo leads recorded on this device yet. Submissions via the Fast-Track Intake form are automatically saved and ready for export.');
+        return;
+      }
+
+      const headers = ['Timestamp', 'Staff Representative', 'Client Name', 'Agency / Contractor', 'Work Email', 'Phone', 'Procurement Scope', 'Source'];
+      const rows = stored.map(lead => [
+        `"${(lead.timestamp || '').replace(/"/g, '""')}"`,
+        `"${(lead.rep_name || lead.rep_slug || '').replace(/"/g, '""')}"`,
+        `"${(lead.client_name || '').replace(/"/g, '""')}"`,
+        `"${(lead.client_agency || '').replace(/"/g, '""')}"`,
+        `"${(lead.client_email || '').replace(/"/g, '""')}"`,
+        `"${(lead.client_phone || '').replace(/"/g, '""')}"`,
+        `"${(lead.interest || '').replace(/"/g, '""')}"`,
+        `"${(lead.source || '').replace(/"/g, '""')}"`
+      ]);
+
+      const csvString = [headers.join(','), ...rows.map(r => r.join(','))].join('\r\n');
+      const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.setAttribute('download', `P22_Expo_Leads_${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      setTimeout(() => document.body.removeChild(link), 500);
+      trackEvent('Admin', 'ExportLeads', `${stored.length} contacts`);
+    }
+
     // Initialize on page load
     window.addEventListener('DOMContentLoaded', () => {
       const bgVid = document.getElementById('bgVideo');
@@ -1018,6 +1391,15 @@
       const initialRep = detectInitialStaff();
       switchStaff(initialRep);
       initTilt3D();
+      initScrollReveal();
+      initParticles();
+
+      // Register Service Worker for 100% Offline Expo Resiliency
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').catch((err) => {
+          console.warn('[P22-SW] Service worker registration:', err);
+        });
+      }
     });
   </script>
 </body>

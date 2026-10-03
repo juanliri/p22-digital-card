@@ -364,6 +364,64 @@
       </div>
     </section>
 
+    <!-- Tool 4: Expo Lead Capture Vault & Post-Expo CSV Intelligence -->
+    <section class="glass-panel rounded-3xl p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          </div>
+          <div>
+            <h2 class="text-sm font-montserrat font-bold text-white">Expo Lead Capture Vault & CSV Export</h2>
+            <p class="text-xs text-slate-400">Offline-resilient intake database saved locally on this browser during the expo.</p>
+          </div>
+        </div>
+        <span id="leadCountBadge" class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-mono font-bold border border-emerald-500/30">
+          0 Leads
+        </span>
+      </div>
+
+      <div class="space-y-3">
+        <div class="flex items-center justify-between gap-3">
+          <p class="text-xs text-slate-300">
+            Contacts submitted through the Fast-Track RFQ form on any device or booth tablet are archived here.
+          </p>
+          <div class="flex items-center gap-2 shrink-0">
+            <button onclick="exportLeadsSetupCSV()"
+                    class="py-2.5 px-4 rounded-xl bg-gradient-to-r from-p22gold to-amber-500 text-slate-950 font-montserrat font-bold text-xs tracking-wide hover:brightness-110 active:scale-95 transition shadow flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              <span>Download Leads (.CSV)</span>
+            </button>
+            <button onclick="clearLeadsSetup()"
+                    class="py-2.5 px-3 rounded-xl bg-white/5 hover:bg-red-500/20 text-slate-400 hover:text-red-400 border border-white/10 text-xs transition">
+              Clear
+            </button>
+          </div>
+        </div>
+
+        <!-- Leads Table Preview -->
+        <div class="overflow-x-auto rounded-2xl border border-white/10 bg-slate-950/60 max-h-64 overflow-y-auto">
+          <table class="w-full text-left text-xs text-slate-300">
+            <thead class="bg-white/5 text-[11px] font-montserrat font-bold text-slate-400 uppercase tracking-wider sticky top-0">
+              <tr>
+                <th class="p-2.5">Time</th>
+                <th class="p-2.5">Name</th>
+                <th class="p-2.5">Agency / Prime</th>
+                <th class="p-2.5">Email</th>
+                <th class="p-2.5">Phone</th>
+                <th class="p-2.5">Scope</th>
+              </tr>
+            </thead>
+            <tbody id="leadsTableBody" class="divide-y divide-white/5">
+              <tr>
+                <td colspan="6" class="p-4 text-center text-slate-500 italic">No leads stored in this browser session yet.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- Setup Hub Logic -->
@@ -693,16 +751,74 @@
       }, 50);
     }
 
-    function downloadVirtualBg() {
-      const rep = TEAM_DATA[activeSlug] || TEAM_DATA.pedro;
-      const canvas = document.getElementById('virtualBgCanvas');
-      const link = document.createElement('a');
-      link.download = `P22_${rep.slug}_Zoom_Teams_1080p.png`;
-      link.href = canvas.toDataURL('image/png');
-      link.click();
+    // Expo Leads Management for Setup Hub
+    function renderLeadsTable() {
+      const stored = JSON.parse(localStorage.getItem('p22_leads') || '[]');
+      const badge = document.getElementById('leadCountBadge');
+      const tbody = document.getElementById('leadsTableBody');
+      if (badge) badge.textContent = `${stored.length} Leads`;
+      if (!tbody) return;
+
+      if (stored.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-slate-500 italic">No leads stored in this browser session yet.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = stored.map(lead => {
+        const timeStr = lead.timestamp ? new Date(lead.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '—';
+        return `
+          <tr class="hover:bg-white/5 transition">
+            <td class="p-2.5 font-mono text-[11px] text-slate-400">${timeStr}</td>
+            <td class="p-2.5 font-bold text-white">${lead.client_name || '—'}</td>
+            <td class="p-2.5 text-p22gold font-semibold">${lead.client_agency || '—'}</td>
+            <td class="p-2.5 text-sky-300 font-mono text-[11px]">${lead.client_email || '—'}</td>
+            <td class="p-2.5 text-slate-300 font-mono text-[11px]">${lead.client_phone || '—'}</td>
+            <td class="p-2.5 text-[11px] text-slate-400">${lead.interest || 'General'}</td>
+          </tr>
+        `;
+      }).join('');
     }
 
-    window.addEventListener('DOMContentLoaded', loadTeamData);
+    function exportLeadsSetupCSV() {
+      const stored = JSON.parse(localStorage.getItem('p22_leads') || '[]');
+      if (stored.length === 0) {
+        alert('No leads recorded yet on this device.');
+        return;
+      }
+
+      const headers = ['Timestamp', 'Staff Representative', 'Client Name', 'Agency / Contractor', 'Work Email', 'Phone', 'Procurement Scope', 'Source'];
+      const rows = stored.map(lead => [
+        `"${(lead.timestamp || '').replace(/"/g, '""')}"`,
+        `"${(lead.rep_name || lead.rep_slug || '').replace(/"/g, '""')}"`,
+        `"${(lead.client_name || '').replace(/"/g, '""')}"`,
+        `"${(lead.client_agency || '').replace(/"/g, '""')}"`,
+        `"${(lead.client_email || '').replace(/"/g, '""')}"`,
+        `"${(lead.client_phone || '').replace(/"/g, '""')}"`,
+        `"${(lead.interest || '').replace(/"/g, '""')}"`,
+        `"${(lead.source || '').replace(/"/g, '""')}"`
+      ]);
+
+      const csvString = [headers.join(','), ...rows.map(r => r.join(','))].join('\r\n');
+      const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.setAttribute('download', `P22_Expo_Leads_${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      setTimeout(() => document.body.removeChild(link), 500);
+    }
+
+    function clearLeadsSetup() {
+      if (confirm('Clear all stored leads from this browser session? Export to CSV first if needed.')) {
+        localStorage.removeItem('p22_leads');
+        renderLeadsTable();
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      loadTeamData();
+      renderLeadsTable();
+    });
   </script>
 </body>
 </html>
