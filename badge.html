@@ -8,7 +8,7 @@
   <link rel="apple-touch-icon" href="/favicon.png">
   <title>P-22 Corp | Executive Staff ID Badge &amp; Device Studio</title>
   <meta name="robots" content="noindex, nofollow">
-  <link rel="manifest" href="/manifest.json">
+  <link rel="manifest" href="/manifest-badge.json">
   <meta name="theme-color" content="#060B14">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -145,7 +145,7 @@
     <!-- ═══════════════════════════════════════════════════════════════════════ -->
     <!-- 1-CLICK AUTOMATIC PWA INSTALLATION TRIGGER (Prominent Front & Center)   -->
     <!-- ═══════════════════════════════════════════════════════════════════════ -->
-    <section class="glass-panel rounded-2xl p-4 border border-p22gold/40 shadow-2xl space-y-3">
+    <section id="pwaInstallSection" class="glass-panel rounded-2xl p-4 border border-p22gold/40 shadow-2xl space-y-3">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
           <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
@@ -337,6 +337,13 @@
         </div>
       </div>
     </section>
+
+    <!-- Low-Visibility Internal Staff Operations Link -->
+    <footer class="text-center pt-3 pb-2">
+      <a href="/setup" class="text-[10.5px] text-slate-600 hover:text-p22gold font-mono tracking-wider transition underline opacity-60 hover:opacity-100">
+        Staff Operations &amp; Lead Export (/setup) &rarr;
+      </a>
+    </footer>
 
   </main>
 
@@ -552,10 +559,9 @@
     window.addEventListener('DOMContentLoaded', () => {
       updateDallasClock();
 
-      // Check if running standalone
+      // Check if running standalone (Installed Home Screen App Shortcut)
       if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
-        document.getElementById('pwaInstalledNotice')?.classList.remove('hidden');
-        document.getElementById('pwaInstallBtn')?.classList.add('hidden');
+        document.getElementById('pwaInstallSection')?.classList.add('hidden');
       }
 
       // Register Service Worker for PWA 1-Click Install & Offline Caching

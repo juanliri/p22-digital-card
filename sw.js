@@ -6,6 +6,7 @@ const STATIC_ASSETS = [
   '/badge.html',
   '/setup.html',
   '/manifest.json',
+  '/manifest-badge.json',
   '/team.json',
   '/logo.webp',
   '/favicon.png',
