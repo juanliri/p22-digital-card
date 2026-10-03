@@ -22,7 +22,21 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ ok: false, error: 'Method not allowed. Use POST.' });
   }
 
-  const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_AI_KEY;
+  const apiKey = (function () {
+    if (process.env.GEMINI_API_KEY) return process.env.GEMINI_API_KEY;
+    if (process.env.GOOGLE_AI_KEY) return process.env.GOOGLE_AI_KEY;
+    try {
+      const fs = require('fs');
+      const path = require('path');
+      const envPath = path.join(process.cwd(), '.env');
+      if (fs.existsSync(envPath)) {
+        const content = fs.readFileSync(envPath, 'utf8');
+        const match = content.match(/GEMINI_API_KEY=["']?([^"'\r\n]+)/);
+        if (match) return match[1];
+      }
+    } catch (e) {}
+    return null;
+  })();
 
   if (!apiKey) {
     return res.status(200).json({
@@ -97,10 +111,11 @@ If any field is missing or illegible, set its value to an empty string "".
 
     const options = {
       hostname: 'generativelanguage.googleapis.com',
-      path: `/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+      path: '/v1beta/models/gemini-flash-latest:generateContent',
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'x-goog-api-key': apiKey,
         'Content-Length': Buffer.byteLength(requestBody),
       },
     };
