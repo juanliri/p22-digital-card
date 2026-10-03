@@ -4,15 +4,15 @@
   "rewrites": [
     { "source": "/setup", "destination": "/setup.html" },
     { "source": "/badge", "destination": "/badge.html" },
-    { "source": "/badge/:rep", "destination": "/badge.html" },
-    { "source": "/staff", "destination": "/badge.html" },
+    { "source": "/badge/:rep", "destination": "/badge" },
+    { "source": "/staff", "destination": "/badge" },
     { "source": "/capability-statement", "destination": "/capability-statement.html" },
     { "source": "/pedro", "destination": "/pedro.html" },
     { "source": "/eduardo", "destination": "/eduardo.html" },
     { "source": "/marleni", "destination": "/marleni.html" },
     { "source": "/bids", "destination": "/bids.html" },
     { "source": "/logistics", "destination": "/logistics.html" },
-    { "source": "/rep/:slug", "destination": "/index.html" }
+    { "source": "/rep/:slug", "destination": "/index" }
   ],
   "headers": [
     {
