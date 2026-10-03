@@ -327,7 +327,7 @@
 
         <!-- Top Federal Identity & Client Bar (Clean, Zero Clutter) -->
     <header class="glass-panel rounded-2xl px-4 py-2.5 flex items-center justify-between shadow-lg">
-      <div class="flex items-center gap-2.5">
+      <div class="flex items-center gap-2.5 cursor-pointer select-none" onclick="handleSecretStaffTap()" title="P-22 Corp">
         <div class="h-10 w-10 rounded-xl bg-white/10 p-1 flex items-center justify-center border border-white/20 shrink-0 shadow-sm">
           <img src="logo.webp" alt="P-22 Corp Logo" class="w-full h-full object-contain" onerror="this.src='assets/branding/p22-logo-tight.png'">
         </div>
@@ -763,17 +763,6 @@
       <p class="text-[11px]">P-22 Corp Construction Material Solutions LLC</p>
       <p class="text-[10px]">18383 Preston Rd, Suite 202, Dallas, TX 75252 &bull; 1-888-722-2675</p>
       <p class="text-[9px] text-slate-600">NIST SP 800-171 Data Privacy Protocol &bull; Zero Commercial Watermarks</p>
-      <div class="pt-2 flex items-center justify-center gap-3">
-        <button onclick="exportLeadsToCSV()" class="text-[10px] text-slate-400 hover:text-p22gold transition flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 hover:border-p22gold/30">
-          <svg class="w-3 h-3 text-p22gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-          <span>Export Leads (.CSV)</span>
-        </button>
-        <span class="text-slate-600">&bull;</span>
-        <a href="/setup" class="text-[10px] text-slate-400 hover:text-sky-400 transition flex items-center gap-1">
-          <span>Team Setup Hub</span>
-          <span>&rarr;</span>
-        </a>
-      </div>
     </footer>
 
       </div> <!-- Closes lg:col-span-7 -->
@@ -942,6 +931,24 @@
     // ══════════════════════════════════════════════════════════════════════════
     // 3. DYNAMIC URL DETECTION & PROFILE INITIALIZATION
     // ══════════════════════════════════════════════════════════════════════════
+    let staffLogoTapCount = 0;
+    let staffLogoTapTimer = null;
+    function handleSecretStaffTap() {
+      staffLogoTapCount++;
+      clearTimeout(staffLogoTapTimer);
+      staffLogoTapTimer = setTimeout(() => { staffLogoTapCount = 0; }, 1600);
+      if (staffLogoTapCount >= 3) {
+        staffLogoTapCount = 0;
+        const pin = prompt("P-22 Corp Internal Staff Access\nEnter CAGE Code PIN to open Setup Hub:");
+        if (pin && (pin.trim().toUpperCase() === "169D8" || pin.trim() === "2222")) {
+          sessionStorage.setItem('p22_staff_auth', 'true');
+          window.location.href = "/setup";
+        } else if (pin) {
+          alert("Invalid Access PIN.");
+        }
+      }
+    }
+
     function getAppBaseUrl() {
       if (typeof window !== 'undefined' && window.location && window.location.origin && window.location.origin !== 'null' && !window.location.origin.includes('file://')) {
         return window.location.origin;

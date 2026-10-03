@@ -74,6 +74,37 @@
   <!-- Subtle Ambient Background -->
   <div class="fixed inset-0 bg-gradient-to-b from-[#080D18] via-[#1D3557]/40 to-[#080D18] -z-10 pointer-events-none"></div>
 
+  <!-- ====================================================================== -->
+  <!-- PIN GATE OVERLAY: Executive Staff Access Control -->
+  <!-- ====================================================================== -->
+  <div id="staffAuthModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/95 backdrop-blur-2xl transition-opacity duration-300">
+    <div class="glass-panel w-full max-w-sm rounded-3xl p-6 sm:p-8 text-center shadow-2xl relative border border-p22gold/30 gold-glow">
+      <div class="w-16 h-16 rounded-2xl bg-white/10 p-2 mx-auto mb-4 border border-white/20 shadow-lg flex items-center justify-center">
+        <img src="logo.webp" alt="P-22 Corp Logo" class="w-full h-full object-contain" onerror="this.src='assets/branding/p22-logo-tight.png'">
+      </div>
+      <span class="px-3 py-1 rounded-full bg-p22gold/20 text-p22gold text-[10px] font-mono font-bold tracking-widest uppercase border border-p22gold/30">
+        Restricted Staff Access
+      </span>
+      <h2 class="text-lg font-montserrat font-extrabold text-white mt-3 mb-1">P-22 Corp Staff Studio</h2>
+      <p class="text-xs text-slate-300 mb-5 leading-relaxed">
+        Enter your team access PIN or CAGE Code (<code>169D8</code>) to unlock pre-expo asset tools and the lead vault.
+      </p>
+
+      <form id="pinAuthForm" onsubmit="verifyStaffPin(event)" class="space-y-4">
+        <div>
+          <input type="password" id="staffPinInput" required autofocus placeholder="Enter PIN / CAGE (169D8)"
+                 autocomplete="off"
+                 class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-white/20 text-white placeholder-slate-500 text-center font-mono text-base tracking-widest focus:outline-none focus:ring-2 focus:ring-p22gold">
+          <p id="pinAuthError" class="text-xs text-rose-400 mt-2 hidden font-semibold"></p>
+        </div>
+        <button type="submit"
+                class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-p22gold to-amber-500 text-slate-950 font-montserrat font-bold text-xs tracking-wide hover:brightness-110 active:scale-95 transition shadow btn-bounce flex items-center justify-center gap-2">
+          <span>Unlock Setup Hub &rarr;</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
   <!-- Main Container -->
   <main class="w-full max-w-2xl mx-auto space-y-6 relative z-10 pb-12">
 
@@ -88,11 +119,18 @@
           <h1 class="text-lg font-montserrat font-extrabold text-white">Pre-Expo Setup & Asset Studio</h1>
         </div>
       </div>
-      <a id="viewPublicCardBtn" href="/pedro" target="_blank"
-         class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-p22gold text-slate-950 font-montserrat font-bold text-xs hover:brightness-110 active:scale-95 transition btn-bounce shadow">
-        <span>View Public Card</span>
-        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-      </a>
+      <div class="flex items-center gap-2">
+        <button onclick="lockStaffHub()" title="Lock Setup Hub"
+                class="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-slate-300 text-xs font-montserrat font-medium border border-white/10 transition btn-bounce">
+          <svg class="w-3.5 h-3.5 text-p22gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          <span>Lock</span>
+        </button>
+        <a id="viewPublicCardBtn" href="/pedro" target="_blank"
+           class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-p22gold text-slate-950 font-montserrat font-bold text-xs hover:brightness-110 active:scale-95 transition btn-bounce shadow">
+          <span>View Public Card</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+      </div>
     </header>
 
     <!-- Staff Selector Card -->
@@ -165,18 +203,23 @@
         </div>
 
         <div class="space-y-3 w-full">
-          <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 text-xs space-y-1.5">
+          <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 text-xs space-y-2">
             <p class="font-bold text-white flex items-center gap-1.5">
               <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-              Why this beats Apple Watch NFC lock:
+              30-Second Apple Watch Wrist Setup:
             </p>
-            <p class="text-slate-300 leading-relaxed">
-              Apple locks the Watch NFC chip strictly for Apple Pay. Top platforms (Popl/HiHello) use Watch Photos or Wallet QR codes. Double-tapping this photo on your wrist lets contractors scan your card in 1 second!
+            <ol class="list-decimal list-inside space-y-1 text-slate-300 leading-relaxed">
+              <li>Tap <strong>Download Watch Face Graphic (.PNG)</strong> below.</li>
+              <li>Open the image in iPhone <strong>Photos</strong> &rarr; tap the <strong>Share</strong> button.</li>
+              <li>Scroll down and tap <strong>"Create Watch Face"</strong> &rarr; select <strong>"Photos Watch Face"</strong>.</li>
+            </ol>
+            <p class="text-[11px] text-p22gold font-semibold pt-1">
+              ✓ Done! Double-tap your Apple Watch screen or raise your wrist at the expo booth for instant 1-second scanning.
             </p>
           </div>
 
           <button onclick="downloadWatchGraphic()"
-                  class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-p22gold to-amber-500 text-slate-950 font-montserrat font-bold text-xs tracking-wide hover:brightness-110 active:scale-95 transition btn-bounce shadow flex items-center justify-center gap-2">
+                  class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-p22gold to-amber-500 text-slate-950 font-montserrat font-bold text-xs tracking-wide hover:brightness-110 active:scale-95 transition btn-bounce shadow flex items-center justify-center gap-2">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
             <span>Download Watch Face Graphic (.PNG)</span>
           </button>
@@ -902,7 +945,53 @@
       }
     }
 
+    // ══════════════════════════════════════════════════════════════════════════
+    // EXECUTIVE STAFF ACCESS GATE (CAGE PIN)
+    // ══════════════════════════════════════════════════════════════════════════
+    function checkStaffAuth() {
+      const isAuth = sessionStorage.getItem('p22_staff_auth') === 'true';
+      const modal = document.getElementById('staffAuthModal');
+      if (modal) {
+        if (isAuth) {
+          modal.classList.add('hidden');
+        } else {
+          modal.classList.remove('hidden');
+          const input = document.getElementById('staffPinInput');
+          if (input) setTimeout(() => input.focus(), 150);
+        }
+      }
+    }
+
+    function verifyStaffPin(e) {
+      e.preventDefault();
+      const input = document.getElementById('staffPinInput');
+      const errorMsg = document.getElementById('pinAuthError');
+      const val = (input ? input.value : '').trim().toUpperCase();
+
+      // Accepted PINs: CAGE Code 169D8 or executive PIN 2222
+      if (val === '169D8' || val === '2222') {
+        sessionStorage.setItem('p22_staff_auth', 'true');
+        if (errorMsg) errorMsg.classList.add('hidden');
+        checkStaffAuth();
+      } else {
+        if (errorMsg) {
+          errorMsg.textContent = 'Invalid passcode. Enter CAGE Code (169D8) or PIN.';
+          errorMsg.classList.remove('hidden');
+        }
+        if (input) {
+          input.value = '';
+          input.focus();
+        }
+      }
+    }
+
+    function lockStaffHub() {
+      sessionStorage.removeItem('p22_staff_auth');
+      checkStaffAuth();
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
+      checkStaffAuth();
       loadTeamData();
       renderLeadsTable();
     });
