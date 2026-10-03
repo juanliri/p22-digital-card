@@ -12,9 +12,18 @@
   <!-- PWA Manifest & App Standalone Meta -->
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#060B14">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="P-22 Card">
+
+  <!-- Open Graph & Social Sharing Meta Tags -->
+  <meta property="og:type" content="profile">
+  <meta property="og:title" id="ogTitle" content="P-22 Corp | Government Material Solutions">
+  <meta property="og:description" id="ogDesc" content="Official Digital Business Card - P-22 Corp Construction Material Solutions LLC. CAGE: 169D8 | UEI: X3HUQZ66P6N3.">
+  <meta property="og:image" id="ogImage" content="https://p22-digital-card.vercel.app/assets/branding/logo-navy-flat.png">
+  <meta property="og:url" id="ogUrl" content="https://p22-digital-card.vercel.app">
+  <meta name="twitter:card" content="summary_large_image">
 
   <!-- Vercel Web Analytics & Insights -->
   
@@ -1094,8 +1103,21 @@
       }
       document.title = `${data.name} | P-22 Corp Digital Card`;
 
-      // Update Desktop QR & Share Modal QR
       const targetUrl = `${getAppBaseUrl()}/${data.slug}`;
+      if (document.getElementById('ogTitle')) {
+        document.getElementById('ogTitle').content = `${data.name} | P-22 Corp Digital Card`;
+      }
+      if (document.getElementById('ogDesc')) {
+        document.getElementById('ogDesc').content = `${data.title} - P-22 Corp Construction Material Solutions LLC. CAGE: 169D8 | UEI: X3HUQZ66P6N3.`;
+      }
+      if (document.getElementById('ogUrl')) {
+        document.getElementById('ogUrl').content = targetUrl;
+      }
+      if (document.getElementById('ogImage')) {
+        document.getElementById('ogImage').content = `${getAppBaseUrl()}/${data.avatar}`;
+      }
+
+      // Update Desktop QR & Share Modal QR
       const desktopQrUrl = document.getElementById('desktopQrUrl');
       if (desktopQrUrl) desktopQrUrl.textContent = `${getAppBaseUrl().replace(/^https?:\/\//, '')}/${data.slug}`;
 

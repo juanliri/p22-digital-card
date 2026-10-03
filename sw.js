@@ -1,5 +1,5 @@
-// P-22 Digital Business Card — Service Worker for Expo Floor Offline Resilience
-const CACHE_NAME = 'p22-card-v1.2';
+// P-22 Digital Business Card — Service Worker for Offline Resilience
+const CACHE_NAME = 'p22-card-v2.0';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -10,8 +10,8 @@ const STATIC_ASSETS = [
   '/favicon.ico',
   '/assets/staff/pedro-felipe.png',
   '/assets/staff/eduardo-lopez.jpg',
-  '/assets/staff/marleni-bonilla.png',
-  '/assets/staff/bids-desk.png',
+  '/assets/staff/marleni-mendez.jpg',
+  '/assets/branding/logo-navy-flat.png',
   '/assets/facility/logistics-fleet.webp',
   '/assets/facility/loading-dock.webp',
   '/assets/facility/warehouse-forklift.webp',

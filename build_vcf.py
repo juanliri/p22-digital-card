@@ -38,7 +38,7 @@ staff_definitions = [
         'email': 'pfelipe@p22corp.com',
         'url': 'https://p22-digital-card.vercel.app/pedro',
         'photo_path': 'assets/staff/pedro-felipe.png',
-        'note': 'CAGE: 169D8 | UEI: X3HUQZ66P6N3\nManaging Director - P-22 Corp\nSBA Certified Small Minority-Owned Business\nDirect Executive Line & Austin Expo Hub',
+        'note': 'CAGE: 169D8 | UEI: X3HUQZ66P6N3\nManaging Director - P-22 Corp\nSBA Certified Small Minority-Owned Business\nDirect Executive Line & Dallas Hub',
     },
     {
         'slug': 'eduardo',
@@ -52,7 +52,7 @@ staff_definitions = [
         'email': 'elopez@p22corp.com',
         'url': 'https://p22-digital-card.vercel.app/eduardo',
         'photo_path': 'assets/staff/eduardo-lopez.jpg',
-        'note': 'CAGE: 169D8 | UEI: X3HUQZ66P6N3\nDirector of Gov Sales - P-22 Corp\nSBA Certified Small Minority-Owned Business\nAustin Gov Contracting Expo - Electrical Takeoffs & Federal Quotes',
+        'note': 'CAGE: 169D8 | UEI: X3HUQZ66P6N3\nDirector of Gov Sales - P-22 Corp\nSBA Certified Small Minority-Owned Business\nDallas Sales Office - Electrical Takeoffs & Federal Quotes',
     },
     {
         'slug': 'marleni',
