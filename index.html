@@ -386,7 +386,7 @@
          onloadedmetadata="this.playbackRate = 0.45;"
          onplay="this.playbackRate = 0.45;"
          class="fixed inset-0 w-full h-full object-cover -z-30 opacity-20 pointer-events-none transition-opacity duration-1000"
-         style="filter: blur(4px) scale(1.04);"
+         style="filter: blur(4px) scale(1.04); background-color: #060B14;"
          poster="assets/facility/loading-dock.webp">
     <source src="assets/video_bg_page_optimized.mp4" type="video/mp4">
     <source src="assets/video_bg_page.mp4" type="video/mp4">
@@ -440,6 +440,7 @@
             <div class="relative w-full h-44 sm:h-52 overflow-hidden bg-slate-950 select-none">
               <video id="heroCanopyVideo" autoplay loop muted playsinline webkit-playsinline
                      class="w-full h-full object-cover opacity-80 scale-105 pointer-events-none transition-opacity duration-700"
+                     style="background-color: #0D1829;"
                      poster="assets/facility/construction-crane.webp">
                 <source src="assets/video_building_raising_optimized.mp4" type="video/mp4">
                 <source src="assets/video_building_raising.mp4" type="video/mp4">
@@ -516,6 +517,23 @@
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
                   <span>Save Contact to Phone (.vcf)</span>
                 </button>
+                <p class="text-[10px] text-slate-400 font-medium text-center">
+                  1-Tap Action &bull; <span class="text-amber-300">iOS:</span> Tap "Create New Contact" at bottom &bull; <span class="text-emerald-400">Android:</span> Choose "Contacts"
+                </p>
+
+                <!-- Dual Fast-Pass Action Bar (Apple Wallet & Google Wallet) -->
+                <div class="grid grid-cols-2 gap-2 pt-0.5">
+                  <a id="cardAppleWalletBtn" href="/assets/passes/pedro.pkpass" onclick="trackEvent('Wallet', 'Click', 'AppleWalletPass');"
+                     class="py-2.5 px-3 rounded-xl bg-black hover:bg-neutral-900 border border-white/20 text-white font-montserrat font-bold text-[11px] tracking-wide shadow-md active:scale-95 transition flex items-center justify-center gap-1.5 btn-bounce">
+                    <svg class="w-3.5 h-3.5 fill-current text-white shrink-0" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.77 1.06-1.85.94-2.93-.91.04-2.02.61-2.67 1.38-.58.67-1.09 1.77-.95 2.82 1.02.08 2.05-.5 2.68-1.27z"/></svg>
+                    <span>Apple Wallet</span>
+                  </a>
+                  <a id="cardGoogleWalletBtn" href="https://pay.google.com/gp/v/save/eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3YWxsZXR3YWxsZXQtbG9jYWxAZ3Jvd3NwYWNlLXJvLmlhbS5nc2VydmljZWFjY291bnQuY29tIiwiYXVkIjoiZ29vZ2xlIiwidHlwIjoic2F2ZXRvd2FsbGV0IiwiaWF0IjoxNzkxMDQ3ODc4LCJvcmlnaW5zIjpbXSwicGF5bG9hZCI6eyJnZW5lcmljQ2xhc3NlcyI6W3siaWQiOiIzMzg4MDAwMDAwMDIzMDgzNzcwLnd3LWNhbmFyeSIsImNsYXNzVGVtcGxhdGVJbmZvIjp7ImNhcmRUZW1wbGF0ZU92ZXJyaWRlIjp7ImNhcmRSb3dUZW1wbGF0ZUluZm9zIjpbeyJ0aHJlZUl0ZW1zIjp7InN0YXJ0SXRlbSI6eyJmaXJzdFZhbHVlIjp7ImZpZWxkcyI6W3siZmllbGRQYXRoIjoib2JqZWN0LnRleHRNb2R1bGVzRGF0YVsnaGRyMCddIn1dfX0sIm1pZGRsZUl0ZW0iOnsiZmlyc3RWYWx1ZSI6eyJmaWVsZHMiOlt7ImZpZWxkUGF0aCI6Im9iamVjdC50ZXh0TW9kdWxlc0RhdGFbJ2hkcjEnXSJ9XX19LCJlbmRJdGVtIjp7ImZpcnN0VmFsdWUiOnsiZmllbGRzIjpbeyJmaWVsZFBhdGgiOiJvYmplY3QudGV4dE1vZHVsZXNEYXRhWydoZHIyJ10ifV19fX19LHsidGhyZWVJdGVtcyI6eyJzdGFydEl0ZW0iOnsiZmlyc3RWYWx1ZSI6eyJmaWVsZHMiOlt7ImZpZWxkUGF0aCI6Im9iamVjdC50ZXh0TW9kdWxlc0RhdGFbJ3NlYzAnXSJ9XX19LCJtaWRkbGVJdGVtIjp7ImZpcnN0VmFsdWUiOnsiZmllbGRzIjpbeyJmaWVsZFBhdGgiOiJvYmplY3QudGV4dE1vZHVsZXNEYXRhWydzZWMxJ10ifV19fSwiZW5kSXRlbSI6eyJmaXJzdFZhbHVlIjp7ImZpZWxkcyI6W3siZmllbGRQYXRoIjoib2JqZWN0LnRleHRNb2R1bGVzRGF0YVsnc2VjMiddIn1dfX19fSx7InRocmVlSXRlbXMiOnsic3RhcnRJdGVtIjp7ImZpcnN0VmFsdWUiOnsiZmllbGRzIjpbeyJmaWVsZFBhdGgiOiJvYmplY3QudGV4dE1vZHVsZXNEYXRhWydzZWMzJ10ifV19fSwibWlkZGxlSXRlbSI6eyJmaXJzdFZhbHVlIjp7ImZpZWxkcyI6W3siZmllbGRQYXRoIjoib2JqZWN0LnRleHRNb2R1bGVzRGF0YVsnc2VjNCddIn1dfX0sImVuZEl0ZW0iOnsiZmlyc3RWYWx1ZSI6eyJmaWVsZHMiOlt7ImZpZWxkUGF0aCI6Im9iamVjdC50ZXh0TW9kdWxlc0RhdGFbJ3NlYzUnXSJ9XX19fX1dfX0sImNhbGxiYWNrT3B0aW9ucyI6eyJ1cmwiOiJodHRwczovL2FwaS53YWxsZXR3YWxsZXQuZGV2L3dlYmhvb2tzL2dvb2dsZS13YWxsZXQifX1dLCJnZW5lcmljT2JqZWN0cyI6W3siaWQiOiIzMzg4MDAwMDAwMDIzMDgzNzcwLjhjNzU2MjMwLThmMmUtNDRiNC04YTYzLTMwOGM4ZmMyYzE0MCIsImNsYXNzSWQiOiIzMzg4MDAwMDAwMDIzMDgzNzcwLnd3LWNhbmFyeSIsInN0YXRlIjoiQUNUSVZFIiwiY2FyZFRpdGxlIjp7ImRlZmF1bHRWYWx1ZSI6eyJsYW5ndWFnZSI6ImVuLVVTIiwidmFsdWUiOiJQLTIyIENPUlAifX0sImhlYWRlciI6eyJkZWZhdWx0VmFsdWUiOnsibGFuZ3VhZ2UiOiJlbi1VUyIsInZhbHVlIjoiUGVkcm8gRmVsaXBlIHwgUE1QIn19LCJzdWJoZWFkZXIiOnsiZGVmYXVsdFZhbHVlIjp7Imxhbmd1YWdlIjoiZW4tVVMiLCJ2YWx1ZSI6IlNUQUZGIElERU5USVRZIn19LCJoZXhCYWNrZ3JvdW5kQ29sb3IiOiIjMUQzNTU3IiwiYmFyY29kZSI6eyJ0eXBlIjoiUVJfQ09ERSIsInZhbHVlIjoiaHR0cHM6Ly9wMjItZGlnaXRhbC1jYXJkLnZlcmNlbC5hcHAvcGVkcm8iLCJhbHRlcm5hdGVUZXh0IjoiQ0FHRTogMTY5RDggfCBTY2FuIGZvciBWZXJpZmllZCBDcmVkZW50aWFscyJ9LCJ0ZXh0TW9kdWxlc0RhdGEiOlt7ImlkIjoic2VjMCIsImhlYWRlciI6IkNBR0UgQ09ERSIsImJvZHkiOiIxNjlEOCJ9LHsiaWQiOiJzZWMxIiwiaGVhZGVyIjoiVUVJIE5VTUJFUiIsImJvZHkiOiJYM0hVUVo2NlA2TjMifSx7ImlkIjoiaGRyMCIsImhlYWRlciI6IlNUQVRVUyIsImJvZHkiOiJTQU0uZ292IEFDVElWRSJ9LHsiaWQiOiJiY2swIiwiaGVhZGVyIjoiT0ZGSUNJQUwgVElUTEUiLCJib2R5IjoiTWFuYWdpbmcgRGlyZWN0b3IgJiBQb3dlciBTeXN0ZW1zIExlYWQifSx7ImlkIjoiYmNrMSIsImhlYWRlciI6IkRJUkVDVCBJTlFVSVJJRVMiLCJib2R5IjoiMS05NDUtMjE4LTU4OTYifSx7ImlkIjoiYmNrMiIsImhlYWRlciI6IlRPTEwgRlJFRSBIUSIsImJvZHkiOiIxLTg4OC03MjItMjY3NSJ9LHsiaWQiOiJiY2szIiwiaGVhZGVyIjoiT0ZGSUNJQUwgRU1BSUwiLCJib2R5IjoicGZlbGlwZUBwMjJjb3JwLmNvbSJ9LHsiaWQiOiJiY2s0IiwiaGVhZGVyIjoiREFMTEFTIEZBQ0lMSVRZIiwiYm9keSI6IjE4MzgzIFByZXN0b24gUmQsIFN1aXRlIDIwMiwgRGFsbGFzLCBUWCA3NTI1MiJ9LHsiaWQiOiJiY2s1IiwiaGVhZGVyIjoiQ09SRSBTQ09QRSIsImJvZHkiOiJNZWRpdW0tVm9sdGFnZSBTd2l0Y2hnZWFyLCBVdGlsaXR5IFN1YnN0YXRpb25zLCBEaXZpc2lvbiAyNiBFbGVjdHJpY2FsIFBhY2thZ2VzIn0seyJpZCI6ImJjazYiLCJoZWFkZXIiOiJGRURFUkFMIENPTVBMSUFOQ0UiLCJib2R5IjoiRkFSL0RGQVJTLCBUQUEgQ29tcGxpYW50LCBOSVNUIFNQIDgwMC0xNzEifV0sImxpbmtzTW9kdWxlRGF0YSI6eyJ1cmlzIjpbeyJpZCI6ImJjazQiLCJ1cmkiOiJodHRwczovL3AyMi1kaWdpdGFsLWNhcmQudmVyY2VsLmFwcC9wZWRybyIsImRlc2NyaXB0aW9uIjoiR09WRVJOTUVOVCBQT1JUQUwifV19fV19fQ.GXGVZj7MIrCbCImOqBfmP342bTA7A89nsrcv_meM50RPRsAlSbntcRza0xtrGpE5DYpjWYbzppp-YDGtrHw7otCB1vuEE-x2Jp2UZbelv3u764goJRhB3jG7KX3lSrkFuRJfacboQOx1W3Y7PH9H0cqdnpqSHn8lyl5BGEci8iyhxFKN7QSANGilPOMqXoXgCxZoAoK88djgZPeHgGwngcZzMOqnAWpJjCK0AkE7x1ufBPui7zbuJY-BVt29bDY003Pprrdeb0nYJjX6Rg1FpKXbgehbOqKDojtPJFhBLuB4Rdl_k0klY7Hp8vqY3wp-pXBbtyj8EN4Eiw33C1sL5w" target="_blank" onclick="trackEvent('Wallet', 'Click', 'GoogleWalletPass');"
+                     class="py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-white/20 text-white font-montserrat font-bold text-[11px] tracking-wide shadow-md active:scale-95 transition flex items-center justify-center gap-1.5 btn-bounce">
+                    <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+                    <span>Google Wallet</span>
+                  </a>
+                </div>
               </div>
 
               <!-- 4 Clean Enterprise Quick Actions: Call, Email, SMS, WhatsApp -->
@@ -1066,22 +1084,31 @@
         // ══════════════════════════════════════════════════════════════════════════
     // INLINE 2-WAY CONTACT EXCHANGE FORM DISPATCH & VAULT STORAGE
     // ══════════════════════════════════════════════════════════════════════════
+    function sanitizeLeadInput(val) {
+      if (!val) return '';
+      let s = String(val).trim();
+      if (/^[=\+\-@\t\r]/.test(s)) {
+        s = "'" + s;
+      }
+      return s;
+    }
+
     function handleInlineLeadSubmit(e) {
       if (e) e.preventDefault();
       const rep = TEAM_DATA[currentRep] || TEAM_DATA.pedro;
-      const name = (document.getElementById('inlineName')?.value || '').trim();
-      const agency = (document.getElementById('inlineAgency')?.value || '').trim();
-      const email = (document.getElementById('inlineEmail')?.value || '').trim();
-      const phone = (document.getElementById('inlinePhone')?.value || '').trim() || 'N/A';
+      const rawName = (document.getElementById('inlineName')?.value || '').trim();
+      const rawAgency = (document.getElementById('inlineAgency')?.value || '').trim();
+      const rawEmail = (document.getElementById('inlineEmail')?.value || '').trim();
+      const rawPhone = (document.getElementById('inlinePhone')?.value || '').trim() || 'N/A';
 
-      if (!name || !agency || !email) return;
+      if (!rawName || !rawAgency || !rawEmail) return;
 
       const lead = {
         timestamp: new Date().toISOString(),
-        name,
-        agency,
-        email,
-        phone,
+        name: sanitizeLeadInput(rawName),
+        agency: sanitizeLeadInput(rawAgency),
+        email: sanitizeLeadInput(rawEmail),
+        phone: sanitizeLeadInput(rawPhone),
         interest: 'Executive Digital Card Exchange',
         repSlug: rep.slug,
         repName: rep.name
@@ -1099,7 +1126,7 @@
       if (success) success.classList.remove('hidden');
 
       triggerHaptic(20);
-      trackEvent('ContactExchange', 'Submit', `${rep.name} - ${agency}`);
+      trackEvent('ContactExchange', 'Submit', `${rep.name} - ${rawAgency}`);
     }
 
     // 3. DYNAMIC URL DETECTION & PROFILE INITIALIZATION
@@ -1235,9 +1262,40 @@
         canopyVid.poster = data.canopyPoster;
       }
 
-      
+      // Update Dual Fast-Pass Action Bar
+      if (document.getElementById('cardAppleWalletBtn')) {
+        document.getElementById('cardAppleWalletBtn').href = `/assets/passes/${data.slug}.pkpass`;
+      }
+      const cardGoogleBtn = document.getElementById('cardGoogleWalletBtn');
+      if (cardGoogleBtn) {
+        cardGoogleBtn.href = data.googleWalletUrl || data.googleUrl || '#';
+      }
 
       trackEvent('Profile', 'Load', data.name);
+    }
+
+    function showIosContactGuidanceToast() {
+      const existing = document.getElementById('iosContactGuidanceToast');
+      if (existing) existing.remove();
+      const toast = document.createElement('div');
+      toast.id = 'iosContactGuidanceToast';
+      toast.className = 'fixed top-4 inset-x-3 max-w-sm mx-auto z-[300] p-3.5 rounded-2xl bg-slate-950/95 border-2 border-p22gold text-white shadow-2xl backdrop-blur-xl flex items-start gap-3 anim-float-in';
+      toast.innerHTML = `
+        <div class="w-8 h-8 rounded-xl bg-p22gold/20 text-p22gold flex items-center justify-center shrink-0 mt-0.5">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+        </div>
+        <div class="flex-1 text-left">
+          <div class="flex items-center justify-between">
+            <h4 class="font-montserrat font-bold text-xs text-p22gold uppercase tracking-wider">Apple Contact Card</h4>
+            <button onclick="this.closest('#iosContactGuidanceToast').remove()" class="text-slate-400 hover:text-white text-base leading-none p-1">&times;</button>
+          </div>
+          <p class="text-[11px] text-slate-200 mt-1 leading-snug">
+            Contact preview opened! Tap <strong>"Create New Contact"</strong> at the bottom of the Apple card to save to your iPhone.
+          </p>
+        </div>
+      `;
+      document.body.appendChild(toast);
+      setTimeout(() => { if (toast && toast.parentNode) toast.remove(); }, 8000);
     }
 
     async function downloadActiveVCard() {
@@ -1246,13 +1304,13 @@
       const staticVcfUrl = `/assets/vcf/${rep.slug}.vcf`;
 
       triggerHaptic(15);
-      // Modal removed - inline form is directly visible on card
 
       const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent) || 
                     (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      const isAndroid = /Android/i.test(navigator.userAgent);
       const isInApp = /FBAN|FBAV|Instagram|WhatsApp|Line|MicroMessenger|Snapchat/i.test(navigator.userAgent);
 
-      // In WhatsApp or Instagram in-app webview on iOS, navigating directly to .vcf displays a black screen!
+      // In WhatsApp or Instagram in-app webview on iOS/Android:
       if (isInApp) {
         if (navigator.canShare && typeof File !== 'undefined') {
           try {
@@ -1275,18 +1333,40 @@
         return;
       }
 
-      // 1. Mobile Safari Native Contacts:
-      if (isIOS) {
+      // 1. Android Chrome / Samsung Internet: Use Web Share API Level 2 with File
+      // This immediately opens the Android system intent with "Contacts" / "Add to Contacts" at top!
+      if (isAndroid) {
+        if (navigator.canShare && typeof File !== 'undefined') {
+          try {
+            const vcfFile = new File([rep.vcf], vcfFilename, { type: 'text/vcard;charset=utf-8' });
+            if (navigator.canShare({ files: [vcfFile] })) {
+              await navigator.share({
+                files: [vcfFile],
+                title: `${rep.name} - P-22 Corp Contact Card`,
+                text: `Add ${rep.name} (P-22 Corp) to Contacts`
+              });
+              trackEvent('VCard', 'WebShareAndroid', rep.name);
+              return;
+            }
+          } catch (e) {
+            if (e.name === 'AbortError') return;
+          }
+        }
+        // Fallback for older Android browsers:
         window.location.href = staticVcfUrl;
-        trackEvent('VCard', 'DirectNavIOS', rep.name);
+        trackEvent('VCard', 'DirectNavAndroid', rep.name);
         return;
       }
 
-      // 2. Android Chrome / other platforms
-      const isAndroid = /Android/i.test(navigator.userAgent);
-      if (isAndroid) {
-        window.location.href = staticVcfUrl;
-        trackEvent('VCard', 'DirectNavAndroid', rep.name);
+      // 2. Mobile Safari Native Contacts on iOS:
+      // Safari opens Apple's native ABNewPersonViewController preview sheet.
+      // We display instant visual guidance so attendees tap "Create New Contact" at the bottom!
+      if (isIOS) {
+        showIosContactGuidanceToast();
+        setTimeout(() => {
+          window.location.href = staticVcfUrl;
+        }, 280);
+        trackEvent('VCard', 'DirectNavIOS', rep.name);
         return;
       }
 
@@ -1442,14 +1522,23 @@
       triggerHaptic(10);
       const qrEl = document.getElementById('qrcode');
       const textEl = document.getElementById('qrZoomToggleText');
+      const modalPanel = document.querySelector('#qrModal .glass-panel');
       if (!qrEl) return;
       isExpoQrZoomed = !isExpoQrZoomed;
       if (isExpoQrZoomed) {
-        qrEl.style.transform = 'scale(1.35)';
-        qrEl.style.transition = 'transform 0.25s ease';
-        qrEl.style.margin = '22px auto';
+        if (modalPanel) {
+          modalPanel.classList.remove('max-w-xs');
+          modalPanel.classList.add('max-w-sm');
+        }
+        qrEl.style.transform = 'scale(1.3)';
+        qrEl.style.transition = 'transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)';
+        qrEl.style.margin = '20px auto';
         if (textEl) textEl.textContent = 'Reset Standard Size';
       } else {
+        if (modalPanel) {
+          modalPanel.classList.remove('max-w-sm');
+          modalPanel.classList.add('max-w-xs');
+        }
         qrEl.style.transform = 'scale(1)';
         qrEl.style.margin = '0 auto 12px auto';
         if (textEl) textEl.textContent = 'Enlarge for Expo Scanner';
