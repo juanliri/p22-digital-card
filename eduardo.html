@@ -210,17 +210,25 @@
        ══════════════════════════════════════════════════════════════════════════ */
     .avatar-ring-outer {
       position: relative;
-      padding: 3px;
+      padding: 3.5px;
       border-radius: 9999px;
-      background: linear-gradient(135deg, #C9A227 0%, #E8D48B 50%, #8B6914 100%);
-      box-shadow: 0 0 20px rgba(201, 162, 39, 0.45);
+      box-shadow: 0 0 35px rgba(201, 162, 39, 0.45), 0 12px 28px rgba(0, 0, 0, 0.65);
+      overflow: hidden;
+    }
+    .avatar-ring-outer::before {
+      content: '';
+      position: absolute;
+      inset: -50%;
+      background: conic-gradient(from 0deg, #C9A227, #E8D48B, #8B6914, #E8D48B, #C9A227);
+      animation: avatarRingSpin 8s linear infinite;
+      z-index: 0;
     }
     .avatar-ring-inner {
       position: relative;
       z-index: 1;
       border-radius: 9999px;
       background: #0D1829;
-      padding: 2px;
+      padding: 2.5px;
     }
 
     /* ══════════════════════════════════════════════════════════════════════════
@@ -400,137 +408,145 @@
       <!-- ====================================================================== -->
       <div class="lg:col-span-5 space-y-4 lg:sticky lg:top-5">
 
-        <!-- Top Federal Identity & Client Bar (Clean, Zero Clutter) -->
-    <header class="glass-panel rounded-2xl px-3.5 py-2.5 flex items-center justify-between shadow-lg">
-      <div class="flex items-center gap-2.5 select-none" title="P-22 Corp">
-        <div class="h-9 w-9 rounded-xl bg-white/10 p-1 flex items-center justify-center border border-white/20 shrink-0 shadow-sm">
-          <img src="logo.webp" alt="P-22 Corp Logo" class="w-full h-full object-contain" onerror="this.src='assets/branding/p22-logo-tight.png'">
-        </div>
-        <div>
-          <span class="text-xs sm:text-sm font-montserrat font-extrabold tracking-wider text-white block leading-tight">P-22 CORP</span>
-          <span class="text-[10px] sm:text-xs text-p22gold font-semibold tracking-wide block">Government Material Solutions</span>
-        </div>
-      </div>
-
-      <!-- Header Controls: Direct Staff Badge Install & Clean Share Trigger -->
-      <div class="flex items-center gap-2">
-        <!-- Direct Staff Badge Install Button (High Visibility for Staff Phones) -->
-        <button onclick="openStaffInstallModal(); trackEvent('Staff', 'Click', 'Install Badge Header');" 
-                title="Install Staff Digital Badge & Wallet Pass"
-                class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-p22gold/15 hover:bg-p22gold/25 border border-p22gold/40 text-p22gold active:scale-95 transition shadow btn-bounce flex items-center gap-1.5 text-xs font-montserrat font-bold">
-          <svg class="w-3.5 h-3.5 text-p22gold shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-          <span class="hidden xs:inline sm:inline">Install Staff Badge</span>
-          <span class="inline xs:hidden sm:hidden">Install</span>
-        </button>
-
-        <!-- Elegant Share / QR Trigger -->
-        <button onclick="openQRModal(); trackEvent('Header', 'Click', 'Share Profile');" title="Share Digital Card / QR"
-                class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-p22navy/80 hover:bg-p22navy border border-p22blue/40 text-sky-200 active:scale-95 transition shadow btn-bounce flex items-center gap-1.5 text-xs font-montserrat font-bold">
-          <svg class="w-3.5 h-3.5 text-p22gold shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
-          <span>Share</span>
-        </button>
-      </div>
-    </header>
-
-    <!-- Compact Single-Line Federal Verification & Command Status Strip -->
-    <div class="flex items-center justify-between gap-1.5 px-1 text-xs font-semibold anim-float-in">
-      <!-- 1-Tap Copy Credentials Badges (Inline) -->
-      <div class="flex items-center gap-1.5">
-        <button id="cageCopyBtn" onclick="copyCredential('CAGE', '169D8', this)" title="Tap to copy CAGE Code" class="copy-chip px-2.5 py-1 rounded-full bg-p22blue/25 hover:bg-p22blue/40 text-sky-200 border border-p22blue/35 transition active:scale-95 flex items-center gap-1 text-[11px] font-mono font-bold">
-          <span id="cageBadgeText">CAGE: 169D8</span>
-          <svg class="w-2.5 h-2.5 text-sky-300 opacity-70" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-          <span class="copy-tooltip">Copied ✓</span>
-        </button>
-
-        <button id="ueiCopyBtn" onclick="copyCredential('UEI', 'X3HUQZ66P6N3', this)" title="Tap to copy UEI Number" class="copy-chip px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-white/10 transition active:scale-95 flex items-center gap-1 text-[11px] font-mono font-bold">
-          <span id="ueiBadgeText">UEI: X3HUQZ66P6N3</span>
-          <svg class="w-2.5 h-2.5 text-slate-400 opacity-70" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-          <span class="copy-tooltip">Copied ✓</span>
-        </button>
-      </div>
-
-      <!-- Live Dallas HQ Real-Time Status Clock -->
-      <div id="dallasClockBadge" class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-900/90 border border-p22gold/30 text-[10px] font-mono text-slate-200 shadow-sm select-none" title="Dallas Defense Logistics Command Center">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span class="text-p22gold font-bold">DFW:</span>
-        <span id="dallasTimeDisplay" class="text-white font-semibold">--:-- CST</span>
-      </div>
-    </div>
-
-    <!-- ====================================================================== -->
-    <!-- UNIFIED EXECUTIVE HERO PASS (Decluttered Virtual Business Card)        -->
-    <!-- ====================================================================== -->
-    <div class="tilt-card-container">
-      <section id="executiveCard" class="glass-panel gold-hairline-card rounded-3xl shadow-2xl relative overflow-hidden tilt-card-inner anim-blur-in">
-        
-        <!-- Apple-Grade Dynamic Specular Sheen Layer -->
-        <div class="executive-card-sheen"></div>
-
-        <!-- Sleek Architectural Card Accent Header (Subtle 32px Bar with Credentials) -->
-        <div class="w-full px-5 py-2.5 bg-gradient-to-r from-p22navy/60 via-slate-900/80 to-p22navy/60 border-b border-white/10 flex items-center justify-between text-[11px] font-mono select-none">
-          <div class="flex items-center gap-1.5 text-p22gold font-bold">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span id="fedVerificationBadge">SAM.GOV ACTIVE VENDOR</span>
+        <!-- Streamlined Top Federal Identity & Client Bar (Ultra-clean, zero clutter) -->
+        <header class="glass-panel rounded-2xl px-3.5 py-2 flex items-center justify-between shadow-md mb-1">
+          <div class="flex items-center gap-2.5 select-none" title="P-22 Corp">
+            <div class="h-8 w-8 rounded-xl bg-white/10 p-1 flex items-center justify-center border border-white/20 shrink-0 shadow-sm">
+              <img src="logo.webp" alt="P-22 Corp Logo" class="w-full h-full object-contain" onerror="this.src='assets/branding/p22-logo-tight.png'">
+            </div>
+            <div>
+              <span class="text-xs sm:text-sm font-montserrat font-extrabold tracking-wider text-white block leading-tight">P-22 CORP</span>
+              <span class="text-[10px] sm:text-xs text-p22gold font-semibold tracking-wide block">Federal Defense &amp; Commercial Supply</span>
+            </div>
           </div>
-          <span class="text-slate-400 font-medium">DIV 26 &bull; TAA / FAR</span>
-        </div>
 
-        <!-- Executive Card Body (Avatar, Identity, Priority Save & Actions) -->
-        <div class="px-5 pb-6 pt-5 text-center relative" style="transform-style: preserve-3d;">
+          <!-- Header Controls: Staff Badge (Role-Gated) & Clean Share Trigger -->
+          <div class="flex items-center gap-2">
+            <!-- Direct Staff Badge Install Button (Role-Gated: only visible if isStaff is true) -->
+            <button onclick="openStaffInstallModal(); trackEvent('Staff', 'Click', 'Install Badge Header');" 
+                    title="Install Staff Digital Badge & Wallet Pass"
+                    class="staff-only hidden px-2.5 sm:px-3 py-1.5 rounded-xl bg-p22gold/15 hover:bg-p22gold/25 border border-p22gold/40 text-p22gold active:scale-95 transition shadow btn-bounce flex items-center gap-1.5 text-xs font-montserrat font-bold">
+              <svg class="w-3.5 h-3.5 text-p22gold shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+              <span>Staff Badge</span>
+            </button>
 
-          <!-- Verified Executive Headshot -->
-          <div class="relative w-24 h-24 sm:w-28 sm:h-28 mx-auto mb-3 z-20" style="transform: translateZ(28px); transform-style: preserve-3d;">
-            <div class="avatar-ring-outer w-full h-full shadow-2xl">
-              <div class="avatar-ring-inner w-full h-full">
-                <img id="staffAvatar" src="assets/staff/pedro-felipe.png" alt="Profile Photo" 
-                     class="w-full h-full rounded-full object-cover bg-slate-900 shadow-inner"
-                     onerror="this.src='logo.webp'">
+            <!-- Elegant Share / QR Trigger -->
+            <button onclick="openQRModal(); trackEvent('Header', 'Click', 'Share Profile');" title="Share Digital Card / QR"
+                    class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-p22navy/80 hover:bg-p22navy border border-p22blue/40 text-sky-200 active:scale-95 transition shadow btn-bounce flex items-center gap-1.5 text-xs font-montserrat font-bold">
+              <svg class="w-3.5 h-3.5 text-p22gold shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+              <span>Share</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- ====================================================================== -->
+        <!-- UNIFIED EXECUTIVE HERO PASS (Decluttered Virtual Business Card)        -->
+        <!-- ====================================================================== -->
+        <div class="tilt-card-container">
+          <section id="executiveCard" class="glass-panel gold-hairline-card rounded-3xl shadow-2xl relative overflow-hidden tilt-card-inner anim-blur-in">
+            
+            <!-- Apple-Grade Dynamic Specular Sheen Layer -->
+            <div class="executive-card-sheen"></div>
+
+            <!-- ====================================================================== -->
+            <!-- CINEMATIC CANOPY HERO: Ambient Video Raising Canopy (Seamless Backdrop) -->
+            <!-- ====================================================================== -->
+            <div class="relative w-full h-36 sm:h-44 overflow-hidden bg-slate-950 select-none">
+              <video id="heroCanopyVideo" autoplay loop muted playsinline
+                     class="w-full h-full object-cover opacity-65 scale-105 pointer-events-none transition-opacity duration-700"
+                     poster="assets/facility/construction-crane.webp">
+                <source src="assets/video_building_raising_optimized.mp4" type="video/mp4">
+                <source src="assets/video_building_raising.mp4" type="video/mp4">
+              </video>
+              <!-- Luxury Dark Gradient overlay melting video into card background -->
+              <div class="absolute inset-0 bg-gradient-to-b from-[#060B14]/40 via-[#0D1829]/65 to-[#0D1829] pointer-events-none"></div>
+
+              <!-- Federal Verification Status & Dallas Clock Overlays -->
+              <div class="absolute top-2.5 inset-x-3.5 flex items-center justify-between pointer-events-none">
+                <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-950/85 border border-emerald-500/40 text-[10px] font-mono font-bold text-emerald-400 backdrop-blur-md shadow">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span id="fedVerificationBadge">SAM.GOV ACTIVE</span>
+                </div>
+                <div id="dallasClockBadge" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-950/85 border border-p22gold/30 text-[10px] font-mono text-slate-200 backdrop-blur-md shadow">
+                  <span class="w-1.5 h-1.5 rounded-full bg-p22gold animate-pulse"></span>
+                  <span class="text-p22gold font-bold">DFW:</span>
+                  <span id="dallasTimeDisplay" class="text-white font-semibold">--:-- CST</span>
+                </div>
               </div>
             </div>
-            <div class="absolute bottom-0 right-0 bg-p22gold text-slate-950 p-1.5 rounded-full shadow-md border-2 border-slate-900" title="Verified SAM.gov Credential">
-              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-            </div>
-          </div>
 
-          <!-- Identity & Dynamic Title -->
-          <div class="space-y-1 mb-4" style="transform: translateZ(16px);">
-            <h1 id="staffName" class="text-2xl sm:text-3xl font-montserrat font-extrabold text-white tracking-tight">Pedro Felipe</h1>
-            <p id="staffTitle" class="text-xs sm:text-sm font-bold text-p22gold">Managing Director & Government Procurement Lead</p>
-            <p class="text-xs text-slate-300 font-medium">P-22 Corp Construction Material Solutions LLC</p>
-            <p id="staffBio" class="text-xs sm:text-sm text-slate-200 pt-1 leading-relaxed max-w-sm mx-auto">
-              Direct executive line for Federal Contracting Officers, Prime Contractors, and Municipal Purchasing Agents.
-            </p>
-            <div class="inline-flex items-center gap-1.5 text-[11px] sm:text-xs text-slate-300 pt-1">
-              <svg class="w-3.5 h-3.5 text-p22gold" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
-              <span id="staffLocation">Dallas Logistics Hub &bull; 24-Hr Solicitation Response</span>
-            </div>
-          </div>
+            <!-- Executive Card Body (Avatar, Identity, Priority Save & Actions) -->
+            <div class="px-5 pb-6 pt-0 text-center relative" style="transform-style: preserve-3d;">
 
-          <!-- ══════════════════════════════════════════════════════════════════ -->
-          <!-- HIGH-PRIORITY ACTION BUTTONS (VIRTUAL BUSINESS CARD CORE)         -->
-          <!-- ══════════════════════════════════════════════════════════════════ -->
-          <div class="space-y-2 mb-4" style="transform: translateZ(22px);">
-            <!-- High-Conversion Primary Golden CTA: Save Contact to Phone -->
-            <button onclick="downloadActiveVCard()" 
-                    class="w-full inline-flex items-center justify-center gap-2.5 py-3.5 px-6 rounded-2xl cta-luxury text-slate-950 font-montserrat font-extrabold text-sm tracking-wide shadow-xl hover:brightness-110 active:scale-98 transition transform duration-150 gold-glow">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
-              <span>Save Contact to Phone (.vcf)</span>
-            </button>
+              <!-- Verified Executive Headshot (Prominent 128px-144px Presence, Elevated from Top) -->
+              <div class="relative -mt-16 sm:-mt-20 w-32 h-32 sm:w-36 sm:h-36 mx-auto mb-3 z-20" style="transform: translateZ(28px); transform-style: preserve-3d;">
+                <div class="avatar-ring-outer w-full h-full shadow-2xl">
+                  <div class="avatar-ring-inner w-full h-full">
+                    <img id="staffAvatar" src="assets/staff/pedro-felipe.png" alt="Profile Photo" 
+                         class="w-full h-full rounded-full object-cover bg-slate-900 shadow-inner"
+                         onerror="this.src='logo.webp'">
+                  </div>
+                </div>
+                <div class="absolute bottom-1 right-1 bg-p22gold text-slate-950 p-1.5 rounded-full shadow-md border-2 border-slate-900" title="Verified SAM.gov Credential">
+                  <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                </div>
+              </div>
 
-            <!-- Direct Apple Wallet Pass (.pkpass) -->
-            <a id="cardAppleWalletBtn" href="assets/passes/pedro.pkpass" 
-               class="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-black hover:bg-neutral-900 border border-white/20 text-white font-montserrat font-bold text-xs tracking-wide active:scale-98 transition shadow-lg btn-bounce">
-              <svg class="w-4 h-4 fill-current text-white shrink-0" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.77 1.06-1.85.94-2.93-.91.04-2.02.61-2.67 1.38-.58.67-1.09 1.77-.95 2.82 1.02.08 2.05-.5 2.68-1.27z"/></svg>
-              <span>Add to Apple Wallet &amp; Watch (.pkpass)</span>
-            </a>
+              <!-- Identity & Dynamic Title -->
+              <div class="space-y-1 mb-4" style="transform: translateZ(16px);">
+                <h1 id="staffName" class="text-2xl sm:text-3xl font-montserrat font-extrabold text-white tracking-tight">Pedro Felipe</h1>
+                <p id="staffTitle" class="text-xs sm:text-sm font-bold text-p22gold">Managing Director & Government Procurement Lead</p>
+                <p class="text-xs text-slate-300 font-medium">P-22 Corp Construction Material Solutions LLC</p>
 
-            <!-- Dedicated Staff Badge Install Callout Banner -->
-            <button onclick="openStaffInstallModal(); trackEvent('Staff', 'Click', 'Install Badge CardBanner');"
-                    class="w-full py-2 px-3 rounded-xl bg-p22gold/10 hover:bg-p22gold/20 border border-p22gold/30 text-p22gold font-montserrat font-bold text-xs flex items-center justify-center gap-1.5 transition active:scale-95">
-              <svg class="w-3.5 h-3.5 text-p22gold shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-              <span>Staff: Install Your Phone Badge &amp; App Icon</span>
-            </button>
-          </div>
+                <!-- 1-Tap Copy Credentials Badges (Contextually Integrated with Executive) -->
+                <div class="flex items-center justify-center gap-2 pt-1.5 pb-0.5">
+                  <button id="cageCopyBtn" onclick="copyCredential('CAGE', '169D8', this)" title="Tap to copy CAGE Code" class="copy-chip px-2.5 py-1 rounded-full bg-p22blue/25 hover:bg-p22blue/40 text-sky-200 border border-p22blue/35 transition active:scale-95 flex items-center gap-1 text-[11px] font-mono font-bold">
+                    <span id="cageBadgeText">CAGE: 169D8</span>
+                    <svg class="w-2.5 h-2.5 text-sky-300 opacity-70" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                    <span class="copy-tooltip">Copied ✓</span>
+                  </button>
+
+                  <button id="ueiCopyBtn" onclick="copyCredential('UEI', 'X3HUQZ66P6N3', this)" title="Tap to copy UEI Number" class="copy-chip px-2.5 py-1 rounded-full bg-slate-800/90 hover:bg-slate-700 text-slate-300 border border-white/10 transition active:scale-95 flex items-center gap-1 text-[11px] font-mono font-bold">
+                    <span id="ueiBadgeText">UEI: X3HUQZ66P6N3</span>
+                    <svg class="w-2.5 h-2.5 text-slate-400 opacity-70" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                    <span class="copy-tooltip">Copied ✓</span>
+                  </button>
+                </div>
+
+                <p id="staffBio" class="text-xs sm:text-sm text-slate-200 pt-1 leading-relaxed max-w-sm mx-auto">
+                  Direct executive line for Federal Contracting Officers, Prime Contractors, and Municipal Purchasing Agents.
+                </p>
+                <div class="inline-flex items-center gap-1.5 text-[11px] sm:text-xs text-slate-300 pt-0.5">
+                  <svg class="w-3.5 h-3.5 text-p22gold" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+                  <span id="staffLocation">Dallas Logistics Hub &bull; 24-Hr Solicitation Response</span>
+                </div>
+              </div>
+
+              <!-- ══════════════════════════════════════════════════════════════════ -->
+              <!-- HIGH-PRIORITY ACTION BUTTONS (VIRTUAL BUSINESS CARD CORE)         -->
+              <!-- ══════════════════════════════════════════════════════════════════ -->
+              <div class="space-y-2 mb-4" style="transform: translateZ(22px);">
+                <!-- High-Conversion Primary Golden CTA: Save Contact to Phone -->
+                <button onclick="downloadActiveVCard()" 
+                        class="w-full inline-flex items-center justify-center gap-2.5 py-3.5 px-6 rounded-2xl cta-luxury text-slate-950 font-montserrat font-extrabold text-sm tracking-wide shadow-xl hover:brightness-110 active:scale-98 transition transform duration-150 gold-glow">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+                  <span>Save Contact to Phone (.vcf)</span>
+                </button>
+
+                <!-- Direct Apple Wallet Pass (.pkpass) -->
+                <a id="cardAppleWalletBtn" href="assets/passes/pedro.pkpass" 
+                   class="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-black hover:bg-neutral-900 border border-white/20 text-white font-montserrat font-bold text-xs tracking-wide active:scale-98 transition shadow-lg btn-bounce">
+                  <svg class="w-4 h-4 fill-current text-white shrink-0" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.77 1.06-1.85.94-2.93-.91.04-2.02.61-2.67 1.38-.58.67-1.09 1.77-.95 2.82 1.02.08 2.05-.5 2.68-1.27z"/></svg>
+                  <span>Add to Apple Wallet &amp; Watch (.pkpass)</span>
+                </a>
+
+                <!-- Dedicated Staff Badge Install Callout Banner (Role-Gated: staff-only hidden) -->
+                <button onclick="openStaffInstallModal(); trackEvent('Staff', 'Click', 'Install Badge CardBanner');"
+                        class="staff-only hidden w-full py-2 px-3 rounded-xl bg-p22gold/10 hover:bg-p22gold/20 border border-p22gold/30 text-p22gold font-montserrat font-bold text-xs flex items-center justify-center gap-1.5 transition active:scale-95">
+                  <svg class="w-3.5 h-3.5 text-p22gold shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                  <span>Staff: Install Your Phone Badge &amp; App Icon</span>
+                </button>
+              </div>
 
           <!-- 4 Clean Enterprise Quick Actions -->
           <div class="grid grid-cols-4 gap-2 mb-4" style="transform: translateZ(14px);">
@@ -583,9 +599,9 @@
               </div>
             </a>
 
-            <!-- Division Quick-Switcher Chips -->
+            <!-- Corporate Department Lines -->
             <div class="pt-2 text-left">
-              <span class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block mb-1.5">Division Desks</span>
+              <span class="text-[9.5px] text-slate-400 font-semibold uppercase tracking-wider block mb-1">Corporate Department Lines</span>
               <div class="flex items-center gap-1.5 overflow-x-auto pb-1 hide-scrollbar" id="divisionChipsContainer">
                 <button onclick="switchStaff('pedro'); triggerHaptic(10);" id="chip-pedro" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-p22gold/20 text-xs font-montserrat font-bold text-slate-200 hover:text-p22gold border border-white/10 hover:border-p22gold/30 shrink-0 transition active:scale-95 flex items-center gap-1">
                   <span>Executive Desk</span>
@@ -852,7 +868,7 @@
       </div>
       <p class="text-[11px]">P-22 Corp Construction Material Solutions LLC</p>
       <p class="text-[10px]">18383 Preston Rd, Suite 202, Dallas, TX 75252 &bull; 1-888-722-2675</p>
-      <p class="text-[9px] text-slate-600">NIST SP 800-171 Data Privacy Protocol &bull; Zero Commercial Watermarks</p>
+      <p class="text-[9px] text-slate-600">NIST SP 800-171 Data Privacy Protocol &bull; Zero Commercial Watermarks &bull; <button onclick="unlockStaffMode()" class="text-slate-500 hover:text-p22gold transition underline inline-flex items-center gap-0.5">Staff Portal</button></p>
     </footer>
 
       </div> <!-- Closes lg:col-span-7 -->
@@ -1412,6 +1428,14 @@
         }
       });
 
+      // Canopy Video Poster update
+      const canopyVid = document.getElementById('heroCanopyVideo');
+      if (canopyVid && data.canopyPoster) {
+        canopyVid.poster = data.canopyPoster;
+      }
+
+      updateStaffVisibility();
+
       trackEvent('Profile', 'Load', data.name);
     }
 
@@ -1546,6 +1570,41 @@
     function closePdfModal() {
       const modal = document.getElementById('pdfModal');
       if (modal) modal.classList.add('hidden');
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // ROLE-GATED AUDIENCE ENGINE (Clean Client Card vs Staff Setup Mode)
+    // ══════════════════════════════════════════════════════════════════════════
+    function isStaffActive() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.has('staff') || urlParams.get('mode') === 'staff' || localStorage.getItem('p22_staff_auth') === 'true';
+    }
+
+    function updateStaffVisibility() {
+      const isStaff = isStaffActive();
+      document.querySelectorAll('.staff-only').forEach(el => {
+        if (isStaff) {
+          el.classList.remove('hidden');
+        } else {
+          el.classList.add('hidden');
+        }
+      });
+    }
+
+    function unlockStaffMode() {
+      if (isStaffActive()) {
+        openStaffInstallModal();
+        return;
+      }
+      const pin = prompt('Enter P-22 Staff PIN:');
+      if (pin === '169D8' || pin === '169d8') {
+        localStorage.setItem('p22_staff_auth', 'true');
+        updateStaffVisibility();
+        triggerHaptic(25);
+        openStaffInstallModal();
+      } else if (pin !== null) {
+        alert('Invalid PIN. Authorized P-22 Personnel Only.');
+      }
     }
 
     function openStaffInstallModal() {
@@ -2062,6 +2121,7 @@
 
       const initialRep = detectInitialStaff();
       switchStaff(initialRep);
+      updateStaffVisibility();
 
       initDallasClock();
       initTilt3D();
