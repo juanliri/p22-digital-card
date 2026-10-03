@@ -1,16 +1,20 @@
-// P-22 Digital Business Card — Service Worker for Offline Resilience (v3.0 Titanium Edition)
-const CACHE_NAME = 'p22-card-v3.0';
+// P-22 Digital Business Card — Service Worker for Offline Resilience (v3.2 Titanium Edition)
+const CACHE_NAME = 'p22-card-v3.2';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
+  '/badge.html',
   '/manifest.json',
   '/logo.webp',
   '/favicon.png',
   '/favicon.webp',
   '/favicon.ico',
-  '/assets/staff/pedro-felipe.png',
-  '/assets/staff/eduardo-lopez.jpg',
-  '/assets/staff/marleni-mendez.jpg',
+  '/assets/staff/pedro-official-1x1.png',
+  '/assets/staff/eduardo-official-1x1.png',
+  '/assets/staff/marleni-official-1x1.png',
+  '/assets/staff/bids-official-1x1.png',
+  '/assets/staff/logistics-official-1x1.png',
+  '/assets/branding/p22-official-logo.png',
   '/assets/branding/logo-navy-flat.png',
   '/assets/facility/logistics-fleet.webp',
   '/assets/facility/loading-dock.webp',

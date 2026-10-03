@@ -5,9 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
   <link rel="shortcut icon" href="/favicon.ico">
-  <title>P-22 Corp | Staff Badge &amp; Device Setup</title>
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <title>P-22 Corp | Executive Staff ID Badge &amp; Device Studio</title>
   <meta name="robots" content="noindex, nofollow">
+  <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#060B14">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="P-22 Badge">
@@ -19,7 +22,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -32,11 +35,13 @@
             p22gold: '#C9A227',
             p22goldHover: '#b59120',
             p22goldShine: '#E8D48B',
+            p22goldDeep: '#8B6914',
             p22blue: '#457B9D'
           },
           fontFamily: {
             montserrat: ['Montserrat', 'sans-serif'],
-            sans: ['Open Sans', 'sans-serif']
+            sans: ['Open Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
           }
         }
       }
@@ -50,14 +55,20 @@
       -webkit-tap-highlight-color: transparent;
     }
     .glass-panel {
-      background: rgba(13, 24, 41, 0.92);
+      background: rgba(13, 24, 41, 0.94);
       backdrop-filter: blur(28px);
       -webkit-backdrop-filter: blur(28px);
       border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+    }
+    .badge-card {
+      background: linear-gradient(165deg, rgba(19, 34, 58, 0.96) 0%, rgba(8, 14, 25, 0.98) 100%);
+      border: 1.5px solid rgba(201, 162, 39, 0.45);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 35px rgba(201, 162, 39, 0.2);
+      position: relative;
     }
     .gold-glow {
-      box-shadow: 0 0 25px rgba(201, 162, 39, 0.35);
+      box-shadow: 0 0 28px rgba(201, 162, 39, 0.4);
     }
     .btn-bounce {
       transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.18s;
@@ -68,146 +79,248 @@
     .btn-bounce:active {
       transform: scale(0.96);
     }
+    .hologram-strip {
+      background: linear-gradient(90deg, 
+        rgba(201, 162, 39, 0.25) 0%, 
+        rgba(69, 123, 157, 0.35) 25%, 
+        rgba(232, 212, 139, 0.45) 50%, 
+        rgba(69, 123, 157, 0.35) 75%, 
+        rgba(201, 162, 39, 0.25) 100%
+      );
+      background-size: 200% 100%;
+      animation: hologramShift 4s linear infinite;
+    }
+    @keyframes hologramShift {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+    .lanyard-hole {
+      width: 44px;
+      height: 12px;
+      background: #060B14;
+      border: 1.5px solid rgba(255, 255, 255, 0.25);
+      border-radius: 9999px;
+      margin: 0 auto;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
+    }
   </style>
 </head>
 <body class="min-h-screen relative flex flex-col items-center justify-start p-3 sm:p-6 selection:bg-p22gold selection:text-slate-950 overflow-x-hidden">
 
-  <!-- Ambient Glow -->
+  <!-- Ambient Luxury Glow -->
   <div class="fixed inset-0 bg-gradient-to-b from-[#060B14] via-[#1D3557]/30 to-[#060B14] -z-10 pointer-events-none"></div>
 
-  <main class="w-full max-w-lg mx-auto space-y-4 pb-12">
+  <main class="w-full max-w-md mx-auto space-y-4 pb-16">
 
-    <!-- Header Bar -->
+    <!-- Top Navigation Header -->
     <header class="glass-panel rounded-2xl px-4 py-3 flex items-center justify-between shadow-xl">
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2.5">
         <div class="w-9 h-9 rounded-xl bg-white/10 p-1 flex items-center justify-center border border-white/20 shrink-0">
-          <img src="logo.webp" alt="P-22 Corp Logo" class="w-full h-full object-contain" onerror="this.src='assets/branding/p22-logo-tight.png'">
+          <img src="/assets/branding/p22-official-logo.png" alt="P-22 Logo" class="w-full h-full object-contain" onerror="this.src='/favicon.png'">
         </div>
         <div>
-          <span class="text-[10px] font-mono text-p22gold font-bold tracking-widest uppercase block">Internal Staff Toolkit</span>
-          <h1 class="text-sm sm:text-base font-montserrat font-extrabold text-white">Staff Phone Badge Setup</h1>
+          <span class="text-[9.5px] font-mono text-p22gold font-bold tracking-widest uppercase block">Internal Staff Credential</span>
+          <h1 class="text-xs sm:text-sm font-montserrat font-extrabold text-white">Staff Phone Badge Studio</h1>
         </div>
       </div>
-      <a href="/" target="_blank" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-montserrat font-semibold text-slate-200 transition btn-bounce">
-        Public Card &rarr;
+      <a id="publicCardHeaderLink" href="/pedro" target="_blank" class="px-3 py-1.5 rounded-xl bg-p22gold/15 hover:bg-p22gold/25 border border-p22gold/30 text-[11px] font-montserrat font-bold text-p22gold transition btn-bounce flex items-center gap-1">
+        <span>Public Card</span>
+        <span>&rarr;</span>
       </a>
     </header>
 
-    <!-- Staff Profile Switcher -->
-    <section class="glass-panel rounded-3xl p-5 shadow-2xl space-y-4">
-      <div>
-        <label class="block text-xs font-semibold text-slate-300 mb-1.5" for="staffSelect">Select Your Name / Profile:</label>
-        <select id="staffSelect" onchange="onStaffSelectChange(this.value)"
-                class="w-full px-3.5 py-3 rounded-xl bg-slate-900 border border-white/20 text-white font-montserrat font-bold text-sm focus:outline-none focus:ring-2 focus:ring-p22gold shadow-inner">
-          <option value="pedro">Pedro Felipe — Managing Director &amp; Gov Procurement Lead</option>
-          <option value="eduardo">Eduardo Lopez — Director of Government Sales</option>
-          <option value="marleni">Marleni Mendez — Controller &amp; Compliance Lead</option>
-          <option value="bids">Govt Procurement Desk — Rapid RFQ Unit</option>
-          <option value="logistics">Dallas Logistics Hub — Dispatch &amp; Staging</option>
-        </select>
-      </div>
-
-      <!-- Live Staff Identity Card -->
-      <div class="p-4 rounded-2xl bg-white/5 border border-white/10 flex items-center gap-3.5">
-        <img id="staffBadgeAvatar" src="assets/staff/pedro-felipe.png" alt="Staff Headshot"
-             class="w-14 h-14 rounded-2xl object-cover bg-slate-900 border-2 border-p22gold shadow shrink-0"
-             onerror="this.src='logo.webp'">
-        <div class="min-w-0 flex-1">
-          <h2 id="staffBadgeName" class="text-base font-montserrat font-extrabold text-white truncate">Pedro Felipe</h2>
-          <p id="staffBadgeTitle" class="text-xs text-p22gold font-semibold truncate">Managing Director &amp; Government Procurement Lead</p>
-          <p class="text-[10px] text-slate-400 font-mono mt-0.5">CAGE: 169D8 &bull; P-22 CORP &bull; Dallas, TX</p>
-        </div>
-      </div>
+    <!-- Staff Identity Switcher -->
+    <section class="glass-panel rounded-2xl p-4 shadow-xl space-y-2">
+      <label class="block text-[11px] font-semibold text-slate-300" for="staffSelect">Select Staff Member / Identity:</label>
+      <select id="staffSelect" onchange="onStaffSelectChange(this.value)"
+              class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-white/20 text-white font-montserrat font-bold text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-p22gold shadow-inner">
+        <option value="pedro">Pedro Felipe — Managing Director &amp; Power Systems Lead</option>
+        <option value="eduardo">Eduardo Lopez — Electrical Sales Manager &amp; OEM Logistics SME</option>
+        <option value="marleni">Marleni Méndez — Finance Officer &amp; DCAA Compliance Lead</option>
+        <option value="bids">Government Procurement Desk — 24-Hour Rapid RFQ Response Unit</option>
+        <option value="logistics">Dallas Logistics Hub — Centralized Fleet Dispatch &amp; Staging</option>
+      </select>
     </section>
 
-    <!-- METHOD 1: Apple Wallet & Apple Watch -->
-    <section class="glass-panel rounded-3xl p-5 shadow-2xl space-y-3.5 border border-p22gold/30">
-      <div class="flex items-center justify-between border-b border-white/10 pb-2.5">
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- 1-CLICK AUTOMATIC PWA INSTALLATION TRIGGER (Prominent Front & Center)   -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="glass-panel rounded-2xl p-4 border border-p22gold/40 shadow-2xl space-y-3">
+      <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
-          <div class="w-7 h-7 rounded-lg bg-black flex items-center justify-center border border-white/20 text-white">
-            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.77 1.06-1.85.94-2.93-.91.04-2.02.61-2.67 1.38-.58.67-1.09 1.77-.95 2.82 1.02.08 2.05-.5 2.68-1.27z"/></svg>
-          </div>
-          <h2 class="font-montserrat font-bold text-sm text-white">Method 1: Apple Wallet &amp; Apple Watch</h2>
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+          <span class="text-xs font-montserrat font-extrabold text-white tracking-wide uppercase">1-Click Phone App Install</span>
         </div>
-        <span class="text-[10px] text-p22gold font-semibold px-2 py-0.5 rounded-full bg-p22gold/15 border border-p22gold/30">Official .pkpass</span>
+        <span class="text-[10px] text-p22gold font-mono font-bold px-2 py-0.5 rounded-full bg-p22gold/15 border border-p22gold/30">0.2s Offline</span>
       </div>
 
       <p class="text-xs text-slate-300 leading-relaxed">
-        Installs your verified digital badge into the Apple Wallet app on your iPhone. <strong>Automatically mirrors to your Apple Watch!</strong>
+        Install this verified badge directly onto your phone home screen. Opens in <strong class="text-white">0.2 seconds</strong> with zero internet connection required at conventions and client sites.
       </p>
 
-      <a id="appleWalletBtn" href="assets/passes/pedro.pkpass"
-         class="w-full py-3.5 px-4 rounded-xl bg-black hover:bg-neutral-900 border border-white/30 text-white font-montserrat font-bold text-xs tracking-wide shadow-xl active:scale-95 transition btn-bounce flex items-center justify-center gap-2.5">
-        <svg class="w-5 h-5 fill-current text-white shrink-0" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.77 1.06-1.85.94-2.93-.91.04-2.02.61-2.67 1.38-.58.67-1.09 1.77-.95 2.82 1.02.08 2.05-.5 2.68-1.27z"/></svg>
+      <!-- The 1-Click Install Button -->
+      <button id="pwaInstallBtn" onclick="triggerPwaInstall()"
+              class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-p22gold via-amber-400 to-p22gold text-slate-950 font-montserrat font-extrabold text-xs tracking-wide shadow-xl hover:brightness-110 active:scale-95 transition flex items-center justify-center gap-2 btn-bounce gold-glow">
+        <svg class="w-5 h-5 text-slate-950" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+        <span id="pwaInstallBtnText">⚡ 1-Click Install Badge App to Phone</span>
+      </button>
+
+      <!-- Status indicator for already installed PWA -->
+      <div id="pwaInstalledNotice" class="hidden p-2.5 rounded-xl bg-emerald-950/80 border border-emerald-500/40 text-center">
+        <p class="text-xs text-emerald-300 font-semibold flex items-center justify-center gap-1.5">
+          <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          <span>Badge Installed as Standalone App (Offline Mode Ready)</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- THE AUTHENTIC EXECUTIVE SMART ID BADGE                                  -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <div id="badgeCardContainer" class="badge-card rounded-3xl p-5 sm:p-6 text-center space-y-4 relative overflow-hidden">
+
+      <!-- Lanyard Slot at top of physical badge -->
+      <div class="lanyard-hole"></div>
+
+      <!-- Hologram Security Banner -->
+      <div class="hologram-strip py-1 px-3 rounded-lg border border-white/20 text-[9.5px] font-mono font-bold text-slate-950 uppercase tracking-widest shadow-inner">
+        OFFICIAL FEDERAL CONTRACTOR CREDENTIAL &bull; CAGE: 169D8
+      </div>
+
+      <!-- Badge Header: Corporate Emblem & Authority -->
+      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+        <div class="flex items-center gap-2.5 text-left">
+          <div class="w-10 h-10 rounded-xl bg-slate-950/80 p-1.5 border border-p22gold/40 flex items-center justify-center shrink-0 shadow">
+            <img src="/assets/branding/p22-official-logo.png" alt="P-22 Emblem" class="w-full h-full object-contain" onerror="this.src='/favicon.png'">
+          </div>
+          <div>
+            <h3 class="font-montserrat font-extrabold text-xs text-white uppercase tracking-wider">P-22 CORP</h3>
+            <p class="text-[9.5px] text-p22gold font-semibold uppercase tracking-tight">Government Material Solutions</p>
+          </div>
+        </div>
+
+        <!-- Live Dallas CST Authenticity Clock -->
+        <div class="text-right font-mono">
+          <span class="text-[9px] text-slate-400 block uppercase">DFW Time</span>
+          <span id="badgeLiveClock" class="text-[11px] text-emerald-400 font-bold">--:--:-- CST</span>
+        </div>
+      </div>
+
+      <!-- Executive Portrait: 1:1 Aspect Ratio, Sharp, Clean -->
+      <div class="relative w-28 h-28 sm:w-32 sm:h-32 mx-auto">
+        <div class="w-full h-full rounded-2xl overflow-hidden border-2 border-p22gold shadow-2xl bg-slate-950 p-1">
+          <img id="badgeAvatar" src="/assets/staff/pedro-official-1x1.png" alt="Staff Portrait"
+               class="w-full h-full rounded-xl object-cover"
+               onerror="this.src='/assets/staff/pedro-felipe.png'">
+        </div>
+        <div class="absolute -bottom-1.5 -right-1.5 bg-p22gold text-slate-950 p-1 rounded-full shadow-lg border border-slate-950" title="SAM.gov Verified">
+          <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+        </div>
+      </div>
+
+      <!-- Identity & Official Title -->
+      <div class="space-y-1">
+        <h2 id="badgeName" class="text-lg sm:text-xl font-montserrat font-extrabold text-white tracking-tight">Pedro Felipe</h2>
+        <p id="badgeTitle" class="text-xs font-bold text-p22gold leading-tight">Managing Director &amp; Power Systems Lead</p>
+        <p class="text-[10px] text-slate-300">P-22 Corp Construction Material Solutions LLC</p>
+      </div>
+
+      <!-- Credential Micro-Chips -->
+      <div class="grid grid-cols-3 gap-1.5 text-center font-mono text-[10px] py-1 border-y border-white/10 bg-black/30 rounded-xl p-2">
+        <div class="border-r border-white/10 pr-1">
+          <span class="text-slate-400 block text-[8.5px]">CAGE CODE</span>
+          <span class="text-sky-300 font-bold">169D8</span>
+        </div>
+        <div class="border-r border-white/10 pr-1">
+          <span class="text-slate-400 block text-[8.5px]">UEI NUMBER</span>
+          <span class="text-slate-200 font-bold truncate block">X3HUQZ66P6N3</span>
+        </div>
+        <div>
+          <span class="text-slate-400 block text-[8.5px]">STATUS</span>
+          <span class="text-emerald-400 font-bold flex items-center justify-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>ACTIVE</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- High-Resolution Badge QR Pass (Dynamically generated) -->
+      <div class="p-3 bg-white rounded-2xl inline-block shadow-2xl mx-auto border-2 border-p22gold/50" id="badgeQrWrapper">
+        <div id="badgeQrCode" style="min-width: 160px; min-height: 160px;"></div>
+      </div>
+      <p class="text-[10.5px] text-slate-300 font-medium -mt-2">
+        Scan to view verified digital credentials &amp; save contact
+      </p>
+
+      <!-- Badge Security Bottom Strip (NFC & Barcode simulation) -->
+      <div class="pt-2 border-t border-white/10 flex items-center justify-between text-[9px] font-mono text-slate-400">
+        <span class="flex items-center gap-1 text-p22gold">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <span>NFC CONTACTLESS ENABLED</span>
+        </span>
+        <span id="badgeRepId">REP: P22-DFW-01</span>
+      </div>
+
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- METHOD 1: APPLE WALLET & WATCH PASS                                     -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="glass-panel rounded-2xl p-4 shadow-xl space-y-3 border border-white/10">
+      <div class="flex items-center justify-between border-b border-white/10 pb-2">
+        <div class="flex items-center gap-2">
+          <div class="w-6 h-6 rounded-lg bg-black flex items-center justify-center border border-white/20 text-white">
+            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.77 1.06-1.85.94-2.93-.91.04-2.02.61-2.67 1.38-.58.67-1.09 1.77-.95 2.82 1.02.08 2.05-.5 2.68-1.27z"/></svg>
+          </div>
+          <h2 class="font-montserrat font-bold text-xs text-white">Apple Wallet &amp; Watch (.pkpass)</h2>
+        </div>
+        <span class="text-[10px] text-p22gold font-semibold px-2 py-0.5 rounded-full bg-p22gold/15 border border-p22gold/30">Wrist Scan</span>
+      </div>
+
+      <p class="text-xs text-slate-300 leading-relaxed">
+        Syncs into Apple Wallet on your iPhone and mirrors to your Apple Watch. Double-click your Apple Watch side button anytime at an expo booth to display your QR pass on your wrist.
+      </p>
+
+      <a id="appleWalletPassBtn" href="/assets/passes/pedro.pkpass"
+         class="w-full py-3 px-4 rounded-xl bg-black hover:bg-neutral-900 border border-white/30 text-white font-montserrat font-bold text-xs tracking-wide shadow-xl active:scale-95 transition btn-bounce flex items-center justify-center gap-2">
+        <svg class="w-4 h-4 fill-current text-white shrink-0" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.77 1.06-1.85.94-2.93-.91.04-2.02.61-2.67 1.38-.58.67-1.09 1.77-.95 2.82 1.02.08 2.05-.5 2.68-1.27z"/></svg>
         <span>Add to Apple Wallet &amp; Watch (.pkpass)</span>
       </a>
-
-      <div class="p-3 rounded-xl bg-black/40 border border-white/10 text-[11px] text-slate-300 space-y-1">
-        <p class="font-semibold text-white flex items-center gap-1.5">
-          <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
-          <span>Apple Watch Wrist Quick-Trigger:</span>
-        </p>
-        <p class="text-slate-400 leading-normal">
-          Double-click the side button on your Apple Watch anytime at an expo booth or client meeting to instantly display your QR pass on your wrist.
-        </p>
-      </div>
     </section>
 
-    <!-- METHOD 2: 1-Tap Home Screen Standalone App (PWA) -->
-    <section class="glass-panel rounded-3xl p-5 shadow-2xl space-y-3.5 border border-white/10">
-      <div class="flex items-center justify-between border-b border-white/10 pb-2.5">
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- METHOD 2: LOCK SCREEN QR WALLPAPER                                      -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="glass-panel rounded-2xl p-4 shadow-xl space-y-3 border border-white/10">
+      <div class="flex items-center justify-between border-b border-white/10 pb-2">
         <div class="flex items-center gap-2">
-          <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+          <div class="w-6 h-6 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center font-bold">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
           </div>
-          <h2 class="font-montserrat font-bold text-sm text-white">Method 2: Install Home Screen App Icon</h2>
-        </div>
-        <span class="text-[10px] text-emerald-300 font-semibold px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30">0.2s Offline</span>
-      </div>
-
-      <p class="text-xs text-slate-300 leading-relaxed">
-        Creates a gold P-22 app icon on your iPhone / Android home screen. Tapping it launches your QR code in <strong>0.2 seconds</strong>, even if there is zero cellular signal in the convention hall!
-      </p>
-
-      <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 space-y-2 text-xs">
-        <p class="font-bold text-white">How to install in Safari (iPhone):</p>
-        <ol class="list-decimal list-inside space-y-1.5 text-slate-300 text-[11px] leading-relaxed">
-          <li>Open your personal card link: <a id="directLinkPreview" href="/pedro" target="_blank" class="text-p22gold underline font-mono">p22-digital-card.vercel.app/pedro</a>.</li>
-          <li>Tap the <strong>Share</strong> button <svg class="w-3.5 h-3.5 inline text-sky-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg> at the bottom of Safari.</li>
-          <li>Scroll down and tap <strong>"Add to Home Screen"</strong>.</li>
-          <li>Tap <strong>"Add"</strong> in the top right. You now have the standalone P-22 app icon on your phone!</li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- METHOD 3: Lock Screen & Apple Watch Photo Wallpaper -->
-    <section class="glass-panel rounded-3xl p-5 shadow-2xl space-y-3.5 border border-white/10">
-      <div class="flex items-center justify-between border-b border-white/10 pb-2.5">
-        <div class="flex items-center gap-2">
-          <div class="w-7 h-7 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center font-bold">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-          </div>
-          <h2 class="font-montserrat font-bold text-sm text-white">Method 3: Lock Screen QR Wallpaper</h2>
+          <h2 class="font-montserrat font-bold text-xs text-white">Lock Screen QR Wallpaper</h2>
         </div>
         <span class="text-[10px] text-sky-300 font-semibold px-2 py-0.5 rounded-full bg-sky-500/15 border border-sky-500/30">Camera Roll</span>
       </div>
 
       <p class="text-xs text-slate-300 leading-relaxed">
-        Save this high-resolution QR wallpaper to your iPhone Photos. Set it as your lock screen wallpaper so anyone can scan your card without you even unlocking your phone!
+        Save this high-resolution wallpaper to your phone Photos and set as your Lock Screen. Anyone can scan your badge without you even unlocking your phone!
       </p>
 
       <div class="flex items-center gap-3">
-        <div class="w-20 h-36 rounded-xl border border-white/20 bg-slate-950 overflow-hidden shrink-0 shadow-lg">
-          <img id="lockscreenThumb" src="assets/failsafe_lockscreen_pedro.png" alt="Lock screen preview" class="w-full h-full object-cover">
+        <!-- Real Lock Screen Image Preview with Fallback -->
+        <div class="w-20 h-36 rounded-xl border border-white/20 bg-slate-950 overflow-hidden shrink-0 shadow-lg relative">
+          <img id="lockscreenThumb" src="/assets/failsafe_lockscreen_pedro.png" alt="Lock screen preview"
+               class="w-full h-full object-cover"
+               onerror="this.src='/assets/failsafe_lockscreen_corporate.png'">
         </div>
         <div class="flex-1 space-y-2">
-          <a id="downloadLockscreenBtn" href="assets/failsafe_lockscreen_pedro.png" download="P22_LockScreen_Badge.png"
-             class="w-full py-3 px-3 rounded-xl bg-p22gold text-slate-950 font-montserrat font-bold text-xs hover:brightness-110 active:scale-95 transition btn-bounce shadow flex items-center justify-center gap-2">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          <a id="downloadLockscreenBtn" href="/assets/failsafe_lockscreen_pedro.png" download="P22_LockScreen_Badge.png"
+             class="w-full py-2.5 px-3 rounded-xl bg-p22gold text-slate-950 font-montserrat font-bold text-xs hover:brightness-110 active:scale-95 transition btn-bounce shadow flex items-center justify-center gap-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
             <span>Download Wallpaper (.PNG)</span>
           </a>
-          <a id="saveVcfDirectBtn" href="assets/vcf/pedro.vcf"
-             class="w-full py-2.5 px-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-montserrat font-semibold text-xs border border-white/10 transition active:scale-95 flex items-center justify-center gap-1.5">
+          <a id="saveVcfDirectBtn" href="/assets/vcf/pedro.vcf"
+             class="w-full py-2 px-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-montserrat font-semibold text-xs border border-white/10 transition active:scale-95 flex items-center justify-center gap-1.5">
             <svg class="w-3.5 h-3.5 text-p22gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
             <span>Save Contact Card (.VCF)</span>
           </a>
@@ -215,95 +328,234 @@
       </div>
     </section>
 
-    <!-- Navigation & Operations Link -->
-    <div class="text-center pt-2 pb-6 space-y-2 text-xs text-slate-400">
-      <p>
-        Need to program NFC physical cards or export captured expo leads?
-      </p>
-      <a href="/setup" class="inline-flex items-center gap-1 text-p22gold font-montserrat font-bold hover:underline">
-        <span>Open Advanced Setup &amp; NFC Hub (/setup)</span>
-        <span>&rarr;</span>
-      </a>
-    </div>
-
   </main>
 
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- MODAL: iOS Safari Add to Home Screen Interactive Guide                  -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <div id="iosInstallModal" class="hidden fixed inset-0 z-[300] flex items-end sm:items-center justify-center p-3 bg-slate-950/85 backdrop-blur-md">
+    <div class="glass-panel w-full max-w-sm rounded-3xl p-5 shadow-2xl relative border border-p22gold/40 text-center space-y-4 animate-fade-in">
+      <div class="w-12 h-12 rounded-2xl bg-p22gold/20 text-p22gold p-2 mx-auto flex items-center justify-center">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+      </div>
+
+      <h3 class="text-base font-montserrat font-extrabold text-white">Install Badge on iPhone / iPad</h3>
+      
+      <div class="text-left bg-white/5 border border-white/10 rounded-2xl p-4 space-y-2.5 text-xs text-slate-200">
+        <div class="flex items-start gap-2.5">
+          <span class="w-5 h-5 rounded-full bg-p22gold text-slate-950 font-bold flex items-center justify-center shrink-0 text-[11px]">1</span>
+          <p>Tap the <strong>Share</strong> button <svg class="w-4 h-4 inline text-sky-400 align-text-bottom" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg> at the bottom of Safari.</p>
+        </div>
+        <div class="flex items-start gap-2.5">
+          <span class="w-5 h-5 rounded-full bg-p22gold text-slate-950 font-bold flex items-center justify-center shrink-0 text-[11px]">2</span>
+          <p>Scroll down and tap <strong>"Add to Home Screen"</strong>.</p>
+        </div>
+        <div class="flex items-start gap-2.5">
+          <span class="w-5 h-5 rounded-full bg-p22gold text-slate-950 font-bold flex items-center justify-center shrink-0 text-[11px]">3</span>
+          <p>Tap <strong>"Add"</strong> in the top-right corner. You're done!</p>
+        </div>
+      </div>
+
+      <button onclick="closeIosInstallModal()" class="w-full py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-montserrat font-bold text-xs transition">
+        Got It, Thanks!
+      </button>
+    </div>
+  </div>
+
   <script>
-    const STAFF_DATA = {
+    // ══════════════════════════════════════════════════════════════════════════
+    // OFFICIAL STAFF DATA (1:1 with p22corp.com)
+    // ══════════════════════════════════════════════════════════════════════════
+    const STAFF_PROFILES = {
       "pedro": {
+        "slug": "pedro",
         "name": "Pedro Felipe",
-        "title": "Managing Director & Government Procurement Lead",
-        "avatar": "assets/staff/pedro-felipe.png",
-        "pass": "assets/passes/pedro.pkpass",
-        "lockscreen": "assets/failsafe_lockscreen_pedro.png",
-        "vcf": "assets/vcf/pedro.vcf",
+        "title": "Managing Director & Power Systems Lead",
+        "avatar": "/assets/staff/pedro-official-1x1.png",
+        "repId": "REP: P22-DFW-01",
+        "pass": "/assets/passes/pedro.pkpass",
+        "lockscreen": "/assets/failsafe_lockscreen_pedro.png",
+        "vcf": "/assets/vcf/pedro.vcf",
         "url": "/pedro"
       },
       "eduardo": {
+        "slug": "eduardo",
         "name": "Eduardo Lopez",
-        "title": "Director of Government Sales",
-        "avatar": "assets/staff/eduardo-lopez.jpg",
-        "pass": "assets/passes/eduardo.pkpass",
-        "lockscreen": "assets/failsafe_lockscreen_eduardo.png",
-        "vcf": "assets/vcf/eduardo.vcf",
+        "title": "Electrical Sales Manager & OEM Logistics SME",
+        "avatar": "/assets/staff/eduardo-official-1x1.png",
+        "repId": "REP: P22-DFW-02",
+        "pass": "/assets/passes/eduardo.pkpass",
+        "lockscreen": "/assets/failsafe_lockscreen_eduardo.png",
+        "vcf": "/assets/vcf/eduardo.vcf",
         "url": "/eduardo"
       },
       "marleni": {
-        "name": "Marleni Mendez",
-        "title": "Controller & Compliance Lead (WAWF / Accounting)",
-        "avatar": "assets/staff/marleni-mendez.jpg",
-        "pass": "assets/passes/marleni.pkpass",
-        "lockscreen": "assets/failsafe_lockscreen_marleni.png",
-        "vcf": "assets/vcf/marleni.vcf",
+        "slug": "marleni",
+        "name": "Marleni Méndez",
+        "title": "Finance Officer & DCAA Compliance Lead",
+        "avatar": "/assets/staff/marleni-official-1x1.png",
+        "repId": "REP: P22-DFW-03",
+        "pass": "/assets/passes/marleni.pkpass",
+        "lockscreen": "/assets/failsafe_lockscreen_marleni.png",
+        "vcf": "/assets/vcf/marleni.vcf",
         "url": "/marleni"
       },
       "bids": {
+        "slug": "bids",
         "name": "Government Procurement Desk",
         "title": "24-Hour Rapid RFQ Response Unit",
-        "avatar": "logo.webp",
-        "pass": "assets/passes/bids.pkpass",
-        "lockscreen": "assets/failsafe_lockscreen_bids.png",
-        "vcf": "assets/vcf/bids.vcf",
+        "avatar": "/assets/staff/bids-official-1x1.png",
+        "repId": "REP: P22-DFW-HQ",
+        "pass": "/assets/passes/bids.pkpass",
+        "lockscreen": "/assets/failsafe_lockscreen_bids.png",
+        "vcf": "/assets/vcf/bids.vcf",
         "url": "/bids"
       },
       "logistics": {
+        "slug": "logistics",
         "name": "Dallas Logistics Hub",
-        "title": "Fleet Dispatch & Warehouse Coordination",
-        "avatar": "assets/facility/loading-dock.webp",
-        "pass": "assets/passes/logistics.pkpass",
-        "lockscreen": "assets/failsafe_lockscreen_logistics.png",
-        "vcf": "assets/vcf/logistics.vcf",
+        "title": "Centralized Fleet Dispatch & Material Staging",
+        "avatar": "/assets/staff/logistics-official-1x1.png",
+        "repId": "REP: P22-DFW-LOG",
+        "pass": "/assets/passes/logistics.pkpass",
+        "lockscreen": "/assets/failsafe_lockscreen_logistics.png",
+        "vcf": "/assets/vcf/logistics.vcf",
         "url": "/logistics"
       }
     };
 
-    function onStaffSelectChange(slug) {
-      const data = STAFF_DATA[slug] || STAFF_DATA.pedro;
-      document.getElementById('staffBadgeName').textContent = data.name;
-      document.getElementById('staffBadgeTitle').textContent = data.title;
-      document.getElementById('staffBadgeAvatar').src = data.avatar;
+    let activeRep = "pedro";
+    let qrInstance = null;
+    let deferredPrompt = null;
 
-      document.getElementById('appleWalletBtn').href = data.pass;
+    function renderBadge(slug) {
+      activeRep = slug;
+      const data = STAFF_PROFILES[slug] || STAFF_PROFILES.pedro;
+
+      document.getElementById('badgeName').textContent = data.name;
+      document.getElementById('badgeTitle').textContent = data.title;
+      document.getElementById('badgeAvatar').src = data.avatar;
+      document.getElementById('badgeRepId').textContent = data.repId;
+
+      document.getElementById('appleWalletPassBtn').href = data.pass;
       document.getElementById('downloadLockscreenBtn').href = data.lockscreen;
       document.getElementById('downloadLockscreenBtn').setAttribute('download', `P22_${data.name.replace(/[^a-zA-Z0-9]/g, '_')}_Badge.png`);
       document.getElementById('lockscreenThumb').src = data.lockscreen;
       document.getElementById('saveVcfDirectBtn').href = data.vcf;
+      document.getElementById('publicCardHeaderLink').href = data.url;
 
-      const fullUrl = `${window.location.origin}${data.url}`;
-      const linkPreview = document.getElementById('directLinkPreview');
-      linkPreview.href = data.url;
-      linkPreview.textContent = `${window.location.host}${data.url}`;
+      // Generate dynamic QR Code for this rep
+      const qrTargetUrl = `${window.location.origin}${data.url}`;
+      const qrContainer = document.getElementById('badgeQrCode');
+      qrContainer.innerHTML = '';
+      qrInstance = new QRCode(qrContainer, {
+        text: qrTargetUrl,
+        width: 160,
+        height: 160,
+        colorDark: '#0D1829',
+        colorLight: '#FFFFFF',
+        correctLevel: QRCode.CorrectLevel.M
+      });
     }
 
-    // Auto-detect initial rep from query or hash
+    function onStaffSelectChange(slug) {
+      renderBadge(slug);
+      // Update URL query string without reloading page
+      const newUrl = new URL(window.location);
+      newUrl.searchParams.set('rep', slug);
+      window.history.replaceState({}, '', newUrl);
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // PWA 1-CLICK INSTALLATION SYSTEM
+    // ══════════════════════════════════════════════════════════════════════════
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      const btn = document.getElementById('pwaInstallBtn');
+      if (btn) {
+        btn.classList.add('ring-4', 'ring-p22gold');
+        document.getElementById('pwaInstallBtnText').textContent = '⚡ 1-Click Install Badge App to Phone';
+      }
+    });
+
+    window.addEventListener('appinstalled', () => {
+      deferredPrompt = null;
+      document.getElementById('pwaInstalledNotice')?.classList.remove('hidden');
+      document.getElementById('pwaInstallBtn')?.classList.add('hidden');
+    });
+
+    function isIosSafari() {
+      const ua = window.navigator.userAgent;
+      const isIos = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+      const isSafari = /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS/.test(ua);
+      return isIos;
+    }
+
+    async function triggerPwaInstall() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          document.getElementById('pwaInstalledNotice')?.classList.remove('hidden');
+          document.getElementById('pwaInstallBtn')?.classList.add('hidden');
+        }
+        deferredPrompt = null;
+      } else if (isIosSafari()) {
+        openIosInstallModal();
+      } else {
+        // Desktop Chrome/Edge or already installed: trigger browser menu guide
+        openIosInstallModal();
+      }
+    }
+
+    function openIosInstallModal() {
+      document.getElementById('iosInstallModal').classList.remove('hidden');
+    }
+
+    function closeIosInstallModal() {
+      document.getElementById('iosInstallModal').classList.add('hidden');
+    }
+
+    // Live Dallas CST Clock Ticker
+    function updateDallasClock() {
+      try {
+        const now = new Date();
+        const options = { timeZone: 'America/Chicago', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        const timeStr = new Intl.DateTimeFormat('en-US', options).format(now);
+        const clockEl = document.getElementById('badgeLiveClock');
+        if (clockEl) {
+          clockEl.textContent = `${timeStr} CST`;
+        }
+      } catch (err) {}
+    }
+    setInterval(updateDallasClock, 1000);
+
+    // Initial Boot
     window.addEventListener('DOMContentLoaded', () => {
+      updateDallasClock();
+
+      // Check if running standalone
+      if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
+        document.getElementById('pwaInstalledNotice')?.classList.remove('hidden');
+        document.getElementById('pwaInstallBtn')?.classList.add('hidden');
+      }
+
+      // Register Service Worker for PWA 1-Click Install & Offline Caching
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').catch((err) => {
+          console.warn('[P22-Badge] Service Worker registration failed:', err);
+        });
+      }
+
+      // Check query params for rep
       const params = new URLSearchParams(window.location.search);
       const rep = params.get('rep') || params.get('user') || 'pedro';
-      if (STAFF_DATA[rep]) {
+      if (STAFF_PROFILES[rep]) {
         document.getElementById('staffSelect').value = rep;
-        onStaffSelectChange(rep);
+        renderBadge(rep);
       } else {
-        onStaffSelectChange('pedro');
+        renderBadge('pedro');
       }
     });
   </script>

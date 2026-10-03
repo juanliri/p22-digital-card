@@ -129,6 +129,14 @@
           <span>Unlock Setup Hub &rarr;</span>
         </button>
       </form>
+
+      <!-- Direct Link to Phone Badge Studio (No PIN Required) -->
+      <div class="pt-3 border-t border-white/10 mt-3 text-center">
+        <p class="text-[11px] text-slate-400 mb-1.5">Looking to install your Staff Phone Badge?</p>
+        <a href="/badge" class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-p22gold/20 hover:bg-p22gold/30 border border-p22gold/50 text-p22gold font-montserrat font-bold text-xs transition btn-bounce">
+          <span>Open Phone Badge Studio (No PIN Needed) &rarr;</span>
+        </a>
+      </div>
     </div>
   </div>
 
@@ -329,11 +337,11 @@
           <label class="block text-xs font-semibold text-slate-300 mb-1.5" for="teamSelect">Team Member</label>
           <select id="teamSelect" onchange="onTeamMemberChange(this.value)"
                   class="w-full px-3.5 py-3 rounded-xl bg-slate-900 border border-white/20 text-white font-medium text-sm focus:outline-none focus:ring-2 focus:ring-p22gold">
-            <option value="pedro">Pedro Felipe — Managing Director</option>
-            <option value="eduardo">Eduardo Lopez — Director of Gov Sales</option>
-            <option value="marleni">Marleni Mendez — Controller (WAWF / Accounting)</option>
-            <option value="bids">Govt Procurement Desk — Rapid RFQ</option>
-            <option value="logistics">Dallas Logistics Hub — Dispatch</option>
+            <option value="pedro">Pedro Felipe — Managing Director &amp; Power Systems Lead</option>
+            <option value="eduardo">Eduardo Lopez — Electrical Sales Manager &amp; OEM Logistics SME</option>
+            <option value="marleni">Marleni Méndez — Finance Officer &amp; DCAA Compliance Lead</option>
+            <option value="bids">Government Procurement Desk — 24-Hour Rapid RFQ Response Unit</option>
+            <option value="logistics">Dallas Logistics Hub — Centralized Fleet Dispatch &amp; Staging</option>
           </select>
         </div>
 
@@ -352,10 +360,10 @@
 
       <!-- Active Profile Banner -->
       <div id="profileBanner" class="p-4 rounded-2xl bg-white/5 border border-white/10 flex items-center gap-4">
-        <img id="bannerAvatar" src="assets/staff/pedro-felipe.png" alt="Avatar" class="w-14 h-14 rounded-2xl object-cover bg-slate-900 border border-white/20 shadow">
+        <img id="bannerAvatar" src="/assets/staff/pedro-official-1x1.png" alt="Avatar" class="w-14 h-14 rounded-2xl object-cover bg-slate-900 border border-white/20 shadow" onerror="this.src='/assets/staff/pedro-felipe.png'">
         <div>
           <h3 id="bannerName" class="text-base font-montserrat font-bold text-white">Pedro Felipe</h3>
-          <p id="bannerTitle" class="text-xs text-p22gold font-medium">Managing Director & Government Procurement Lead</p>
+          <p id="bannerTitle" class="text-xs text-p22gold font-medium">Managing Director &amp; Power Systems Lead</p>
           <p id="bannerContact" class="text-[11px] text-slate-400 mt-0.5">pfelipe@p22corp.com &bull; 1-888-722-2675 &bull; CAGE: 169D8</p>
         </div>
       </div>
@@ -468,7 +476,7 @@
       <div class="flex flex-col sm:flex-row items-center gap-6">
         <!-- Phone Mockup Preview -->
         <div class="shrink-0 relative w-44 h-80 rounded-[34px] p-2 bg-gradient-to-b from-slate-700 via-slate-900 to-black border-4 border-slate-700 shadow-2xl overflow-hidden flex flex-col justify-between">
-          <img id="lockscreenPreviewImg" src="assets/failsafe_lockscreen_pedro.png" alt="Failsafe Lock Screen" class="w-full h-full object-cover rounded-[26px]">
+          <img id="lockscreenPreviewImg" src="/assets/failsafe_lockscreen_pedro.png" alt="Failsafe Lock Screen" class="w-full h-full object-cover rounded-[26px]" onerror="this.src='/assets/failsafe_lockscreen_corporate.png'">
         </div>
 
         <div class="space-y-3.5 w-full">
@@ -483,12 +491,12 @@
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-            <a id="downloadLockscreenPngBtn" href="assets/failsafe_lockscreen_pedro.png" download="P22_Failsafe_Lockscreen_Pedro.png"
+            <a id="downloadLockscreenPngBtn" href="/assets/failsafe_lockscreen_pedro.png" download="P22_Failsafe_Lockscreen_Pedro.png"
                class="py-3 px-4 rounded-xl bg-p22gold text-slate-950 font-montserrat font-bold text-xs tracking-wide hover:brightness-110 active:scale-95 transition btn-bounce shadow flex items-center justify-center gap-2">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
               <span>Download Wallpaper (.PNG)</span>
             </a>
-            <a id="downloadLockscreenWebpBtn" href="assets/failsafe_lockscreen_pedro.webp" download="P22_Failsafe_Lockscreen_Pedro.webp"
+            <a id="downloadLockscreenWebpBtn" href="/assets/failsafe_lockscreen_pedro.webp" download="P22_Failsafe_Lockscreen_Pedro.webp"
                class="py-3 px-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-montserrat font-bold text-xs tracking-wide border border-white/15 active:scale-95 transition btn-bounce flex items-center justify-center gap-2">
               <span>Compact (.WebP)</span>
             </a>
@@ -721,56 +729,56 @@
       pedro: {
         slug: "pedro",
         name: "Pedro Felipe",
-        title: "Managing Director & Government Procurement Lead",
+        title: "Managing Director & Power Systems Lead",
         company: "P-22 Corp Construction Material Solutions LLC",
         email: "pfelipe@p22corp.com",
         phone: "1-888-722-2675",
-        directPhone: "1-888-722-2675",
-        avatar: "assets/staff/pedro-felipe.png",
+        directPhone: "1-945-218-5896",
+        avatar: "/assets/staff/pedro-official-1x1.png",
         calendly: "https://calendly.com/p22corp/capabilities-briefing"
       },
       eduardo: {
         slug: "eduardo",
         name: "Eduardo Lopez",
-        title: "Director of Government Sales",
+        title: "Electrical Sales Manager & OEM Logistics SME",
         company: "P-22 Corp Construction Material Solutions LLC",
-        email: "elopez@p22corp.com",
+        email: "sales@p22corp.com",
         phone: "1-888-722-2675",
-        directPhone: "1-888-722-2675",
-        avatar: "assets/staff/eduardo-lopez.jpg",
+        directPhone: "1-945-218-5896",
+        avatar: "/assets/staff/eduardo-official-1x1.png",
         calendly: "https://calendly.com/p22corp/sales"
       },
       marleni: {
         slug: "marleni",
-        name: "Marleni Mendez",
-        title: "Controller & Compliance Lead (WAWF / Invoicing)",
+        name: "Marleni Méndez",
+        title: "Finance Officer & DCAA Compliance Lead",
         company: "P-22 Corp Construction Material Solutions LLC",
-        email: "mmendez@p22corp.com",
+        email: "accounting@p22corp.com",
         phone: "1-888-722-2675",
-        directPhone: "1-888-722-2675",
-        avatar: "assets/staff/marleni-mendez.jpg",
+        directPhone: "1-945-218-5896",
+        avatar: "/assets/staff/marleni-official-1x1.png",
         calendly: "https://calendly.com/p22corp/vendor-accounting"
       },
       bids: {
         slug: "bids",
         name: "Government Procurement Desk",
-        title: "Rapid RFQ & Solicitation Response Desk",
+        title: "24-Hour Rapid RFQ & Solicitation Response Unit",
         company: "P-22 Corp Construction Material Solutions LLC",
         email: "bids@p22corp.com",
         phone: "1-888-722-2675",
         directPhone: "1-888-722-2675",
-        avatar: "logo.webp",
+        avatar: "/assets/staff/bids-official-1x1.png",
         calendly: "https://calendly.com/p22corp/rfq-intake"
       },
       logistics: {
         slug: "logistics",
-        name: "Dallas Logistics & Dispatch",
-        title: "Director of Supply Chain & Material Fulfillment",
+        name: "Dallas Logistics Hub",
+        title: "Centralized Fleet Dispatch & Material Staging",
         company: "P-22 Corp Construction Material Solutions LLC",
         email: "logistics@p22corp.com",
         phone: "1-888-722-2675",
         directPhone: "1-888-722-2675",
-        avatar: "logo.webp",
+        avatar: "/assets/staff/logistics-official-1x1.png",
         calendly: "https://calendly.com/p22corp/logistics-consultation"
       }
     };
@@ -814,11 +822,25 @@
       renderVirtualBg(rep);
 
       if (document.getElementById('vcfDownloadBtn')) {
-        document.getElementById('vcfDownloadBtn').href = `assets/vcf/${rep.slug}.vcf`;
+        document.getElementById('vcfDownloadBtn').href = `/assets/vcf/${rep.slug}.vcf`;
       }
       if (document.getElementById('tool1PkpassBtn')) {
-        document.getElementById('tool1PkpassBtn').href = `assets/passes/${rep.slug}.pkpass`;
+        document.getElementById('tool1PkpassBtn').href = `/assets/passes/${rep.slug}.pkpass`;
         document.getElementById('tool1PkpassBtn').removeAttribute('download');
+      }
+
+      // Update Lock Screen Preview & Downloads
+      const lockImg = document.getElementById('lockscreenPreviewImg');
+      if (lockImg) lockImg.src = `/assets/failsafe_lockscreen_${rep.slug}.png`;
+      const pngBtn = document.getElementById('downloadLockscreenPngBtn');
+      if (pngBtn) {
+        pngBtn.href = `/assets/failsafe_lockscreen_${rep.slug}.png`;
+        pngBtn.setAttribute('download', `P22_Failsafe_Lockscreen_${rep.slug}.png`);
+      }
+      const webpBtn = document.getElementById('downloadLockscreenWebpBtn');
+      if (webpBtn) {
+        webpBtn.href = `/assets/failsafe_lockscreen_${rep.slug}.webp`;
+        webpBtn.setAttribute('download', `P22_Failsafe_Lockscreen_${rep.slug}.webp`);
       }
     }
 
@@ -1285,6 +1307,11 @@
       checkStaffAuth();
       loadTeamData();
       renderLeadsTable();
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').catch((err) => {
+          console.warn('[P22-Setup] Service Worker registration failed:', err);
+        });
+      }
     });
   </script>
 </body>

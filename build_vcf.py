@@ -1,7 +1,7 @@
 import os, io, base64, json, datetime
 from PIL import Image
 
-def optimize_photo(src_path, size=(320, 320), quality=82):
+def optimize_photo(src_path, size=(400, 400), quality=88):
     img = Image.open(src_path)
     if img.mode in ('RGBA', 'LA') or (img.mode == 'P' and 'transparency' in img.info):
         bg = Image.new('RGB', img.size, (13, 24, 41))
@@ -48,12 +48,16 @@ staff_definitions = [
         'last': 'Felipe',
         'fn': 'Pedro Felipe',
         'org': 'P-22 Corp Construction Material Solutions LLC',
-        'title': 'Managing Director & Government Procurement Lead',
+        'title': 'Managing Director & Power Systems Lead',
         'tel': '1-888-722-2675',
+        'directPhone': '1-945-218-5896',
         'email': 'pfelipe@p22corp.com',
         'url': 'https://p22-digital-card.vercel.app/pedro',
-        'photo_path': 'assets/staff/pedro-felipe.png',
-        'note': 'CAGE: 169D8 | UEI: X3HUQZ66P6N3\\nManaging Director - P-22 Corp\\nSBA Certified Small Minority-Owned Business\\nDirect Executive Line & Dallas Hub',
+        'photo_path': 'assets/staff/pedro-official-1x1.png',
+        'avatar': 'assets/staff/pedro-official-1x1.png',
+        'bio': '15+ years in Power Systems Engineering & MV Switchgear. Specializing in IEEE/ANSI utility infrastructure, federal procurement, and rapid logistics mobilization.',
+        'location': 'Dallas-Fort Worth HQ • Nationwide Response',
+        'note': 'CAGE: 169D8 | UEI: X3HUQZ66P6N3\\nManaging Director - P-22 Corp\\n15+ Years Power Systems & MV Switchgear Engineering\\nDirect: 1-945-218-5896 | Toll-Free: 1-888-722-2675',
     },
     {
         'slug': 'eduardo',
@@ -62,12 +66,16 @@ staff_definitions = [
         'last': 'Lopez',
         'fn': 'Eduardo Lopez',
         'org': 'P-22 Corp Construction Material Solutions LLC',
-        'title': 'Director of Government Sales',
+        'title': 'Electrical Sales Manager & OEM Logistics SME',
         'tel': '1-888-722-2675',
-        'email': 'elopez@p22corp.com',
+        'directPhone': '1-945-218-5896',
+        'email': 'sales@p22corp.com',
         'url': 'https://p22-digital-card.vercel.app/eduardo',
-        'photo_path': 'assets/staff/eduardo-lopez.jpg',
-        'note': 'CAGE: 169D8 | UEI: X3HUQZ66P6N3\\nDirector of Government Sales - P-22 Corp\\nSBA Certified Small Minority-Owned Business\\nDallas Sales Office - Federal Quotes & Procurement',
+        'photo_path': 'assets/staff/eduardo-official-1x1.png',
+        'avatar': 'assets/staff/eduardo-official-1x1.png',
+        'bio': '36 years managing heavy equipment logistics and OEM dealer networks (Case Corp). Primary SME for technical sourcing and government fleet lifecycles.',
+        'location': 'Dallas Sales Office • DFW Logistics Hub',
+        'note': 'CAGE: 169D8 | UEI: X3HUQZ66P6N3\\nElectrical Sales Manager - P-22 Corp\\n36 Years Heavy Equipment & OEM Logistics (Case Corp SME)\\nDirect: 1-945-218-5896 | Toll-Free: 1-888-722-2675',
     },
     {
         'slug': 'marleni',
@@ -76,12 +84,16 @@ staff_definitions = [
         'last': 'Mendez',
         'fn': 'Marleni Mendez',
         'org': 'P-22 Corp Construction Material Solutions LLC',
-        'title': 'Controller & Compliance Lead (WAWF / Invoicing)',
+        'title': 'Finance Officer & DCAA Compliance Lead',
         'tel': '1-888-722-2675',
-        'email': 'mmendez@p22corp.com',
+        'directPhone': '1-945-218-5896',
+        'email': 'accounting@p22corp.com',
         'url': 'https://p22-digital-card.vercel.app/marleni',
-        'photo_path': 'assets/staff/marleni-mendez.jpg',
-        'note': 'CAGE: 169D8 | UEI: X3HUQZ66P6N3\\nController - P-22 Corp\\nSBA Certified Small Minority-Owned Business\\nWAWF, PIEE, DoD Invoicing & Federal Accounting Desk',
+        'photo_path': 'assets/staff/marleni-official-1x1.png',
+        'avatar': 'assets/staff/marleni-official-1x1.png',
+        'bio': 'Former Senior Auditor for Grant Thornton. Oversees DCAA-compliant record keeping, GAAP fiscal transparency, and WAWF federal contract invoicing.',
+        'location': 'Dallas Corporate Office • DFW Hub',
+        'note': 'CAGE: 169D8 | UEI: X3HUQZ66P6N3\\nFinance Officer - P-22 Corp\\nFormer Senior Auditor (Grant Thornton) | DCAA & WAWF Invoicing\\nDirect: 1-945-218-5896 | Toll-Free: 1-888-722-2675',
     },
     {
         'slug': 'bids',
@@ -90,26 +102,34 @@ staff_definitions = [
         'last': 'Government',
         'fn': 'Government Procurement Desk',
         'org': 'P-22 Corp Construction Material Solutions LLC',
-        'title': '24-Hour Rapid RFQ & Solicitation Response Desk',
+        'title': '24-Hour Rapid RFQ & Solicitation Response Unit',
         'tel': '1-888-722-2675',
+        'directPhone': '1-888-722-2675',
         'email': 'bids@p22corp.com',
         'url': 'https://p22-digital-card.vercel.app/bids',
-        'photo_path': 'assets/branding/logo-navy-flat.png',
-        'note': 'CAGE: 169D8 | UEI: X3HUQZ66P6N3\\n24-Hour Bids Desk - P-22 Corp\\nSBA Certified Small Minority-Owned Business\\nSimplified Acquisitions, BPAs & Fast-Track Solicitations',
+        'photo_path': 'assets/staff/bids-official-1x1.png',
+        'avatar': 'assets/staff/bids-official-1x1.png',
+        'bio': 'Direct access to specialized government contracting support. Fast-turnaround bids for USACE, TxDOT, VA, and municipal agencies. FAR/DFARS & TAA compliant.',
+        'location': 'Dallas Logistics Hub • 24/7 Rapid Response Desk',
+        'note': 'CAGE: 169D8 | UEI: X3HUQZ66P6N3\\n24-Hour Government Procurement Desk - P-22 Corp\\nSBA Certified Small Minority-Owned Business\\n24-Hr Solicitation Response: bids@p22corp.com',
     },
     {
         'slug': 'logistics',
         'filename': 'logistics.vcf',
-        'first': 'Logistics & Dispatch',
+        'first': 'Logistics Hub',
         'last': 'Dallas',
-        'fn': 'Dallas Logistics & Dispatch',
+        'fn': 'Dallas Logistics Hub',
         'org': 'P-22 Corp Construction Material Solutions LLC',
-        'title': 'Dallas Logistics Hub - Material Staging & Delivery',
+        'title': 'Centralized Fleet Dispatch & Material Staging',
         'tel': '1-888-722-2675',
+        'directPhone': '1-888-722-2675',
         'email': 'logistics@p22corp.com',
         'url': 'https://p22-digital-card.vercel.app/logistics',
-        'photo_path': 'assets/facility/loading-dock.webp',
-        'note': 'CAGE: 169D8 | UEI: X3HUQZ66P6N3\\nDallas Logistics Hub - P-22 Corp\\nSBA Certified Small Minority-Owned Business\\nOvernight Mobilization & Expedited Freight Delivery',
+        'photo_path': 'assets/staff/logistics-official-1x1.png',
+        'avatar': 'assets/staff/logistics-official-1x1.png',
+        'bio': 'Centralized Dallas-Fort Worth logistics staging facility providing expedited shipping, emergency freight, and multi-site infrastructure fulfillment nationwide.',
+        'location': 'Dallas Logistics Hub • DFW Staging Facility',
+        'note': 'CAGE: 169D8 | UEI: X3HUQZ66P6N3\\nDallas Logistics Hub - P-22 Corp\\n18383 Preston Rd, Ste 202, Dallas, TX 75252\\nExpedited Shipping & Emergency Freight Nationwide',
     },
 ]
 
@@ -149,35 +169,45 @@ for s in staff_definitions:
     
     # Apply RFC 2426 line folding (75 char max per line)
     folded_lines = [fold_vcard_line(line) for line in raw_lines]
-    vcard_str = '\r\n'.join(folded_lines) + '\r\n'
+    vcf_content = '\r\n'.join(folded_lines) + '\r\n'
     
-    out_path = os.path.join('assets', 'vcf', s['filename'])
-    with open(out_path, 'w', encoding='utf-8', newline='') as f:
-        f.write(vcard_str)
-    print(f"Generated {out_path} ({len(vcard_str.encode('utf-8'))} bytes)")
+    # 1. Write individual RFC 2426 .vcf file to assets/vcf/
+    vcf_filepath = os.path.join('assets', 'vcf', s['filename'])
+    with open(vcf_filepath, 'w', encoding='utf-8', newline='') as f:
+        f.write(vcf_content)
+    print(f"Generated valid RFC 2426 vcf: {vcf_filepath}")
     
-    # Also write root pedro-felipe.vcf for legacy backwards compatibility
-    if s['slug'] == 'pedro':
-        with open('pedro-felipe.vcf', 'w', encoding='utf-8', newline='') as f:
-            f.write(vcard_str)
-        print("Updated root pedro-felipe.vcf")
-        
-    # Update team.json
+    # 2. Update team.json
     slug = s['slug']
     if slug not in team_data:
         team_data[slug] = {}
-    team_data[slug]['slug'] = slug
-    team_data[slug]['name'] = s['fn']
-    team_data[slug]['title'] = s['title']
-    team_data[slug]['company'] = s['org']
-    team_data[slug]['email'] = s['email']
-    team_data[slug]['phone'] = s['tel']
-    team_data[slug]['directPhone'] = s['tel']
-    team_data[slug]['avatar'] = s['photo_path']
-    team_data[slug]['photoB64'] = photo_b64
-    team_data[slug]['vcf'] = vcard_str.strip()
+        
+    team_data[slug].update({
+        'slug': slug,
+        'name': s['fn'],
+        'title': s['title'],
+        'company': s['org'],
+        'email': s['email'],
+        'phone': s['tel'],
+        'directPhone': s.get('directPhone', s['tel']),
+        'avatar': s['avatar'],
+        'badge': 'SAM.gov Active Certified Rep',
+        'bio': s['bio'],
+        'location': s['location'],
+        'calendly': 'https://calendly.com/p22corp/capabilities-briefing',
+        'photoB64': photo_b64,
+        'vcf': vcf_content,
+        'canopyPoster': 'assets/facility/construction-crane.webp',
+        'specBadge': 'SPEC: DIV 26 • STRUCTURAL TAKEOFF',
+        'complianceBadge': 'TAA / FAR COMPLIANT',
+        'verificationBadge': 'SAM.gov Active Certified Rep'
+    })
+
+# Also write root pedro-felipe.vcf
+with open('pedro-felipe.vcf', 'w', encoding='utf-8', newline='') as f:
+    f.write(team_data['pedro']['vcf'])
 
 with open('team.json', 'w', encoding='utf-8') as f:
-    json.dump(team_data, f, indent=2)
+    json.dump(team_data, f, indent=2, ensure_ascii=False)
 
-print("\nSUCCESS: All staff VCF files built with RFC 2426 compliance and team.json updated!")
+print("team.json updated successfully with official site terms & photos!")

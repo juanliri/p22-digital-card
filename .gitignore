@@ -3,6 +3,7 @@ node_modules/
 
 # Local Environment & Builds
 .vercel
+scratch/
 .env
 .env.local
 .env.*.local
