@@ -15,6 +15,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- QRCode.js for 100% Client-Side In-App QR Generation -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script defer src="/assets/js/telemetry.js"></script>
+  <script defer src="/assets/js/card-scanner.js"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -764,34 +766,56 @@
 
     <!-- Tool 4: Expo Lead Capture Vault & Post-Expo CSV Intelligence -->
     <section class="glass-panel rounded-3xl p-6 shadow-2xl space-y-4">
-      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/10 pb-3 gap-2">
         <div class="flex items-center gap-2.5">
           <div class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
           </div>
           <div>
-            <h2 class="text-sm font-montserrat font-bold text-white">Expo Lead Capture Vault & CSV Export</h2>
-            <p class="text-xs text-slate-400">Offline-resilient intake database saved locally on this browser during the expo.</p>
+            <h2 class="text-sm font-montserrat font-bold text-white">Expo Lead Capture Vault &amp; Live Google Sheet Sync</h2>
+            <p class="text-xs text-slate-400">Archived locally in browser &amp; automatically synced to Google Sheets <strong class="text-emerald-300">Leads_Vault</strong> tab.</p>
           </div>
         </div>
-        <span id="leadCountBadge" class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-mono font-bold border border-emerald-500/30">
-          0 Leads
-        </span>
+        <div class="flex items-center gap-2">
+          <span id="leadCountBadge" class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-mono font-bold border border-emerald-500/30">
+            0 Leads
+          </span>
+          <a href="https://docs.google.com/spreadsheets/d/1Xfwmr7iPtV3YaAO6GIJW-Ekx5WM1sR92YZGnD2Qubl0/edit#gid=1696212718" target="_blank"
+             class="px-2.5 py-1 rounded-full bg-emerald-500/10 hover:bg-emerald-500/25 text-emerald-300 text-[11px] font-mono font-bold border border-emerald-500/30 transition flex items-center gap-1">
+            <span>Leads_Vault Tab ↗</span>
+          </a>
+        </div>
       </div>
 
       <div class="space-y-3">
-        <div class="flex items-center justify-between gap-3">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
           <p class="text-xs text-slate-300">
-            Contacts submitted through the Fast-Track RFQ form on any device or booth tablet are archived here.
+            Contacts submitted from booth cards, Fast-Track RFQ forms, or scanned business cards are archived here.
           </p>
-          <div class="flex items-center gap-2 shrink-0">
-            <button onclick="exportLeadsSetupCSV()"
-                    class="py-2.5 px-4 rounded-xl bg-gradient-to-r from-p22gold to-amber-500 text-slate-950 font-montserrat font-bold text-xs tracking-wide hover:brightness-110 active:scale-95 transition shadow flex items-center gap-1.5">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-              <span>Download Leads (.CSV)</span>
+          <div class="flex flex-wrap items-center gap-2 shrink-0">
+            <!-- 📷 Scan Physical Business Card / Badge -->
+            <button type="button" onclick="triggerCardScan('setup')"
+                    class="py-2.5 px-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:brightness-110 active:scale-95 text-white font-montserrat font-bold text-xs tracking-wide transition shadow-lg flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
+              <span>Scan Card (OCR)</span>
             </button>
+
+            <!-- ☁️ Sync All Offline Leads to Google Sheet -->
+            <button type="button" id="syncAllLeadsBtn" onclick="syncAllLeadsToGoogleSheet()"
+                    class="py-2.5 px-3.5 rounded-xl bg-blue-600/30 hover:bg-blue-600/50 text-sky-200 border border-blue-400/40 text-xs font-bold font-montserrat transition flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+              <span>Sync All to Sheet</span>
+            </button>
+
+            <!-- Download CSV -->
+            <button onclick="exportLeadsSetupCSV()"
+                    class="py-2.5 px-3.5 rounded-xl bg-gradient-to-r from-p22gold to-amber-500 text-slate-950 font-montserrat font-bold text-xs tracking-wide hover:brightness-110 active:scale-95 transition shadow flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              <span>Download (.CSV)</span>
+            </button>
+
             <button onclick="clearLeadsSetup()"
-                    class="py-2.5 px-3 rounded-xl bg-white/5 hover:bg-red-500/20 text-slate-400 hover:text-red-400 border border-white/10 text-xs transition">
+                    class="py-2.5 px-2.5 rounded-xl bg-white/5 hover:bg-red-500/20 text-slate-400 hover:text-red-400 border border-white/10 text-xs transition" title="Clear local list">
               Clear
             </button>
           </div>
@@ -803,16 +827,17 @@
             <thead class="bg-white/5 text-[11px] font-montserrat font-bold text-slate-400 uppercase tracking-wider sticky top-0">
               <tr>
                 <th class="p-2.5">Time</th>
+                <th class="p-2.5">Rep</th>
                 <th class="p-2.5">Name</th>
                 <th class="p-2.5">Agency / Prime</th>
                 <th class="p-2.5">Email</th>
                 <th class="p-2.5">Phone</th>
-                <th class="p-2.5">Scope</th>
+                <th class="p-2.5">Scope / Notes</th>
               </tr>
             </thead>
             <tbody id="leadsTableBody" class="divide-y divide-white/5">
               <tr>
-                <td colspan="6" class="p-4 text-center text-slate-500 italic">No leads stored in this browser session yet.</td>
+                <td colspan="7" class="p-4 text-center text-slate-500 italic">No leads stored in this browser session yet.</td>
               </tr>
             </tbody>
           </table>
@@ -1431,28 +1456,62 @@
       if (!tbody) return;
 
       if (stored.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-slate-500 italic">No leads stored in this browser session yet.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="7" class="p-4 text-center text-slate-500 italic">No leads stored in this browser session yet. Tap "Scan Card (OCR)" to intake cards.</td></tr>';
         return;
       }
 
       tbody.innerHTML = stored.map(lead => {
         const timeStr = lead.timestamp ? new Date(lead.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '—';
+        const rep = lead.rep_name || lead.rep || 'Staff';
         const name = lead.client_name || lead.name || '—';
         const agency = lead.client_agency || lead.agency || '—';
         const email = lead.client_email || lead.email || '—';
         const phone = lead.client_phone || lead.phone || '—';
-        const scope = lead.interest || lead.source || 'General';
+        const scope = lead.interest || lead.notes || lead.source || 'General';
         return `
           <tr class="hover:bg-white/5 transition">
             <td class="p-2.5 font-mono text-[11px] text-slate-400">${timeStr}</td>
+            <td class="p-2.5 text-slate-300 font-semibold text-[11px]">${rep}</td>
             <td class="p-2.5 font-bold text-white">${name}</td>
             <td class="p-2.5 text-p22gold font-semibold">${agency}</td>
             <td class="p-2.5 text-sky-300 font-mono text-[11px]">${email}</td>
             <td class="p-2.5 text-slate-300 font-mono text-[11px]">${phone}</td>
-            <td class="p-2.5 text-[11px] text-slate-400">${scope}</td>
+            <td class="p-2.5 text-[11px] text-slate-300 truncate max-w-xs" title="${scope}">${scope}</td>
           </tr>
         `;
       }).join('');
+    }
+
+    async function syncAllLeadsToGoogleSheet() {
+      const btn = document.getElementById('syncAllLeadsBtn');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = `
+          <svg class="animate-spin w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
+          <span>Syncing to Sheet...</span>
+        `;
+      }
+      try {
+        if (window.p22SyncOfflineLeads) {
+          const res = await window.p22SyncOfflineLeads();
+          if (res.ok) {
+            alert(`✓ Success: ${res.count || 'All'} leads synchronized to Google Sheets Leads_Vault!`);
+          } else {
+            alert(`Sync notice: ${res.message || 'Leads safely preserved.'}`);
+          }
+        }
+      } catch (err) {
+        alert('Sync error: ' + err.message);
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = `
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+            <span>Sync All to Sheet</span>
+          `;
+        }
+        renderLeadsTable();
+      }
     }
 
     // Instant sync: when returning to tab or when localStorage changes in another tab

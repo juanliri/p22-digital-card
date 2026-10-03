@@ -33,6 +33,7 @@
   <script defer src="/_vercel/insights/script.js"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <script defer src="/assets/js/telemetry.js"></script>
+  <script defer src="/assets/js/card-scanner.js"></script>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -663,6 +664,26 @@
                   <p class="text-[11px] text-slate-300 leading-snug">
                     Send your agency or company credentials for immediate 24-hr follow-up and formal Capability Statement delivery.
                   </p>
+
+                  <!-- 📷 Quick Scan Physical Business Card / Badge -->
+                  <div class="p-2.5 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between gap-2">
+                    <div class="flex items-center gap-2">
+                      <span class="text-base">📷</span>
+                      <div>
+                        <p class="text-[11px] font-bold text-white leading-tight">Or Scan Physical Card / Badge</p>
+                        <p class="text-[9.5px] text-slate-400">Snap a photo to auto-extract details</p>
+                      </div>
+                    </div>
+                    <button type="button" onclick="triggerCardScan('inline')" class="px-2.5 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 text-[10.5px] font-bold font-montserrat flex items-center gap-1 transition">
+                      <span>Scan Card</span>
+                    </button>
+                  </div>
+
+                  <div class="relative flex py-0.5 items-center">
+                    <div class="flex-grow border-t border-white/10"></div>
+                    <span class="flex-shrink mx-2 text-[9.5px] text-slate-400 font-mono">OR ENTER DETAILS</span>
+                    <div class="flex-grow border-t border-white/10"></div>
+                  </div>
 
                   <form id="inlineLeadForm" onsubmit="handleInlineLeadSubmit(event)" class="space-y-2.5">
                     <div>
@@ -1299,6 +1320,11 @@
         console.warn('LocalStorage save failed', err);
       }
 
+      // Automatically sync to Google Sheets Leads_Vault tab
+      if (window.p22SubmitLead) {
+        window.p22SubmitLead(lead);
+      }
+
       const form = document.getElementById('inlineLeadForm');
       const success = document.getElementById('inlineSuccessCard');
       if (form) form.classList.add('hidden');
@@ -1813,6 +1839,11 @@
         console.warn('LocalStorage save failed', err);
       }
 
+      // Automatically sync to Google Sheets Leads_Vault tab
+      if (window.p22SubmitLead) {
+        window.p22SubmitLead(leadData);
+      }
+
       try {
         if (!MAKE_WEBHOOK_URL.includes("REPLACE_WITH_YOUR_WEBHOOK")) {
           await fetch(MAKE_WEBHOOK_URL, {
@@ -2040,6 +2071,11 @@
           localStorage.setItem('p22_leads', JSON.stringify(stored));
         } catch (err) {
           console.warn('LocalStorage save failed', err);
+        }
+
+        // Automatically sync to Google Sheets Leads_Vault tab
+        if (window.p22SubmitLead) {
+          window.p22SubmitLead(lead);
         }
 
         const submitBtn = document.getElementById('exchSubmitBtn');
