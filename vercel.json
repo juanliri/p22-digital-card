@@ -3,6 +3,8 @@
   "cleanUrls": true,
   "rewrites": [
     { "source": "/setup", "destination": "/setup.html" },
+    { "source": "/badge", "destination": "/badge.html" },
+    { "source": "/staff", "destination": "/badge.html" },
     { "source": "/capability-statement", "destination": "/capability-statement.html" },
     { "source": "/pedro", "destination": "/pedro.html" },
     { "source": "/eduardo", "destination": "/eduardo.html" },
