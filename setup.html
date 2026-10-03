@@ -165,33 +165,29 @@
           ✓ 100% Native in Safari &bull; Adds photo, CAGE 169D8, direct phone &amp; email into Contacts
         </p>
 
-        <!-- Pass2U Wallet App Button (For Native Apple Wallet & Watch) -->
-        <a href="https://apps.apple.com/app/pass2u-wallet-cards-coupons/id1142465649" target="_blank"
-           class="w-full py-3.5 px-4 rounded-xl bg-black hover:bg-neutral-900 border border-white/40 text-white font-montserrat font-bold text-xs tracking-wide transition btn-bounce shadow-xl flex items-center justify-center gap-2">
-          <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.77 1.06-1.85.94-2.93-.91.04-2.02.61-2.67 1.38-.58.67-1.09 1.77-.95 2.82 1.02.08 2.05-.5 2.68-1.27z"/></svg>
-          <span>Add to Apple Wallet via Pass2U (Free App)</span>
-        </a>
-
-        <!-- Why Safari blocks raw .pkpass callout -->
-        <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[11px] text-amber-200 space-y-1">
-          <p class="font-bold text-amber-300 flex items-center gap-1">
-            <span>ℹ️ Why does Safari say "Cannot download this file"?</span>
+        <!-- Built-in Native Apple Watch Shortcuts Guide -->
+        <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 space-y-2 text-[11px] text-slate-300">
+          <p class="font-bold text-white flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+            Built-in Apple Watch Wrist Complication (No Extra Apps):
           </p>
-          <p class="text-slate-300 leading-relaxed text-[10.5px]">
-            Apple strictly requires all <code>.pkpass</code> files to be signed by an official Apple Developer Account certificate ($99/yr). Without that certificate, iOS Safari blocks web downloads for security.
-          </p>
-          <p class="text-slate-300 leading-relaxed text-[10.5px]">
-            The free <strong>Pass2U app</strong> already holds an Apple certificate, so scanning your QR code inside Pass2U bypasses this restriction and adds the pass directly to your iPhone and Apple Watch!
+          <ol class="list-decimal list-inside space-y-1.5 text-slate-300">
+            <li>Open the built-in <strong>Shortcuts</strong> app on your iPhone.</li>
+            <li>Tap <strong>"+"</strong> &rarr; Add Action &rarr; Search <strong>"Open URL"</strong>.</li>
+            <li>Paste your card link: <code class="text-p22gold font-mono text-[10px]" id="shortcutUrlDisplay">https://p22-digital-card.vercel.app/pedro</code>.</li>
+            <li>Tap Shortcut Details (top icon) &rarr; turn on <strong>"Show on Apple Watch"</strong>.</li>
+            <li>Edit your Apple Watch Face &rarr; add the Shortcut as a <strong>Complication</strong>!</li>
+          </ol>
+          <p class="text-[10.5px] text-p22gold font-semibold pt-0.5">
+            ✓ Tap your watch dial anytime at the expo booth to launch your digital card instantly on your wrist!
           </p>
         </div>
 
-        <!-- Download Raw .pkpass (Secondary) -->
-        <div class="flex items-center justify-between pt-1 text-[11px]">
-          <span class="text-slate-400">Advanced / Apple Developer Mode:</span>
-          <a id="appleWalletPkpassBtn" href="assets/passes/pedro.pkpass" download="P22_Pedro_Felipe.pkpass"
-             class="text-p22gold hover:underline font-mono text-[11px]">
-            Download Raw .pkpass File &darr;
-          </a>
+        <!-- PWA Home Screen Tip -->
+        <div class="p-3 rounded-xl bg-white/5 border border-white/10 text-center">
+          <p class="text-[11px] text-slate-300">
+            💡 <strong>1-Tap Home Screen App:</strong> In Safari, tap <strong class="text-white">Share &rarr; Add to Home Screen</strong> to install P-22 Corp as a standalone native app icon on your iPhone.
+          </p>
         </div>
       </div>
     </div>
