@@ -307,6 +307,24 @@
   <main class="w-full max-w-lg lg:max-w-6xl xl:max-w-7xl mx-auto relative z-10 pb-36 lg:pb-12 transition-all duration-300">
 
     <!-- ====================================================================== -->
+    <!-- TOP VIEW SELECTOR: EXPO SCAN BADGE vs CLIENT CAPABILITIES PORTAL       -->
+    <!-- ====================================================================== -->
+    <div class="flex items-center justify-center pt-2 pb-5 px-3">
+      <div class="inline-flex p-1 rounded-2xl bg-slate-900/90 border border-white/15 backdrop-blur-xl shadow-2xl">
+        <button id="viewTabScan" onclick="switchViewMode('scan')"
+                class="px-4 py-2.5 rounded-xl text-xs font-montserrat font-extrabold transition-all duration-200 flex items-center gap-2 bg-gradient-to-r from-p22gold to-amber-500 text-slate-950 shadow-lg">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M4 4h4v4H4V4zm2 2h0v0h0zm-2 8h4v4H4v-4zm2 2h0v0h0zm8-10h4v4h-4V4zm2 2h0v0h0zm-2 8h2v2h-2v-2zm2 2h2v2h-2v-2zm-2 2h2v2h-2v-2zm4-4h2v2h-2v-2zm0 4h2v2h-2v-2zM4 20h4v-4H4v4zm2-2h0v0h0z"/></svg>
+          <span>Expo Scan Badge</span>
+        </button>
+        <button id="viewTabPortal" onclick="switchViewMode('portal')"
+                class="px-4 py-2.5 rounded-xl text-xs font-montserrat font-bold text-slate-300 hover:text-white transition-all duration-200 flex items-center gap-2">
+          <svg class="w-4 h-4 text-p22gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+          <span>Client Portal &amp; Docs</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ====================================================================== -->
     <!-- EXPO MASTER CARD: PHYSICAL EXECUTIVE CARD MODE (1-Tap Booth Quick-Scan) -->
     <!-- ====================================================================== -->
     <section id="masterCardSection" class="w-full max-w-md mx-auto mb-6 anim-blur-in">
@@ -363,45 +381,33 @@
         </div>
 
         <!-- LARGE HIGH-CONTRAST QR CODE (Scans in 0.5s from across table) -->
-        <div class="p-3.5 bg-white rounded-2xl shadow-2xl inline-flex flex-col items-center justify-center mx-auto border-2 border-slate-200">
-          <div id="masterQrContainer" style="width:210px; height:210px;" class="flex items-center justify-center"></div>
-          <span class="text-[11px] font-montserrat font-bold text-slate-900 tracking-wider uppercase mt-2">
+        <div class="p-4 bg-white rounded-2xl shadow-2xl inline-flex flex-col items-center justify-center mx-auto border-2 border-slate-200">
+          <div id="masterQrContainer" style="width:215px; height:215px;" class="flex items-center justify-center"></div>
+          <span class="text-xs font-montserrat font-bold text-slate-900 tracking-wider uppercase mt-2.5">
             SCAN TO OPEN CARD &bull; CAGE: 169D8
           </span>
         </div>
 
         <p class="text-xs text-slate-200 font-medium mt-3 leading-relaxed">
-          Point any phone camera to scan &bull; Opens full capabilities &amp; verified federal credentials
+          Point any phone camera to scan &bull; Opens verified credentials &amp; saves contact to your device
         </p>
 
-        <!-- 1-Tap Save Actions Row -->
-        <div class="grid grid-cols-2 gap-2 mt-4">
-          <button onclick="downloadActiveVCard()"
-                  class="py-3 px-3 rounded-xl bg-gradient-to-r from-p22gold to-amber-500 text-slate-950 font-montserrat font-extrabold text-xs tracking-wide shadow-lg hover:brightness-110 active:scale-95 transition flex items-center justify-center gap-1.5">
-            <svg class="w-4 h-4 fill-none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
-            <span>Save Contact (.vcf)</span>
-          </button>
-
-          <a id="masterAppleWalletBtn" href="assets/passes/pedro.pkpass"
-             class="py-3 px-3 rounded-xl bg-black hover:bg-neutral-900 border border-white/25 text-white font-montserrat font-bold text-xs tracking-wide active:scale-95 transition flex items-center justify-center gap-1.5 shadow-lg">
-            <svg class="w-4 h-4 fill-current text-white shrink-0" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.77 1.06-1.85.94-2.93-.91.04-2.02.61-2.67 1.38-.58.67-1.09 1.77-.95 2.82 1.02.08 2.05-.5 2.68-1.27z"/></svg>
-            <span>Apple Wallet</span>
-          </a>
-        </div>
-
-        <!-- Toggle to Full Capabilities Portal -->
-        <a href="#portalSection" onclick="smoothScrollToPortal(event)"
-           class="mt-4 pt-3 border-t border-white/10 flex items-center justify-center gap-2 text-xs font-montserrat font-bold text-p22gold hover:text-white transition group">
+        <!-- Direct 1-Tap Switch to Full Capabilities Portal -->
+        <button onclick="switchViewMode('portal')"
+                class="w-full mt-4 py-3 px-4 rounded-xl bg-white/10 hover:bg-white/15 border border-white/20 text-white font-montserrat font-bold text-xs tracking-wide active:scale-95 transition flex items-center justify-center gap-2 group shadow-lg">
           <span>View Full Capabilities, Fleet &amp; Documents</span>
-          <svg class="w-4 h-4 text-p22gold group-hover:translate-y-0.5 transition" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-        </a>
+          <svg class="w-4 h-4 text-p22gold group-hover:translate-x-1 transition" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </button>
       </div>
     </section>
 
-    <!-- Portal Section Anchor -->
-    <div id="portalSection"></div>
+    <!-- ====================================================================== -->
+    <!-- CLIENT CAPABILITIES PORTAL SECTION ("THEIR PERSONAL VERSION")           -->
+    <!-- ====================================================================== -->
+    <section id="portalContainerSection" class="transition-all duration-300">
+      <div id="portalSection"></div>
 
-    <div class="lg:grid lg:grid-cols-12 lg:gap-8 items-start">
+      <div class="lg:grid lg:grid-cols-12 lg:gap-8 items-start">
       
       <!-- ====================================================================== -->
       <!-- LEFT COCKPIT PANEL (Executive Pass, Sticky Navigation, Expo Booth QR)  -->
@@ -858,6 +864,7 @@
       </div> <!-- Closes lg:col-span-7 -->
 
     </div> <!-- Closes lg:grid -->
+    </section> <!-- Closes portalContainerSection -->
 
   </main>
 
@@ -1094,13 +1101,59 @@
     
     function smoothScrollToPortal(e) {
       if (e) e.preventDefault();
-      const el = document.getElementById('portalSection');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      switchViewMode('portal');
     }
 
     function scrollToMasterCard() {
-      const el = document.getElementById('masterCardSection');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      switchViewMode('scan');
+    }
+
+    function switchViewMode(mode) {
+      const masterSec = document.getElementById('masterCardSection');
+      const portalSec = document.getElementById('portalContainerSection');
+      const tabScan = document.getElementById('viewTabScan');
+      const tabPortal = document.getElementById('viewTabPortal');
+      const floatingBtn = document.getElementById('floatingMasterCardBtn');
+      const stickyDock = document.getElementById('stickyDock');
+
+      const activeClasses = ['bg-gradient-to-r', 'from-p22gold', 'to-amber-500', 'text-slate-950', 'font-extrabold', 'shadow-lg'];
+      const inactiveClasses = ['text-slate-300', 'font-bold', 'hover:text-white'];
+
+      if (mode === 'scan') {
+        if (masterSec) masterSec.classList.remove('hidden');
+        if (portalSec) portalSec.classList.add('hidden');
+        if (floatingBtn) floatingBtn.classList.add('hidden');
+        if (stickyDock) {
+          stickyDock.classList.add('translate-y-28', 'opacity-0', 'pointer-events-none');
+          stickyDock.classList.remove('translate-y-0', 'opacity-100');
+        }
+
+        if (tabScan) {
+          tabScan.classList.remove(...inactiveClasses);
+          tabScan.classList.add(...activeClasses);
+        }
+        if (tabPortal) {
+          tabPortal.classList.remove(...activeClasses);
+          tabPortal.classList.add(...inactiveClasses);
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        trackEvent('ViewMode', 'Switch', 'ExpoScan');
+      } else {
+        if (masterSec) masterSec.classList.add('hidden');
+        if (portalSec) portalSec.classList.remove('hidden');
+        if (floatingBtn) floatingBtn.classList.remove('hidden');
+
+        if (tabPortal) {
+          tabPortal.classList.remove(...inactiveClasses);
+          tabPortal.classList.add(...activeClasses);
+        }
+        if (tabScan) {
+          tabScan.classList.remove(...activeClasses);
+          tabScan.classList.add(...inactiveClasses);
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        trackEvent('ViewMode', 'Switch', 'ClientPortal');
+      }
     }
 
     function switchStaff(slug) {
@@ -1161,10 +1214,10 @@
       }
       document.title = `${data.name} | P-22 Corp Digital Card`;
 
-      // Update Desktop Walk-Up Expo QR Station
+      // Update Desktop Walk-Up Expo QR Station & Master QR to open Portal
       const desktopQrUrl = document.getElementById('desktopQrUrl');
-      const targetUrl = `${getAppBaseUrl()}/${data.slug}`;
-      if (desktopQrUrl) desktopQrUrl.textContent = targetUrl.replace(/^https?:\/\//, '');
+      const targetUrl = `${getAppBaseUrl()}/${data.slug}?view=portal`;
+      if (desktopQrUrl) desktopQrUrl.textContent = `${getAppBaseUrl().replace(/^https?:\/\//, '')}/${data.slug}`;
 
       function renderMasterQr() {
         const masterQrContainer = document.getElementById('masterQrContainer');
@@ -1582,6 +1635,13 @@
 
       const initialRep = detectInitialStaff();
       switchStaff(initialRep);
+
+      // Mode detection: If ?view=portal or #portal, open directly in Client Portal mode ("Their Personal Version");
+      // otherwise default to Expo Scan Badge mode for quick booth presentation.
+      const urlParams = new URLSearchParams(window.location.search);
+      const isPortal = urlParams.get('view') === 'portal' || window.location.hash === '#portal';
+      switchViewMode(isPortal ? 'portal' : 'scan');
+
       initTilt3D();
       initScrollReveal();
       initParticles();
@@ -1595,11 +1655,11 @@
     });
   </script>
 
-  <!-- Floating Master Card Quick-Return Button -->
-  <button id="floatingMasterCardBtn" onclick="scrollToMasterCard()"
+  <!-- Floating Scan Badge Quick-Return Button -->
+  <button id="floatingMasterCardBtn" onclick="switchViewMode('scan')"
           class="fixed bottom-5 right-5 z-40 px-4 py-2.5 rounded-full bg-gradient-to-r from-p22gold to-amber-500 text-slate-950 font-montserrat font-extrabold text-xs tracking-wide shadow-2xl border border-white/30 flex items-center gap-2 active:scale-95 transition hover:brightness-110">
-    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
-    <span>Flash Master Card</span>
+    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M4 4h4v4H4V4zm2 2h0v0h0zm-2 8h4v4H4v-4zm2 2h0v0h0zm8-10h4v4h-4V4zm2 2h0v0h0zm-2 8h2v2h-2v-2zm2 2h2v2h-2v-2zm-2 2h2v2h-2v-2zm4-4h2v2h-2v-2zm0 4h2v2h-2v-2zM4 20h4v-4H4v4zm2-2h0v0h0z"/></svg>
+    <span>Flash Scan Badge</span>
   </button>
 
 </body>
