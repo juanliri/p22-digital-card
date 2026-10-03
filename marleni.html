@@ -1255,20 +1255,26 @@
 
       const lead = {
         timestamp: new Date().toISOString(),
-        name: sanitizeLeadInput(rawName),
-        agency: sanitizeLeadInput(rawAgency),
-        email: sanitizeLeadInput(rawEmail),
-        phone: sanitizeLeadInput(rawPhone),
+        client_name: sanitizeLeadInput(rawName),
+        client_agency: sanitizeLeadInput(rawAgency),
+        client_email: sanitizeLeadInput(rawEmail),
+        client_phone: sanitizeLeadInput(rawPhone),
         interest: 'Executive Digital Card Exchange',
-        repSlug: rep.slug,
-        repName: rep.name
+        source: 'Step 2 Reciprocal Exchange',
+        rep_slug: rep.slug,
+        rep_name: rep.name
       };
 
       try {
-        const existing = JSON.parse(localStorage.getItem('p22_expo_leads') || '[]');
+        // Save to primary p22_leads database used by /setup table & CSV export
+        const existing = JSON.parse(localStorage.getItem('p22_leads') || '[]');
         existing.unshift(lead);
+        localStorage.setItem('p22_leads', JSON.stringify(existing));
+        // Also mirror to legacy key
         localStorage.setItem('p22_expo_leads', JSON.stringify(existing));
-      } catch (err) {}
+      } catch (err) {
+        console.warn('LocalStorage save failed', err);
+      }
 
       const form = document.getElementById('inlineLeadForm');
       const success = document.getElementById('inlineSuccessCard');

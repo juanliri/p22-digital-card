@@ -1196,9 +1196,30 @@
       ctx.fillText('Capability Statement (PDF)', 1680, 390);
     }
 
-    // Expo Leads Management for Setup Hub
+    // Expo Leads Management for Setup Hub (Dual Key & Instant Sync)
+    function getAllStoredLeads() {
+      try {
+        const primary = JSON.parse(localStorage.getItem('p22_leads') || '[]');
+        const legacy = JSON.parse(localStorage.getItem('p22_expo_leads') || '[]');
+        // Merge and deduplicate by timestamp + client_email
+        const combined = [...primary, ...legacy];
+        const seen = new Set();
+        const unique = [];
+        for (const item of combined) {
+          const key = (item.timestamp || '') + '|' + (item.client_email || item.email || '');
+          if (!seen.has(key)) {
+            seen.add(key);
+            unique.push(item);
+          }
+        }
+        return unique;
+      } catch (err) {
+        return [];
+      }
+    }
+
     function renderLeadsTable() {
-      const stored = JSON.parse(localStorage.getItem('p22_leads') || '[]');
+      const stored = getAllStoredLeads();
       const badge = document.getElementById('leadCountBadge');
       const tbody = document.getElementById('leadsTableBody');
       if (badge) badge.textContent = `${stored.length} Leads`;
@@ -1211,21 +1232,41 @@
 
       tbody.innerHTML = stored.map(lead => {
         const timeStr = lead.timestamp ? new Date(lead.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '—';
+        const name = lead.client_name || lead.name || '—';
+        const agency = lead.client_agency || lead.agency || '—';
+        const email = lead.client_email || lead.email || '—';
+        const phone = lead.client_phone || lead.phone || '—';
+        const scope = lead.interest || lead.source || 'General';
         return `
           <tr class="hover:bg-white/5 transition">
             <td class="p-2.5 font-mono text-[11px] text-slate-400">${timeStr}</td>
-            <td class="p-2.5 font-bold text-white">${lead.client_name || '—'}</td>
-            <td class="p-2.5 text-p22gold font-semibold">${lead.client_agency || '—'}</td>
-            <td class="p-2.5 text-sky-300 font-mono text-[11px]">${lead.client_email || '—'}</td>
-            <td class="p-2.5 text-slate-300 font-mono text-[11px]">${lead.client_phone || '—'}</td>
-            <td class="p-2.5 text-[11px] text-slate-400">${lead.interest || 'General'}</td>
+            <td class="p-2.5 font-bold text-white">${name}</td>
+            <td class="p-2.5 text-p22gold font-semibold">${agency}</td>
+            <td class="p-2.5 text-sky-300 font-mono text-[11px]">${email}</td>
+            <td class="p-2.5 text-slate-300 font-mono text-[11px]">${phone}</td>
+            <td class="p-2.5 text-[11px] text-slate-400">${scope}</td>
           </tr>
         `;
       }).join('');
     }
 
+    // Instant sync: when returning to tab or when localStorage changes in another tab
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'p22_leads' || e.key === 'p22_expo_leads') {
+        renderLeadsTable();
+      }
+    });
+    window.addEventListener('focus', () => {
+      renderLeadsTable();
+    });
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        renderLeadsTable();
+      }
+    });
+
     function exportLeadsSetupCSV() {
-      const stored = JSON.parse(localStorage.getItem('p22_leads') || '[]');
+      const stored = getAllStoredLeads();
       if (stored.length === 0) {
         alert('No leads recorded yet on this device.');
         return;
@@ -1234,13 +1275,13 @@
       const headers = ['Timestamp', 'Staff Representative', 'Client Name', 'Agency / Contractor', 'Work Email', 'Phone', 'Procurement Scope', 'Source'];
       const rows = stored.map(lead => [
         `"${(lead.timestamp || '').replace(/"/g, '""')}"`,
-        `"${(lead.rep_name || lead.rep_slug || '').replace(/"/g, '""')}"`,
-        `"${(lead.client_name || '').replace(/"/g, '""')}"`,
-        `"${(lead.client_agency || '').replace(/"/g, '""')}"`,
-        `"${(lead.client_email || '').replace(/"/g, '""')}"`,
-        `"${(lead.client_phone || '').replace(/"/g, '""')}"`,
+        `"${(lead.rep_name || lead.rep_slug || lead.repSlug || '').replace(/"/g, '""')}"`,
+        `"${(lead.client_name || lead.name || '').replace(/"/g, '""')}"`,
+        `"${(lead.client_agency || lead.agency || '').replace(/"/g, '""')}"`,
+        `"${(lead.client_email || lead.email || '').replace(/"/g, '""')}"`,
+        `"${(lead.client_phone || lead.phone || '').replace(/"/g, '""')}"`,
         `"${(lead.interest || '').replace(/"/g, '""')}"`,
-        `"${(lead.source || '').replace(/"/g, '""')}"`
+        `"${(lead.source || 'Digital Card Exchange').replace(/"/g, '""')}"`
       ]);
 
       const csvString = [headers.join(','), ...rows.map(r => r.join(','))].join('\r\n');
