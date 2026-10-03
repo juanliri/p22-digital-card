@@ -330,6 +330,9 @@
   // Trigger Scanner Modal
   window.triggerCardScan = function (context = 'inline') {
     activeScanContext = context;
+    if (context === 'inline' && typeof revealStep2Exchange === 'function') {
+      revealStep2Exchange(true);
+    }
     const modal = ensureScannerModal();
     resetCardScanner();
     modal.classList.remove('hidden');
