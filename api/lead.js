@@ -53,6 +53,7 @@ module.exports = async function handler(req, res) {
         rep_name: item.rep_name || item.rep || 'General Staff',
         client_name: item.client_name || item.name || '',
         client_agency: item.client_agency || item.agency || '',
+        client_website: item.client_website || item.website || '',
         client_email: item.client_email || item.email || '',
         client_phone: item.client_phone || item.phone || '',
         interest: item.interest || item.scope || 'Procurement & Logistics Coordination',

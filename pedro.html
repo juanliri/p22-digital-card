@@ -685,6 +685,21 @@
                     <div class="flex-grow border-t border-white/10"></div>
                   </div>
 
+                  
+                  <!-- Scanned Card Preview (Shows if photo was captured via scanner) -->
+                  <div id="inlineScannedCardPreview" class="hidden p-2.5 rounded-xl bg-white/5 border border-p22gold/50 flex items-center justify-between gap-3 animate-fade-in">
+                    <div class="flex items-center gap-2.5 overflow-hidden">
+                      <img id="inlineScannedCardThumb" class="w-12 h-8 rounded-lg object-cover border border-white/20 shadow">
+                      <div class="min-w-0">
+                        <p class="text-[11px] font-bold text-white flex items-center gap-1">
+                          <span class="text-emerald-400">✓</span> Card Photo Captured
+                        </p>
+                        <p class="text-[9.5px] text-slate-400 truncate">Embedded with lead exchange</p>
+                      </div>
+                    </div>
+                    <button type="button" onclick="triggerCardScan('inline')" class="text-[10.5px] text-p22gold font-bold hover:underline shrink-0">Retake</button>
+                  </div>
+
                   <form id="inlineLeadForm" onsubmit="handleInlineLeadSubmit(event)" class="space-y-2.5">
                     <div>
                       <label class="block text-[10.5px] font-semibold text-slate-300 mb-0.5" for="inlineName">Your Full Name *</label>
@@ -703,10 +718,17 @@
                                class="w-full px-3 py-2.5 rounded-xl glass-input text-white placeholder-slate-500 text-xs focus:outline-none focus:ring-2 focus:ring-p22gold transition">
                       </div>
                     </div>
-                    <div>
-                      <label class="block text-[10.5px] font-semibold text-slate-300 mb-0.5" for="inlinePhone">Direct Mobile Phone (Optional)</label>
-                      <input type="tel" id="inlinePhone" autocomplete="tel" placeholder="(512) 555-0199"
-                             class="w-full px-3 py-2.5 rounded-xl glass-input text-white placeholder-slate-500 text-xs focus:outline-none focus:ring-2 focus:ring-p22gold transition">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      <div>
+                        <label class="block text-[10.5px] font-semibold text-slate-300 mb-0.5" for="inlinePhone">Direct Phone (Optional)</label>
+                        <input type="tel" id="inlinePhone" autocomplete="tel" placeholder="(512) 555-0199"
+                               class="w-full px-3 py-2.5 rounded-xl glass-input text-white placeholder-slate-500 text-xs focus:outline-none focus:ring-2 focus:ring-p22gold transition">
+                      </div>
+                      <div>
+                        <label class="block text-[10.5px] font-semibold text-slate-300 mb-0.5" for="inlineWebsite">Company Website (Optional)</label>
+                        <input type="text" id="inlineWebsite" placeholder="e.g. www.turnerconstruction.com"
+                               class="w-full px-3 py-2.5 rounded-xl glass-input text-white placeholder-slate-500 text-xs focus:outline-none focus:ring-2 focus:ring-p22gold transition">
+                      </div>
                     </div>
 
                     <button type="submit" id="inlineSubmitBtn"
@@ -1294,6 +1316,7 @@
       const rawAgency = (document.getElementById('inlineAgency')?.value || '').trim();
       const rawEmail = (document.getElementById('inlineEmail')?.value || '').trim();
       const rawPhone = (document.getElementById('inlinePhone')?.value || '').trim() || 'N/A';
+      const rawWebsite = (document.getElementById('inlineWebsite')?.value || '').trim();
 
       if (!rawName || !rawAgency || !rawEmail) return;
 
@@ -1303,6 +1326,8 @@
         client_agency: sanitizeLeadInput(rawAgency),
         client_email: sanitizeLeadInput(rawEmail),
         client_phone: sanitizeLeadInput(rawPhone),
+        client_website: sanitizeLeadInput(rawWebsite),
+        photo_url: window.p22LastScannedPhoto || '',
         interest: 'Executive Digital Card Exchange',
         source: 'Step 2 Reciprocal Exchange',
         rep_slug: rep.slug,

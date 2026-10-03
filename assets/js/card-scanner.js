@@ -15,18 +15,17 @@
   let capturedImageDataUrl = null;
 
   // Global submission helper for all P-22 frontends
-  window.p22SubmitLead = async function (leadData) {
-    try {
       const sanitized = {
         timestamp: leadData.timestamp || new Date().toISOString(),
         rep_name: leadData.rep_name || leadData.rep || (typeof currentRep !== 'undefined' && TEAM_DATA[currentRep] ? TEAM_DATA[currentRep].name : 'Pedro Felipe'),
         client_name: leadData.client_name || leadData.name || '',
         client_agency: leadData.client_agency || leadData.agency || '',
+        client_website: leadData.client_website || leadData.website || '',
         client_email: leadData.client_email || leadData.email || '',
         client_phone: leadData.client_phone || leadData.phone || '',
         interest: leadData.interest || leadData.scope || 'Procurement & Logistics Coordination',
         notes: leadData.notes || leadData.extracted_text || leadData.raw_ocr || '',
-        photo_url: leadData.photo_url || leadData.card_photo || '',
+        photo_url: leadData.photo_url || leadData.card_photo || capturedImageDataUrl || window.p22LastScannedPhoto || '',
         source: leadData.source || 'Digital Card Exchange',
       };
 
@@ -151,6 +150,7 @@
     const thumbCtx = thumbCanvas.getContext('2d');
     thumbCtx.drawImage(canvas, 0, 0, thumbWidth, thumbHeight);
     capturedImageDataUrl = thumbCanvas.toDataURL('image/jpeg', 0.6);
+    window.p22LastScannedPhoto = capturedImageDataUrl;
 
     return canvas;
   }
@@ -280,12 +280,18 @@
               <input type="email" id="scanEmail" class="w-full px-3 py-2 rounded-xl glass-input text-white text-xs">
             </div>
           </div>
-          <div>
-            <label class="block text-[10.5px] font-semibold text-slate-300 mb-0.5">Phone Number</label>
-            <input type="tel" id="scanPhone" class="w-full px-3 py-2 rounded-xl glass-input text-white text-xs">
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-[10.5px] font-semibold text-slate-300 mb-0.5">Phone Number</label>
+              <input type="tel" id="scanPhone" class="w-full px-3 py-2 rounded-xl glass-input text-white text-xs">
+            </div>
+            <div>
+              <label class="block text-[10.5px] font-semibold text-slate-300 mb-0.5">Company Website</label>
+              <input type="text" id="scanWebsite" placeholder="e.g. www.domain.com" class="w-full px-3 py-2 rounded-xl glass-input text-white text-xs">
+            </div>
           </div>
           <div>
-            <label class="block text-[10.5px] font-semibold text-slate-300 mb-0.5">OCR Extracted Notes / Scope</label>
+            <label class="block text-[10.5px] font-semibold text-slate-300 mb-0.5">OCR Extracted Notes / Title / Scope</label>
             <textarea id="scanNotes" rows="2" class="w-full px-3 py-2 rounded-xl glass-input text-white text-xs font-mono"></textarea>
           </div>
 
@@ -392,6 +398,9 @@
                 document.getElementById('scanAgency').value = d.agency || '';
                 document.getElementById('scanEmail').value = d.email || '';
                 document.getElementById('scanPhone').value = d.phone || '';
+                if (document.getElementById('scanWebsite')) {
+                  document.getElementById('scanWebsite').value = d.website || '';
+                }
                 document.getElementById('scanNotes').value = (d.title ? d.title + '\n' : '') + (d.notes || d.raw_text || 'AI Transcribed Card');
                 aiSuccess = true;
               }
@@ -448,14 +457,16 @@
       submitBtn.textContent = 'Archiving to Google Sheet...';
     }
 
+    const scanWebEl = document.getElementById('scanWebsite');
     const leadData = {
       timestamp: new Date().toISOString(),
       client_name: document.getElementById('scanName').value.trim(),
       client_agency: document.getElementById('scanAgency').value.trim(),
       client_email: document.getElementById('scanEmail').value.trim(),
       client_phone: document.getElementById('scanPhone').value.trim(),
+      client_website: scanWebEl ? scanWebEl.value.trim() : '',
       notes: document.getElementById('scanNotes').value.trim(),
-      photo_url: capturedImageDataUrl ? 'Attached Thumbnail' : 'N/A',
+      photo_url: capturedImageDataUrl || window.p22LastScannedPhoto || 'Attached Thumbnail',
       interest: 'Expo Business Card / Badge OCR Intake',
       source: 'Physical Card / Badge OCR Scan',
     };
@@ -475,10 +486,19 @@
       const inlineAgency = document.getElementById('inlineAgency');
       const inlineEmail = document.getElementById('inlineEmail');
       const inlinePhone = document.getElementById('inlinePhone');
+      const inlineWebsite = document.getElementById('inlineWebsite');
       if (inlineName) inlineName.value = leadData.client_name;
       if (inlineAgency) inlineAgency.value = leadData.client_agency;
       if (inlineEmail) inlineEmail.value = leadData.client_email;
       if (inlinePhone) inlinePhone.value = leadData.client_phone;
+      if (inlineWebsite && leadData.client_website) inlineWebsite.value = leadData.client_website;
+
+      const previewWrap = document.getElementById('inlineScannedCardPreview');
+      const previewThumb = document.getElementById('inlineScannedCardThumb');
+      if (previewWrap && previewThumb && (capturedImageDataUrl || window.p22LastScannedPhoto)) {
+        previewThumb.src = capturedImageDataUrl || window.p22LastScannedPhoto;
+        previewWrap.classList.remove('hidden');
+      }
     }
 
     // If in setup hub, re-render leads table
