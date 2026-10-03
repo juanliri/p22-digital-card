@@ -155,39 +155,44 @@
           </p>
         </div>
 
-        <!-- Download Official .pkpass File (Direct Apple Wallet Pass) -->
-        <a id="appleWalletPkpassBtn" href="assets/passes/pedro.pkpass" download="P22_Pedro_Felipe.pkpass"
-           class="w-full py-3.5 px-4 rounded-xl bg-black hover:bg-neutral-900 border border-white/40 text-white font-montserrat font-bold text-xs tracking-wide transition btn-bounce shadow-xl flex items-center justify-center gap-2">
-          <svg class="w-5 h-5 fill-current shrink-0" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.77 1.06-1.85.94-2.93-.91.04-2.02.61-2.67 1.38-.58.67-1.09 1.77-.95 2.82 1.02.08 2.05-.5 2.68-1.27z"/></svg>
-          <span>Download Apple Wallet Pass (.pkpass)</span>
-        </a>
-        <p class="text-[10px] text-sky-300 text-center -mt-1 font-medium">
-          ✓ Real .pkpass file generated &bull; Tap to download &amp; open directly in Apple Wallet
-        </p>
-
-        <!-- 1-Tap iOS Contacts Button (Primary) -->
+        <!-- 1-Tap iOS Contacts Button (100% Working on Safari) -->
         <a id="appleWalletVcfDirect" href="assets/vcf/pedro.vcf"
            class="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-montserrat font-bold text-xs tracking-wide transition btn-bounce shadow-lg flex items-center justify-center gap-2">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
           <span>Save Contact Card to iPhone Contacts (1-Tap Native .VCF)</span>
         </a>
         <p class="text-[10px] text-emerald-400 text-center -mt-1 font-medium">
-          ✓ Works immediately in Safari &bull; Adds photo, CAGE 169D8, phone &amp; email into iPhone Contacts
+          ✓ 100% Native in Safari &bull; Adds photo, CAGE 169D8, direct phone &amp; email into Contacts
         </p>
 
-        <div class="p-3 rounded-xl bg-white/5 border border-white/10 space-y-1 text-[11px] text-slate-300">
-          <p class="font-bold text-white">How Apple Wallet &amp; Apple Watch open this pass:</p>
-          <ol class="list-decimal list-inside space-y-1">
-            <li>Tap <strong>Download Apple Wallet Pass (.pkpass)</strong> above.</li>
-            <li>Safari will ask to download or open in Wallet &rarr; tap <strong>"Add"</strong>.</li>
-            <li>Double-click your <strong>Apple Watch side button</strong> anytime to display it on your wrist!</li>
-          </ol>
+        <!-- Pass2U Wallet App Button (For Native Apple Wallet & Watch) -->
+        <a href="https://apps.apple.com/app/pass2u-wallet-cards-coupons/id1142465649" target="_blank"
+           class="w-full py-3.5 px-4 rounded-xl bg-black hover:bg-neutral-900 border border-white/40 text-white font-montserrat font-bold text-xs tracking-wide transition btn-bounce shadow-xl flex items-center justify-center gap-2">
+          <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.77 1.06-1.85.94-2.93-.91.04-2.02.61-2.67 1.38-.58.67-1.09 1.77-.95 2.82 1.02.08 2.05-.5 2.68-1.27z"/></svg>
+          <span>Add to Apple Wallet via Pass2U (Free App)</span>
+        </a>
+
+        <!-- Why Safari blocks raw .pkpass callout -->
+        <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[11px] text-amber-200 space-y-1">
+          <p class="font-bold text-amber-300 flex items-center gap-1">
+            <span>ℹ️ Why does Safari say "Cannot download this file"?</span>
+          </p>
+          <p class="text-slate-300 leading-relaxed text-[10.5px]">
+            Apple strictly requires all <code>.pkpass</code> files to be signed by an official Apple Developer Account certificate ($99/yr). Without that certificate, iOS Safari blocks web downloads for security.
+          </p>
+          <p class="text-slate-300 leading-relaxed text-[10.5px]">
+            The free <strong>Pass2U app</strong> already holds an Apple certificate, so scanning your QR code inside Pass2U bypasses this restriction and adds the pass directly to your iPhone and Apple Watch!
+          </p>
         </div>
 
-        <!-- PWA Home Screen Tip -->
-        <p class="text-[10px] text-center text-slate-400 pt-0.5">
-          💡 <strong>Standalone App:</strong> In Safari, tap <strong class="text-white">Share &rarr; Add to Home Screen</strong> to create an instant full-screen app icon on your iPhone.
-        </p>
+        <!-- Download Raw .pkpass (Secondary) -->
+        <div class="flex items-center justify-between pt-1 text-[11px]">
+          <span class="text-slate-400">Advanced / Apple Developer Mode:</span>
+          <a id="appleWalletPkpassBtn" href="assets/passes/pedro.pkpass" download="P22_Pedro_Felipe.pkpass"
+             class="text-p22gold hover:underline font-mono text-[11px]">
+            Download Raw .pkpass File &darr;
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -377,25 +382,17 @@
           </button>
         </div>
 
-        <!-- Direct Native Pass Buttons -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
-          <!-- Download Apple Wallet .pkpass -->
-          <a id="tool1PkpassBtn" href="assets/passes/pedro.pkpass" download="P22_Pedro_Felipe.pkpass"
-             class="py-3.5 px-4 rounded-2xl bg-black hover:bg-neutral-900 border border-white/40 text-white font-montserrat font-bold text-xs tracking-wide active:scale-95 transition btn-bounce shadow-xl flex items-center justify-center gap-2">
-            <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.77 1.06-1.85.94-2.93-.91.04-2.02.61-2.67 1.38-.58.67-1.09 1.77-.95 2.82 1.02.08 2.05-.5 2.68-1.27z"/></svg>
-            <span>Download Apple Wallet (.pkpass)</span>
-          </a>
-
-          <!-- Save 1-Tap Contact Card (.vcf) -->
+        <!-- Primary Action: 1-Tap Native Contact Card -->
+        <div class="pt-1 space-y-2">
           <a id="vcfDownloadBtn" href="assets/vcf/pedro.vcf"
-             class="py-3.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-montserrat font-bold text-xs tracking-wide active:scale-95 transition btn-bounce shadow-lg flex items-center justify-center gap-2">
+             class="w-full py-3.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-montserrat font-bold text-xs tracking-wide active:scale-95 transition btn-bounce shadow-lg flex items-center justify-center gap-2">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-            <span>Save Contact Card (.VCF)</span>
+            <span>Save Contact Card to iPhone/Android Contacts (1-Tap Native .VCF)</span>
           </a>
+          <p class="text-[10.5px] text-center text-slate-300">
+            ✓ 100% Native in Safari &bull; Instantly adds photo, CAGE 169D8, phone &amp; email into iPhone/Android Contacts
+          </p>
         </div>
-        <p class="text-[10px] text-center text-slate-400 mt-1.5">
-          🍎 <strong>Apple Wallet:</strong> Tapping .pkpass downloads your official digital pass directly into Apple Wallet and Apple Watch.
-        </p>
       </div>
     </section>
 
