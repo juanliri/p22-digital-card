@@ -28,6 +28,14 @@ const PASS_MAP = {
     apple: '/assets/passes/logistics-p22.pkpass',
     card: '/logistics',
   },
+  juan: {
+    apple: '/assets/passes/pedro-felipe.pkpass',
+    card: '/badge?rep=pedro',
+  },
+  jliriano: {
+    apple: '/assets/passes/pedro-felipe.pkpass',
+    card: '/badge?rep=pedro',
+  },
 };
 
 function detectPlatform(userAgent = '') {
@@ -45,7 +53,7 @@ module.exports = async function handler(req, res) {
 
   const rawRep = (req.query.rep || 'pedro').toLowerCase().trim();
   const rep = PASS_MAP[rawRep] ? rawRep : 'pedro';
-  const source = req.query.source || (req.query.nfc === '1' ? 'nfc' : 'expo_qr');
+  const source = req.query.source || req.query.src || (req.query.nfc === '1' ? 'nfc' : 'expo_qr');
   const destType = req.query.dest || 'card'; // 'card' | 'wallet'
 
   // Asynchronously append to Google Sheets Telemetry

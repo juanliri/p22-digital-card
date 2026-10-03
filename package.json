@@ -9,7 +9,9 @@
   "scripts": {
     "init:sheets": "node scripts/init-sheets-db.js",
     "test:telemetry": "node scripts/test-telemetry.js",
-    "test": "node scripts/test-telemetry.js"
+    "test": "node scripts/test-telemetry.js",
+    "push:signatures": "node scripts/push-signatures.js",
+    "push:signatures:dry": "node scripts/push-signatures.js --dry-run"
   },
   "repository": {
     "type": "git",
