@@ -94,7 +94,7 @@ team_members = [
         "slug": "eduardo",
         "name": "Eduardo Lopez",
         "title": "Director of Gov Sales",
-        "subtitle": "Estimating & Bids Desk",
+        "subtitle": "Federal Quotes & Procurement Desk",
         "email": "elopez@p22corp.com",
         "photo": os.path.join(ASSETS_DIR, "staff", "eduardo-lopez.jpg")
     },

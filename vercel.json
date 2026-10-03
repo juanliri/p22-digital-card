@@ -4,11 +4,11 @@
   "rewrites": [
     { "source": "/setup", "destination": "/setup.html" },
     { "source": "/capability-statement", "destination": "/capability-statement.html" },
-    { "source": "/pedro", "destination": "/index.html" },
-    { "source": "/eduardo", "destination": "/index.html" },
-    { "source": "/marleni", "destination": "/index.html" },
-    { "source": "/bids", "destination": "/index.html" },
-    { "source": "/logistics", "destination": "/index.html" },
+    { "source": "/pedro", "destination": "/pedro.html" },
+    { "source": "/eduardo", "destination": "/eduardo.html" },
+    { "source": "/marleni", "destination": "/marleni.html" },
+    { "source": "/bids", "destination": "/bids.html" },
+    { "source": "/logistics", "destination": "/logistics.html" },
     { "source": "/rep/:slug", "destination": "/index.html" }
   ],
   "headers": [

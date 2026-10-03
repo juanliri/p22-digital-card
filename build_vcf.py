@@ -1,7 +1,7 @@
-import os, io, base64, json
+import os, io, base64, json, datetime
 from PIL import Image
 
-def optimize_photo(src_path, size=(300, 300), quality=82):
+def optimize_photo(src_path, size=(320, 320), quality=82):
     img = Image.open(src_path)
     if img.mode in ('RGBA', 'LA') or (img.mode == 'P' and 'transparency' in img.info):
         bg = Image.new('RGB', img.size, (13, 24, 41))
@@ -25,6 +25,21 @@ def optimize_photo(src_path, size=(300, 300), quality=82):
     print(f"Optimized {src_path}: {len(raw_bytes)} bytes JPEG (base64: {len(b64)})")
     return b64
 
+def fold_vcard_line(line, max_len=75):
+    """
+    RFC 2426 Section 2.6: Line folding
+    Long lines are folded by inserting CRLF followed by a single whitespace character.
+    """
+    if len(line) <= max_len:
+        return line
+    parts = [line[:max_len]]
+    remainder = line[max_len:]
+    while remainder:
+        chunk = remainder[:max_len - 1]
+        parts.append(' ' + chunk)
+        remainder = remainder[max_len - 1:]
+    return '\r\n'.join(parts)
+
 staff_definitions = [
     {
         'slug': 'pedro',
@@ -38,7 +53,7 @@ staff_definitions = [
         'email': 'pfelipe@p22corp.com',
         'url': 'https://p22-digital-card.vercel.app/pedro',
         'photo_path': 'assets/staff/pedro-felipe.png',
-        'note': 'CAGE: 169D8 | UEI: X3HUQZ66P6N3\nManaging Director - P-22 Corp\nSBA Certified Small Minority-Owned Business\nDirect Executive Line & Dallas Hub',
+        'note': 'CAGE: 169D8 | UEI: X3HUQZ66P6N3\\nManaging Director - P-22 Corp\\nSBA Certified Small Minority-Owned Business\\nDirect Executive Line & Dallas Hub',
     },
     {
         'slug': 'eduardo',
@@ -47,12 +62,12 @@ staff_definitions = [
         'last': 'Lopez',
         'fn': 'Eduardo Lopez',
         'org': 'P-22 Corp Construction Material Solutions LLC',
-        'title': 'Director of Government Sales & Estimating',
+        'title': 'Director of Government Sales',
         'tel': '1-888-722-2675',
         'email': 'elopez@p22corp.com',
         'url': 'https://p22-digital-card.vercel.app/eduardo',
         'photo_path': 'assets/staff/eduardo-lopez.jpg',
-        'note': 'CAGE: 169D8 | UEI: X3HUQZ66P6N3\nDirector of Gov Sales - P-22 Corp\nSBA Certified Small Minority-Owned Business\nDallas Sales Office - Electrical Takeoffs & Federal Quotes',
+        'note': 'CAGE: 169D8 | UEI: X3HUQZ66P6N3\\nDirector of Government Sales - P-22 Corp\\nSBA Certified Small Minority-Owned Business\\nDallas Sales Office - Federal Quotes & Procurement',
     },
     {
         'slug': 'marleni',
@@ -66,7 +81,7 @@ staff_definitions = [
         'email': 'mmendez@p22corp.com',
         'url': 'https://p22-digital-card.vercel.app/marleni',
         'photo_path': 'assets/staff/marleni-mendez.jpg',
-        'note': 'CAGE: 169D8 | UEI: X3HUQZ66P6N3\nController - P-22 Corp\nSBA Certified Small Minority-Owned Business\nWAWF, PIEE, DoD Invoicing & Federal Accounting Desk',
+        'note': 'CAGE: 169D8 | UEI: X3HUQZ66P6N3\\nController - P-22 Corp\\nSBA Certified Small Minority-Owned Business\\nWAWF, PIEE, DoD Invoicing & Federal Accounting Desk',
     },
     {
         'slug': 'bids',
@@ -80,7 +95,7 @@ staff_definitions = [
         'email': 'bids@p22corp.com',
         'url': 'https://p22-digital-card.vercel.app/bids',
         'photo_path': 'assets/branding/logo-navy-flat.png',
-        'note': 'CAGE: 169D8 | UEI: X3HUQZ66P6N3\n24-Hour Bids Desk - P-22 Corp\nSBA Certified Small Minority-Owned Business\nSimplified Acquisitions, BPAs & Fast-Track Solicitations',
+        'note': 'CAGE: 169D8 | UEI: X3HUQZ66P6N3\\n24-Hour Bids Desk - P-22 Corp\\nSBA Certified Small Minority-Owned Business\\nSimplified Acquisitions, BPAs & Fast-Track Solicitations',
     },
     {
         'slug': 'logistics',
@@ -94,7 +109,7 @@ staff_definitions = [
         'email': 'logistics@p22corp.com',
         'url': 'https://p22-digital-card.vercel.app/logistics',
         'photo_path': 'assets/facility/loading-dock.webp',
-        'note': 'CAGE: 169D8 | UEI: X3HUQZ66P6N3\nDallas Logistics Hub - P-22 Corp\nSBA Certified Small Minority-Owned Business\nOvernight Mobilization & Expedited Freight Delivery',
+        'note': 'CAGE: 169D8 | UEI: X3HUQZ66P6N3\\nDallas Logistics Hub - P-22 Corp\\nSBA Certified Small Minority-Owned Business\\nOvernight Mobilization & Expedited Freight Delivery',
     },
 ]
 
@@ -108,11 +123,13 @@ if os.path.exists('team.json'):
     except Exception as e:
         print('Error loading existing team.json:', e)
 
+now_iso = datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+
 for s in staff_definitions:
     photo_b64 = optimize_photo(s['photo_path'])
     
-    # vCard 3.0 Standard
-    vcard_lines = [
+    # vCard 3.0 Standard strictly compliant with RFC 2426
+    raw_lines = [
         'BEGIN:VCARD',
         'VERSION:3.0',
         f"N:{s['last']};{s['first']};;;",
@@ -124,10 +141,15 @@ for s in staff_definitions:
         f"URL:{s['url']}",
         'ADR;TYPE=WORK:;;18383 Preston Rd, Suite 202;Dallas;TX;75252;USA',
         f"NOTE:{s['note']}",
-        f"PHOTO;ENCODING=b;TYPE=JPEG:{photo_b64}",
+        f"CATEGORIES:Government Contractor,P-22 Corp,Procurement",
+        f"REV:{now_iso}",
+        f"PHOTO;TYPE=JPEG;ENCODING=b:{photo_b64}",
         'END:VCARD'
     ]
-    vcard_str = '\r\n'.join(vcard_lines) + '\r\n'
+    
+    # Apply RFC 2426 line folding (75 char max per line)
+    folded_lines = [fold_vcard_line(line) for line in raw_lines]
+    vcard_str = '\r\n'.join(folded_lines) + '\r\n'
     
     out_path = os.path.join('assets', 'vcf', s['filename'])
     with open(out_path, 'w', encoding='utf-8', newline='') as f:
@@ -158,4 +180,4 @@ for s in staff_definitions:
 with open('team.json', 'w', encoding='utf-8') as f:
     json.dump(team_data, f, indent=2)
 
-print("\nSUCCESS: All staff VCF files built with optimized JPEGs and team.json updated!")
+print("\nSUCCESS: All staff VCF files built with RFC 2426 compliance and team.json updated!")
