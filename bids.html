@@ -508,10 +508,10 @@
         </div>
 
         <!-- Executive Card Body (Overlapping Avatar & Title) -->
-        <div class="px-6 pb-6 pt-0 text-center relative">
+        <div class="px-6 pb-6 pt-0 text-center relative" style="transform-style: preserve-3d;">
 
           <!-- Verified Executive Headshot (Overlaps the video canopy seam) -->
-          <div class="relative w-28 h-28 mx-auto -mt-14 mb-3.5 z-20">
+          <div class="relative w-28 h-28 mx-auto -mt-14 mb-3.5 z-20" style="transform: translateZ(28px); transform-style: preserve-3d;">
             <div class="avatar-ring-outer w-full h-full shadow-2xl">
               <div class="avatar-ring-inner w-full h-full">
                 <img id="staffAvatar" src="assets/staff/pedro-felipe.png" alt="Profile Photo" 
@@ -525,7 +525,7 @@
           </div>
 
           <!-- Identity & Dynamic Title -->
-          <div class="space-y-1 mb-5">
+          <div class="space-y-1 mb-5" style="transform: translateZ(16px);">
             <h1 id="staffName" class="text-2xl sm:text-3xl font-montserrat font-extrabold text-white tracking-tight">Pedro Felipe</h1>
             <p id="staffTitle" class="text-xs sm:text-sm font-bold text-p22gold">Managing Director & Government Procurement Lead</p>
             <p class="text-xs text-slate-300 font-medium">P-22 Corp Construction Material Solutions LLC</p>
@@ -539,21 +539,21 @@
           </div>
 
           <!-- High-Conversion Primary Golden CTA: Save Contact to Phone -->
-          <button onclick="downloadActiveVCard()"
+          <button onclick="downloadActiveVCard()" style="transform: translateZ(22px);"
                   class="w-full inline-flex items-center justify-center gap-2.5 py-4 px-6 rounded-2xl cta-luxury text-slate-950 font-montserrat font-extrabold text-sm tracking-wide shadow-xl hover:brightness-110 active:scale-98 transition transform duration-150 gold-glow mb-2.5">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
             <span>Save Contact to Phone (.vcf)</span>
           </button>
 
           <!-- Direct Apple Wallet Pass (.pkpass) -->
-          <a id="cardAppleWalletBtn" href="assets/passes/pedro.pkpass"
+          <a id="cardAppleWalletBtn" href="assets/passes/pedro.pkpass" style="transform: translateZ(18px);"
              class="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-black hover:bg-neutral-900 border border-white/20 text-white font-montserrat font-bold text-xs tracking-wide active:scale-98 transition shadow-lg btn-bounce mb-4">
             <svg class="w-4 h-4 fill-current text-white shrink-0" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.77 1.06-1.85.94-2.93-.91.04-2.02.61-2.67 1.38-.58.67-1.09 1.77-.95 2.82 1.02.08 2.05-.5 2.68-1.27z"/></svg>
             <span>Add to Apple Wallet &amp; Watch (.pkpass)</span>
           </a>
 
           <!-- 4 Clean Enterprise Quick Actions (ZERO Redundant QR buttons!) -->
-          <div class="grid grid-cols-4 gap-2">
+          <div class="grid grid-cols-4 gap-2" style="transform: translateZ(14px);">
             <a id="callAction" href="tel:18887222675" onclick="trackEvent('Contact', 'Click', 'Call')"
                class="flex flex-col items-center justify-center p-3 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 active:scale-95 transition btn-bounce">
               <svg class="w-5 h-5 text-emerald-400 mb-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
@@ -567,7 +567,7 @@
             </a>
 
             <button onclick="openBriefingModal(); trackEvent('Briefing', 'Click', 'Open Scheduler');"
-                    class="flex flex-col items-center justify-center p-3 rounded-2xl bg-p22gold/15 hover:bg-p22gold/25 border border-p22gold/30 active:scale-95 transition btn-bounce group">
+               class="flex flex-col items-center justify-center p-3 rounded-2xl bg-p22gold/15 hover:bg-p22gold/25 border border-p22gold/30 active:scale-95 transition btn-bounce group">
               <svg class="w-5 h-5 text-p22gold mb-1 group-hover:scale-110 transition" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
               <span class="text-xs font-bold text-p22gold">Briefing</span>
             </button>
@@ -580,7 +580,7 @@
           </div>
 
           <!-- Direct Contact Details (100% Uncropped, Clear & Selectable) -->
-          <div class="mt-4 pt-4 border-t border-white/10 space-y-2.5 text-left">
+          <div class="mt-4 pt-4 border-t border-white/10 space-y-2.5 text-left" style="transform: translateZ(12px);">
             <!-- Direct Phone -->
             <a id="directPhoneLink" href="tel:18887222675" class="flex items-center gap-3 p-3 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 transition group">
               <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
@@ -620,6 +620,26 @@
               <svg class="w-4 h-4 text-p22gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
               <span>View In-Person QR Code</span>
             </button>
+
+            <!-- Executive Division Quick-Switcher Chips (Suggestion 19) -->
+            <div class="mt-4 pt-3.5 border-t border-white/10 text-left">
+              <span class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block mb-2">Division Direct Desks</span>
+              <div class="flex items-center gap-1.5 overflow-x-auto pb-1 hide-scrollbar" id="divisionChipsContainer">
+                <button onclick="switchStaff('pedro'); triggerHaptic(10);" id="chip-pedro" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-p22gold/20 text-xs font-montserrat font-bold text-slate-200 hover:text-p22gold border border-white/10 hover:border-p22gold/30 shrink-0 transition active:scale-95 flex items-center gap-1">
+                  <span>Executive Desk</span>
+                </button>
+                <button onclick="switchStaff('bids'); triggerHaptic(10);" id="chip-bids" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-p22gold/20 text-xs font-montserrat font-bold text-slate-200 hover:text-p22gold border border-white/10 hover:border-p22gold/30 shrink-0 transition active:scale-95 flex items-center gap-1">
+                  <span>Federal Bids</span>
+                </button>
+                <button onclick="switchStaff('logistics'); triggerHaptic(10);" id="chip-logistics" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-p22gold/20 text-xs font-montserrat font-bold text-slate-200 hover:text-p22gold border border-white/10 hover:border-p22gold/30 shrink-0 transition active:scale-95 flex items-center gap-1">
+                  <span>DFW Logistics</span>
+                </button>
+                <button onclick="switchStaff('eduardo'); triggerHaptic(10);" id="chip-eduardo" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-p22gold/20 text-xs font-montserrat font-bold text-slate-200 hover:text-p22gold border border-white/10 hover:border-p22gold/30 shrink-0 transition active:scale-95 flex items-center gap-1">
+                  <span>Commercial Ops</span>
+                </button>
+              </div>
+            </div>
+
           </div>
 
         </div>
@@ -1370,6 +1390,18 @@
         }
       }
       renderQrCodes();
+
+      // Update Division Quick-Switcher Chips Active State
+      ['pedro', 'bids', 'logistics', 'eduardo'].forEach(k => {
+        const chip = document.getElementById('chip-' + k);
+        if (chip) {
+          if (k === slug) {
+            chip.className = "px-2.5 py-1 rounded-lg bg-p22gold text-slate-950 font-montserrat font-extrabold text-xs border border-p22gold shadow-sm shrink-0 transition active:scale-95 flex items-center gap-1";
+          } else {
+            chip.className = "px-2.5 py-1 rounded-lg bg-white/5 hover:bg-p22gold/20 text-xs font-montserrat font-bold text-slate-200 hover:text-p22gold border border-white/10 hover:border-p22gold/30 shrink-0 transition active:scale-95 flex items-center gap-1";
+          }
+        }
+      });
 
       trackEvent('Profile', 'Load', data.name);
     }
