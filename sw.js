@@ -1,10 +1,12 @@
-// P-22 Digital Business Card — Service Worker for Offline Resilience (v3.2 Titanium Edition)
-const CACHE_NAME = 'p22-card-v3.2';
+// P-22 Digital Business Card — Service Worker for Offline Resilience (v3.3 Titanium Edition)
+const CACHE_NAME = 'p22-cache-v3.3';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/badge.html',
+  '/setup.html',
   '/manifest.json',
+  '/team.json',
   '/logo.webp',
   '/favicon.png',
   '/favicon.webp',
@@ -16,6 +18,21 @@ const STATIC_ASSETS = [
   '/assets/staff/logistics-official-1x1.png',
   '/assets/branding/p22-official-logo.png',
   '/assets/branding/logo-navy-flat.png',
+  '/assets/passes/pedro.pkpass',
+  '/assets/passes/eduardo.pkpass',
+  '/assets/passes/marleni.pkpass',
+  '/assets/passes/bids.pkpass',
+  '/assets/passes/logistics.pkpass',
+  '/assets/vcf/pedro.vcf',
+  '/assets/vcf/eduardo.vcf',
+  '/assets/vcf/marleni.vcf',
+  '/assets/vcf/bids.vcf',
+  '/assets/vcf/logistics.vcf',
+  '/assets/failsafe_lockscreen_pedro.png',
+  '/assets/failsafe_lockscreen_eduardo.png',
+  '/assets/failsafe_lockscreen_marleni.png',
+  '/assets/failsafe_lockscreen_bids.png',
+  '/assets/failsafe_lockscreen_logistics.png',
   '/assets/facility/logistics-fleet.webp',
   '/assets/facility/loading-dock.webp',
   '/assets/facility/warehouse-forklift.webp',
@@ -37,15 +54,9 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) => {
-      return Promise.all(
-        keys.map((key) => {
-          if (key !== CACHE_NAME) {
-            return caches.delete(key);
-          }
-        })
-      );
-    }).then(() => self.clients.claim())
+    caches.keys().then((keys) =>
+      Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
+    ).then(() => self.clients.claim())
   );
 });
 
