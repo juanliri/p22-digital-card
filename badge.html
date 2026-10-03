@@ -8,8 +8,9 @@
   <link rel="shortcut icon" href="/favicon.ico">
   <title id="pageTitle">P-22 Corp | Executive Staff ID Badge</title>
 
-  <!-- PWA Manifest & App Standalone Meta -->
+  <!-- PWA Manifest & App Standalone Meta with Profile Photo App Icons -->
   <link id="badgeManifest" rel="manifest" href="/manifest-badge-pedro.json">
+  <link id="badgeAppleIcon" rel="apple-touch-icon" href="/assets/staff/pedro-badge-icon-192.png">
   <meta name="theme-color" content="#060B14">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -24,6 +25,8 @@
       if (!names[rep]) rep = 'pedro';
       document.getElementById('badgeManifest').href = '/manifest-badge-' + rep + '.json';
       document.getElementById('badgeAppTitle').content = names[rep];
+      var appleIcon = document.getElementById('badgeAppleIcon');
+      if (appleIcon) appleIcon.href = '/assets/staff/' + rep + '-badge-icon-192.png';
     })();
   </script>
 
@@ -295,7 +298,7 @@
     "name": "Eduardo Lopez",
     "title": "Electrical Sales Manager & OEM Logistics SME",
     "company": "P-22 Corp Construction Material Solutions LLC",
-    "email": "sales@p22corp.com",
+    "email": "elopez@p22corp.com",
     "phone": "1-888-722-2675",
     "directPhone": "1-945-218-5896",
     "avatar": "/assets/staff/eduardo-official-1x1.png",
@@ -322,7 +325,7 @@
     "name": "Marleni Mendez",
     "title": "Finance Officer & DCAA Compliance Lead",
     "company": "P-22 Corp Construction Material Solutions LLC",
-    "email": "accounting@p22corp.com",
+    "email": "mmendez@p22corp.com",
     "phone": "1-888-722-2675",
     "directPhone": "1-945-218-5896",
     "avatar": "/assets/staff/marleni-official-1x1.png",

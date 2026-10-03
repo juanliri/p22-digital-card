@@ -1,5 +1,5 @@
 // P-22 Digital Business Card — Service Worker for Offline Resilience (v3.4 Titanium Edition)
-const CACHE_NAME = 'p22-cache-v3.6';
+const CACHE_NAME = 'p22-cache-v3.7';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -20,6 +20,12 @@ const STATIC_ASSETS = [
   '/assets/staff/marleni-official-1x1.png',
   '/assets/staff/bids-official-1x1.png',
   '/assets/staff/logistics-official-1x1.png',
+  '/assets/staff/pedro-badge-icon-192.png',
+  '/assets/staff/pedro-badge-icon-512.png',
+  '/assets/staff/eduardo-badge-icon-192.png',
+  '/assets/staff/eduardo-badge-icon-512.png',
+  '/assets/staff/marleni-badge-icon-192.png',
+  '/assets/staff/marleni-badge-icon-512.png',
   '/assets/branding/p22-official-logo.png',
   '/assets/branding/logo-navy-flat.png',
   '/assets/passes/pedro.pkpass',
