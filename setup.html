@@ -133,7 +133,7 @@
       <!-- Direct Link to Phone Badge Studio (No PIN Required) -->
       <div class="pt-3 border-t border-white/10 mt-3 text-center">
         <p class="text-[11px] text-slate-400 mb-1.5">Looking to install your Staff Phone Badge?</p>
-        <a href="/badge" class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-p22gold/20 hover:bg-p22gold/30 border border-p22gold/50 text-p22gold font-montserrat font-bold text-xs transition btn-bounce">
+        <a data-badge-link href="/badge" class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-p22gold/20 hover:bg-p22gold/30 border border-p22gold/50 text-p22gold font-montserrat font-bold text-xs transition btn-bounce">
           <span>Open Phone Badge Studio (No PIN Needed) &rarr;</span>
         </a>
       </div>
@@ -307,7 +307,7 @@
           <svg class="w-3.5 h-3.5 text-p22gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
           <span>Lock</span>
         </button>
-        <a href="/badge"
+        <a data-badge-link href="/badge"
            class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-p22gold/20 hover:bg-p22gold/30 border border-p22gold/50 text-p22gold text-xs font-montserrat font-bold transition btn-bounce shadow">
           <svg class="w-3.5 h-3.5 text-p22gold" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
           <span>Phone Badge Studio &rarr;</span>
@@ -783,6 +783,12 @@
       }
     };
     let activeSlug = "pedro";
+    function syncBadgeLinks() {
+      document.querySelectorAll('[data-badge-link]').forEach(function (a) {
+        a.href = '/badge?rep=' + activeSlug;
+      });
+    }
+
 
     async function loadTeamData() {
       try {
@@ -799,6 +805,7 @@
 
     function onTeamMemberChange(slug) {
       activeSlug = slug;
+      syncBadgeLinks();
       renderActiveMember(slug);
     }
 
@@ -1314,5 +1321,6 @@
       }
     });
   </script>
+<script>syncBadgeLinks();</script>
 </body>
 </html>

@@ -9,12 +9,22 @@
   <title id="pageTitle">P-22 Corp | Executive Staff ID Badge</title>
 
   <!-- PWA Manifest & App Standalone Meta -->
-  <link rel="manifest" href="/manifest-badge.json">
+  <link id="badgeManifest" rel="manifest" href="/manifest-badge-pedro.json">
   <meta name="theme-color" content="#060B14">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="P-22 Badge">
+  <meta id="badgeAppTitle" name="apple-mobile-web-app-title" content="Pedro">
+
+  <script>
+    (function () {
+      var names = { pedro: 'Pedro', eduardo: 'Eduardo', marleni: 'Marleni' };
+      var rep = (new URLSearchParams(location.search).get('rep') || 'pedro').toLowerCase();
+      if (!names[rep]) rep = 'pedro';
+      document.getElementById('badgeManifest').href = '/manifest-badge-' + rep + '.json';
+      document.getElementById('badgeAppTitle').content = names[rep];
+    })();
+  </script>
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
