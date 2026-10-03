@@ -1,17 +1,16 @@
 {
-  "version": 2,
-  "name": "p22-digital-card",
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
     { "source": "/setup", "destination": "/setup.html" },
+    { "source": "/capability-statement", "destination": "/capability-statement.html" },
     { "source": "/pedro", "destination": "/index.html" },
     { "source": "/eduardo", "destination": "/index.html" },
     { "source": "/marleni", "destination": "/index.html" },
     { "source": "/bids", "destination": "/index.html" },
     { "source": "/logistics", "destination": "/index.html" },
     { "source": "/rep/:slug", "destination": "/index.html" },
-    { "source": "/:slug", "destination": "/index.html" }
+    { "source": "/((?!assets|.*\\..*).*)", "destination": "/index.html" }
   ],
   "headers": [
     {
