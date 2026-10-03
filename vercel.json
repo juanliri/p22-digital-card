@@ -1,5 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
   "rewrites": [
     { "source": "/setup", "destination": "/setup.html" },
     { "source": "/capability-statement", "destination": "/capability-statement.html" },
@@ -9,9 +10,36 @@
     { "source": "/bids", "destination": "/index.html" },
     { "source": "/logistics", "destination": "/index.html" },
     { "source": "/rep/:slug", "destination": "/index.html" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/((?!assets/|.*\\.(?:vcf|pdf|png|jpg|jpeg|webp|svg|mp4|json|ico|html|css|js)$).*)", "destination": "/index.html" }
   ],
   "headers": [
+    {
+      "source": "/(.*\\.vcf)",
+      "headers": [
+        { "key": "Content-Type", "value": "text/vcard; charset=utf-8" },
+        { "key": "Content-Disposition", "value": "inline" },
+        { "key": "Cache-Control", "value": "public, max-age=3600" },
+        { "key": "Access-Control-Allow-Origin", "value": "*" }
+      ]
+    },
+    {
+      "source": "/assets/vcf/(.*)",
+      "headers": [
+        { "key": "Content-Type", "value": "text/vcard; charset=utf-8" },
+        { "key": "Content-Disposition", "value": "inline" },
+        { "key": "Cache-Control", "value": "public, max-age=3600" },
+        { "key": "Access-Control-Allow-Origin", "value": "*" }
+      ]
+    },
+    {
+      "source": "/(.*\\.pdf)",
+      "headers": [
+        { "key": "Content-Type", "value": "application/pdf" },
+        { "key": "Content-Disposition", "value": "inline" },
+        { "key": "Cache-Control", "value": "public, max-age=86400" },
+        { "key": "Access-Control-Allow-Origin", "value": "*" }
+      ]
+    },
     {
       "source": "/assets/(.*)",
       "headers": [
