@@ -1,0 +1,30 @@
+{
+  "name": "p22-digital-card",
+  "version": "1.0.0",
+  "description": "Official digital business card and procurement capabilities portal for **P-22 Corp Construction Material Solutions LLC**.",
+  "main": "sw.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "init:sheets": "node scripts/init-sheets-db.js",
+    "test:telemetry": "node scripts/test-telemetry.js",
+    "test": "node scripts/test-telemetry.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juanliri/p22-digital-card.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/juanliri/p22-digital-card/issues"
+  },
+  "homepage": "https://github.com/juanliri/p22-digital-card#readme",
+  "dependencies": {
+    "google-auth-library": "^11.1.0",
+    "googleapis": "^183.0.0"
+  }
+}

@@ -2,7 +2,17 @@
 node_modules/
 
 # Local Environment & Builds
-.vercel
+# Credentials & Keys
+credentials/
+*.key
+*.pem
+*.p12
+*.json
+!manifest*.json
+!team.json
+!vercel.json
+!package.json
+!package-lock.json
 scratch/
 .env
 .env.local

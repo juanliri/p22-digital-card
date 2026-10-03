@@ -12,6 +12,7 @@
     { "source": "/marleni", "destination": "/marleni.html" },
     { "source": "/bids", "destination": "/bids.html" },
     { "source": "/logistics", "destination": "/logistics.html" },
+    { "source": "/r/:rep", "destination": "/api/router?rep=:rep" },
     { "source": "/rep/:slug", "destination": "/index" }
   ],
   "headers": [
