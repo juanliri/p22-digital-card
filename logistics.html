@@ -1503,7 +1503,7 @@
       draw();
     }
 
-    // Export Captured Leads to CSV
+    // Export Captured Leads to CSV (with formula injection sanitization)
     function exportLeadsToCSV() {
       const stored = JSON.parse(localStorage.getItem('p22_leads') || '[]');
       if (stored.length === 0) {
@@ -1511,16 +1511,25 @@
         return;
       }
 
+      function cleanCsv(val) {
+        if (!val) return '""';
+        let s = String(val).replace(/"/g, '""');
+        if (/^[=\+\-@\t\r]/.test(s)) {
+          s = "'" + s;
+        }
+        return `"${s}"`;
+      }
+
       const headers = ['Timestamp', 'Staff Representative', 'Client Name', 'Agency / Contractor', 'Work Email', 'Phone', 'Procurement Scope', 'Source'];
       const rows = stored.map(lead => [
-        `"${(lead.timestamp || '').replace(/"/g, '""')}"`,
-        `"${(lead.rep_name || lead.rep_slug || '').replace(/"/g, '""')}"`,
-        `"${(lead.client_name || '').replace(/"/g, '""')}"`,
-        `"${(lead.client_agency || '').replace(/"/g, '""')}"`,
-        `"${(lead.client_email || '').replace(/"/g, '""')}"`,
-        `"${(lead.client_phone || '').replace(/"/g, '""')}"`,
-        `"${(lead.interest || '').replace(/"/g, '""')}"`,
-        `"${(lead.source || '').replace(/"/g, '""')}"`
+        cleanCsv(lead.timestamp),
+        cleanCsv(lead.rep_name || lead.rep_slug),
+        cleanCsv(lead.client_name),
+        cleanCsv(lead.client_agency),
+        cleanCsv(lead.client_email),
+        cleanCsv(lead.client_phone),
+        cleanCsv(lead.interest),
+        cleanCsv(lead.source)
       ]);
 
       const csvString = [headers.join(','), ...rows.map(r => r.join(','))].join('\r\n');
