@@ -785,7 +785,7 @@
     let activeSlug = "pedro";
     function syncBadgeLinks() {
       document.querySelectorAll('[data-badge-link]').forEach(function (a) {
-        a.href = '/badge?rep=' + activeSlug + '&install=1';
+        a.href = '/badge/' + activeSlug + '?install=1';
       });
     }
 

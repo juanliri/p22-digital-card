@@ -1,10 +1,10 @@
 {
-  "id": "/badge?rep=eduardo",
+  "id": "/badge/eduardo",
   "name": "P-22 Badge - Eduardo Lopez",
   "short_name": "Eduardo",
   "description": "P-22 Corp Staff ID Badge - Eduardo Lopez",
-  "start_url": "/badge?rep=eduardo",
-  "scope": "/badge",
+  "start_url": "/badge/eduardo",
+  "scope": "/badge/eduardo",
   "display": "standalone",
   "background_color": "#060B14",
   "theme_color": "#060B14",

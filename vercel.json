@@ -4,6 +4,7 @@
   "rewrites": [
     { "source": "/setup", "destination": "/setup.html" },
     { "source": "/badge", "destination": "/badge.html" },
+    { "source": "/badge/:rep", "destination": "/badge.html" },
     { "source": "/staff", "destination": "/badge.html" },
     { "source": "/capability-statement", "destination": "/capability-statement.html" },
     { "source": "/pedro", "destination": "/pedro.html" },

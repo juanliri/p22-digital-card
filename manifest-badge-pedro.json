@@ -1,10 +1,10 @@
 {
-  "id": "/badge?rep=pedro",
+  "id": "/badge/pedro",
   "name": "P-22 Badge - Pedro Felipe",
   "short_name": "Pedro",
   "description": "P-22 Corp Staff ID Badge - Pedro Felipe",
-  "start_url": "/badge?rep=pedro",
-  "scope": "/badge",
+  "start_url": "/badge/pedro",
+  "scope": "/badge/pedro",
   "display": "standalone",
   "background_color": "#060B14",
   "theme_color": "#060B14",

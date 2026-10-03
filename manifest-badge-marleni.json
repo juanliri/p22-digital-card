@@ -1,10 +1,10 @@
 {
-  "id": "/badge?rep=marleni",
+  "id": "/badge/marleni",
   "name": "P-22 Badge - Marleni Mendez",
   "short_name": "Marleni",
   "description": "P-22 Corp Staff ID Badge - Marleni Mendez",
-  "start_url": "/badge?rep=marleni",
-  "scope": "/badge",
+  "start_url": "/badge/marleni",
+  "scope": "/badge/marleni",
   "display": "standalone",
   "background_color": "#060B14",
   "theme_color": "#060B14",
