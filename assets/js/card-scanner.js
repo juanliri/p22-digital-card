@@ -373,32 +373,66 @@
           if (imgWrap) imgWrap.classList.remove('hidden');
         }
 
-        if (progText) progText.textContent = 'Scanning Text from Physical Card...';
+        if (progText) progText.textContent = 'Transcribing Card with AI & Neural OCR...';
 
-        loadTesseract(async function () {
-          let rawText = '';
-          if (window.Tesseract) {
-            try {
-              const res = await window.Tesseract.recognize(processedCanvas, 'eng');
-              rawText = res.data.text || '';
-            } catch (err) {
-              console.warn('[!] Tesseract OCR recognition failed:', err);
+        (async function () {
+          // 1. Try Cloud AI Vision first
+          let aiSuccess = false;
+          try {
+            const aiRes = await fetch('/api/ocr', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ image: capturedImageDataUrl || event.target.result }),
+            });
+            if (aiRes.ok) {
+              const aiData = await aiRes.json();
+              if (aiData.ok && aiData.data) {
+                const d = aiData.data;
+                document.getElementById('scanName').value = d.name || '';
+                document.getElementById('scanAgency').value = d.agency || '';
+                document.getElementById('scanEmail').value = d.email || '';
+                document.getElementById('scanPhone').value = d.phone || '';
+                document.getElementById('scanNotes').value = (d.title ? d.title + '\n' : '') + (d.notes || d.raw_text || 'AI Transcribed Card');
+                aiSuccess = true;
+              }
             }
+          } catch (e) {
+            console.warn('[!] AI Vision call error:', e);
           }
 
-          const parsed = parseCardText(rawText);
+          // 2. If AI vision was not active or fell back, run on-device neural Tesseract
+          if (!aiSuccess) {
+            if (progText) progText.textContent = 'Running On-Device Neural OCR...';
+            loadTesseract(async function () {
+              let rawText = '';
+              if (window.Tesseract) {
+                try {
+                  const res = await window.Tesseract.recognize(processedCanvas, 'eng');
+                  rawText = res.data.text || '';
+                } catch (err) {
+                  console.warn('[!] Tesseract OCR recognition failed:', err);
+                }
+              }
 
-          // Populate Review Form
-          document.getElementById('scanName').value = parsed.name || '';
-          document.getElementById('scanAgency').value = parsed.agency || '';
-          document.getElementById('scanEmail').value = parsed.email || '';
-          document.getElementById('scanPhone').value = parsed.phone || '';
-          document.getElementById('scanNotes').value = parsed.raw_ocr || 'Scanned Card';
+              const parsed = parseCardText(rawText);
+
+              document.getElementById('scanName').value = parsed.name || '';
+              document.getElementById('scanAgency').value = parsed.agency || '';
+              document.getElementById('scanEmail').value = parsed.email || '';
+              document.getElementById('scanPhone').value = parsed.phone || '';
+              document.getElementById('scanNotes').value = parsed.raw_ocr || 'Scanned Card';
+
+              if (proc) proc.classList.add('hidden');
+              const form = document.getElementById('scannerReviewForm');
+              if (form) form.classList.remove('hidden');
+            });
+            return;
+          }
 
           if (proc) proc.classList.add('hidden');
           const form = document.getElementById('scannerReviewForm');
           if (form) form.classList.remove('hidden');
-        });
+        })();
       };
       img.src = event.target.result;
     };

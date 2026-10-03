@@ -52,7 +52,18 @@ module.exports = async function handler(req, res) {
     const rep = (payload.rep || req.query.rep || 'general').toLowerCase();
     const event = payload.event || req.query.event || 'page_view';
     const source = payload.source || req.query.source || 'direct';
-    const details = payload.details || req.query.details || '';
+    const rawDetails = payload.details || req.query.details || '';
+    
+    // Extract Client IP and Session ID for grouping user journeys
+    const clientIp = (req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || '').split(',')[0].trim() || 'unknown';
+    const sid = payload.sid || req.query.sid || 'usr_anon';
+
+    let mergedDetails;
+    if (typeof rawDetails === 'object' && rawDetails !== null) {
+      mergedDetails = { ip: clientIp, sid, ...rawDetails };
+    } else {
+      mergedDetails = { ip: clientIp, sid, info: String(rawDetails) };
+    }
 
     // Asynchronously log to Google Sheets
     await appendTelemetryRow({
@@ -61,7 +72,7 @@ module.exports = async function handler(req, res) {
       event,
       platform,
       source,
-      details,
+      details: mergedDetails,
     });
 
     if (req.query.pixel === '1') {

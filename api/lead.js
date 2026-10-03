@@ -43,7 +43,11 @@ module.exports = async function handler(req, res) {
     const leads = Array.isArray(payload.leads) ? payload.leads : [payload];
     const results = [];
 
+    const clientIp = (req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || '').split(',')[0].trim() || 'unknown';
+
     for (const item of leads) {
+      const sid = item.sid || payload.sid || 'anon';
+      const baseSource = item.source || 'Digital Card Exchange';
       const leadEntry = {
         timestamp: item.timestamp || new Date().toISOString(),
         rep_name: item.rep_name || item.rep || 'General Staff',
@@ -54,7 +58,7 @@ module.exports = async function handler(req, res) {
         interest: item.interest || item.scope || 'Procurement & Logistics Coordination',
         notes: item.notes || item.extracted_text || item.raw_ocr || '',
         photo_url: item.photo_url || item.card_photo || '',
-        source: item.source || 'Digital Card Exchange',
+        source: `${baseSource} [IP: ${clientIp} | ${sid}]`,
       };
 
       // Only append if at least name, email, phone, agency, or notes are present

@@ -1320,6 +1320,11 @@
         console.warn('LocalStorage save failed', err);
       }
 
+      // Live Google Sheets Leads_Vault Synchronization
+      if (window.p22SubmitLead) {
+        window.p22SubmitLead(lead);
+      }
+
       // Automatically sync to Google Sheets Leads_Vault tab
       if (window.p22SubmitLead) {
         window.p22SubmitLead(lead);

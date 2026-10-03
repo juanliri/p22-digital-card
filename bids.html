@@ -1320,6 +1320,11 @@
         console.warn('LocalStorage save failed', err);
       }
 
+      // Live Google Sheets Leads_Vault Synchronization
+      if (window.p22SubmitLead) {
+        window.p22SubmitLead(lead);
+      }
+
       const form = document.getElementById('inlineLeadForm');
       const success = document.getElementById('inlineSuccessCard');
       if (form) form.classList.add('hidden');
@@ -1834,6 +1839,11 @@
         console.warn('LocalStorage save failed', err);
       }
 
+      // Live Google Sheets Leads_Vault Synchronization
+      if (window.p22SubmitLead) {
+        window.p22SubmitLead(leadData);
+      }
+
       try {
         if (!MAKE_WEBHOOK_URL.includes("REPLACE_WITH_YOUR_WEBHOOK")) {
           await fetch(MAKE_WEBHOOK_URL, {
@@ -2061,6 +2071,11 @@
           localStorage.setItem('p22_leads', JSON.stringify(stored));
         } catch (err) {
           console.warn('LocalStorage save failed', err);
+        }
+
+        // Live Google Sheets Leads_Vault Synchronization
+        if (window.p22SubmitLead) {
+          window.p22SubmitLead(lead);
         }
 
         const submitBtn = document.getElementById('exchSubmitBtn');
