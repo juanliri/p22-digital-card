@@ -55,6 +55,10 @@
   <!-- QRCode.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
+  <!-- P-22 Telemetry & Business Card Scanner Engine -->
+  <script defer src="/assets/js/telemetry.js"></script>
+  <script defer src="/assets/js/card-scanner.js"></script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -121,29 +125,29 @@
   <script defer src="/assets/js/telemetry.js"></script>
 </head>
 
-<body class="min-h-full flex flex-col justify-center items-center p-4 relative overflow-x-hidden selection:bg-p22gold selection:text-black">
+<body class="min-h-[100dvh] flex flex-col justify-between sm:justify-center items-center p-2.5 sm:p-4 relative overflow-x-hidden selection:bg-p22gold selection:text-black">
 
   <!-- PWA Install Banner -->
-  <div id="installBanner" class="hidden relative z-20 w-full max-w-sm mb-3">
-    <div class="flex items-center justify-between bg-[#0D1829]/95 border border-p22gold/50 rounded-2xl px-4 py-3 shadow-xl backdrop-blur">
-      <div class="flex items-center space-x-3">
-        <img src="/favicon.png" alt="P-22" class="w-9 h-9 rounded-xl border border-p22gold/40">
+  <div id="installBanner" class="hidden relative z-20 w-full max-w-sm mb-2">
+    <div class="flex items-center justify-between bg-[#0D1829]/95 border border-p22gold/50 rounded-2xl px-3.5 py-2.5 shadow-xl backdrop-blur">
+      <div class="flex items-center space-x-2.5">
+        <img src="/favicon.png" alt="P-22" class="w-8 h-8 rounded-xl border border-p22gold/40">
         <div>
           <p class="text-[11px] font-montserrat font-bold text-white leading-tight">Install Staff Badge</p>
-          <p id="installHint" class="text-[10px] text-slate-400 leading-tight mt-0.5">Add to Home Screen</p>
+          <p id="installHint" class="text-[9.5px] text-slate-400 leading-tight mt-0.5">Add to Home Screen</p>
         </div>
       </div>
-      <div class="flex items-center space-x-2">
-        <button id="installBtn" class="py-1.5 px-3 bg-p22gold text-slate-950 font-montserrat font-extrabold text-[11px] rounded-lg active:scale-95 transition shadow btn-bounce">Install</button>
+      <div class="flex items-center space-x-1.5">
+        <button id="installBtn" class="py-1 px-2.5 bg-p22gold text-slate-950 font-montserrat font-extrabold text-[10.5px] rounded-lg active:scale-95 transition shadow btn-bounce">Install</button>
         <button onclick="dismissInstallBanner()" class="text-slate-500 hover:text-slate-300 p-1 transition" aria-label="Dismiss">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
       </div>
     </div>
     <!-- iOS specific instruction shown below banner on Safari -->
-    <div id="iosHint" class="hidden mt-2 px-4 py-2.5 bg-black/60 border border-slate-700/50 rounded-xl text-center">
-      <p class="text-[11px] text-slate-300 leading-relaxed">
-        Tap <span class="text-p22gold font-bold">Share</span> <svg class="inline w-3.5 h-3.5 text-p22gold -mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path d="M13 7H7v6h6V7zm-1 5H8V8h4v4z"/><path d="M17 3H3v14h14V3zM4 16V4h12v12H4z"/></svg> then <span class="text-p22gold font-bold">"Add to Home Screen"</span>
+    <div id="iosHint" class="hidden mt-1.5 px-3 py-2 bg-black/60 border border-slate-700/50 rounded-xl text-center">
+      <p class="text-[10px] text-slate-300 leading-relaxed">
+        Tap <span class="text-p22gold font-bold">Share</span> <svg class="inline w-3 h-3 text-p22gold -mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path d="M13 7H7v6h6V7zm-1 5H8V8h4v4z"/><path d="M17 3H3v14h14V3zM4 16V4h12v12H4z"/></svg> then <span class="text-p22gold font-bold">"Add to Home Screen"</span>
       </p>
     </div>
   </div>
@@ -161,102 +165,116 @@
     <div class="absolute inset-0 bg-gradient-to-t from-[#060B14] via-[#060B14]/80 to-[#060B14]"></div>
   </div>
 
-  <!-- Main Badge Container -->
-  <main class="relative z-10 w-full max-w-sm glass-panel shimmer rounded-2xl p-6 flex flex-col items-center border border-p22gold/35 shadow-2xl">
+  <!-- Main Badge Container (100% Viewport-optimized so entire card fits on mobile screens without scrolling) -->
+  <main class="relative z-10 w-full max-w-sm glass-panel shimmer rounded-3xl p-3.5 sm:p-5 flex flex-col items-center border border-p22gold/35 shadow-2xl my-auto">
     
     <!-- Top Bar: Clean Identity & Status -->
-    <div class="w-full flex justify-between items-center pb-3.5 mb-3.5 border-b border-slate-700/60">
-      <div class="flex items-center space-x-2">
-        <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span class="text-xs tracking-wider font-montserrat text-emerald-400 font-bold uppercase">Active ID</span>
+    <div class="w-full flex justify-between items-center pb-2 mb-2 border-b border-slate-700/60">
+      <div class="flex items-center space-x-1.5">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="text-[11px] tracking-wider font-montserrat text-emerald-400 font-bold uppercase">Active ID</span>
       </div>
-      <div class="text-xs tracking-widest font-montserrat font-extrabold text-p22gold">
+      <div class="text-[11px] tracking-widest font-montserrat font-extrabold text-p22gold">
         P-22 CORP
       </div>
     </div>
 
     <!-- Portrait & Verified Identification -->
-    <div class="relative w-36 h-36 sm:w-40 sm:h-40 rounded-full p-1 border-2 border-p22gold mb-3 bg-[#060B14]/90 shadow-2xl gold-glow">
+    <div class="relative w-24 h-24 sm:w-32 sm:h-32 rounded-full p-1 border-2 border-p22gold mb-1.5 bg-[#060B14]/90 shadow-2xl gold-glow">
       <img id="staffPhoto" src="/assets/staff/pedro-official-1x1.png" alt="Staff Portrait" class="w-full h-full object-cover rounded-full">
-      <div class="absolute bottom-0 right-0 bg-p22gold text-slate-950 p-1.5 rounded-full shadow-lg border-2 border-slate-950" title="SAM.gov Active Certified Rep">
-        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+      <div class="absolute bottom-0 right-0 bg-p22gold text-slate-950 p-1 sm:p-1.5 rounded-full shadow-lg border-2 border-slate-950" title="SAM.gov Active Certified Rep">
+        <svg class="w-3 h-3 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
       </div>
     </div>
 
-    <h1 id="staffName" class="text-2xl sm:text-3xl font-montserrat font-extrabold tracking-tight text-white text-center mt-2">Pedro Felipe</h1>
-    <p id="staffTitle" class="text-sm text-p22gold font-bold text-center uppercase tracking-wide px-2 mt-1">Managing Director &amp; Federal Contract Lead</p>
-    <p id="staffDivision" class="text-xs text-slate-300 text-center font-medium mb-4 mt-1">P-22 Corp Construction Material Solutions LLC</p>
+    <h1 id="staffName" class="text-lg sm:text-2xl font-montserrat font-extrabold tracking-tight text-white text-center mt-0.5">Pedro Felipe</h1>
+    <p id="staffTitle" class="text-[11px] sm:text-xs text-p22gold font-bold text-center uppercase tracking-wide px-1 mt-0.5">Managing Director &amp; Federal Contract Lead</p>
+    <p id="staffDivision" class="text-[9.5px] text-slate-300 text-center font-medium mb-1.5 mt-0.5">P-22 Corp Construction Material Solutions LLC</p>
 
     <!-- Federal Identification Tokens -->
-    <div class="w-full grid grid-cols-2 gap-2 my-1 py-2 px-3 bg-black/50 rounded-xl border border-slate-800 text-[11px] font-mono">
+    <div class="w-full grid grid-cols-2 gap-2 my-1 py-1 px-3 bg-black/50 rounded-xl border border-slate-800 text-[10px] font-mono">
       <div>
-        <span class="text-slate-500 block text-[9px] uppercase tracking-wider">CAGE Code</span>
+        <span class="text-slate-500 block text-[8px] uppercase tracking-wider">CAGE Code</span>
         <span id="cageCode" class="text-sky-300 font-bold">169D8</span>
       </div>
       <div>
-        <span class="text-slate-500 block text-[9px] uppercase tracking-wider">UEI Number</span>
+        <span class="text-slate-500 block text-[8px] uppercase tracking-wider">UEI Number</span>
         <span id="ueiCode" class="text-slate-200 font-bold truncate block">X3HUQZ66P6N3</span>
       </div>
     </div>
 
-    <!-- Quick Action Triggers -->
-    <div class="w-full grid grid-cols-2 gap-2.5 my-3.5">
-      <button onclick="downloadBadgeVCard()" class="flex items-center justify-center space-x-1.5 py-3 px-3 bg-p22gold hover:bg-p22goldHover text-slate-950 font-montserrat font-extrabold rounded-xl text-xs transition duration-150 shadow-md active:scale-95 btn-bounce">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+    <!-- Quick Action Triggers: 3 Compact Actions (Share Pass, Display QR, Scan Client Card) -->
+    <div class="w-full grid grid-cols-3 gap-1.5 my-2">
+      <button onclick="downloadBadgeVCard()" class="flex flex-col items-center justify-center py-2 px-1 bg-p22gold hover:bg-p22goldHover text-slate-950 font-montserrat font-bold rounded-xl text-[10.5px] transition duration-150 shadow-md active:scale-95 btn-bounce">
+        <svg class="w-3.5 h-3.5 mb-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
         </svg>
-        <span>Save Contact</span>
+        <span>Save Pass</span>
       </button>
 
-      <button onclick="toggleExpoQr(true)" class="flex items-center justify-center space-x-1.5 py-3 px-3 bg-slate-900/90 hover:bg-slate-800 text-slate-100 border border-slate-700/80 font-montserrat font-bold rounded-xl text-xs transition duration-150 active:scale-95 btn-bounce shadow-md">
-        <svg class="w-4 h-4 text-p22gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <button onclick="toggleExpoQr(true)" class="flex flex-col items-center justify-center py-2 px-1 bg-slate-900/90 hover:bg-slate-800 text-slate-100 border border-slate-700/80 font-montserrat font-bold rounded-xl text-[10.5px] transition duration-150 active:scale-95 btn-bounce shadow-md">
+        <svg class="w-3.5 h-3.5 text-p22gold mb-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/>
         </svg>
         <span>Display QR</span>
       </button>
+
+      <!-- 📷 Instant Client Card OCR Scanner Shortcut -->
+      <button onclick="triggerCardScan('badge')" class="flex flex-col items-center justify-center py-2 px-1 bg-gradient-to-r from-emerald-500 to-teal-600 hover:brightness-110 text-white font-montserrat font-bold rounded-xl text-[10.5px] transition duration-150 active:scale-95 shadow-md border border-emerald-400/40 btn-bounce" title="Snap photo of client business card or badge">
+        <svg class="w-3.5 h-3.5 mb-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/>
+        </svg>
+        <span>Scan Card</span>
+      </button>
     </div>
 
-    <!-- Direct Communication Links -->
-    <div class="w-full flex flex-col space-y-1.5 pt-2.5 border-t border-slate-800 text-sm">
-      <a id="emailLink" href="mailto:pfelipe@p22corp.com" class="flex items-center space-x-2 text-slate-300 hover:text-white p-1 rounded-lg hover:bg-white/5 transition">
-        <svg class="w-3.5 h-3.5 text-p22gold shrink-0" fill="currentColor" viewBox="0 0 20 20">
+    <!-- Direct Communication Links (Compact 2-Column Row) -->
+    <div class="w-full grid grid-cols-2 gap-2 pt-1.5 border-t border-slate-800 text-[10.5px]">
+      <a id="emailLink" href="mailto:pfelipe@p22corp.com" class="flex items-center space-x-1 text-slate-300 hover:text-white p-0.5 rounded-lg hover:bg-white/5 transition truncate">
+        <svg class="w-3 h-3 text-p22gold shrink-0" fill="currentColor" viewBox="0 0 20 20">
           <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
           <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
         </svg>
-        <span id="staffEmail" class="truncate font-mono">pfelipe@p22corp.com</span>
+        <span id="staffEmail" class="truncate font-mono text-[10.5px]">pfelipe@p22corp.com</span>
       </a>
-      <a id="phoneLink" href="tel:18887222675" class="flex items-center space-x-2 text-slate-300 hover:text-white p-1 rounded-lg hover:bg-white/5 transition">
-        <svg class="w-3.5 h-3.5 text-p22gold shrink-0" fill="currentColor" viewBox="0 0 20 20">
+      <a id="phoneLink" href="tel:18887222675" class="flex items-center justify-end space-x-1 text-slate-300 hover:text-white p-0.5 rounded-lg hover:bg-white/5 transition truncate">
+        <svg class="w-3 h-3 text-p22gold shrink-0" fill="currentColor" viewBox="0 0 20 20">
           <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
         </svg>
-        <span id="staffPhone" class="font-mono">1-888-722-2675</span>
+        <span id="staffPhone" class="font-mono text-[10.5px]">1-888-722-2675</span>
       </a>
     </div>
   </main>
 
-  <!-- Bottom Discrete Shortcut to Setup & Public Card -->
-  <nav class="relative z-10 mt-4 flex flex-col items-center space-y-1 text-center">
-    <a href="/setup" class="text-xs text-slate-400 hover:text-p22gold font-medium transition flex items-center gap-1.5 py-1.5 px-3 rounded-xl bg-slate-900/70 border border-white/10 hover:border-p22gold/40">
-      <span>⚙️ Staff Operations &amp; Lead Export (/setup)</span>
-      <span class="text-p22gold">&rarr;</span>
-    </a>
-    <div class="flex items-center gap-2 pt-0.5 text-[11px]">
-      <a id="publicCardLink" href="/pedro" class="text-sky-400 hover:text-sky-300 transition font-medium flex items-center gap-1">
-        <span>📱 Staff Digital Card</span>
-        <span>&rarr;</span>
-      </a>
-      <span class="text-slate-600">&bull;</span>
-      <a href="https://www.p22corp.com" target="_blank" class="text-amber-400 hover:text-amber-300 transition font-medium flex items-center gap-1">
-        <span>🌐 p22corp.com</span>
-        <span>&rarr;</span>
-      </a>
-      <span class="text-slate-600">&bull;</span>
-      <a href="https://www.p22corp.com/capabilities" target="_blank" class="text-emerald-400 hover:text-emerald-300 transition font-medium flex items-center gap-1">
-        <span>📑 Line Card</span>
-        <span>&rarr;</span>
-      </a>
-    </div>
-  </nav>
+  <!-- Compact Secondary Dropdown Tray (Badge remains 100% visible on screen without scroll) -->
+  <footer class="relative z-10 mt-1 mb-1 text-center w-full max-w-sm px-2">
+    <details class="group">
+      <summary class="list-none cursor-pointer inline-flex items-center justify-center gap-1.5 py-1.5 px-3.5 rounded-full bg-slate-900/80 hover:bg-slate-800 border border-white/10 hover:border-p22gold/40 text-slate-400 hover:text-p22gold text-[11px] font-medium transition select-none shadow">
+        <span>⚙️ Staff Tools &amp; Portal Links</span>
+        <svg class="w-3 h-3 group-open:rotate-180 transition-transform text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+      </summary>
+
+      <!-- Expandable Secondary Navigation Grid -->
+      <div class="mt-2 p-3 rounded-2xl bg-slate-950/90 border border-white/15 backdrop-blur-md shadow-2xl grid grid-cols-2 gap-2 text-left animate-fade-in text-[11px]">
+        <a href="/setup" class="p-2 rounded-xl bg-white/5 hover:bg-p22gold/20 text-slate-300 hover:text-white border border-white/5 transition flex items-center gap-1.5">
+          <span class="text-p22gold">⚙️</span>
+          <span class="truncate">Staff Setup Studio</span>
+        </a>
+        <a id="publicCardLink" href="/pedro" class="p-2 rounded-xl bg-white/5 hover:bg-sky-500/20 text-slate-300 hover:text-white border border-white/5 transition flex items-center gap-1.5">
+          <span class="text-sky-400">📱</span>
+          <span class="truncate">Public Digital Card</span>
+        </a>
+        <a href="https://www.p22corp.com" target="_blank" class="p-2 rounded-xl bg-white/5 hover:bg-amber-500/20 text-slate-300 hover:text-white border border-white/5 transition flex items-center gap-1.5">
+          <span class="text-amber-400">🌐</span>
+          <span class="truncate">p22corp.com</span>
+        </a>
+        <a href="https://www.p22corp.com/capabilities" target="_blank" class="p-2 rounded-xl bg-white/5 hover:bg-emerald-500/20 text-slate-300 hover:text-white border border-white/5 transition flex items-center gap-1.5">
+          <span class="text-emerald-400">📑</span>
+          <span class="truncate">Capability Line Card</span>
+        </a>
+      </div>
+    </details>
+  </footer>
 
   <!-- Fullscreen Expo QR Modal -->
   <div id="expoModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex flex-col items-center justify-center p-6" onclick="if(event.target===this) toggleExpoQr(false)">
@@ -441,6 +459,7 @@
 
     function initBadge() {
       activeRep = getSelectedRep();
+      window.activeRep = activeRep;
 
       // Text and Link assignments
       document.getElementById('pageTitle').textContent = `P-22 Staff Badge | ${activeRep.name}`;

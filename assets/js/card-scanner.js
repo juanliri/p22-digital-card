@@ -473,10 +473,16 @@
       source: 'Physical Card / Badge OCR Scan',
     };
 
-    // If on a staff profile, attach rep
+    // If on a staff profile or badge, attach rep
     if (typeof currentRep !== 'undefined' && typeof TEAM_DATA !== 'undefined' && TEAM_DATA[currentRep]) {
       leadData.rep_name = TEAM_DATA[currentRep].name;
       leadData.rep_slug = currentRep;
+    } else if (typeof activeRep !== 'undefined' && activeRep) {
+      leadData.rep_name = activeRep.name;
+      leadData.rep_slug = activeRep.slug;
+    } else if (typeof window.activeRep !== 'undefined' && window.activeRep) {
+      leadData.rep_name = window.activeRep.name;
+      leadData.rep_slug = window.activeRep.slug;
     }
 
     // Submit
