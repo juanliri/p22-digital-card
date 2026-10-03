@@ -1066,19 +1066,6 @@
     // ══════════════════════════════════════════════════════════════════════════
     // 3. DYNAMIC URL DETECTION & PROFILE INITIALIZATION
     // ══════════════════════════════════════════════════════════════════════════
-    , 1600);
-      if (staffLogoTapCount >= 3) {
-        staffLogoTapCount = 0;
-        const pin = prompt("P-22 Corp Internal Staff Access\nEnter CAGE Code PIN to open Setup Hub:");
-        if (pin && (pin.trim().toUpperCase() === "169D8" || pin.trim() === "2222")) {
-          sessionStorage.setItem('p22_staff_auth', 'true');
-          window.location.href = "/setup";
-        } else if (pin) {
-          alert("Invalid Access PIN.");
-        }
-      }
-    }
-
     function getAppBaseUrl() {
       if (typeof window !== 'undefined' && window.location && window.location.origin && window.location.origin !== 'null' && !window.location.origin.includes('file://')) {
         return window.location.origin;
