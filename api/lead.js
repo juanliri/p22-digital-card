@@ -77,7 +77,7 @@ module.exports = async function handler(req, res) {
 
     return res.status(200).json({
       ok: true,
-      message: 'Lead successfully archived into P-22 Google Sheet Leads_Vault.',
+      message: 'Contact successfully verified and saved.',
       count: results.length,
       timestamp: new Date().toISOString(),
     });
