@@ -134,7 +134,7 @@
       <div class="pt-3 border-t border-white/10 mt-3 text-center">
         <p class="text-[11px] text-slate-400 mb-1.5">Looking to install your Staff Phone Badge?</p>
         <a data-badge-link href="/badge" class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-p22gold/20 hover:bg-p22gold/30 border border-p22gold/50 text-p22gold font-montserrat font-bold text-xs transition btn-bounce">
-          <span>Open Phone Badge Studio (No PIN Needed) &rarr;</span>
+          <span>Install My Badge (Auto-Setup) &rarr;</span>
         </a>
       </div>
     </div>
@@ -785,7 +785,7 @@
     let activeSlug = "pedro";
     function syncBadgeLinks() {
       document.querySelectorAll('[data-badge-link]').forEach(function (a) {
-        a.href = '/badge?rep=' + activeSlug;
+        a.href = '/badge?rep=' + activeSlug + '&install=1';
       });
     }
 

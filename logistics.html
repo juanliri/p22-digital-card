@@ -793,12 +793,30 @@
           <!-- Compact Supply Corridor Bar with Collapsible Details (Zero Endless Scrolling!) -->
           <div class="pt-1 border-t border-white/10 space-y-2">
             <!-- 1-Line Compact Corridor Chips (Always Visible, Clean & High-Scannability) -->
-            <div class="flex items-center justify-between gap-1 overflow-x-auto py-1 hide-scrollbar scrollbar-none text-[10.5px]">
-              <span class="px-2 py-1 rounded-lg bg-p22gold/15 text-p22gold border border-p22gold/30 font-semibold whitespace-nowrap">⚡ Div 26 Electrical</span>
-              <span class="px-2 py-1 rounded-lg bg-sky-500/15 text-sky-300 border border-sky-400/30 font-semibold whitespace-nowrap">📦 MRO Supplies</span>
-              <span class="px-2 py-1 rounded-lg bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-semibold whitespace-nowrap">🚚 DFW Logistics</span>
-              <span class="px-2 py-1 rounded-lg bg-purple-500/15 text-purple-300 border border-purple-400/30 font-semibold whitespace-nowrap">🛡️ FAR/DFARS</span>
-            </div>
+            <div id="corridorSlider" class="flex gap-2 overflow-x-auto snap-x snap-mandatory py-1 hide-scrollbar scrollbar-none" aria-label="Supply corridors">
+              <figure class="snap-start shrink-0 w-[46%] relative rounded-xl overflow-hidden border border-white/10 bg-black/30">
+                <img src="/assets/staff/service-engineers.webp" alt="Div 26 Electrical" loading="lazy" decoding="async" class="w-full h-20 object-cover">
+                <figcaption class="absolute inset-x-0 bottom-0 px-2 py-1 text-[10.5px] font-bold text-p22gold bg-gradient-to-t from-black/85 to-transparent">Div 26 Electrical</figcaption>
+              </figure>
+              <figure class="snap-start shrink-0 w-[46%] relative rounded-xl overflow-hidden border border-white/10 bg-black/30">
+                <img src="/assets/facility/warehouse-stock.webp" alt="MRO Supplies" loading="lazy" decoding="async" class="w-full h-20 object-cover">
+                <figcaption class="absolute inset-x-0 bottom-0 px-2 py-1 text-[10.5px] font-bold text-sky-300 bg-gradient-to-t from-black/85 to-transparent">MRO Supplies</figcaption>
+              </figure>
+              <figure class="snap-start shrink-0 w-[46%] relative rounded-xl overflow-hidden border border-white/10 bg-black/30">
+                <img src="/assets/facility/logistics-fleet.webp" alt="DFW Logistics" loading="lazy" decoding="async" class="w-full h-20 object-cover">
+                <figcaption class="absolute inset-x-0 bottom-0 px-2 py-1 text-[10.5px] font-bold text-emerald-300 bg-gradient-to-t from-black/85 to-transparent">DFW Logistics</figcaption>
+              </figure>
+              <figure class="snap-start shrink-0 w-[46%] relative rounded-xl overflow-hidden border border-white/10 bg-black/30">
+                <img src="/assets/staff/team-blueprint.webp" alt="FAR/DFARS Ready" loading="lazy" decoding="async" class="w-full h-20 object-cover">
+                <figcaption class="absolute inset-x-0 bottom-0 px-2 py-1 text-[10.5px] font-bold text-purple-300 bg-gradient-to-t from-black/85 to-transparent">FAR/DFARS Ready</figcaption>
+              </figure>
+              </div>
+            <script>
+              (function(){var s=document.getElementById('corridorSlider');if(!s)return;var t;
+                function go(){t=setInterval(function(){var w=s.firstElementChild.offsetWidth+8;
+                  s.scrollTo({left:(s.scrollLeft+w>=s.scrollWidth-s.clientWidth-2)?0:s.scrollLeft+w,behavior:'smooth'});},3200);}
+                go();['touchstart','mousedown'].forEach(function(e){s.addEventListener(e,function(){clearInterval(t);},{passive:true});});})();
+            </script>
 
             <!-- Collapsible Accordion Toggle -->
             <button type="button" onclick="toggleSupplyMatrix()" 

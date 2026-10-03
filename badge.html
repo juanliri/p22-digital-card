@@ -538,8 +538,9 @@
 
     function showInstallBanner() {
       const rep = (new URLSearchParams(location.search).get('rep') || 'pedro').toLowerCase();
+      const forced = new URLSearchParams(location.search).get('install') === '1';
       const dismissed = localStorage.getItem('p22-install-dismissed-' + rep);
-      if (dismissed) return;
+      if (dismissed && !forced) return;
       // Already installed as PWA? Don't show.
       if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) return;
       document.getElementById('installBanner').classList.remove('hidden');
@@ -556,7 +557,19 @@
       e.preventDefault();
       deferredInstallPrompt = e;
       document.getElementById('installHint').textContent = 'Tap Install to add to your home screen';
-      setTimeout(showInstallBanner, 1500);
+      const auto = new URLSearchParams(location.search).get('install') === '1';
+      setTimeout(showInstallBanner, auto ? 200 : 1500);
+      if (auto) {
+        // Coming from Setup: first tap anywhere fires the native install dialog
+        document.addEventListener('click', async function once() {
+          document.removeEventListener('click', once, true);
+          if (!deferredInstallPrompt) return;
+          deferredInstallPrompt.prompt();
+          const { outcome } = await deferredInstallPrompt.userChoice;
+          if (outcome === 'accepted') dismissInstallBanner();
+          deferredInstallPrompt = null;
+        }, true);
+      }
     });
 
     // iOS Safari detection
@@ -571,7 +584,7 @@
         if (!banner.classList.contains('hidden')) {
           document.getElementById('iosHint').classList.remove('hidden');
         }
-      }, 1500);
+      }, new URLSearchParams(location.search).get('install') === '1' ? 200 : 1500);
     }
 
     // Install button handler
