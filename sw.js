@@ -1,5 +1,5 @@
 // P-22 Digital Business Card — Service Worker for Offline Resilience (v3.4 Titanium Edition)
-const CACHE_NAME = 'p22-cache-v3.8';
+const CACHE_NAME = 'p22-cache-v3.9';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -48,7 +48,10 @@ const STATIC_ASSETS = [
   '/assets/facility/warehouse-forklift.webp',
   '/assets/facility/construction-crane.webp',
   '/assets/pdf/P22-Capability-Statement-Official.pdf',
-  '/assets/pdf/P-22_Corporate_Overview.pdf'
+  '/assets/pdf/P-22_Corporate_Overview.pdf',
+  '/assets/js/telemetry.js',
+  '/assets/js/card-scanner.js',
+  '/assets/js/i18n.js'
 ];
 
 self.addEventListener('install', (event) => {
