@@ -1,0 +1,29 @@
+{
+  "name": "Marleni Mendez | P-22 Corp Digital Card",
+  "short_name": "Marleni Mendez",
+  "description": "Director of Finance & Contract Compliance - P-22 Corp Construction Material Solutions LLC. CAGE: 169D8 | UEI: X3HUQZ66P6N3",
+  "start_url": "/marleni",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": [
+    "standalone",
+    "fullscreen"
+  ],
+  "background_color": "#060B14",
+  "theme_color": "#060B14",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/assets/staff/marleni-badge-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/staff/marleni-badge-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

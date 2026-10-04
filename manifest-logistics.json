@@ -1,0 +1,29 @@
+{
+  "name": "Logistics Desk | P-22 Corp Digital Card",
+  "short_name": "Logistics Desk",
+  "description": "Central Material Staging & Fleet Logistics - P-22 Corp Construction Material Solutions LLC. CAGE: 169D8 | UEI: X3HUQZ66P6N3",
+  "start_url": "/logistics",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": [
+    "standalone",
+    "fullscreen"
+  ],
+  "background_color": "#060B14",
+  "theme_color": "#060B14",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/assets/staff/logistics-badge-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/staff/logistics-badge-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

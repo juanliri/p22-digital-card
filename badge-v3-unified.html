@@ -134,6 +134,15 @@
   <script defer src="/_vercel/insights/script.js"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <script defer src="/assets/js/telemetry.js"></script>
+  <style>
+    /* Standalone PWA Safe Areas: Guarantees generous breathing room below Dynamic Island, camera notch, & home bar */
+    body {
+      padding-top: calc(env(safe-area-inset-top, 44px) + 1.25rem) !important;
+      padding-bottom: calc(env(safe-area-inset-bottom, 20px) + 1.5rem) !important;
+      padding-left: calc(env(safe-area-inset-left, 0px) + 0.75rem) !important;
+      padding-right: calc(env(safe-area-inset-right, 0px) + 0.75rem) !important;
+    }
+  </style>
 </head>
 
 <body class="min-h-[100dvh] flex flex-col justify-between sm:justify-center items-center p-2.5 sm:p-4 relative overflow-x-hidden selection:bg-p22gold selection:text-black">
@@ -658,7 +667,7 @@
       if (isAndroid) {
         if (navigator.canShare && typeof File !== 'undefined') {
           try {
-            const vcfFile = new File([activeRep.vcf], vcfFilename, { type: 'text/vcard;charset=utf-8' });
+            const vcfFile = new File([activeRep.vcf], vcfFilename, { type: 'text/vcard' });
             if (navigator.canShare({ files: [vcfFile] })) {
               await navigator.share({
                 files: [vcfFile],
@@ -685,7 +694,7 @@
       }
 
       // Desktop fallback
-      const blob = new Blob([activeRep.vcf], { type: 'text/vcard;charset=utf-8;' });
+      const blob = new Blob([activeRep.vcf], { type: 'text/vcard' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
       link.setAttribute('download', vcfFilename);

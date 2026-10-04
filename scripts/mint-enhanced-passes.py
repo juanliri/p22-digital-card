@@ -95,7 +95,7 @@ for rep in REPS:
     payload = {
         "organizationName": "P-22 Corp Construction Material Solutions LLC",
         "logoText": "P-22 CORP",
-        "logoURL": "https://card.p22corp.com/assets/branding/logo-navy-flat.png",
+        "logoURL": "https://card.p22corp.com/assets/branding/wallet-logo.png",
         "iconURL": rep["icon"],
         "thumbnailURL": rep["photo"],
         "description": f"{rep['name']} - P-22 Corp Federal Contracting Credential",
@@ -110,6 +110,10 @@ for rep in REPS:
         "secondaryFields": [
             {"label": "CAGE CODE", "value": "169D8"},
             {"label": "UEI NUMBER", "value": "X3HUQZ66P6N3"}
+        ],
+        "auxiliaryFields": [
+            {"label": "DIRECT PHONE", "value": rep["phone"]},
+            {"label": "OFFICIAL EMAIL", "value": rep["email"]}
         ],
         "headerFields": [
             {"label": "STATUS", "value": rep["header"]}

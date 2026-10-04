@@ -1,0 +1,29 @@
+{
+  "name": "Bids Desk | P-22 Corp Digital Card",
+  "short_name": "Bids Desk",
+  "description": "Federal Procurement & Rapid RFQ Desk - P-22 Corp Construction Material Solutions LLC. CAGE: 169D8 | UEI: X3HUQZ66P6N3",
+  "start_url": "/bids",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": [
+    "standalone",
+    "fullscreen"
+  ],
+  "background_color": "#060B14",
+  "theme_color": "#060B14",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/assets/staff/bids-badge-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/staff/bids-badge-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
