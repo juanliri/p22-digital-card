@@ -3,10 +3,10 @@ VERSION:3.0
 UID:urn:uuid:1c98dceb-ac84-4197-8a1d-af9c6e61badf
 N:Lopez;Eduardo;;;
 FN:Eduardo Lopez
-ORG:P-22 Corp Construction Material Solutions LLC
+ORG:P-22 Corp Construction Material Solutions LLC;Director of Commercial Sa
+ les & Material Supply
 TITLE:Director of Commercial Sales & Material Supply
 TEL;TYPE=CELL,PREF;VOICE:1-407-369-9001
-TEL;TYPE=WORK,VOICE:1-888-722-2675
 EMAIL;TYPE=PREF,INTERNET:elopez@p22corp.com
 EMAIL;TYPE=WORK,INTERNET:sales@p22corp.com
 URL;TYPE=PREF:https://card.p22corp.com/eduardo
@@ -15,7 +15,7 @@ ADR;TYPE=WORK:;;18383 Preston Rd, Suite 202;Dallas;TX;75252;USA
 NOTE:CAGE: 169D8 | UEI: X3HUQZ66P6N3\nDirector of Commercial Sales - P-22 C
  orp\nDirect: 1-407-369-9001 | Toll-Free: 1-888-722-2675
 CATEGORIES:Government Contractor,P-22 Corp,Procurement
-REV:2026-10-04T22:13:18Z
+REV:2026-10-04T22:23:55Z
 PHOTO;TYPE=JPEG;ENCODING=b:/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAkGBwgHBgkIBwgK
  CgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5Ojf/2w
  BDAQoKCg0MDRoPDxo3JR8lNzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3

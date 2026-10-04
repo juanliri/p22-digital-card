@@ -156,26 +156,19 @@ for s in staff_definitions:
         f"UID:urn:uuid:{s['uuid']}",
         f"N:{s['last']};{s['first']};;;",
         f"FN:{s['fn']}",
-        f"ORG:{s['org']}",
+        f"ORG:{s['org']};{s['title']}",
         f"TITLE:{s['title']}",
     ]
+    
+    # 100% UNIQUE direct phone number per contact (NEVER share a number between contacts,
+    # otherwise iOS Contacts deduplication engine will auto-link/merge them into one card)
     if s.get('directPhone') and s['directPhone'] != s['tel']:
-        # Primary unique mobile / direct line ensures iOS Contacts NEVER auto-merges or overrides cards
         raw_lines.append(f"TEL;TYPE=CELL,PREF;VOICE:{s['directPhone']}")
-        raw_lines.append(f"TEL;TYPE=WORK,VOICE:{s['tel']}")
     else:
-        # Desk / Department line with extension or dedicated label
-        if s['slug'] == 'marleni':
-            raw_lines.append(f"TEL;TYPE=WORK,PREF;VOICE:{s['tel']},3")
-            raw_lines.append(f"TEL;TYPE=MAIN,VOICE:{s['tel']}")
-        elif s['slug'] == 'bids':
-            raw_lines.append(f"TEL;TYPE=WORK,PREF;VOICE:{s['tel']},1")
-            raw_lines.append(f"TEL;TYPE=MAIN,VOICE:{s['tel']}")
-        elif s['slug'] == 'logistics':
-            raw_lines.append(f"TEL;TYPE=WORK,PREF;VOICE:{s['tel']},2")
-            raw_lines.append(f"TEL;TYPE=MAIN,VOICE:{s['tel']}")
-        else:
-            raw_lines.append(f"TEL;TYPE=WORK,PREF;VOICE:{s['tel']}")
+        # Desk / Department direct extension numbers
+        ext_map = {'marleni': '1-888-722-2675,3', 'bids': '1-888-722-2675,1', 'logistics': '1-888-722-2675,2'}
+        phone_val = ext_map.get(s['slug'], s['tel'])
+        raw_lines.append(f"TEL;TYPE=WORK,PREF;VOICE:{phone_val}")
     
     # Primary Direct Executive Email
     raw_lines.append(f"EMAIL;TYPE=PREF,INTERNET:{s['email']}")

@@ -97,7 +97,7 @@ for rep in REPS:
         "logoText": "P-22 CORP",
         "logoURL": "https://card.p22corp.com/assets/branding/wallet-logo.png",
         "iconURL": rep["icon"],
-        "thumbnailURL": rep["photo"],
+        "thumbnailURL": f"https://card.p22corp.com/assets/branding/pass-thumbs/{slug}-thumb.png",
         "description": f"{rep['name']} - P-22 Corp Federal Contracting Credential",
         "barcodeValue": f"https://card.p22corp.com/{slug}",
         "barcodeFormat": "QR",

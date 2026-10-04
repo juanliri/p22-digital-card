@@ -3,10 +3,10 @@ VERSION:3.0
 UID:urn:uuid:35ad4d79-58a8-46b0-98ee-b5336651ff5e
 N:Government;Procurement Desk;;;
 FN:Government Procurement Desk
-ORG:P-22 Corp Construction Material Solutions LLC
+ORG:P-22 Corp Construction Material Solutions LLC;Federal Procurement & Rap
+ id RFQ Desk
 TITLE:Federal Procurement & Rapid RFQ Desk
 TEL;TYPE=WORK,PREF;VOICE:1-888-722-2675,1
-TEL;TYPE=MAIN,VOICE:1-888-722-2675
 EMAIL;TYPE=PREF,INTERNET:bids@p22corp.com
 URL;TYPE=PREF:https://card.p22corp.com/bids
 URL;TYPE=WORK:https://www.p22corp.com
@@ -14,7 +14,7 @@ ADR;TYPE=WORK:;;18383 Preston Rd, Suite 202;Dallas;TX;75252;USA
 NOTE:CAGE: 169D8 | UEI: X3HUQZ66P6N3\nFederal Procurement Desk - P-22 Corp\
  n24-Hr Solicitation Response: bids@p22corp.com
 CATEGORIES:Government Contractor,P-22 Corp,Procurement
-REV:2026-10-04T22:13:18Z
+REV:2026-10-04T22:23:55Z
 PHOTO;TYPE=JPEG;ENCODING=b:/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAkGBwgHBgkIBwgK
  CgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5Ojf/2w
  BDAQoKCg0MDRoPDxo3JR8lNzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3
