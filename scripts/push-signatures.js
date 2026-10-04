@@ -370,7 +370,7 @@ async function verifyActiveMailboxes(saKey, candidateReps, detectedDomain) {
  * - Structured gold border divider
  * - CAGE (169D8) & UEI (X3HUQZ66P6N3) company credentials
  * - Live dynamic QR code pointing to production routing endpoint:
- *   https://id.[DETECTED_DOMAIN]/r/[repKey]?src=email_sig
+ *   https://card.[DETECTED_DOMAIN]/r/[repKey]?src=email_sig
  * - Verification hyperlinked badge
  */
 function compileHtmlSignature(rep, targetEmail, company, detectedDomain) {
@@ -535,7 +535,7 @@ async function main() {
       const targetEmail = sendAsEntry.email;
       const signatureHtml = compileHtmlSignature(primaryRep, targetEmail, company, detectedDomain);
       const repKey = primaryRep.slug || primaryRep.email.split('@')[0];
-      const routingUrl = `https://id.${detectedDomain}/r/${repKey}?src=email_sig`;
+      const routingUrl = `https://card.${detectedDomain}/r/${repKey}?src=email_sig`;
 
       if (IS_DRY_RUN) {
         console.log(`[DRY-RUN] Compiled signature for ${acc.primaryEmail} -> SendAs: ${targetEmail}`);

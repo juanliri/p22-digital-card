@@ -74,14 +74,14 @@ module.exports = async function handler(req, res) {
   }
 
   // Determine Redirect Target
-  let redirectUrl = `/${rep}`;
+  let redirectUrl = (PASS_MAP[rep] && PASS_MAP[rep].card) ? PASS_MAP[rep].card : `/${rep}`;
 
   if (destType === 'wallet') {
     if (platform === 'iOS') {
       redirectUrl = PASS_MAP[rep].apple;
     } else {
       // Android / Desktop default to card or setup
-      redirectUrl = `/${rep}#wallet`;
+      redirectUrl = `${redirectUrl}#wallet`;
     }
   }
 
