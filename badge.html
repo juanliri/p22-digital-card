@@ -138,7 +138,7 @@
         </div>
       </div>
       <div class="flex items-center space-x-1.5">
-        <button id="installBtn" class="py-1 px-2.5 bg-p22gold text-slate-950 font-montserrat font-extrabold text-[10.5px] rounded-lg active:scale-95 transition shadow btn-bounce">Install</button>
+        <button id="installBtn" onclick="handleBadgeInstallClick()" class="py-1 px-2.5 bg-p22gold text-slate-950 font-montserrat font-extrabold text-[10.5px] rounded-lg active:scale-95 transition shadow btn-bounce">Install</button>
         <button onclick="dismissInstallBanner()" class="text-slate-500 hover:text-slate-300 p-1 transition" aria-label="Dismiss">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
@@ -272,6 +272,10 @@
 
       <!-- Expandable Secondary Navigation Grid -->
       <div class="mt-2 p-3 rounded-2xl bg-slate-950/90 border border-white/15 backdrop-blur-md shadow-2xl grid grid-cols-2 gap-2 text-left animate-fade-in text-[11px]">
+        <button type="button" onclick="openIosInstallModal()" class="p-2 rounded-xl bg-white/5 hover:bg-p22gold/20 text-slate-300 hover:text-white border border-white/5 transition flex items-center gap-1.5 text-left">
+          <span class="text-p22gold">📲</span>
+          <span class="truncate">Install Staff Badge</span>
+        </button>
         <a href="/setup" class="p-2 rounded-xl bg-white/5 hover:bg-p22gold/20 text-slate-300 hover:text-white border border-white/5 transition flex items-center gap-1.5">
           <span class="text-p22gold">⚙️</span>
           <span class="truncate">Staff Setup Studio</span>
@@ -320,6 +324,83 @@
       <button onclick="toggleExpoQr(false)" class="mt-4 w-full py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-montserrat font-semibold text-xs transition">
         Done / Return to Badge
       </button>
+    </div>
+  </div>
+
+  <!-- iOS / Safari PWA Add to Home Screen Modal -->
+  <div id="iosInstallModal" class="fixed inset-0 z-[100] bg-black/85 backdrop-blur-md hidden flex flex-col items-center justify-center p-4 sm:p-6" onclick="if(event.target===this) closeIosInstallModal()">
+    <div class="w-full max-w-sm bg-gradient-to-b from-[#0D1829] to-[#070D18] border border-p22gold/50 p-6 rounded-3xl flex flex-col items-center relative shadow-2xl animate-fade-in text-white text-center space-y-4">
+      <button onclick="closeIosInstallModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2 rounded-full bg-white/5 transition" aria-label="Close Install Guide">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+
+      <div class="w-14 h-14 rounded-2xl bg-p22gold/15 border border-p22gold/40 flex items-center justify-center text-p22gold shadow-lg shadow-p22gold/10">
+        <img src="/favicon.png" alt="P-22 Staff Badge" class="w-10 h-10 rounded-xl">
+      </div>
+
+      <div>
+        <h3 class="text-base font-montserrat font-bold text-white">Install Staff ID Badge</h3>
+        <p class="text-xs text-p22gold font-semibold mt-0.5" id="installGuideDeviceTitle">Apple Safari • Add to Home Screen</p>
+      </div>
+
+      <div class="w-full space-y-2.5 text-left text-xs">
+        <!-- Step 1 -->
+        <div class="p-3 rounded-2xl bg-white/5 border border-white/10 flex items-start gap-3">
+          <div class="w-7 h-7 rounded-xl bg-p22gold/20 text-p22gold flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">
+            1
+          </div>
+          <div>
+            <p class="font-bold text-white flex items-center gap-1.5">
+              <span>Tap the Share Button</span>
+              <svg class="w-4 h-4 text-p22gold inline-block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l4-4m0 0l4 4m-4-4v12"/>
+              </svg>
+            </p>
+            <p class="text-[11px] text-slate-300 mt-0.5 leading-snug">
+              At the bottom of your screen in Safari, tap the <strong class="text-white">Share</strong> icon (or top right on iPad/Mac).
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="p-3 rounded-2xl bg-white/5 border border-white/10 flex items-start gap-3">
+          <div class="w-7 h-7 rounded-xl bg-p22gold/20 text-p22gold flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">
+            2
+          </div>
+          <div>
+            <p class="font-bold text-white flex items-center gap-1.5">
+              <span>Select "Add to Home Screen"</span>
+              <svg class="w-4 h-4 text-emerald-400 inline-block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+              </svg>
+            </p>
+            <p class="text-[11px] text-slate-300 mt-0.5 leading-snug">
+              Scroll down the share menu and tap <strong class="text-white">"Add to Home Screen"</strong>.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="p-3 rounded-2xl bg-white/5 border border-white/10 flex items-start gap-3">
+          <div class="w-7 h-7 rounded-xl bg-p22gold/20 text-p22gold flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">
+            3
+          </div>
+          <div>
+            <p class="font-bold text-white">Tap "Add" in Top Right</p>
+            <p class="text-[11px] text-slate-300 mt-0.5 leading-snug">
+              Confirm by tapping <strong class="text-white">Add</strong>. Your P-22 Badge icon will launch as a standalone app with <span class="text-emerald-400 font-semibold">100% offline access</span>!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-2 w-full">
+        <button type="button" onclick="closeIosInstallModal()" class="w-full py-3 px-5 rounded-xl bg-p22gold hover:bg-p22goldHover text-slate-950 font-montserrat font-bold text-xs shadow-lg active:scale-95 transition btn-bounce">
+          Got It, Thanks!
+        </button>
+      </div>
     </div>
   </div>
 
@@ -691,35 +772,65 @@
       }
     });
 
-    // iOS Safari detection
-    const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
-    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    if (isIOS && isSafari) {
-      document.getElementById('installHint').textContent = 'Save to your iPhone home screen';
+    // Apple / iOS detection
+    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent) || 
+                  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) ||
+                     (/applewebkit/i.test(navigator.userAgent) && !/chrome|crios|android/i.test(navigator.userAgent));
+    const isApple = isIOS || /Macintosh|MacIntel/i.test(navigator.platform);
+
+    function openIosInstallModal() {
+      const modal = document.getElementById('iosInstallModal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        const titleEl = document.getElementById('installGuideDeviceTitle');
+        if (titleEl) {
+          if (isIOS) {
+            titleEl.textContent = 'Apple iOS Safari • Add to Home Screen';
+          } else if (isApple) {
+            titleEl.textContent = 'macOS Safari • Add to Dock / Home Screen';
+          } else {
+            titleEl.textContent = 'Browser Menu • Add to Home Screen / Install';
+          }
+        }
+      }
+    }
+
+    function closeIosInstallModal() {
+      const modal = document.getElementById('iosInstallModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function handleBadgeInstallClick() {
+      if (deferredInstallPrompt) {
+        deferredInstallPrompt.prompt();
+        deferredInstallPrompt.userChoice.then(({ outcome }) => {
+          if (outcome === 'accepted') dismissInstallBanner();
+          deferredInstallPrompt = null;
+        });
+      } else {
+        openIosInstallModal();
+      }
+    }
+
+    if (isApple) {
+      const hint = document.getElementById('installHint');
+      if (hint) hint.textContent = 'Add to Home Screen (Safari)';
+      const isAutoInstall = new URLSearchParams(location.search).get('install') === '1';
       setTimeout(() => {
         showInstallBanner();
-        // Show extra iOS instruction panel
-        const banner = document.getElementById('installBanner');
-        if (!banner.classList.contains('hidden')) {
-          document.getElementById('iosHint').classList.remove('hidden');
+        if (isAutoInstall) {
+          openIosInstallModal();
         }
-      }, new URLSearchParams(location.search).get('install') === '1' ? 200 : 1500);
+      }, isAutoInstall ? 350 : 1500);
     }
 
     // Install button handler
     document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('installBtn').addEventListener('click', async () => {
-        if (deferredInstallPrompt) {
-          deferredInstallPrompt.prompt();
-          const { outcome } = await deferredInstallPrompt.userChoice;
-          if (outcome === 'accepted') dismissInstallBanner();
-          deferredInstallPrompt = null;
-        } else if (isIOS && isSafari) {
-          // Toggle the iOS instruction hint
-          const hint = document.getElementById('iosHint');
-          hint.classList.toggle('hidden');
-        }
-      });
+      const installBtn = document.getElementById('installBtn');
+      if (installBtn) {
+        installBtn.addEventListener('click', handleBadgeInstallClick);
+      }
     });
 
     // Initialize DOM

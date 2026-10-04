@@ -13,6 +13,7 @@
   let tesseractLoaded = false;
   let activeScanContext = 'inline'; // 'inline' | 'setup' | 'modal'
   let capturedImageDataUrl = null;
+  let ocrImageDataUrl = null;
 
   // Global submission helper for all P-22 frontends
   window.p22SubmitLead = async function (leadData) {
@@ -127,15 +128,20 @@
     document.head.appendChild(script);
   }
 
-  // Pre-process canvas image for OCR contrast
-  function preprocessImage(img, maxWidth = 1200) {
+  // Pre-process canvas image for OCR contrast and generate optimized payloads
+  function preprocessImage(img, maxWidth = 1600) {
     const canvas = document.createElement('canvas');
     let width = img.width;
     let height = img.height;
 
-    if (width > maxWidth) {
-      height = Math.round((height * maxWidth) / width);
-      width = maxWidth;
+    if (width > maxWidth || height > maxWidth) {
+      if (width > height) {
+        height = Math.round((height * maxWidth) / width);
+        width = maxWidth;
+      } else {
+        width = Math.round((width * maxWidth) / height);
+        height = maxWidth;
+      }
     }
 
     canvas.width = width;
@@ -143,15 +149,18 @@
     const ctx = canvas.getContext('2d');
     ctx.drawImage(img, 0, 0, width, height);
 
-    // Get thumbnail for lead record
+    // 1. High-res optimized image for AI Vision & OCR (~250-400KB, safely below Vercel limits)
+    ocrImageDataUrl = canvas.toDataURL('image/jpeg', 0.85);
+
+    // 2. Compact thumbnail for lead record / local storage / preview
     const thumbCanvas = document.createElement('canvas');
-    const thumbWidth = 320;
+    const thumbWidth = 360;
     const thumbHeight = Math.round((height * thumbWidth) / width);
     thumbCanvas.width = thumbWidth;
     thumbCanvas.height = thumbHeight;
     const thumbCtx = thumbCanvas.getContext('2d');
     thumbCtx.drawImage(canvas, 0, 0, thumbWidth, thumbHeight);
-    capturedImageDataUrl = thumbCanvas.toDataURL('image/jpeg', 0.6);
+    capturedImageDataUrl = thumbCanvas.toDataURL('image/jpeg', 0.7);
     window.p22LastScannedPhoto = capturedImageDataUrl;
 
     return canvas;
@@ -223,13 +232,13 @@
 
     modal = document.createElement('div');
     modal.id = 'p22CardScannerModal';
-    modal.className = 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md hidden transition-all duration-300';
+    modal.className = 'fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 bg-slate-950/85 backdrop-blur-md hidden transition-all duration-300 overflow-y-auto';
     modal.innerHTML = `
-      <div class="relative w-full max-w-md rounded-3xl bg-slate-900 border border-p22gold/40 shadow-2xl p-6 text-white space-y-4">
+      <div class="relative w-full max-w-md rounded-3xl bg-slate-900 border border-p22gold/50 shadow-2xl p-5 sm:p-6 text-white space-y-4 my-auto">
         <!-- Header -->
         <div class="flex items-center justify-between border-b border-white/10 pb-3">
           <div class="flex items-center gap-2.5">
-            <div class="w-8 h-8 rounded-xl bg-p22gold/20 text-p22gold flex items-center justify-center">
+            <div class="w-8 h-8 rounded-xl bg-p22gold/20 text-p22gold flex items-center justify-center shrink-0">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
             </div>
             <div>
@@ -237,23 +246,30 @@
               <p class="text-[10px] text-slate-400">Instant AI Contact &amp; Badge Recognition</p>
             </div>
           </div>
-          <button type="button" onclick="closeCardScannerModal()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-white/10 transition">
+          <button type="button" onclick="closeCardScannerModal()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-white/10 transition" aria-label="Close Scanner">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
           </button>
         </div>
 
-        <!-- Hidden File Input for Camera / File Pick -->
-        <input type="file" id="cardScannerFileInput" accept="image/*" capture="environment" class="hidden" onchange="handleCardImageSelected(event)">
+        <!-- Accessible, WebKit-compliant Native File Inputs (kept in DOM with zero display:none) -->
+        <input type="file" id="cardScannerCameraInput" accept="image/*" capture="environment" class="sr-only" style="position:fixed;top:-1000px;left:-1000px;opacity:0;" onchange="handleCardImageSelected(event)">
+        <input type="file" id="cardScannerGalleryInput" accept="image/*" class="sr-only" style="position:fixed;top:-1000px;left:-1000px;opacity:0;" onchange="handleCardImageSelected(event)">
 
-        <!-- Initial Action Area -->
+        <!-- Initial Action Area with Dual Native Labels for 100% Apple Safari & Mobile Compatibility -->
         <div id="scannerUploadState" class="space-y-3">
-          <div onclick="document.getElementById('cardScannerFileInput').click()" class="cursor-pointer border-2 border-dashed border-white/20 hover:border-p22gold rounded-2xl p-6 text-center hover:bg-white/5 transition group space-y-2">
-            <div class="w-12 h-12 rounded-full bg-white/5 group-hover:bg-p22gold/20 text-p22gold mx-auto flex items-center justify-center transition">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
-            </div>
-            <p class="text-xs font-bold text-white group-hover:text-p22gold transition">Tap to Snap Photo or Choose File</p>
-            <p class="text-[10.5px] text-slate-400">Position the business card or conference badge flat with good lighting.</p>
-          </div>
+          <!-- Primary Action: Snap Photo Directly (Native Camera) -->
+          <label for="cardScannerCameraInput" class="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:brightness-110 active:scale-95 text-white font-montserrat font-bold text-xs flex items-center justify-center gap-2.5 shadow-lg cursor-pointer transition select-none btn-bounce">
+            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
+            <span>📷 Take Photo with Camera</span>
+          </label>
+
+          <!-- Secondary Action: Choose Existing Image from Photos / Files -->
+          <label for="cardScannerGalleryInput" class="w-full py-3 px-4 rounded-2xl bg-white/10 hover:bg-white/15 active:scale-95 text-slate-200 border border-white/20 font-montserrat font-semibold text-xs flex items-center justify-center gap-2.5 cursor-pointer transition select-none">
+            <svg class="w-4 h-4 text-p22gold shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            <span>📁 Upload from Photos / Files</span>
+          </label>
+
+          <p class="text-[10px] text-center text-slate-400">Position the business card or conference badge flat with good lighting.</p>
         </div>
 
         <!-- Processing State -->
@@ -265,7 +281,7 @@
 
         <!-- Review & Submit Form -->
         <form id="scannerReviewForm" onsubmit="handleScannerFormSubmit(event)" class="hidden space-y-2.5">
-          <div id="scannerImagePreviewWrap" class="relative rounded-xl overflow-hidden max-h-32 border border-white/10 hidden mb-2">
+          <div id="scannerImagePreviewWrap" class="relative rounded-xl overflow-hidden max-h-36 border border-white/15 hidden mb-2 shadow-inner">
             <img id="scannerImagePreview" class="w-full h-full object-cover">
           </div>
           <div>
@@ -350,13 +366,16 @@
     const proc = document.getElementById('scannerProcessingState');
     const form = document.getElementById('scannerReviewForm');
     const succ = document.getElementById('scannerSuccessCard');
-    const fileInput = document.getElementById('cardScannerFileInput');
+    const camInput = document.getElementById('cardScannerCameraInput');
+    const galInput = document.getElementById('cardScannerGalleryInput');
     if (upload) upload.classList.remove('hidden');
     if (proc) proc.classList.add('hidden');
     if (form) form.classList.add('hidden');
     if (succ) succ.classList.add('hidden');
-    if (fileInput) fileInput.value = '';
+    if (camInput) camInput.value = '';
+    if (galInput) galInput.value = '';
     capturedImageDataUrl = null;
+    ocrImageDataUrl = null;
   };
 
   // Handle Image Chosen
@@ -369,7 +388,7 @@
     const progText = document.getElementById('scannerProgressText');
     if (upload) upload.classList.add('hidden');
     if (proc) proc.classList.remove('hidden');
-    if (progText) progText.textContent = 'Loading OCR Engine & Image...';
+    if (progText) progText.textContent = 'Optimizing Image for OCR...';
 
     const reader = new FileReader();
     reader.onload = function (event) {
@@ -379,12 +398,12 @@
 
         const imgPreview = document.getElementById('scannerImagePreview');
         const imgWrap = document.getElementById('scannerImagePreviewWrap');
-        if (imgPreview && capturedImageDataUrl) {
-          imgPreview.src = capturedImageDataUrl;
+        if (imgPreview && (capturedImageDataUrl || ocrImageDataUrl)) {
+          imgPreview.src = capturedImageDataUrl || ocrImageDataUrl;
           if (imgWrap) imgWrap.classList.remove('hidden');
         }
 
-        if (progText) progText.textContent = 'Transcribing Card with AI & Neural OCR...';
+        if (progText) progText.textContent = 'Transcribing Card with AI Vision...';
 
         (async function () {
           // 1. Try Cloud AI Vision first
@@ -393,7 +412,7 @@
             const aiRes = await fetch('/api/ocr', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ image: capturedImageDataUrl || event.target.result }),
+              body: JSON.stringify({ image: ocrImageDataUrl || capturedImageDataUrl }),
             });
             if (aiRes.ok) {
               const aiData = await aiRes.json();
@@ -414,9 +433,21 @@
             console.warn('[!] AI Vision call error:', e);
           }
 
-          // 2. If AI vision was not active or fell back, run on-device neural Tesseract
+          // 2. If AI vision was not active or fell back, run on-device neural Tesseract with safety timeout
           if (!aiSuccess) {
             if (progText) progText.textContent = 'Running On-Device Neural OCR...';
+
+            let tesseractHandled = false;
+            // 8-second safety fallback: never leave user stuck on spinner
+            const fallbackTimeout = setTimeout(() => {
+              if (!tesseractHandled) {
+                tesseractHandled = true;
+                if (proc) proc.classList.add('hidden');
+                const form = document.getElementById('scannerReviewForm');
+                if (form) form.classList.remove('hidden');
+              }
+            }, 8000);
+
             loadTesseract(async function () {
               let rawText = '';
               if (window.Tesseract) {
@@ -424,21 +455,25 @@
                   const res = await window.Tesseract.recognize(processedCanvas, 'eng');
                   rawText = res.data.text || '';
                 } catch (err) {
-                  console.warn('[!] Tesseract OCR recognition failed:', err);
+                  console.warn('[!] Tesseract OCR recognition error:', err);
                 }
               }
 
-              const parsed = parseCardText(rawText);
+              if (!tesseractHandled) {
+                tesseractHandled = true;
+                clearTimeout(fallbackTimeout);
+                const parsed = parseCardText(rawText);
 
-              document.getElementById('scanName').value = parsed.name || '';
-              document.getElementById('scanAgency').value = parsed.agency || '';
-              document.getElementById('scanEmail').value = parsed.email || '';
-              document.getElementById('scanPhone').value = parsed.phone || '';
-              document.getElementById('scanNotes').value = parsed.raw_ocr || 'Scanned Card';
+                document.getElementById('scanName').value = parsed.name || '';
+                document.getElementById('scanAgency').value = parsed.agency || '';
+                document.getElementById('scanEmail').value = parsed.email || '';
+                document.getElementById('scanPhone').value = parsed.phone || '';
+                document.getElementById('scanNotes').value = parsed.raw_ocr || 'Scanned Card';
 
-              if (proc) proc.classList.add('hidden');
-              const form = document.getElementById('scannerReviewForm');
-              if (form) form.classList.remove('hidden');
+                if (proc) proc.classList.add('hidden');
+                const form = document.getElementById('scannerReviewForm');
+                if (form) form.classList.remove('hidden');
+              }
             });
             return;
           }
