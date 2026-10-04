@@ -93,7 +93,7 @@
         interest: leadData.interest || leadData.scope || 'Procurement & Logistics Coordination',
         notes: leadData.notes || leadData.extracted_text || leadData.raw_ocr || '',
         photo_url: leadData.photo_url || leadData.card_photo || '',
-        source: leadData.source || 'Digital Card Exchange',
+        source: leadData.source || (getTrafficSource() === 'nfc' ? 'NFC Tap' : (getTrafficSource() === 'expo_qr' ? 'Expo QR Scan' : 'Digital Card Exchange')),
         sid: getSessionId(),
       };
 
@@ -139,6 +139,17 @@
   // Auto-track initial page view
   document.addEventListener('DOMContentLoaded', function () {
     window.p22Track('page_view', { title: document.title, url: window.location.pathname });
+
+    if (getTrafficSource() === 'nfc') {
+      console.log('[+] Lead arrived via Physical NFC Tap');
+      if (window.NativeFeedback && typeof window.NativeFeedback.success === 'function') {
+        window.NativeFeedback.success();
+      }
+      const sourceField = document.getElementById('leadSourceInput') || document.querySelector('input[name="source"]');
+      if (sourceField) {
+        sourceField.value = 'NFC Tap';
+      }
+    }
 
     // Delegated click listener for ALL key actions and buttons
     document.addEventListener('click', function (e) {
