@@ -13,6 +13,7 @@
 
 const { appendLeadRow, getLeadsVaultRows } = require('../lib/google-sheets');
 const { notifyStaffOfLead } = require('../lib/notifications');
+const { syncLeadToWix } = require('../lib/wix-crm');
 
 module.exports = async function handler(req, res) {
   // CORS configuration
@@ -88,6 +89,13 @@ module.exports = async function handler(req, res) {
           await notifyStaffOfLead(leadEntry);
         } catch (notifErr) {
           console.warn('[-] Notification warning (non-blocking):', notifErr.message);
+        }
+
+        // Dual-Stack Mirror to Wix CRM (p22corp.com)
+        try {
+          await syncLeadToWix(leadEntry);
+        } catch (wixErr) {
+          console.warn('[-] Wix CRM sync warning (non-blocking):', wixErr.message);
         }
       }
     }

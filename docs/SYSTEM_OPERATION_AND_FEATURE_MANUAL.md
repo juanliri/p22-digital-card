@@ -15,7 +15,7 @@ The P-22 Corp Digital Identity & Contractor Engagement Suite is a dual-tier prog
 1. **Public Digital Cards (`/pedro`, `/eduardo`, `/marleni`, `/logistics`, `/bids`)**: High-converting mobile-first web cards for clients, contracting officers, and prime partners.
 2. **Staff Phone Badges (`/badge`, `/badge/[rep]`)**: 100% viewport-optimized, offline-capable PWA badges featuring SAM.gov verified tokens, direct pass saving, expo QR modals, and in-field OCR business card scanners.
 3. **Executive Pre-Expo Setup Studio (`/setup`)**: 4-tab identity workstation for badge installation, digital wallet pass provisioning (Apple & Google), offline failsafe lockscreens, Apple Watch photo clock faces, Zoom virtual backgrounds, 1-click email signatures, and live Google Sheets telemetry.
-4. **Backend Edge Telemetry & Leads Vault (`/api/track`, `/api/lead`, `/api/router`, `/api/ocr`)**: NIST SP 800-171 AU-2 / OMB M-10-22 compliant zero-cookie telemetry router streaming analytics and business card OCR captures directly into Google Sheets.
+4. **Backend Edge Telemetry, Google Drive & Wix CRM Engine (`/api/track`, `/api/lead`, `/api/consultation`, `/api/ocr`)**: Dual-stream edge processor that records leads, telemetry, and business card OCR captures simultaneously to **Google Sheets (`P22_Badge_Telemetry`)**, **Google Drive (`P22_Lead_Photos`)**, and **Wix CRM (`p22corp.com`)**. Dispatches instant smartphone notifications via Gmail API / push webhooks and schedules briefings with native Google Meet links.
 
 ---
 

@@ -15,6 +15,7 @@
 const { appendConsultationRow } = require('../lib/google-sheets');
 const { notifyStaffOfConsultation } = require('../lib/notifications');
 const { createGoogleCalendarEvent } = require('../lib/google-calendar');
+const { syncConsultationToWix } = require('../lib/wix-crm');
 
 module.exports = async function handler(req, res) {
   // CORS configuration
@@ -82,6 +83,13 @@ module.exports = async function handler(req, res) {
       await notifyStaffOfConsultation(consultEntry);
     } catch (notifErr) {
       console.warn('[-] Warning dispatching consultation alert:', notifErr.message);
+    }
+
+    // 2b. Dual-Stack Mirror to Wix CRM (p22corp.com)
+    try {
+      await syncConsultationToWix(consultEntry);
+    } catch (wixErr) {
+      console.warn('[-] Warning mirroring consultation to Wix:', wixErr.message);
     }
 
     // 3. Attempt direct Google Calendar API event creation on staff calendar
