@@ -12,7 +12,6 @@ const STATIC_ASSETS = [
   '/manifest-badge-marleni.json',
   '/manifest-badge-bids.json',
   '/manifest-badge-logistics.json',
-  '/public/manifest.webmanifest',
   '/icon-192.png',
   '/icon-512.png',
   '/team.json',

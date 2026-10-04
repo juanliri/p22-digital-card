@@ -17,11 +17,7 @@ console.log('\n--- STARTING EXPO INTEGRATION TEST RUN ---');
 
 // 1. PWA & FULLSCREEN CONFIGURATION
 check('Manifest display mode is standalone or fullscreen', () => {
-  const manifest = JSON.parse(
-    existsSync('public/manifest.webmanifest')
-      ? readFileSync('public/manifest.webmanifest', 'utf8')
-      : readFileSync('manifest.json', 'utf8')
-  );
+  const manifest = JSON.parse(readFileSync('manifest.json', 'utf8'));
   if (!['standalone', 'fullscreen'].includes(manifest.display)) {
     throw new Error(`manifest.display is "${manifest.display}". Must be "standalone" or "fullscreen"`);
   }
