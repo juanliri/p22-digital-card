@@ -1704,10 +1704,7 @@
       // Safari opens Apple's native ABNewPersonViewController preview sheet.
       // We display instant visual guidance so attendees tap "Create New Contact" at the bottom!
       if (isIOS) {
-        showIosContactGuidanceToast();
-        setTimeout(() => {
-          window.location.href = staticVcfUrl;
-        }, 280);
+        window.location.href = staticVcfUrl;
         revealStep2Exchange(false, 'Contact Saved ✓');
         trackEvent('VCard', 'DirectNavIOS', rep.name);
         return;

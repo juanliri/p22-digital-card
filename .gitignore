@@ -4,6 +4,8 @@ node_modules/
 # Local Environment & Builds
 # Credentials & Keys
 credentials/
+vault/*.enc
+*.enc
 *.key
 *.pem
 *.p12

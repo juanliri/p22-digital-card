@@ -6,7 +6,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
   <link rel="icon" type="image/webp" href="/favicon.webp">
   <link rel="shortcut icon" href="/favicon.ico">
-  <title id="pageTitle">P-22 Corp | Executive Staff ID Badge</title>
+  <title id="pageTitle">Pedro Felipe | P-22 Staff ID Badge</title>
 
   <!-- PWA Manifest & App Standalone Meta with Profile Photo App Icons -->
   <link id="badgeManifest" rel="manifest" href="/manifest-badge-pedro.json">
@@ -25,7 +25,7 @@
       }
       var names = { pedro: 'Pedro', eduardo: 'Eduardo', marleni: 'Marleni' };
       var pm = location.pathname.match(/^\/badge\/([a-z0-9_-]+)/i);
-      var rep = ((pm && pm[1]) || new URLSearchParams(location.search).get('rep') || 'pedro').toLowerCase();
+      var rep = 'pedro';
       if (!names[rep]) rep = 'pedro';
       document.getElementById('badgeManifest').href = '/manifest-badge-' + rep + '.json';
       document.getElementById('badgeAppTitle').content = names[rep];
