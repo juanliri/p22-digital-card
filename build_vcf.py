@@ -1,7 +1,7 @@
 import os, io, base64, json, datetime
 from PIL import Image
 
-def optimize_photo(src_path, size=(400, 400), quality=88):
+def optimize_photo(src_path, size=(140, 140), quality=72):
     img = Image.open(src_path)
     if img.mode in ('RGBA', 'LA') or (img.mode == 'P' and 'transparency' in img.info):
         bg = Image.new('RGB', img.size, (13, 24, 41))
@@ -38,6 +38,7 @@ def fold_vcard_line(line, max_len=75):
 staff_definitions = [
     {
         'slug': 'pedro',
+        'uuid': '1f6f9366-194d-43e8-af5a-ee77d2fadb5a',
         'filename': 'pedro.vcf',
         'first': 'Pedro',
         'last': 'Felipe',
@@ -57,6 +58,7 @@ staff_definitions = [
     },
     {
         'slug': 'eduardo',
+        'uuid': '1c98dceb-ac84-4197-8a1d-af9c6e61badf',
         'filename': 'eduardo.vcf',
         'first': 'Eduardo',
         'last': 'Lopez',
@@ -76,6 +78,7 @@ staff_definitions = [
     },
     {
         'slug': 'marleni',
+        'uuid': '730fa126-7f6c-415a-bec7-fdeb2cbc344f',
         'filename': 'marleni.vcf',
         'first': 'Marleni',
         'last': 'Mendez',
@@ -83,7 +86,7 @@ staff_definitions = [
         'org': 'P-22 Corp Construction Material Solutions LLC',
         'title': 'Director of Finance & Contract Compliance',
         'tel': '1-888-722-2675',
-        'directPhone': None,
+        'directPhone': '1-888-722-2675',
         'email': 'mmendez@p22corp.com',
         'secondaryEmail': 'accounting@p22corp.com',
         'url': 'https://card.p22corp.com/marleni',
@@ -95,6 +98,7 @@ staff_definitions = [
     },
     {
         'slug': 'bids',
+        'uuid': '35ad4d79-58a8-46b0-98ee-b5336651ff5e',
         'filename': 'bids.vcf',
         'first': 'Procurement Desk',
         'last': 'Government',
@@ -114,6 +118,7 @@ staff_definitions = [
     },
     {
         'slug': 'logistics',
+        'uuid': '4df659bc-e07e-41b3-9779-93eafd04e851',
         'filename': 'logistics.vcf',
         'first': 'Logistics Hub',
         'last': 'Dallas',
@@ -148,6 +153,7 @@ for s in staff_definitions:
     raw_lines = [
         'BEGIN:VCARD',
         'VERSION:3.0',
+        f"UID:urn:uuid:{s['uuid']}",
         f"N:{s['last']};{s['first']};;;",
         f"FN:{s['fn']}",
         f"ORG:{s['org']}",
@@ -182,6 +188,13 @@ for s in staff_definitions:
     with open(vcf_filepath, 'w', encoding='utf-8', newline='') as f:
         f.write(vcf_content)
     print(f"Generated RFC 2426 vcf with direct + secondary email: {vcf_filepath}")
+
+    if s['slug'] == 'pedro':
+        # Write root pedro-felipe.vcf and assets/vcf/pedro-felipe.vcf for compatibility
+        with open('pedro-felipe.vcf', 'w', encoding='utf-8', newline='') as f:
+            f.write(vcf_content)
+        with open(os.path.join('assets', 'vcf', 'pedro-felipe.vcf'), 'w', encoding='utf-8', newline='') as f:
+            f.write(vcf_content)
     
     slug = s['slug']
     if slug not in team_data:
@@ -206,4 +219,4 @@ for s in staff_definitions:
 with open('team.json', 'w', encoding='utf-8') as f:
     json.dump(team_data, f, indent=2)
 
-print("team.json updated with direct & department emails")
+print("team.json updated with permanent UIDs, under 5KB avatars, real-time timestamps, and direct emails")

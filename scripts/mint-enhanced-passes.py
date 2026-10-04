@@ -10,7 +10,7 @@ REPS = [
     {
         "slug": "pedro",
         "name": "Pedro Felipe",
-        "title": "Managing Director & Power Systems Lead",
+        "title": "Managing Director & Federal Contract Lead",
         "email": "pfelipe@p22corp.com",
         "phone": "1-945-218-5896",
         "tollFree": "1-888-722-2675",
@@ -35,8 +35,8 @@ REPS = [
     },
     {
         "slug": "marleni",
-        "name": "Marleni Méndez",
-        "title": "Finance Officer & DCAA Compliance Lead",
+        "name": "Marleni Mendez",
+        "title": "Director of Finance & Contract Compliance",
         "email": "mmendez@p22corp.com",
         "phone": "1-888-722-2675",
         "tollFree": "1-888-722-2675",
@@ -49,7 +49,7 @@ REPS = [
     {
         "slug": "bids",
         "name": "Government Procurement Desk",
-        "title": "24-Hour Rapid RFQ & Solicitation Unit",
+        "title": "Federal Procurement & Rapid RFQ Desk",
         "email": "bids@p22corp.com",
         "phone": "1-888-722-2675",
         "tollFree": "1-888-722-2675",
@@ -62,7 +62,7 @@ REPS = [
     {
         "slug": "logistics",
         "name": "Dallas Logistics Hub",
-        "title": "Centralized Fleet Dispatch & Material Staging",
+        "title": "Central Material Staging & Fleet Logistics",
         "email": "logistics@p22corp.com",
         "phone": "1-888-722-2675",
         "tollFree": "1-888-722-2675",
@@ -73,6 +73,14 @@ REPS = [
         "icon": "https://card.p22corp.com/assets/staff/logistics-badge-icon-192.png"
     }
 ]
+
+PASS_ALIASES = {
+    "pedro": ["pedro.pkpass", "pedro-felipe.pkpass"],
+    "eduardo": ["eduardo.pkpass", "eduardo-lopez.pkpass"],
+    "marleni": ["marleni.pkpass", "marleni-mendez.pkpass"],
+    "bids": ["bids.pkpass", "bids-p22.pkpass"],
+    "logistics": ["logistics.pkpass", "logistics-p22.pkpass"]
+}
 
 os.makedirs("assets/passes", exist_ok=True)
 
@@ -131,7 +139,7 @@ for rep in REPS:
     )
 
     try:
-        with urllib.request.urlopen(req) as resp:
+        with urllib.request.urlopen(req, timeout=20) as resp:
             if resp.status == 200:
                 res_json = json.loads(resp.read().decode("utf-8"))
                 serial = res_json.get("serialNumber")
@@ -139,21 +147,28 @@ for rep in REPS:
                 share_url = res_json.get("shareUrl")
                 apple_b64 = res_json.get("applePass")
 
-                # Save static .pkpass binary directly to assets/passes/
+                # Save static .pkpass binary directly to assets/passes/ for both primary and alias
                 if apple_b64:
                     raw_bytes = base64.b64decode(apple_b64)
-                    pass_path = f"assets/passes/{slug}.pkpass"
-                    with open(pass_path, "wb") as pf:
-                        pf.write(raw_bytes)
-                    print(f"  [OK] Saved {pass_path} ({len(raw_bytes)} bytes, photo embedded, signed)")
+                    for p_filename in PASS_ALIASES.get(slug, [f"{slug}.pkpass"]):
+                        p_path = os.path.join("assets", "passes", p_filename)
+                        with open(p_path, "wb") as pf:
+                            pf.write(raw_bytes)
+                        print(f"  [OK] Saved {p_path} ({len(raw_bytes)} bytes, photo embedded, signed)")
 
                 # Update team_data
                 if slug in team_data:
                     team_data[slug]["walletSerial"] = serial
                     team_data[slug]["googleWalletUrl"] = google_url
+                    team_data[slug]["googleUrl"] = google_url
                     team_data[slug]["walletShareUrl"] = share_url
+                    team_data[slug]["pass"] = f"/assets/passes/{slug}.pkpass"
                     if "phone" in rep and rep["phone"]:
                         team_data[slug]["directPhone"] = rep["phone"]
+                    if "title" in rep and rep["title"]:
+                        team_data[slug]["title"] = rep["title"]
+                    if "name" in rep and rep["name"]:
+                        team_data[slug]["name"] = rep["name"]
 
                 print(f"  [OK] Serial: {serial}")
                 print(f"  [OK] Google Wallet URL: {google_url[:40]}...")
@@ -167,4 +182,4 @@ for rep in REPS:
 with open("team.json", "w", encoding="utf-8") as f:
     json.dump(team_data, f, indent=2)
 
-print("\nAll 5 customized passes minted, photos embedded, and stored!")
+print("\nAll 5 customized passes minted, dual aliases saved, and team.json updated!")
