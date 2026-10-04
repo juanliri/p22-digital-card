@@ -125,10 +125,10 @@
   <script defer src="/assets/js/telemetry.js"></script>
 </head>
 
-<body class="min-h-[100dvh] flex flex-col justify-between sm:justify-center items-center p-2.5 sm:p-4 relative overflow-x-hidden selection:bg-p22gold selection:text-black">
+<body class="min-h-screen py-5 px-3 flex flex-col items-center justify-start relative overflow-x-hidden selection:bg-p22gold selection:text-black">
 
   <!-- PWA Install Banner -->
-  <div id="installBanner" class="hidden relative z-20 w-full max-w-sm mb-2">
+  <div id="installBanner" class="hidden relative z-20 w-full max-w-[420px] mb-3">
     <div class="flex items-center justify-between bg-[#0D1829]/95 border border-p22gold/50 rounded-2xl px-3.5 py-2.5 shadow-xl backdrop-blur">
       <div class="flex items-center space-x-2.5">
         <img src="/favicon.png" alt="P-22" class="w-8 h-8 rounded-xl border border-p22gold/40">
@@ -165,47 +165,47 @@
     <div class="absolute inset-0 bg-gradient-to-t from-[#060B14] via-[#060B14]/80 to-[#060B14]"></div>
   </div>
 
-  <!-- Main Badge Container (100% Viewport-optimized so entire card fits on mobile screens without scrolling) -->
-  <main class="relative z-10 w-full max-w-sm glass-panel shimmer rounded-3xl p-3.5 sm:p-5 flex flex-col items-center border border-p22gold/35 shadow-2xl my-auto">
+  <!-- Main Badge Container (Taller, commanding executive format with generous padding) -->
+  <main class="relative z-10 w-full max-w-[420px] glass-panel shimmer rounded-3xl p-5 sm:p-6 flex flex-col items-center border border-p22gold/40 shadow-2xl my-2">
     
     <!-- Top Bar: Clean Identity & Status with Official White Logo -->
-    <div class="w-full flex justify-between items-center pb-2 mb-2 border-b border-slate-700/60">
-      <div class="flex items-center space-x-1.5">
-        <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span class="text-[11px] tracking-wider font-montserrat text-emerald-400 font-bold uppercase">Active ID</span>
+    <div class="w-full flex justify-between items-center pb-3 mb-3 border-b border-slate-700/60">
+      <div class="flex items-center space-x-2">
+        <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="text-xs tracking-wider font-montserrat text-emerald-400 font-bold uppercase">Active ID</span>
       </div>
-      <a href="https://www.p22corp.com" target="_blank" class="flex items-center gap-1.5 hover:opacity-85 transition" title="P-22 Corp Official Portal">
-        <img src="/assets/branding/logo-white-transparent.png" alt="P-22 Corp" class="h-6 sm:h-7 w-auto object-contain drop-shadow">
+      <a href="https://www.p22corp.com" target="_blank" class="flex items-center gap-2 hover:opacity-85 transition" title="P-22 Corp Official Portal">
+        <img src="/assets/branding/logo-white-transparent.png" alt="P-22 Corp" class="h-7 sm:h-8 w-auto object-contain drop-shadow">
       </a>
     </div>
 
-    <!-- Staff Identification: Photo, Name, and Role -->
+    <!-- Staff Identification: Bigger Photo, Name, and Role -->
     <div class="w-full flex flex-col items-center text-center">
-      <!-- Portrait & Verified Indicator -->
-      <div class="relative w-20 h-20 sm:w-22 sm:h-22 rounded-full p-1 border-2 border-p22gold mb-1.5 bg-[#060B14]/90 shadow-2xl gold-glow">
+      <!-- Big Portrait & Verified Indicator -->
+      <div class="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full p-1.5 border-2 border-p22gold mb-2.5 bg-[#060B14]/90 shadow-2xl gold-glow">
         <img id="staffPhoto" src="/assets/staff/pedro-official-1x1.png" alt="Staff Portrait" class="w-full h-full object-cover rounded-full">
-        <div class="absolute bottom-0 right-0 bg-p22gold text-slate-950 p-1 rounded-full shadow-lg border-2 border-slate-950" title="SAM.gov Active Certified Rep">
-          <svg class="w-2.5 h-2.5 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+        <div class="absolute bottom-1 right-1 bg-p22gold text-slate-950 p-1.5 rounded-full shadow-lg border-2 border-slate-950" title="SAM.gov Active Certified Rep">
+          <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
         </div>
       </div>
 
-      <h1 id="staffName" class="text-lg sm:text-xl font-montserrat font-extrabold tracking-tight text-white leading-tight">Pedro Felipe</h1>
-      <p id="staffTitle" class="text-[11px] text-p22gold font-bold uppercase tracking-wide mt-0.5 px-2">Managing Director &amp; Federal Contract Lead</p>
+      <h1 id="staffName" class="text-2xl sm:text-3xl font-montserrat font-extrabold tracking-tight text-white leading-tight">Pedro Felipe</h1>
+      <p id="staffTitle" class="text-xs sm:text-sm text-p22gold font-bold uppercase tracking-wider mt-1 px-2">Managing Director &amp; Federal Contract Lead</p>
       
       <!-- Federal Credentials Pill -->
-      <div class="inline-flex items-center gap-2 mt-1 px-2.5 py-0.5 rounded-full bg-black/60 border border-slate-800 text-[9.5px] font-mono">
-        <span class="text-slate-400">CAGE: <strong id="cageCode" class="text-sky-300">169D8</strong></span>
+      <div class="inline-flex items-center gap-2.5 mt-2 px-3 py-1 rounded-full bg-black/60 border border-slate-800 text-[10.5px] font-mono shadow-inner">
+        <span class="text-slate-400">CAGE: <strong id="cageCode" class="text-sky-300 font-bold">169D8</strong></span>
         <span class="text-slate-600">&bull;</span>
-        <span class="text-slate-400">UEI: <strong id="ueiCode" class="text-slate-200">X3HUQZ66P6N3</strong></span>
+        <span class="text-slate-400">UEI: <strong id="ueiCode" class="text-slate-200 font-bold">X3HUQZ66P6N3</strong></span>
       </div>
     </div>
 
-    <!-- Permanent Instant QR Code Section (Always visible under ID Photo & Info) -->
-    <div class="w-full flex flex-col items-center mt-2.5 mb-2">
-      <div class="bg-white p-2 sm:p-2.5 rounded-2xl shadow-2xl border-2 border-p22gold/60 cursor-pointer active:scale-95 transition hover:brightness-105" onclick="toggleExpoQr(true)" title="Tap to expand fullscreen kiosk view">
+    <!-- Permanent Bigger Instant QR Code Section (Always visible under ID Photo & Info) -->
+    <div class="w-full flex flex-col items-center mt-3.5 mb-3">
+      <div class="bg-white p-3.5 sm:p-4 rounded-3xl shadow-2xl border-2 border-p22gold/60 cursor-pointer active:scale-95 transition hover:brightness-105" onclick="toggleExpoQr(true)" title="Tap to expand fullscreen kiosk view">
         <div id="badgeInternalQr" class="flex items-center justify-center"></div>
       </div>
-      <p class="text-[9.5px] text-p22gold font-mono uppercase tracking-wider text-center mt-1 flex items-center justify-center gap-1">
+      <p class="text-[10.5px] text-p22gold font-mono uppercase tracking-wider text-center mt-2 flex items-center justify-center gap-1.5 font-semibold">
         <span>⚡ Tap QR to Enlarge</span>
         <span class="text-slate-600">&bull;</span>
         <span class="text-slate-300">Scan to Connect</span>
@@ -213,50 +213,50 @@
     </div>
 
     <!-- Quick Action Triggers: 3 Actions (Save Pass, Instant OCR Scan, Public Card) -->
-    <div class="w-full grid grid-cols-3 gap-1.5 my-1.5">
-      <button onclick="downloadBadgeVCard()" class="flex flex-col items-center justify-center py-2 px-1 bg-p22gold hover:bg-p22goldHover text-slate-950 font-montserrat font-bold rounded-xl text-[10.5px] transition duration-150 shadow-md active:scale-95 btn-bounce">
-        <svg class="w-3.5 h-3.5 mb-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+    <div class="w-full grid grid-cols-3 gap-2 my-2">
+      <button onclick="downloadBadgeVCard()" class="flex flex-col items-center justify-center py-2.5 px-1 bg-p22gold hover:bg-p22goldHover text-slate-950 font-montserrat font-bold rounded-xl text-xs transition duration-150 shadow-md active:scale-95 btn-bounce">
+        <svg class="w-4 h-4 mb-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
         </svg>
         <span>Save Pass</span>
       </button>
 
       <!-- 📷 Instant Client Card OCR Scanner Shortcut -->
-      <button onclick="triggerCardScan('badge')" class="flex flex-col items-center justify-center py-2 px-1 bg-gradient-to-r from-emerald-500 to-teal-600 hover:brightness-110 text-white font-montserrat font-bold rounded-xl text-[10.5px] transition duration-150 active:scale-95 shadow-md border border-emerald-400/40 btn-bounce" title="Snap photo of client business card or badge">
-        <svg class="w-3.5 h-3.5 mb-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+      <button onclick="triggerCardScan('badge')" class="flex flex-col items-center justify-center py-2.5 px-1 bg-gradient-to-r from-emerald-500 to-teal-600 hover:brightness-110 text-white font-montserrat font-bold rounded-xl text-xs transition duration-150 active:scale-95 shadow-md border border-emerald-400/40 btn-bounce" title="Snap photo of client business card or badge">
+        <svg class="w-4 h-4 mb-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/>
         </svg>
         <span>Scan Card</span>
       </button>
 
-      <a id="btnPublicCardDirect" href="/pedro" class="flex flex-col items-center justify-center py-2 px-1 bg-slate-900/90 hover:bg-slate-800 text-slate-100 border border-slate-700/80 font-montserrat font-bold rounded-xl text-[10.5px] transition duration-150 active:scale-95 btn-bounce shadow-md">
-        <svg class="w-3.5 h-3.5 text-sky-400 mb-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <a id="btnPublicCardDirect" href="/pedro" class="flex flex-col items-center justify-center py-2.5 px-1 bg-slate-900/90 hover:bg-slate-800 text-slate-100 border border-slate-700/80 font-montserrat font-bold rounded-xl text-xs transition duration-150 active:scale-95 btn-bounce shadow-md">
+        <svg class="w-4 h-4 text-sky-400 mb-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
         </svg>
         <span>Public Card</span>
       </a>
     </div>
 
-    <!-- Direct Communication Links (Compact 2-Column Row) -->
-    <div class="w-full grid grid-cols-2 gap-2 pt-1.5 border-t border-slate-800 text-[10.5px]">
-      <a id="emailLink" href="mailto:pfelipe@p22corp.com" class="flex items-center space-x-1 text-slate-300 hover:text-white p-0.5 rounded-lg hover:bg-white/5 transition truncate">
-        <svg class="w-3 h-3 text-p22gold shrink-0" fill="currentColor" viewBox="0 0 20 20">
+    <!-- Direct Communication Links (2-Column Row) -->
+    <div class="w-full grid grid-cols-2 gap-2 pt-2.5 border-t border-slate-800 text-[11px]">
+      <a id="emailLink" href="mailto:pfelipe@p22corp.com" class="flex items-center space-x-1.5 text-slate-300 hover:text-white p-1 rounded-lg hover:bg-white/5 transition truncate">
+        <svg class="w-3.5 h-3.5 text-p22gold shrink-0" fill="currentColor" viewBox="0 0 20 20">
           <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
           <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
         </svg>
-        <span id="staffEmail" class="truncate font-mono text-[10.5px]">pfelipe@p22corp.com</span>
+        <span id="staffEmail" class="truncate font-mono text-[11px]">pfelipe@p22corp.com</span>
       </a>
-      <a id="phoneLink" href="tel:18887222675" class="flex items-center justify-end space-x-1 text-slate-300 hover:text-white p-0.5 rounded-lg hover:bg-white/5 transition truncate">
-        <svg class="w-3 h-3 text-p22gold shrink-0" fill="currentColor" viewBox="0 0 20 20">
+      <a id="phoneLink" href="tel:18887222675" class="flex items-center justify-end space-x-1.5 text-slate-300 hover:text-white p-1 rounded-lg hover:bg-white/5 transition truncate">
+        <svg class="w-3.5 h-3.5 text-p22gold shrink-0" fill="currentColor" viewBox="0 0 20 20">
           <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
         </svg>
-        <span id="staffPhone" class="font-mono text-[10.5px]">1-888-722-2675</span>
+        <span id="staffPhone" class="font-mono text-[11px]">1-888-722-2675</span>
       </a>
     </div>
   </main>
 
-  <!-- Compact Secondary Dropdown Tray (Badge remains 100% visible on screen without scroll) -->
-  <footer class="relative z-10 mt-1 mb-1 text-center w-full max-w-sm px-2">
+  <!-- Compact Secondary Dropdown Tray -->
+  <footer class="relative z-10 mt-2 mb-4 text-center w-full max-w-[420px] px-2">
     <!-- Live DFW HQ Clock Badge -->
     <div class="flex items-center justify-center gap-1.5 mb-1.5 text-slate-400 text-[10.5px] font-mono">
       <span class="w-1.5 h-1.5 rounded-full bg-p22gold animate-pulse"></span>
@@ -482,8 +482,8 @@
       container.innerHTML = '';
       internalQrObj = new QRCode(container, {
         text: targetUrl,
-        width: 130,
-        height: 130,
+        width: 175,
+        height: 175,
         colorDark: '#060B14',
         colorLight: '#FFFFFF',
         correctLevel: QRCode.CorrectLevel.M
@@ -548,7 +548,7 @@
         publicCardLink.textContent = `View ${activeRep.name.split(' ')[0]}'s Public Digital Card →`;
       }
 
-      // Render internal QR code directly under photo and start DFW clock
+      // Render internal large QR code directly under photo and start DFW clock
       renderInternalBadgeQr();
       initBadgeDallasClock();
     }
