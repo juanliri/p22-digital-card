@@ -531,24 +531,24 @@
                 <button onclick="downloadActiveVCard()" 
                         class="w-full inline-flex items-center justify-center gap-2.5 py-3.5 px-6 rounded-2xl cta-luxury text-slate-950 font-montserrat font-extrabold text-sm tracking-wide shadow-xl hover:brightness-110 active:scale-98 transition transform duration-150 gold-glow">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
-                  <span>Save Contact to Phone (.vcf)</span>
+                  <span>Save Contact to Phone</span>
                 </button>
                 <p class="text-[10px] text-slate-400 font-medium text-center">
-                  1-Tap Action &bull; <span class="text-amber-300">iOS:</span> Tap "Create New Contact" at bottom &bull; <span class="text-emerald-400">Android:</span> Choose "Contacts"
+                  1-Tap Save &bull; Instant sync to Apple &amp; Android address book
                 </p>
 
                 <!-- Dual Fast-Pass Action Bar (Apple Wallet & Google Wallet) -->
                 <div class="grid grid-cols-2 gap-2 pt-0.5">
-                  <a id="cardAppleWalletBtn" href="/assets/passes/logistics.pkpass" onclick="trackEvent('Wallet', 'Click', 'AppleWalletPass'); revealStep2Exchange(false, 'Pass Added ✓');"
+                  <button type="button" id="cardAppleWalletBtn" onclick="downloadActiveVCard(); trackEvent('Wallet', 'Click', 'AppleContact'); revealStep2Exchange(false, 'Contact Saved ✓');"
                      class="py-2.5 px-3 rounded-xl bg-black hover:bg-neutral-900 border border-white/20 text-white font-montserrat font-bold text-[11px] tracking-wide shadow-md active:scale-95 transition flex items-center justify-center gap-1.5 btn-bounce">
                     <svg class="w-3.5 h-3.5 fill-current text-white shrink-0" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.77 1.06-1.85.94-2.93-.91.04-2.02.61-2.67 1.38-.58.67-1.09 1.77-.95 2.82 1.02.08 2.05-.5 2.68-1.27z"/></svg>
-                    <span>Apple Wallet</span>
-                  </a>
-                  <a id="cardGoogleWalletBtn" href="https://api.walletwallet.dev/api/passes/b2ffe06f-6008-4ed5-ae04-4d7992772d03/google" target="_blank" onclick="trackEvent('Wallet', 'Click', 'GoogleWalletPass'); revealStep2Exchange(false, 'Pass Added ✓');"
+                    <span>Save to Apple</span>
+                  </button>
+                  <button type="button" id="cardGoogleWalletBtn" onclick="downloadActiveVCard(); trackEvent('Wallet', 'Click', 'GoogleContact'); revealStep2Exchange(false, 'Contact Saved ✓');"
                      class="py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-white/20 text-white font-montserrat font-bold text-[11px] tracking-wide shadow-md active:scale-95 transition flex items-center justify-center gap-1.5 btn-bounce">
                     <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
-                    <span>Google Wallet</span>
-                  </a>
+                    <span>Save to Google</span>
+                  </button>
                 </div>
               </div>
 
@@ -801,7 +801,7 @@
                 </button>
                 <a href="/assets/pdf/P22-Capability-Statement-Official.pdf" download="P22Corp_Capability_Statement_Official.pdf" target="_blank" class="py-1.5 px-3 rounded-xl bg-white/10 hover:bg-white/15 text-slate-100 border border-white/15 text-xs font-montserrat font-bold flex items-center justify-center gap-1.5 active:scale-95 transition">
                   <svg class="w-3.5 h-3.5 text-slate-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                  <span>Download PDF</span>
+                  <span>View Document</span>
                 </a>
               </div>
             </div>
@@ -825,7 +825,7 @@
                 <a href="assets/pdf/P-22_Corporate_Overview.pdf" download="P22_Corporate_Overview_Official.pdf" target="_blank"
                    class="py-1.5 px-3 rounded-xl bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 border border-sky-400/30 text-xs font-montserrat font-bold flex items-center justify-center gap-1.5 shrink-0 active:scale-95 transition">
                   <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                  <span>Download</span>
+                  <span>View Document</span>
                 </a>
               </div>
             </div>
@@ -943,7 +943,7 @@
       <button onclick="downloadActiveVCard(); trackEvent('StickyDock', 'Click', 'Save Contact');" 
               class="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-p22gold via-amber-400 to-p22gold text-slate-950 font-montserrat font-extrabold text-xs tracking-wide shadow-lg hover:brightness-110 active:scale-95 transition flex items-center justify-center gap-2 btn-bounce">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
-        <span>Save Contact (.vcf)</span>
+        <span>Save Contact</span>
       </button>
       <button type="button" onclick="revealStep2Exchange(true); trackEvent('StickyDock', 'Click', 'Exchange Contact');"
          class="py-3 px-4 rounded-xl bg-p22navy/90 hover:bg-p22navy text-sky-200 border border-p22blue/40 font-montserrat font-bold text-xs tracking-wide transition flex items-center justify-center gap-1.5 shrink-0 btn-bounce shadow">
@@ -1078,7 +1078,7 @@
               <span>📅 Add to Google Calendar</span>
             </a>
             <a id="successIcsBtn" href="#" download="P22-Executive-Briefing.ics" class="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-white/10 text-white font-semibold text-xs hover:bg-white/20 transition border border-white/10">
-              <span>📥 Apple / Outlook Calendar (.ICS)</span>
+              <span>📅 Add to Apple / Outlook Calendar</span>
             </a>
             <button onclick="closeBriefingModal()" class="w-full py-2.5 px-4 rounded-xl bg-white/5 text-slate-400 font-semibold text-xs hover:text-white hover:bg-white/10 transition">
               Done &bull; Close
@@ -1157,7 +1157,7 @@
           <a href="assets/pdf/P22-Capability-Statement-Official.pdf" download="P22-Corp-Capability-Statement.pdf" target="_blank"
              class="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl cta-luxury text-slate-950 font-montserrat font-bold text-xs tracking-wide shadow-md hover:brightness-110 active:scale-95 transition">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-            <span>Download Capability Statement (PDF)</span>
+            <span>View Capability Statement</span>
           </a>
           <a href="assets/pdf/P22-Capability-Statement-Official.pdf" target="_blank"
              class="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-montserrat font-semibold text-xs border border-white/10 transition">
