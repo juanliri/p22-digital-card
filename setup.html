@@ -271,7 +271,7 @@
             <ol class="list-decimal list-inside space-y-1.5 text-slate-300">
               <li>Open the built-in <strong>Shortcuts</strong> app on your iPhone.</li>
               <li>Tap <strong>"+"</strong> &rarr; Add Action &rarr; Search <strong>"Open URL"</strong>.</li>
-              <li>Paste your card link: <code class="text-p22gold font-mono text-[10px]" id="shortcutUrlDisplay">https://p22-digital-card.vercel.app/pedro</code>.</li>
+              <li>Paste your card link: <code class="text-p22gold font-mono text-[10px]" id="shortcutUrlDisplay">https://card.p22corp.com/pedro</code>.</li>
               <li>Tap Shortcut Details (top icon) &rarr; turn on <strong>"Show on Apple Watch"</strong>.</li>
               <li>Edit your Apple Watch Face &rarr; add the Shortcut as a <strong>Complication</strong>!</li>
             </ol>
@@ -642,7 +642,7 @@
         </div>
         <div class="flex items-start gap-2.5 p-3 rounded-xl bg-white/5 border border-white/5">
           <span class="w-5 h-5 rounded-full bg-p22gold text-slate-950 font-bold flex items-center justify-center shrink-0 text-[10px]">3</span>
-          <p>Paste your exact link: <strong id="nfcUrlText" class="text-p22gold font-mono">https://p22-digital-card.vercel.app/pedro</strong> and hold your physical card to the top edge of your phone.</p>
+          <p>Paste your exact link: <strong id="nfcUrlText" class="text-p22gold font-mono">https://card.p22corp.com/pedro</strong> and hold your physical card to the top edge of your phone.</p>
         </div>
       </div>
     </section>
@@ -975,7 +975,7 @@
       if (typeof window !== 'undefined' && window.location && window.location.origin && window.location.origin !== 'null' && !window.location.origin.includes('file://')) {
         return window.location.origin;
       }
-      return 'https://p22-digital-card.vercel.app';
+      return 'https://card.p22corp.com';
     }
 
     let TEAM_DATA = {
@@ -1207,6 +1207,8 @@
       const url = `${getAppBaseUrl()}/${rep.slug}`;
       document.getElementById('personalCardUrl').value = url;
       document.getElementById('nfcUrlText').innerText = url;
+      const shortcutEl = document.getElementById('shortcutUrlDisplay');
+      if (shortcutEl) shortcutEl.innerText = url;
       // Dynamically update ALL View Card links across the Studio
       document.querySelectorAll('[data-view-card-btn]').forEach(btn => {
         btn.href = '/' + rep.slug;

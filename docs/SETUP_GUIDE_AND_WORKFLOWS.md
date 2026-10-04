@@ -1,6 +1,6 @@
 # P-22 Digital Card — Setup Guide & System Workflows
 
-Live site: `https://p22-digital-card.vercel.app` · Repo: `juanliri/p22-digital-card` (auto-deploys to Vercel on push to `main`)
+Live site: `https://card.p22corp.com` · Repo: `juanliri/p22-digital-card` (auto-deploys to Vercel on push to `main`)
 
 ---
 

@@ -50,7 +50,7 @@ This architecture blueprint details the exact requirements, files, and deploymen
                "header": { "defaultValue": { "language": "en", "value": "Pedro Felipe" } },
                "subheader": { "defaultValue": { "language": "en", "value": "Managing Director" } },
                "heroImage": {
-                 "sourceUri": { "uri": "https://p22-digital-card.vercel.app/assets/facility/loading-dock.webp" },
+                 "sourceUri": { "uri": "https://card.p22corp.com/assets/facility/loading-dock.webp" },
                  "contentDescription": { "defaultValue": { "language": "en", "value": "Dallas Logistics Hub" } }
                },
                "imageModulesData": [
@@ -63,7 +63,7 @@ This architecture blueprint details the exact requirements, files, and deploymen
                ],
                "barcode": {
                  "type": "QR_CODE",
-                 "value": "https://p22-digital-card.vercel.app/pedro"
+                 "value": "https://card.p22corp.com/pedro"
                }
              }
       │

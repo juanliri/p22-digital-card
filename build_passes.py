@@ -144,14 +144,14 @@ for member in team_members:
         "logoText": "P-22 CORP",
         "barcode": {
             "format": "PKBarcodeFormatQR",
-            "message": f"https://p22-digital-card.vercel.app/{slug}",
+            "message": f"https://card.p22corp.com/{slug}",
             "messageEncoding": "iso-8859-1",
             "altText": f"{member['name']} • CAGE 169D8"
         },
         "barcodes": [
             {
                 "format": "PKBarcodeFormatQR",
-                "message": f"https://p22-digital-card.vercel.app/{slug}",
+                "message": f"https://card.p22corp.com/{slug}",
                 "messageEncoding": "iso-8859-1",
                 "altText": f"{member['name']} • CAGE 169D8"
             }
@@ -212,7 +212,7 @@ for member in team_members:
                 {
                     "key": "card_url",
                     "label": "Live Interactive Digital Card",
-                    "value": f"https://p22-digital-card.vercel.app/{slug}"
+                    "value": f"https://card.p22corp.com/{slug}"
                 },
                 {
                     "key": "disclaimer",

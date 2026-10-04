@@ -8,7 +8,7 @@
 
 ## 1. Executive Summary & Migration Workflow
 
-When transitioning from the Vercel default domain (`https://p22-digital-card.vercel.app`) to an official corporate domain (e.g., `https://card.p22corp.com`), several interconnected components must be synchronized to prevent broken NFC links, stale QR codes, and invalid wallet passes.
+When transitioning from the Vercel default domain (`https://card.p22corp.com`) to an official corporate domain (e.g., `https://card.p22corp.com`), several interconnected components must be synchronized to prevent broken NFC links, stale QR codes, and invalid wallet passes.
 
 ```mermaid
 graph TD
@@ -152,7 +152,7 @@ if (!targetDomain || !targetDomain.startsWith('http')) {
 }
 
 const cleanDomain = targetDomain.replace(/\/$/, '');
-const oldDomain = 'https://p22-digital-card.vercel.app';
+const oldDomain = 'https://card.p22corp.com';
 
 console.log(`Migrating P-22 URLs from [${oldDomain}] to [${cleanDomain}]...`);
 

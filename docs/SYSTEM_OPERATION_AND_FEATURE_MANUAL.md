@@ -3,7 +3,7 @@
 **Security Classification:** CUI / Defense Procurement Internal Operation  
 **CAGE Code:** `169D8` | **UEI:** `X3HUQZ66P6N3`  
 **System Target:** P-22 Digital Card, Staff Badge PWA & Executive Setup Studio  
-**Live Production URL:** `https://p22-digital-card.vercel.app`
+**Live Production URL:** `https://card.p22corp.com`
 
 ---
 
@@ -72,7 +72,7 @@ The executive workspace is structured into a streamlined 4-tab interface:
 ### Tab 1: Passes & Contacts (`#setupTabContent-passes`)
 - **Apple Wallet (.pkpass)**: Downloads personalized `.pkpass` file with live barcode and push updates.
 - **Google Wallet**: 1-click Google Pay Pass issuance via signed JWT.
-- **Physical NFC Card Programming Guide**: Instructions for flashing NTAG213/215/216 chips with the edge redirect URL `https://p22-digital-card.vercel.app/r/[rep]`.
+- **Physical NFC Card Programming Guide**: Instructions for flashing NTAG213/215/216 chips with the edge redirect URL `https://card.p22corp.com/r/[rep]`.
 
 ### Tab 2: Digital Visuals (`#setupTabContent-visuals`)
 - **Offline Failsafe Lock Screen (9:16 Canvas)**: 8K composited blueprint wallpaper with high-contrast QR plaque. If expo Wi-Fi fails completely, staff can display their lock screen for instant scans.

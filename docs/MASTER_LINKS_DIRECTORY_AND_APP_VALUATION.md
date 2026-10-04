@@ -2,7 +2,7 @@
 **Document Version:** 4.1.0 (Production Release)  
 **Security Classification:** CUI / Executive Briefing  
 **CAGE Code:** `169D8` | **UEI:** `X3HUQZ66P6N3`  
-**Current Live Production Domain:** `https://p22-digital-card.vercel.app`  
+**Current Live Production Domain:** `https://card.p22corp.com`  
 **Future Corporate Custom Domain:** `https://card.p22corp.com` (or `https://id.p22corp.com` / `https://p22corp.com`)
 
 ---
@@ -15,11 +15,11 @@ Use this comprehensive table to navigate the system right now, or when connectin
 
 | Identity / Role | Current Live Vercel Link | Future Corporate Domain Link (`card.p22corp.com`) | Purpose & Audience |
 |---|---|---|---|
-| **Pedro Felipe** (Managing Director) | [`https://p22-digital-card.vercel.app/pedro`](https://p22-digital-card.vercel.app/pedro) | `https://card.p22corp.com/pedro` | Prime contractors, federal officers, executive procurement |
-| **Eduardo López** (Commercial Sales) | [`https://p22-digital-card.vercel.app/eduardo`](https://p22-digital-card.vercel.app/eduardo) | `https://card.p22corp.com/eduardo` | Commercial builders, general contractors, electrical & HVAC subs |
-| **Marleni Méndez** (Finance & Compliance) | [`https://p22-digital-card.vercel.app/marleni`](https://p22-digital-card.vercel.app/marleni) | `https://card.p22corp.com/marleni` | Bonding companies, government auditors, contracting officers |
-| **Logistics Hub** (Dallas Material Staging) | [`https://p22-digital-card.vercel.app/logistics`](https://p22-digital-card.vercel.app/logistics) | `https://card.p22corp.com/logistics` | Freight carriers, hot-shot dispatchers, warehouse delivery reps |
-| **Bids Desk** (Federal Procurement) | [`https://p22-digital-card.vercel.app/bids`](https://p22-digital-card.vercel.app/bids) | `https://card.p22corp.com/bids` | DLA, USACE, NAVFAC, GSA contract solicitations & rapid RFQ |
+| **Pedro Felipe** (Managing Director) | [`https://card.p22corp.com/pedro`](https://card.p22corp.com/pedro) | `https://card.p22corp.com/pedro` | Prime contractors, federal officers, executive procurement |
+| **Eduardo López** (Commercial Sales) | [`https://card.p22corp.com/eduardo`](https://card.p22corp.com/eduardo) | `https://card.p22corp.com/eduardo` | Commercial builders, general contractors, electrical & HVAC subs |
+| **Marleni Méndez** (Finance & Compliance) | [`https://card.p22corp.com/marleni`](https://card.p22corp.com/marleni) | `https://card.p22corp.com/marleni` | Bonding companies, government auditors, contracting officers |
+| **Logistics Hub** (Dallas Material Staging) | [`https://card.p22corp.com/logistics`](https://card.p22corp.com/logistics) | `https://card.p22corp.com/logistics` | Freight carriers, hot-shot dispatchers, warehouse delivery reps |
+| **Bids Desk** (Federal Procurement) | [`https://card.p22corp.com/bids`](https://card.p22corp.com/bids) | `https://card.p22corp.com/bids` | DLA, USACE, NAVFAC, GSA contract solicitations & rapid RFQ |
 
 ---
 
@@ -28,11 +28,11 @@ Use this comprehensive table to navigate the system right now, or when connectin
 
 | Identity | Current Edge NFC Link | Future Corporate Edge Link | Target Destination |
 |---|---|---|---|
-| **Pedro Felipe** | `https://p22-digital-card.vercel.app/r/pedro` | `https://card.p22corp.com/r/pedro` | `-> /pedro` |
-| **Eduardo López** | `https://p22-digital-card.vercel.app/r/eduardo` | `https://card.p22corp.com/r/eduardo` | `-> /eduardo` |
-| **Marleni Méndez** | `https://p22-digital-card.vercel.app/r/marleni` | `https://card.p22corp.com/r/marleni` | `-> /marleni` |
-| **Logistics Hub** | `https://p22-digital-card.vercel.app/r/logistics` | `https://card.p22corp.com/r/logistics` | `-> /logistics` |
-| **Bids Desk** | `https://p22-digital-card.vercel.app/r/bids` | `https://card.p22corp.com/r/bids` | `-> /bids` |
+| **Pedro Felipe** | `https://card.p22corp.com/r/pedro` | `https://card.p22corp.com/r/pedro` | `-> /pedro` |
+| **Eduardo López** | `https://card.p22corp.com/r/eduardo` | `https://card.p22corp.com/r/eduardo` | `-> /eduardo` |
+| **Marleni Méndez** | `https://card.p22corp.com/r/marleni` | `https://card.p22corp.com/r/marleni` | `-> /marleni` |
+| **Logistics Hub** | `https://card.p22corp.com/r/logistics` | `https://card.p22corp.com/r/logistics` | `-> /logistics` |
+| **Bids Desk** | `https://card.p22corp.com/r/bids` | `https://card.p22corp.com/r/bids` | `-> /bids` |
 
 ---
 
@@ -40,11 +40,11 @@ Use this comprehensive table to navigate the system right now, or when connectin
 
 | Staff Member | Current Badge PWA Link | Future Corporate Badge Link | Direct Install Link (Auto-Prompt) |
 |---|---|---|---|
-| **Pedro Felipe** | [`https://p22-digital-card.vercel.app/badge/pedro`](https://p22-digital-card.vercel.app/badge/pedro) | `https://card.p22corp.com/badge/pedro` | `.../badge/pedro?install=1` |
-| **Eduardo López** | [`https://p22-digital-card.vercel.app/badge/eduardo`](https://p22-digital-card.vercel.app/badge/eduardo) | `https://card.p22corp.com/badge/eduardo` | `.../badge/eduardo?install=1` |
-| **Marleni Méndez** | [`https://p22-digital-card.vercel.app/badge/marleni`](https://p22-digital-card.vercel.app/badge/marleni) | `https://card.p22corp.com/badge/marleni` | `.../badge/marleni?install=1` |
-| **Logistics Hub** | [`https://p22-digital-card.vercel.app/badge/logistics`](https://p22-digital-card.vercel.app/badge/logistics) | `https://card.p22corp.com/badge/logistics` | `.../badge/logistics?install=1` |
-| **Bids Desk** | [`https://p22-digital-card.vercel.app/badge/bids`](https://p22-digital-card.vercel.app/badge/bids) | `https://card.p22corp.com/badge/bids` | `.../badge/bids?install=1` |
+| **Pedro Felipe** | [`https://card.p22corp.com/badge/pedro`](https://card.p22corp.com/badge/pedro) | `https://card.p22corp.com/badge/pedro` | `.../badge/pedro?install=1` |
+| **Eduardo López** | [`https://card.p22corp.com/badge/eduardo`](https://card.p22corp.com/badge/eduardo) | `https://card.p22corp.com/badge/eduardo` | `.../badge/eduardo?install=1` |
+| **Marleni Méndez** | [`https://card.p22corp.com/badge/marleni`](https://card.p22corp.com/badge/marleni) | `https://card.p22corp.com/badge/marleni` | `.../badge/marleni?install=1` |
+| **Logistics Hub** | [`https://card.p22corp.com/badge/logistics`](https://card.p22corp.com/badge/logistics) | `https://card.p22corp.com/badge/logistics` | `.../badge/logistics?install=1` |
+| **Bids Desk** | [`https://card.p22corp.com/badge/bids`](https://card.p22corp.com/badge/bids) | `https://card.p22corp.com/badge/bids` | `.../badge/bids?install=1` |
 
 ---
 
@@ -52,12 +52,12 @@ Use this comprehensive table to navigate the system right now, or when connectin
 
 | Persona Context | Current Studio Link | Future Studio Link | Purpose |
 |---|---|---|---|
-| **Global Studio Root** | [`https://p22-digital-card.vercel.app/setup`](https://p22-digital-card.vercel.app/setup) | `https://card.p22corp.com/setup` | Staff authentication & profile switcher |
-| **Pedro Studio** | `https://p22-digital-card.vercel.app/setup?rep=pedro` | `https://card.p22corp.com/setup?rep=pedro` | Pass minting, 9:16 lockscreen, signature |
-| **Eduardo Studio** | `https://p22-digital-card.vercel.app/setup?rep=eduardo` | `https://card.p22corp.com/setup?rep=eduardo` | Pass minting, 9:16 lockscreen, signature |
-| **Marleni Studio** | `https://p22-digital-card.vercel.app/setup?rep=marleni` | `https://card.p22corp.com/setup?rep=marleni` | Pass minting, 9:16 lockscreen, signature |
-| **Logistics Studio** | `https://p22-digital-card.vercel.app/setup?rep=logistics` | `https://card.p22corp.com/setup?rep=logistics` | Pass minting, 9:16 lockscreen, signature |
-| **Bids Studio** | `https://p22-digital-card.vercel.app/setup?rep=bids` | `https://card.p22corp.com/setup?rep=bids` | Pass minting, 9:16 lockscreen, signature |
+| **Global Studio Root** | [`https://card.p22corp.com/setup`](https://card.p22corp.com/setup) | `https://card.p22corp.com/setup` | Staff authentication & profile switcher |
+| **Pedro Studio** | `https://card.p22corp.com/setup?rep=pedro` | `https://card.p22corp.com/setup?rep=pedro` | Pass minting, 9:16 lockscreen, signature |
+| **Eduardo Studio** | `https://card.p22corp.com/setup?rep=eduardo` | `https://card.p22corp.com/setup?rep=eduardo` | Pass minting, 9:16 lockscreen, signature |
+| **Marleni Studio** | `https://card.p22corp.com/setup?rep=marleni` | `https://card.p22corp.com/setup?rep=marleni` | Pass minting, 9:16 lockscreen, signature |
+| **Logistics Studio** | `https://card.p22corp.com/setup?rep=logistics` | `https://card.p22corp.com/setup?rep=logistics` | Pass minting, 9:16 lockscreen, signature |
+| **Bids Studio** | `https://card.p22corp.com/setup?rep=bids` | `https://card.p22corp.com/setup?rep=bids` | Pass minting, 9:16 lockscreen, signature |
 
 ---
 

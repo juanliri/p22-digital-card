@@ -9,7 +9,7 @@ const https = require('https');
 const { getSheetsClient } = require('../lib/google-sheets');
 
 const ROOT = path.resolve('.');
-const BASE_URL = 'https://p22-digital-card.vercel.app';
+const BASE_URL = process.env.BASE_URL || 'https://card.p22corp.com';
 const SPREADSHEET_ID = '1Xfwmr7iPtV3YaAO6GIJW-Ekx5WM1sR92YZGnD2Qubl0';
 const REPS = ['pedro', 'eduardo', 'marleni', 'logistics', 'bids'];
 

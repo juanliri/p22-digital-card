@@ -6,7 +6,7 @@
 **Target Performance Budget**: < 0.8s FCP, 60fps / 120fps ProMotion Rendering, < 150KB Total Page Weight  
 **Version**: v3.3 "Titanium Production Edition"  
 **SAM.gov Identity**: CAGE Code `169D8` | UEI `X3HUQZ66P6N3` | SBA Small Business Certified  
-**Live Production URL**: `https://p22-digital-card.vercel.app` (Custom domain: `https://card.p22corp.com`)  
+**Live Production URL**: `https://card.p22corp.com` (Custom domain: `https://card.p22corp.com`)  
 
 ---
 

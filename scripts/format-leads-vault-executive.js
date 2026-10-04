@@ -92,7 +92,7 @@ async function main() {
       'Prime Partners:',
       '=COUNTIF(K5:K500, "*Prime*")',
       'Live Staff Hub:',
-      'https://p22-digital-card.vercel.app/setup.html',
+      'https://card.p22corp.com/setup#vault',
       '',
     ],
   ];
@@ -136,7 +136,7 @@ async function main() {
     const updatedColI = dataRes.data.values.map(row => {
       const val = row[0] || '';
       if (val.includes('Attached') || val.includes('Thumbnail') || val.includes('Canvas')) {
-        return ['=HYPERLINK("https://p22-digital-card.vercel.app/setup.html#vault", "🖼️ View in Staff Vault")'];
+        return ['=HYPERLINK("https://card.p22corp.com/setup#vault", "🖼️ View in Staff Vault")'];
       } else if (val.startsWith('http')) {
         return [`=HYPERLINK("${val}", "🖼️ View Card Photo")`];
       } else if (!val || val === 'N/A') {

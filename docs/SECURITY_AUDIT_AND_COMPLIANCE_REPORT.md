@@ -54,7 +54,7 @@ git ls-files credentials/
 
 ## 3. Production Health & Integrity Verification Ledger
 
-Run against live production URL: `https://p22-digital-card.vercel.app`
+Run against live production URL: `https://card.p22corp.com`
 
 ```
 ===========================================================

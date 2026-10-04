@@ -97,8 +97,8 @@ function extractCompanyProfile(detectedDomain) {
     address: '18383 Preston Rd, Ste 202, Dallas, TX 75252',
     mainPhone: '1-888-722-2675',
     website: `https://www.${detectedDomain}`,
-    logoUrl: 'https://p22-digital-card.vercel.app/assets/branding/p22-logo-tight.png',
-    capabilityUrl: 'https://p22-digital-card.vercel.app/capability-statement',
+    logoUrl: 'https://card.p22corp.com/assets/branding/p22-logo-tight.png',
+    capabilityUrl: 'https://card.p22corp.com/capability-statement',
   };
 
   // Parse setup.html for live values if available
@@ -375,7 +375,7 @@ async function verifyActiveMailboxes(saKey, candidateReps, detectedDomain) {
  */
 function compileHtmlSignature(rep, targetEmail, company, detectedDomain) {
   const repKey = rep.slug || rep.email.split('@')[0];
-  const routingUrl = `https://id.${detectedDomain}/r/${repKey}?src=email_sig`;
+  const routingUrl = `https://card.${detectedDomain}/r/${repKey}?src=email_sig`;
   const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=140x140&margin=0&color=1D3557&data=${encodeURIComponent(routingUrl)}`;
   const cleanPhone = (rep.directPhone || company.mainPhone).replace(/[^0-9]/g, '');
 
