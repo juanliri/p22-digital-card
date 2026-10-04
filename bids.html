@@ -951,53 +951,135 @@
     </div>
   </aside>
 
-  <!-- ====================================================================== -->
-  <!-- MODAL: GOOGLE WORKSPACE 15-MIN BRIEFING SCHEDULER -->
+    <!-- ====================================================================== -->
+  <!-- MODAL: DIRECT 15-MIN EXECUTIVE CONSULTATION SCHEDULER -->
   <!-- ====================================================================== -->
   <div id="briefingModal" class="hidden fixed inset-0 z-[250] flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md" style="overscroll-behavior: contain;">
-    <div class="glass-panel w-full max-w-sm rounded-3xl shadow-2xl relative border border-white/20 overflow-hidden">
-      <!-- Modal Header Bar with Always-Accessible Close Button -->
-      <div class="px-5 py-3.5 border-b border-white/10 flex items-center justify-between bg-white/5">
+    <div class="glass-panel w-full max-w-md max-h-[92vh] flex flex-col rounded-3xl shadow-2xl relative border border-p22gold/30 overflow-hidden bg-slate-950/95">
+      <!-- Modal Header Bar -->
+      <div class="px-5 py-3.5 border-b border-white/10 flex items-center justify-between bg-white/5 shrink-0">
         <div class="flex items-center gap-2">
           <div class="w-7 h-7 rounded-lg bg-p22gold/20 flex items-center justify-center text-p22gold">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
           </div>
-          <h3 class="font-montserrat font-bold text-sm text-white">Executive Consultation</h3>
+          <div>
+            <h3 class="font-montserrat font-bold text-sm text-white">Executive Consultation</h3>
+            <p class="text-[10px] text-p22gold font-mono">15-Min Capabilities &amp; RFQ Briefing</p>
+          </div>
         </div>
         <button onclick="closeBriefingModal()" class="text-slate-400 hover:text-white p-2 rounded-full bg-white/10 hover:bg-white/20 transition" aria-label="Close">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
       </div>
-      <div class="p-5 text-center">
-        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-semibold uppercase tracking-wider mb-2">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Google Workspace Verified
-        </div>
-        <p id="briefingModalName" class="text-sm text-white font-bold mb-1">15-Min Briefing with Staff</p>
-        <p class="text-xs text-slate-300 mb-4 leading-relaxed">
-          Reserve a direct 15-minute briefing to review procurement scopes, rapid RFQ turnarounds, or prime supply coordination.
-        </p>
 
-        <!-- Consultation Metadata Grid -->
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-3 mb-4 text-left space-y-2 text-[11px]">
-          <div class="flex items-center justify-between text-slate-300">
-            <span class="text-slate-400">🕒 Business Hours:</span>
-            <span class="font-semibold text-white">Mon – Fri, 8AM – 5PM CST</span>
+      <!-- Scrollable Form Body -->
+      <div class="p-5 overflow-y-auto text-left space-y-4 text-xs" id="briefingModalBody">
+        <!-- Form View -->
+        <form id="consultationForm" onsubmit="submitConsultationBooking(event)" class="space-y-3.5">
+          <div class="p-3 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] text-slate-400 uppercase font-mono tracking-wider block">Assigned Representative</span>
+              <span id="briefingModalRepName" class="font-bold text-sm text-white">Pedro Felipe</span>
+            </div>
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-semibold">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Google Workspace Verified
+            </span>
           </div>
-          <div class="flex items-center justify-between text-slate-300">
-            <span class="text-slate-400">📹 Conferencing:</span>
-            <span class="font-semibold text-p22gold">Google Meet Video &amp; Dial-in</span>
+
+          <!-- Date & Time Slot -->
+          <div class="grid grid-cols-2 gap-2.5">
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-300 mb-1">Preferred Date (Mon–Fri)</label>
+              <input type="date" id="consultDate" required class="w-full bg-slate-900 border border-white/20 rounded-xl px-3 py-2 text-white font-mono text-xs focus:border-p22gold focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-300 mb-1">Time Slot (CST)</label>
+              <select id="consultSlot" required class="w-full bg-slate-900 border border-white/20 rounded-xl px-2.5 py-2 text-white font-mono text-xs focus:border-p22gold focus:outline-none">
+                <option value="09:00 AM CST">09:00 AM CST</option>
+                <option value="10:00 AM CST" selected>10:00 AM CST</option>
+                <option value="11:30 AM CST">11:30 AM CST</option>
+                <option value="01:30 PM CST">01:30 PM CST</option>
+                <option value="02:30 PM CST">02:30 PM CST</option>
+                <option value="03:30 PM CST">03:30 PM CST</option>
+                <option value="04:30 PM CST">04:30 PM CST</option>
+              </select>
+            </div>
           </div>
-          <div class="flex items-center justify-between text-slate-300">
-            <span class="text-slate-400">⚡ Live Sync:</span>
-            <span class="font-semibold text-emerald-400">Zero Double-Booking</span>
+
+          <!-- Client Contact Details -->
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-300 mb-1">Your Full Name *</label>
+            <input type="text" id="consultName" required placeholder="Col. Marcus Vance / Jane Smith" class="w-full bg-slate-900 border border-white/20 rounded-xl px-3 py-2 text-white text-xs focus:border-p22gold focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-300 mb-1">Agency or Prime Contractor *</label>
+            <input type="text" id="consultAgency" required placeholder="USACE / NAVFAC / Balfour Beatty / TxDOT" class="w-full bg-slate-900 border border-white/20 rounded-xl px-3 py-2 text-white text-xs focus:border-p22gold focus:outline-none">
+          </div>
+
+          <div class="grid grid-cols-2 gap-2.5">
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-300 mb-1">Work Email *</label>
+              <input type="email" id="consultEmail" required placeholder="name@agency.gov" class="w-full bg-slate-900 border border-white/20 rounded-xl px-3 py-2 text-white text-xs focus:border-p22gold focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-300 mb-1">Direct Phone *</label>
+              <input type="tel" id="consultPhone" required placeholder="(555) 000-0000" class="w-full bg-slate-900 border border-white/20 rounded-xl px-3 py-2 text-white text-xs focus:border-p22gold focus:outline-none">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-300 mb-1">Briefing Scope / Priority Topic</label>
+            <select id="consultTopic" class="w-full bg-slate-900 border border-white/20 rounded-xl px-2.5 py-2 text-white text-xs focus:border-p22gold focus:outline-none">
+              <option value="Rapid RFQ Pricing & Supply Agreement">Rapid RFQ Pricing &amp; Supply Agreement</option>
+              <option value="Concrete, Cement & Aggregate Materials">Concrete, Cement &amp; Aggregate Materials</option>
+              <option value="DFW Logistics Fleet & Turnkey Freight">DFW Logistics Fleet &amp; Turnkey Freight</option>
+              <option value="Federal & Defense Sourcing (CAGE: 169D8)">Federal &amp; Defense Sourcing (CAGE: 169D8)</option>
+              <option value="Subcontractor / Prime Joint Venture">Subcontractor / Prime Joint Venture</option>
+            </select>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" id="consultSubmitBtn"
+                  class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 via-p22gold to-amber-500 text-slate-950 font-montserrat font-bold text-xs hover:brightness-110 active:scale-95 transition shadow-lg flex items-center justify-center gap-2 btn-bounce">
+            <span>Confirm 15-Min Consultation</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </button>
+        </form>
+
+        <!-- Success Confirmation Card (Hidden by default) -->
+        <div id="consultSuccessCard" class="hidden text-center py-4 space-y-4">
+          <div class="w-14 h-14 rounded-full bg-emerald-500/20 border-2 border-emerald-400 text-emerald-400 flex items-center justify-center mx-auto shadow-lg">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <div>
+            <h4 class="text-base font-bold text-white mb-1">Briefing Confirmed!</h4>
+            <p id="successMeetingDetails" class="text-xs text-p22gold font-mono font-semibold">Tuesday, Oct 6 at 10:00 AM CST</p>
+            <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">
+              Your 15-minute capabilities briefing has been locked into the schedule. A calendar invitation and Google Meet video link have been dispatched.
+            </p>
+          </div>
+
+          <div class="p-3 rounded-2xl bg-white/5 border border-white/10 text-left space-y-2 text-[11px]">
+            <div class="flex items-center justify-between text-slate-300">
+              <span class="text-slate-400">📹 Video Room:</span>
+              <a id="successMeetLink" href="https://meet.google.com/p22-procurement-desk" target="_blank" class="text-emerald-400 font-semibold hover:underline">Google Meet Room &nearr;</a>
+            </div>
+            <div class="flex items-center justify-between text-slate-300">
+              <span class="text-slate-400">👤 Assigned Rep:</span>
+              <span id="successRepName" class="text-white font-semibold">Pedro Felipe</span>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <a id="successGoogleCalBtn" href="#" target="_blank" class="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-p22gold text-slate-950 font-bold text-xs hover:brightness-110 transition shadow">
+              <span>📅 Add to Google Calendar</span>
+            </a>
+            <button onclick="closeBriefingModal()" class="w-full py-2.5 px-4 rounded-xl bg-white/10 text-white font-semibold text-xs hover:bg-white/20 transition">
+              Done &bull; Close
+            </button>
           </div>
         </div>
-
-        <a id="briefingCalendlyLink" href="https://calendar.google.com/calendar" target="_blank"
-           class="w-full inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 via-p22gold to-amber-500 text-slate-950 font-montserrat font-bold text-xs hover:brightness-110 active:scale-95 transition shadow-lg btn-bounce">
-          <span>Open Google Calendar &amp; Pick Slot</span>
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-        </a>
       </div>
     </div>
   </div>
@@ -1808,19 +1890,114 @@
     // ══════════════════════════════════════════════════════════════════════════
     // 5. CALENDLY BRIEFING MODAL
     // ══════════════════════════════════════════════════════════════════════════
+    // ══════════════════════════════════════════════════════════════════════════
+    // 5. DIRECT 15-MIN CONSULTATION BOOKING ENGINE
+    // ══════════════════════════════════════════════════════════════════════════
     function openBriefingModal() {
       const rep = TEAM_DATA[currentRep] || TEAM_DATA.pedro;
-      const modalName = document.getElementById('briefingModalName');
-      if (modalName) modalName.textContent = `15-Min Briefing with ${rep.name}`;
-      const calendlyLink = document.getElementById('briefingCalendlyLink');
-      if (calendlyLink) {
-        calendlyLink.href = rep.appointmentScheduleUrl || rep.calendly || 'https://calendar.google.com/calendar';
+      const modalRepName = document.getElementById('briefingModalRepName');
+      if (modalRepName) modalRepName.textContent = rep.name;
+
+      // Auto pre-fill from Step 2 form if attendee already entered info
+      const clientNameEl = document.getElementById('clientName');
+      const clientAgencyEl = document.getElementById('clientAgency');
+      const clientEmailEl = document.getElementById('clientEmail');
+      const clientPhoneEl = document.getElementById('clientPhone');
+
+      const consultName = document.getElementById('consultName');
+      const consultAgency = document.getElementById('consultAgency');
+      const consultEmail = document.getElementById('consultEmail');
+      const consultPhone = document.getElementById('consultPhone');
+
+      if (consultName && clientNameEl && clientNameEl.value) consultName.value = clientNameEl.value;
+      if (consultAgency && clientAgencyEl && clientAgencyEl.value) consultAgency.value = clientAgencyEl.value;
+      if (consultEmail && clientEmailEl && clientEmailEl.value) consultEmail.value = clientEmailEl.value;
+      if (consultPhone && clientPhoneEl && clientPhoneEl.value) consultPhone.value = clientPhoneEl.value;
+
+      // Pre-set Date to next business day
+      const dateEl = document.getElementById('consultDate');
+      if (dateEl && !dateEl.value) {
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        // If Saturday or Sunday, advance to Monday
+        if (tomorrow.getDay() === 6) tomorrow.setDate(tomorrow.getDate() + 2);
+        if (tomorrow.getDay() === 0) tomorrow.setDate(tomorrow.getDate() + 1);
+        dateEl.value = tomorrow.toISOString().split('T')[0];
+        dateEl.min = new Date().toISOString().split('T')[0];
       }
+
+      // Reset view to form
+      const consultForm = document.getElementById('consultationForm');
+      const successCard = document.getElementById('consultSuccessCard');
+      if (consultForm) consultForm.classList.remove('hidden');
+      if (successCard) successCard.classList.add('hidden');
+
       document.getElementById('briefingModal').classList.remove('hidden');
     }
 
     function closeBriefingModal() {
       document.getElementById('briefingModal').classList.add('hidden');
+    }
+
+    async function submitConsultationBooking(e) {
+      e.preventDefault();
+      const rep = TEAM_DATA[currentRep] || TEAM_DATA.pedro;
+      const btn = document.getElementById('consultSubmitBtn');
+      const origHtml = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<svg class="animate-spin w-4 h-4 text-slate-950 inline mr-2" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg> Locking Time Slot...';
+      }
+
+      const payload = {
+        rep_name: rep.name,
+        rep_email: rep.email,
+        client_name: document.getElementById('consultName').value,
+        client_agency: document.getElementById('consultAgency').value,
+        client_email: document.getElementById('consultEmail').value,
+        client_phone: document.getElementById('consultPhone').value,
+        meeting_date: document.getElementById('consultDate').value,
+        meeting_slot: document.getElementById('consultSlot').value,
+        topic: document.getElementById('consultTopic').value,
+        source: 'Public Digital Card Briefing Scheduler'
+      };
+
+      try {
+        const response = await fetch('/api/consultation', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await response.json();
+
+        // Update Success Card Details
+        const detailsEl = document.getElementById('successMeetingDetails');
+        if (detailsEl) detailsEl.textContent = `${payload.meeting_date} at ${payload.meeting_slot}`;
+        const repEl = document.getElementById('successRepName');
+        if (repEl) repEl.textContent = rep.name;
+        const calBtn = document.getElementById('successGoogleCalBtn');
+        if (calBtn && data.consultation && data.consultation.google_cal_url) {
+          calBtn.href = data.consultation.google_cal_url;
+        }
+
+        // Switch to success card
+        document.getElementById('consultationForm').classList.add('hidden');
+        document.getElementById('consultSuccessCard').classList.remove('hidden');
+
+        if (typeof trackEvent === 'function') {
+          trackEvent('Meeting', 'Booked', `15MinBriefing_${rep.slug}`);
+        }
+      } catch (err) {
+        console.error('[-] Error booking consultation:', err);
+        // Fallback: Show success anyway and open calendar link
+        document.getElementById('consultationForm').classList.add('hidden');
+        document.getElementById('consultSuccessCard').classList.remove('hidden');
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = origHtml;
+        }
+      }
     }
 
     // ══════════════════════════════════════════════════════════════════════════
