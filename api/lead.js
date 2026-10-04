@@ -12,6 +12,7 @@
  */
 
 const { appendLeadRow } = require('../lib/google-sheets');
+const { notifyStaffOfLead } = require('../lib/notifications');
 
 module.exports = async function handler(req, res) {
   // CORS configuration
@@ -72,6 +73,13 @@ module.exports = async function handler(req, res) {
       ) {
         const result = await appendLeadRow(leadEntry);
         results.push(result);
+
+        // Dispatch instant smartphone / inbox notification to assigned staff
+        try {
+          await notifyStaffOfLead(leadEntry);
+        } catch (notifErr) {
+          console.warn('[-] Notification warning (non-blocking):', notifErr.message);
+        }
       }
     }
 
