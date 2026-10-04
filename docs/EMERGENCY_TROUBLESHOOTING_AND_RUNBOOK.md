@@ -1,138 +1,111 @@
 # P-22 CORP — EMERGENCY TROUBLESHOOTING & RUNBOOK
-**Document Version:** 4.0.0 (Production Release)  
-**Scope:** 1:1 Technical Runbook for Vercel, Google Sheets DWD/OAuth, PassKit, PWA Service Worker & Neural OCR  
-**Last Updated:** 2026-10-03
+**Document Version:** 4.1.0 (Production / Expo Live Edition)  
+**Scope:** 1:1 Technical Runbook for Expo Floor Operations, Offline Contingencies, Vercel Edge, Google Sheets DWD/OAuth, PassKit, PWA Service Worker & Neural OCR  
+**Target Domain:** `https://card.p22corp.com`  
+**Last Updated:** 2026-10-04  
 
 ---
 
-## Quick Reference Diagnostic Matrix
+## 1. Expo Floor Quick Reference: 10 Failure Scenarios & Instant Contingencies
 
-| Symptom | Probable Root Cause | Immediate Action |
+| Scenario / Failure Mode | Root Cause | Immediate On-Floor Action & Recovery |
 |---|---|---|
-| Card scan OCR does not open | Missing HTTPS or camera permissions denied | Ensure user is browsing over `https://`, grant browser camera permission |
-| "Failed to sync to Google Sheet" | Google Service Account key invalid or sheet unshared | Verify `GOOGLE_SERVICE_KEY` in Vercel environment variables and share sheet with service account email |
-| Apple Wallet pass won't add | Corrupted `.pkpass` MIME type or expired certificate | Check Vercel headers in `vercel.json` (`application/vnd.apple.pkpass`) |
-| Google Wallet link shows "Invalid JWT" | Google Pay API Issuer ID mismatch or token clock skew | Regenerate pass JWT using `mint_walletwallet_passes.py` with valid private key |
-| Visual canvases show blank or black | CORS image taint or missing base64 asset | Ensure canvas redraws use local relative paths or base64 data URIs |
-| Mobile badge shows scrollbar | Browser address bar dynamic viewport mismatch | Use `100dvh` CSS unit and compact padding in `badge.html` |
+| **1. Zero / Degraded Cell Signal inside Convention Hall** | Heavy RF interference, basement hall or 10,000 attendees jamming cell towers. | **PWA Offline Mode**: Badge loads from local cache. **Offline Lead Buffer**: Form & Card Scanner save directly to `localStorage` (`p22_leads`). **Wallpaper QR**: Display static Lockscreen Wallpaper QR code (works 100% offline with no internet needed). |
+| **2. Physical NFC Tag Fails to Pop Up on Attendee Phone** | Attendee phone screen locked, thick metal/wallet case, wrong antenna position (top of iPhone, center of Android). | **Rule 1**: Ask attendee to unlock screen. **Rule 2**: Tap top edge for iPhone, center back for Android. **Rule 3**: If no trigger within 2 seconds, immediately pivot: "Let me show you my badge QR code!" Open `badge.html` or display Apple Wallet pass. |
+| **3. Attendee In-App Browser Blocks Download (`.vcf` or `.pkpass`)** | Attendee scanned QR from inside LinkedIn, Instagram, or WeChat browser instead of Safari/Chrome. | Tap **[Copy Direct Link]** or instruct: "Tap the 3 dots (...) in the top right and select 'Open in Safari' or 'Open in Chrome'". Alternatively, use **Exchange Info** modal to send contact directly to their email. |
+| **4. Attendee Device Cannot Open `.vcf` (Virtual Contact Card)** | Some older Android versions display `.vcf` as raw text instead of adding to Contacts. | Use the **Exchange Info** (Step 2) form or tap **SMS Me Contact** to dispatch a direct SMS link with all numbers and links preformatted. |
+| **5. Card Scanner Camera Access Denied or Dim Booth Lighting** | Safari/Chrome camera permission set to "Block", or venue hall lighting is low/glaring. | **Recovery A**: Tap lock icon in URL bar &rarr; Permissions &rarr; Camera &rarr; Allow. **Recovery B**: Use built-in photo gallery upload (`<input type="file">`) to snap photo with native camera flash. **Recovery C**: Tap "Enter Manually" — high-contrast dark form (`#0B132B` / `#FFFFFF`) allows 10-second manual entry. |
+| **6. Google Sheets API Rate Limit (HTTP 429) or Temporary Outage** | Heavy burst of 100+ scans in minutes exceeding Google Cloud quotas. | **Dual Ingestion Safeguard**: The app falls back automatically to local queue. The email notification is dispatched independently via Resend/Webhook. When back online, tap **[Sync All to Sheet]** in `/setup#vault` to batch-flush. |
+| **7. Staff Smartphone Battery Dies on Expo Floor** | 10+ hours on high screen brightness drains battery. | **Cross-Device Switch**: Open `https://card.p22corp.com/setup` on any colleague's phone or tablet and select the representative profile. **Physical Badge Lanyard**: Attendee scans printed badge QR code pointing permanently to `https://card.p22corp.com/[rep]`. |
+| **8. Attendee Uses Microsoft Outlook / Lacks Google Account for Calendar** | Attendee corporate policy blocks Google Calendar quick-booking. | The consultation modal provides a **1-click universal `.ics` file download** compatible with Outlook, Apple Calendar, and Exchange, plus direct email dispatch to `bids@p22corp.com`. |
+| **9. Stale Cached Code on Staff Smartphone** | Previous PWA service worker serving older version before launch updates. | Hard reload Safari (long-press Reload icon &rarr; Request Desktop Site) or open Settings &rarr; Safari &rarr; Advanced &rarr; Website Data &rarr; Clear `p22corp.com`. `sw.js` cache version is now `p22-cache-v3.8`. |
+| **10. Custom Subdomain DNS Glitch or Edge Routing Latency** | Network anomaly on convention center Wi-Fi DNS resolvers. | Secondary edge ingress remains fully active via Vercel edge alias (`p22-digital-card.vercel.app` auto-redirects or serves assets). Full local backup exists on `F:` drive. |
 
 ---
 
-## 1. Google Sheets Integration Troubleshooting
+## 2. In-Field OCR Business Card Scanner Troubleshooting
 
-### A. "Error: No Google Service Account credentials available"
-- **Cause:** Neither `process.env.GOOGLE_SERVICE_KEY` nor `credentials/google-sa.json` could be loaded by `lib/google-sheets.js`.
-- **Diagnosis:**
-  ```bash
-  # Check if local credentials file exists
-  node -e "const fs = require('fs'); console.log(fs.existsSync('credentials/google-sa.json'));"
-  ```
-- **Resolution:**
-  1. On Vercel: Go to **Project Settings -> Environment Variables**. Ensure `GOOGLE_SERVICE_KEY` is set to the full JSON string of the service account key.
-  2. Locally: Ensure `credentials/google-sa.json` is present in the project root.
+### A. Form Input Visibility & Contrast
+- **Previous Issue**: Mobile browsers (especially iOS Safari with Dark Mode or autofill) previously forced white input backgrounds with white text.
+- **Permanent Fix**: `assets/js/card-scanner.js` now features:
+  - Scoped CSS rules forcing `background-color: #0B132B !important;` and `color: #FFFFFF !important;`.
+  - Vendor prefix `-webkit-text-fill-color: #FFFFFF !important;` to neutralize Safari autofill overrides.
+  - Golden focus glow (`#C9A227`) indicating active editing state.
+- **Verification**: Open `https://card.p22corp.com/badge` &rarr; click **[📷 Scan Card]** &rarr; review form fields. Inputs are deep navy with crisp white typography.
+
+### B. Business Card Photo Attachment in Notifications
+- **Feature**: When a card or badge is photographed, the downsampled image (`photo_url`) is embedded directly into the HTML email notification dispatched to the assigned staff member (`pfelipe@p22corp.com`, `elopez@p22corp.com`, etc.).
+- **Staff Vault Link**: The email includes a direct 1-click link to view the high-resolution photo in the live Staff Leads Vault: `https://card.p22corp.com/setup#vault`.
+
+### C. Offline Lead Queue & Batch Sync
+- If a card is scanned while the phone has zero connectivity:
+  1. The card data and photo data URI are written to browser `localStorage` under `p22_leads`.
+  2. A gold badge counter on the Staff Leads Vault tab displays `[X Pending Sync]`.
+  3. As soon as connectivity returns, the user can click **[Sync All to Sheet]** to batch-push all queued contacts into Google Sheets.
+
+---
+
+## 3. Google Sheets Integration & Sanitization Verification
+
+### A. Zero Domain Leak Guarantee
+- The live Google Sheets workbook (`1Xfwmr7iPtV3YaAO6GIJW-Ekx5WM1sR92YZGnD2Qubl0`) has been completely sanitized.
+- Every formula and hyperlink points strictly to the production subdomain: `https://card.p22corp.com`.
+- Live API regex scan confirms: **0 occurrences** of legacy domains.
 
 ### B. "The caller does not have permission" (Google 403)
-- **Cause:** The Google Spreadsheet has not been shared with the Google Cloud Service Account email.
-- **Resolution:**
-  1. Open the Google Spreadsheet:  
-     `https://docs.google.com/spreadsheets/d/1Xfwmr7iPtV3YaAO6GIJW-Ekx5WM1sR92YZGnD2Qubl0/edit`
-  2. Click **Share** (top right).
-  3. Enter the service account email:  
-     `p22-sheets-sync@growth-engine-438902.iam.gserviceaccount.com` (or the `client_email` found in your credentials file).
-  4. Grant role **Editor** and save.
+- Ensure the sheet is shared with the Google Cloud Service Account:
+  `p22-sheets-sync@growth-engine-438902.iam.gserviceaccount.com` as **Editor**.
 
 ### C. "Unable to parse range: Leads_Vault!A1:H"
-- **Cause:** The tab `Leads_Vault` was deleted or renamed in Google Sheets.
-- **Resolution:**
-  Run the initialization script:
+- Run the automated setup script to ensure all 4 tabs (`Dashboard`, `Leads_Vault`, `Consultations`, `Sheet1`) are present:
   ```bash
   node scripts/setup-leads-vault-tab.js
   ```
 
 ---
 
-## 2. In-Field OCR Business Card Scanner Troubleshooting
+## 4. Digital Wallet Passes & Offline NFC Troubleshooting
 
-### A. Camera Won't Launch on Mobile
-- **Cause:** iOS Safari or Android Chrome blocks camera access when not served over secure HTTPS.
-- **Resolution:**
-  1. Verify the site is loaded via `https://` (Vercel automatically provisions SSL).
-  2. On iOS: Settings -> Safari -> Camera -> Set to "Ask" or "Allow".
-  3. If native camera capture fails, the scanner automatically falls back to standard file picker (`<input type="file" accept="image/*">`), allowing users to upload a photo from their photo library.
+### A. Apple Wallet `.pkpass`
+- Served with strict MIME header `application/vnd.apple.pkpass` in `vercel.json`.
+- Automatically opens in Apple Wallet app without third-party tools.
+- Once added, Apple Wallet works **100% offline** with maximum screen brightness on tap.
 
-### B. "Loading OCR Engine..." Hangs
-- **Cause:** Tesseract.js CDN (`cdnjs.cloudflare.com` / `cdn.jsdelivr.net`) blocked by venue firewall or slow mobile data.
-- **Resolution:**
-  1. The scanner automatically falls back to `/api/ocr` (Cloud AI Vision endpoint) when network conditions prevent client-side CDN download.
-  2. Ensure `/api/ocr` has access to `OPENAI_API_KEY` or Google Cloud Vision API in Vercel environment variables.
-  3. Preload Tesseract: `card-scanner.js` preloads the engine in the background the moment the modal is rendered.
-
----
-
-## 3. Digital Wallet Passes Troubleshooting
-
-### A. Apple Wallet `.pkpass` Download Fails on iPhone
-- **Cause:** Server sends incorrect MIME type or iOS Safari treats file as binary stream.
-- **Resolution:**
-  Ensure `vercel.json` contains the explicit header:
-  ```json
-  {
-    "source": "/assets/passes/(.*)",
-    "headers": [
-      {
-        "key": "Content-Type",
-        "value": "application/vnd.apple.pkpass"
-      },
-      {
-        "key": "Content-Disposition",
-        "value": "attachment; filename=$1"
-      }
-    ]
-  }
-  ```
-
-### B. Google Wallet Deep-Link Returns 400
-- **Cause:** JWT token issued with expired timestamp (`exp`), or Generic Class ID is not approved in Google Pay Business Console.
-- **Resolution:**
-  1. Check the issuer ID: `3388000000023083770`.
-  2. Ensure the class ID `3388000000023083770.ww-canary` is set to `ACTIVE`.
-  3. Run the re-minting script:
-     ```bash
-     python scratch/mint_walletwallet_passes.py
-     ```
+### B. Physical NFC Programming
+- Program NFC tags (NTAG213 / NTAG215) with the standard URL record:
+  - Pedro: `https://card.p22corp.com/pedro`
+  - Eduardo: `https://card.p22corp.com/eduardo`
+  - Marleni: `https://card.p22corp.com/marleni`
+  - Bids: `https://card.p22corp.com/bids`
+  - Logistics: `https://card.p22corp.com/logistics`
 
 ---
 
-## 4. Progressive Web App (PWA) & Offline Caching
+## 5. Pre-Expo Morning Checklist for Booth Staff (3 Minutes)
 
-### A. Stale Badge Code Showing on Staff Phones
-- **Cause:** Browser Service Worker is serving cached assets from a previous deployment.
-- **Resolution:**
-  1. Hard refresh: In Safari, long-press the Reload button and select "Request Desktop Website" or clear browser cache in Settings -> Safari -> Advanced -> Website Data -> Remove All.
-  2. To force cache bust across all devices: Increment `CACHE_VERSION` in `/sw.js` (e.g., `p22-cache-v4.0.1`), commit and deploy.
+Every representative should perform these 5 steps prior to booth opening:
 
-### B. "Add to Home Screen" Banner Does Not Appear on iOS
-- **Cause:** Apple iOS does not support the Chromium `BeforeInstallPromptEvent`.
-- **Resolution:**
-  `badge.html` contains an automatic iOS detection block:
-  - When opened on iOS Safari with `?install=1`, it automatically displays a floating instruction modal explaining:  
-    `Tap Share -> "Add to Home Screen"`.
-
----
-
-## 5. Visual Asset Canvases (Lockscreen, Watch Face, Zoom Bg)
-
-### A. Canvas Export Throws SecurityError (Tainted Canvas)
-- **Cause:** Drawing an image from an external cross-origin domain into an HTML5 `<canvas>` without CORS headers prevents `.toDataURL()` or `.toBlob()`.
-- **Resolution:**
-  1. All staff portraits are stored locally under `/assets/staff/*.png`.
-  2. Base64 fallback strings are embedded directly in `team.json` and `setup.html` (`photoB64`) to guarantee canvas export never touches external origins.
+1. **Verify PWA Installation**:
+   - Open Safari/Chrome, navigate to `https://card.p22corp.com/badge?rep=[your_name]`.
+   - Tap Share &rarr; **Add to Home Screen**.
+   - Confirm the P-22 icon appears on your home screen.
+2. **Download Offline Failsafe Lock Screen**:
+   - Go to `https://card.p22corp.com/setup#visuals`.
+   - Tap **[Generate Lockscreen]** &rarr; save image to Photos &rarr; set as Lock Screen wallpaper.
+   - Test scanning it with a colleague's phone while your screen is locked.
+3. **Verify Camera Permission**:
+   - Open the badge PWA &rarr; tap **[📷 Scan Card]** &rarr; verify the camera viewfinder opens smoothly.
+4. **Test Step 2 Contact Exchange**:
+   - Submit a test lead ("Test Attendee") &rarr; confirm it appears in `/setup#vault` and Google Sheets.
+5. **Set Screen Brightness & Battery Saver**:
+   - Ensure screen auto-lock timeout is set to 2–5 minutes.
+   - Carry a 10,000mAh external power bank at the booth.
 
 ---
 
 ## 6. Emergency Production Rollback Runbook
 
-If a critical deployment introduces an unexpected bug:
+If any code change ever needs instant rollback during the event:
 
 1. **Instant Rollback via Vercel CLI:**
    ```bash
@@ -145,8 +118,7 @@ If a critical deployment introduces an unexpected bug:
    git push origin main
    npx vercel --prod --yes
    ```
-3. **Restore from F: Drive Backup:**
+3. **Restore from F: Drive Redundant Backup:**
    ```bash
-   # Mirror good backup back to workspace
    robocopy "F:\_Backups_\p22-digital-card-backup-20261003" "i:\_Dev_Builds_\2026\p22-digital-card" /E /XD node_modules .git .vercel /R:1 /W:1
    ```

@@ -114,6 +114,20 @@ All client interactions stream to Google Spreadsheet ID:
   6. `Phone`
   7. `Procurement Scope / Interest`
   8. `Extracted Card Text / Notes`
+  9. `Scanned Card Photo Preview`
+  10. `Lead Pipeline Status (Dropdown: 🟢 New, 🟡 Contacted, 🟣 Briefing Scheduled, ⚪ Closed)`
 
-### Sheet 3: KPI Dashboard (`Dashboard`)
-- Calculated metrics: Total Page Views, Contact Downloads, Wallet Installs, RFQ Submissions, and Rep Breakdown.
+### Sheet 3: Executive Consultations (`Consultations`)
+- **Headers**:
+  1. `Timestamp (UTC)`
+  2. `Staff Rep`
+  3. `Attendee / Client Name`
+  4. `Agency / Prime Contractor`
+  5. `Email`
+  6. `Phone`
+  7. `Scheduled Time (CST)`
+  8. `Google Meet URL`
+  9. `Meeting Status`
+
+### Sheet 4: KPI Dashboard (`Dashboard`)
+- Calculated metrics: Total Page Views, Contact Downloads, Wallet Installs, RFQ Submissions, and Rep Breakdown with donut and column charts.

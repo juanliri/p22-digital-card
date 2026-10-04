@@ -1,10 +1,14 @@
 # P-22 Corp: Google Workspace Appointment Schedules & Instant Staff Lead Notifications
+**Document Version:** 4.1.0 (Production / Expo Live Edition)  
+**Target Domain:** `https://card.p22corp.com`  
+**Classification:** CUI / Internal Operations  
+**Last Updated:** 2026-10-04  
 
 This operational manual documents the production architecture and setup instructions for:
 1. **15-Minute Executive Consultation Workflow (Google Workspace Appointment Schedules)**
 2. **Real-time Conflict Checking & Business Hours (Mon–Fri 8:00 AM – 5:00 PM CST)**
 3. **Automated Google Meet Video & US Dial-in Generation**
-4. **Instant Smartphone / In-Box Lead Alerts via Google Workspace & API**
+4. **Instant Smartphone / In-Box Lead Alerts with Embedded Business Card Photos**
 5. **Google Sheets `Consultations` & `Leads_Vault` Telemetry Logging**
 
 ---
@@ -49,13 +53,13 @@ Each staff member (`Pedro`, `Eduardo`, `Marleni`, `Bids`, `Logistics`) performs 
 
 ---
 
-## 3. Instant Email Notifications for Staff
+## 3. Instant Email Notifications for Staff with Embedded Card Photos
 
 When an expo attendee completes **Step 2 ("Exchange Contact")** or a staff member scans their business card with the **OCR Scanner**:
 
 ### How the Notification Reaches the Staff Member
-1. The lead is captured and validated by `/api/lead.js`.
-2. The lead is appended directly into `Leads_Vault` in the Google Sheet:
+1. The lead is captured and validated by `/api/leads.js`.
+2. The lead is appended directly into `Leads_Vault` in the Google Sheet:  
    [P22_Badge_Telemetry](https://docs.google.com/spreadsheets/d/1Xfwmr7iPtV3YaAO6GIJW-Ekx5WM1sR92YZGnD2Qubl0)
 3. An instant email alert is dispatched to the assigned representative:
    - Pedro Felipe &rarr; `pfelipe@p22corp.com`
@@ -65,14 +69,15 @@ When an expo attendee completes **Step 2 ("Exchange Contact")** or a staff membe
    - Logistics Division &rarr; `logistics@p22corp.com`
    - Master BCC &rarr; `bids@p22corp.com`
 
-### Alert Email Content & Action Buttons
+### Alert Email Content & Live Image Preview
 - **Subject**: `🚨 New Expo Contact: [Client Name] ([Agency/Prime]) - [Staff Rep]`
-- **Body**:
-  - Full client name, title, agency, email, and direct phone
-  - Procurement scope & extracted business card OCR notes
-  - **Click-to-Call** button (launches phone dialer directly)
-  - **Reply via Email** button (pre-populates subject line)
-  - Direct clickable link to the live Google Sheets vault
+- **Body Elements**:
+  - Full client name, title, agency, email, and direct phone.
+  - Procurement scope & extracted business card OCR notes.
+  - **Embedded High-Resolution Scanned Card Photo**: The scanned paper card or conference badge is embedded directly into the notification email table with gold bordered styling.
+  - **Click-to-Call** button (launches phone dialer directly).
+  - **Reply via Email** button (pre-populates subject line).
+  - **Direct Staff Vault Link**: `https://card.p22corp.com/setup#vault` to open the full leads inventory.
 
 ---
 

@@ -279,6 +279,37 @@
           <p class="text-[10px] text-slate-400">Processing credentials with AI Vision &amp; OCR.</p>
         </div>
 
+        <!-- Scoped High-Contrast Style Injection (Prevents iOS Safari / Autofill White-on-White) -->
+        <style>
+          #p22CardScannerModal input,
+          #p22CardScannerModal textarea {
+            background-color: #0B132B !important;
+            color: #FFFFFF !important;
+            -webkit-text-fill-color: #FFFFFF !important;
+            border: 1px solid rgba(255, 255, 255, 0.22) !important;
+          }
+          #p22CardScannerModal input:focus,
+          #p22CardScannerModal textarea:focus {
+            border-color: #C9A227 !important;
+            outline: none !important;
+            box-shadow: 0 0 0 2px rgba(201, 162, 39, 0.4) !important;
+            background-color: #0E1A38 !important;
+          }
+          #p22CardScannerModal input:-webkit-autofill,
+          #p22CardScannerModal input:-webkit-autofill:hover,
+          #p22CardScannerModal input:-webkit-autofill:focus,
+          #p22CardScannerModal textarea:-webkit-autofill {
+            -webkit-text-fill-color: #FFFFFF !important;
+            -webkit-box-shadow: 0 0 0px 1000px #0B132B inset !important;
+            transition: background-color 5000s ease-in-out 0s !important;
+          }
+          #p22CardScannerModal input::placeholder,
+          #p22CardScannerModal textarea::placeholder {
+            color: #94A3B8 !important;
+            opacity: 1 !important;
+          }
+        </style>
+
         <!-- Review & Submit Form -->
         <form id="scannerReviewForm" onsubmit="handleScannerFormSubmit(event)" class="hidden space-y-2.5">
           <div id="scannerImagePreviewWrap" class="relative rounded-xl overflow-hidden max-h-36 border border-white/15 hidden mb-2 shadow-inner">
@@ -286,31 +317,31 @@
           </div>
           <div>
             <label class="block text-[10.5px] font-semibold text-slate-300 mb-0.5">Attendee / Contact Name *</label>
-            <input type="text" id="scanName" required class="w-full px-3 py-2 rounded-xl glass-input text-white text-xs">
+            <input type="text" id="scanName" required style="background-color:#0B132B!important;color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important;" class="w-full px-3 py-2 rounded-xl text-white text-xs">
           </div>
           <div class="grid grid-cols-2 gap-2">
             <div>
               <label class="block text-[10.5px] font-semibold text-slate-300 mb-0.5">Agency / Company *</label>
-              <input type="text" id="scanAgency" required class="w-full px-3 py-2 rounded-xl glass-input text-white text-xs">
+              <input type="text" id="scanAgency" required style="background-color:#0B132B!important;color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important;" class="w-full px-3 py-2 rounded-xl text-white text-xs">
             </div>
             <div>
               <label class="block text-[10.5px] font-semibold text-slate-300 mb-0.5">Work Email</label>
-              <input type="email" id="scanEmail" class="w-full px-3 py-2 rounded-xl glass-input text-white text-xs">
+              <input type="email" id="scanEmail" style="background-color:#0B132B!important;color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important;" class="w-full px-3 py-2 rounded-xl text-white text-xs">
             </div>
           </div>
           <div class="grid grid-cols-2 gap-2">
             <div>
               <label class="block text-[10.5px] font-semibold text-slate-300 mb-0.5">Phone Number</label>
-              <input type="tel" id="scanPhone" class="w-full px-3 py-2 rounded-xl glass-input text-white text-xs">
+              <input type="tel" id="scanPhone" style="background-color:#0B132B!important;color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important;" class="w-full px-3 py-2 rounded-xl text-white text-xs">
             </div>
             <div>
               <label class="block text-[10.5px] font-semibold text-slate-300 mb-0.5">Company Website</label>
-              <input type="text" id="scanWebsite" placeholder="e.g. www.domain.com" class="w-full px-3 py-2 rounded-xl glass-input text-white text-xs">
+              <input type="text" id="scanWebsite" placeholder="e.g. www.domain.com" style="background-color:#0B132B!important;color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important;" class="w-full px-3 py-2 rounded-xl text-white text-xs">
             </div>
           </div>
           <div>
             <label class="block text-[10.5px] font-semibold text-slate-300 mb-0.5">Title / Scope / Procurement Notes</label>
-            <textarea id="scanNotes" rows="2" class="w-full px-3 py-2 rounded-xl glass-input text-white text-xs font-mono"></textarea>
+            <textarea id="scanNotes" rows="2" style="background-color:#0B132B!important;color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important;" class="w-full px-3 py-2 rounded-xl text-white text-xs font-mono"></textarea>
           </div>
 
           <div class="pt-2 flex items-center gap-2">
