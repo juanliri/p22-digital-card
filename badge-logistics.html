@@ -23,7 +23,7 @@
         window.location.replace('https://card.p22corp.com' + window.location.pathname + window.location.search + window.location.hash);
         return;
       }
-      var names = { pedro: 'Pedro', eduardo: 'Eduardo', marleni: 'Marleni' };
+      var names = { pedro: 'Pedro', eduardo: 'Eduardo', marleni: 'Marleni', bids: 'Bids Desk', logistics: 'Logistics' };
       var pm = location.pathname.match(/^\/badge[-/]([a-z0-9_-]+)/i);
       var rep = 'logistics';
       if (!names[rep]) rep = 'pedro';

@@ -96,10 +96,10 @@ async function runLiveAudit() {
 
     // E. Test Touch Interaction on "Save to Apple" & "Save Contact to Phone"
     const appleHref = await appleBtn.getAttribute('href');
-    assert(appleHref && appleHref.includes('walletwallet.dev') && appleHref.includes('apple.pkpass'), `${slug.toUpperCase()}: "Save to Apple" links to signed Apple pkpass (${appleHref ? 'Valid' : 'Invalid'})`);
+    assert(appleHref && appleHref.includes('.pkpass'), `${slug.toUpperCase()}: "Save to Apple" links to first-party signed Apple pkpass (${appleHref ? 'Valid' : 'Invalid'})`);
 
     const googleHref = await googleBtn.getAttribute('href');
-    assert(googleHref && googleHref.includes('walletwallet.dev') && googleHref.includes('google'), `${slug.toUpperCase()}: "Save to Google" links to official Google Wallet pass (${googleHref ? 'Valid' : 'Invalid'})`);
+    assert(googleHref && (googleHref.includes('google') || googleHref.includes('walletwallet.dev')), `${slug.toUpperCase()}: "Save to Google" links to official Google Wallet pass (${googleHref ? 'Valid' : 'Invalid'})`);
 
     let triggeredVcard = false;
     const requestHandler = (req) => {

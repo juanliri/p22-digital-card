@@ -17,6 +17,8 @@ for fn in card_files:
     if m:
         replacement = m.group(1) + team_json_str + ';' + m.group(2)
         content = content[:m.start()] + replacement + content[m.end():]
+        if fn == 'eduardo.html':
+            content = content.replace('card.p22corp.com/pedro', 'card.p22corp.com/eduardo')
         with open(fn, 'w', encoding='utf-8') as f:
             f.write(content)
         print(f"Updated TEAM_DATA in {fn}")
