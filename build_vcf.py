@@ -64,7 +64,7 @@ staff_definitions = [
         'org': 'P-22 Corp Construction Material Solutions LLC',
         'title': 'Director of Commercial Sales & Material Supply',
         'tel': '1-888-722-2675',
-        'directPhone': '1-945-218-5896',
+        'directPhone': '1-407-369-9001',
         'email': 'elopez@p22corp.com',
         'secondaryEmail': 'sales@p22corp.com',
         'url': 'https://card.p22corp.com/eduardo',
@@ -72,7 +72,7 @@ staff_definitions = [
         'avatar': 'assets/staff/eduardo-official-1x1.png',
         'bio': 'Directs commercial supply sales, manufacturer allocation, and prime vendor networks. Focuses on competitive project pricing, guaranteed delivery schedules, and dedicated account support.',
         'location': 'Dallas Sales Office • DFW Logistics Hub',
-        'note': 'CAGE: 169D8 | UEI: X3HUQZ66P6N3\\nDirector of Commercial Sales - P-22 Corp\\nDirect: 1-945-218-5896 | Toll-Free: 1-888-722-2675',
+        'note': 'CAGE: 169D8 | UEI: X3HUQZ66P6N3\\nDirector of Commercial Sales - P-22 Corp\\nDirect: 1-407-369-9001 | Toll-Free: 1-888-722-2675',
     },
     {
         'slug': 'marleni',

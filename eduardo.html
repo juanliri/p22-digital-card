@@ -8,9 +8,10 @@
   </script>
 
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <!-- Official Favicons extracted from p22corp.com -->
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/staff/eduardo-badge-icon-192.png">
   <link rel="icon" type="image/webp" href="/favicon.webp">
   <link rel="shortcut icon" href="/favicon.ico">
   <title id="pageTitle">Eduardo Lopez | Director of Commercial Sales & Material Supply - P-22 Corp</title>
@@ -21,7 +22,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="P-22 Card">
+  <meta name="apple-mobile-web-app-title" content="Eduardo">
 
   <!-- Open Graph & Social Sharing Meta Tags -->
   <meta property="og:type" content="profile">
@@ -397,6 +398,31 @@
       opacity: 0.15;
     }
   </style>
+
+  <style>
+    /* iOS & Android Standalone Native Safe Areas */
+    body {
+      padding-top: max(0.5rem, env(safe-area-inset-top));
+      padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+  </style>
+
+
+  <!-- Standalone Native PWA App Link Handler (Prevents kicking out to browser) -->
+  <script>
+    if (('standalone' in window.navigator) && window.navigator.standalone) {
+      document.addEventListener('click', function(e) {
+        var a = e.target.closest('a');
+        if (a && a.href && a.getAttribute('target') !== '_blank' && !a.href.startsWith('mailto:') && !a.href.startsWith('tel:') && !a.href.startsWith('sms:') && a.origin === window.location.origin) {
+          e.preventDefault();
+          window.location.href = a.href;
+        }
+      }, false);
+    }
+  </script>
+
 </head>
 <body class="min-h-screen relative flex flex-col items-center justify-start p-3 sm:p-5 selection:bg-p22gold selection:text-slate-950 overflow-x-hidden">
 
@@ -539,11 +565,11 @@
 
                 <!-- Dual Fast-Pass Action Bar (Apple Wallet & Google Wallet) -->
                 <div class="grid grid-cols-2 gap-2 pt-0.5">
-                  <a id="cardAppleWalletBtn" href="https://api.walletwallet.dev/p/56b035bf-14e4-4679-81a3-749a26baf46b/apple.pkpass" target="_blank" onclick="trackEvent('Wallet', 'Click', 'AppleWalletPass'); revealStep2Exchange(false, 'Pass Saved ✓');" class="py-2.5 px-3 rounded-xl bg-black hover:bg-neutral-900 border border-white/20 text-white font-montserrat font-bold text-[11px] tracking-wide shadow-md active:scale-95 transition flex items-center justify-center gap-1.5 btn-bounce">
+                  <a id="cardAppleWalletBtn" href="https://api.walletwallet.dev/p/1c98dceb-ac84-4197-8a1d-af9c6e61badf/apple.pkpass"  target="_blank" onclick="trackEvent('Wallet', 'Click', 'AppleWalletPass'); revealStep2Exchange(false, 'Pass Saved ✓');" class="py-2.5 px-3 rounded-xl bg-black hover:bg-neutral-900 border border-white/20 text-white font-montserrat font-bold text-[11px] tracking-wide shadow-md active:scale-95 transition flex items-center justify-center gap-1.5 btn-bounce">
                     <svg class="w-3.5 h-3.5 fill-current text-white shrink-0" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.77 1.06-1.85.94-2.93-.91.04-2.02.61-2.67 1.38-.58.67-1.09 1.77-.95 2.82 1.02.08 2.05-.5 2.68-1.27z"/></svg>
                     <span>Save to Apple</span>
                   </a>
-                  <a id="cardGoogleWalletBtn" href="https://api.walletwallet.dev/api/passes/56b035bf-14e4-4679-81a3-749a26baf46b/google" target="_blank" onclick="trackEvent('Wallet', 'Click', 'GoogleWalletPass'); revealStep2Exchange(false, 'Pass Saved ✓');" class="py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-white/20 text-white font-montserrat font-bold text-[11px] tracking-wide shadow-md active:scale-95 transition flex items-center justify-center gap-1.5 btn-bounce">
+                  <a id="cardGoogleWalletBtn" href="https://api.walletwallet.dev/api/passes/1c98dceb-ac84-4197-8a1d-af9c6e61badf/google"  target="_blank" onclick="trackEvent('Wallet', 'Click', 'GoogleWalletPass'); revealStep2Exchange(false, 'Pass Saved ✓');" class="py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-white/20 text-white font-montserrat font-bold text-[11px] tracking-wide shadow-md active:scale-95 transition flex items-center justify-center gap-1.5 btn-bounce">
                     <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
                     <span>Save to Google</span>
                   </a>
@@ -552,7 +578,7 @@
 
               <!-- 4 Clean Enterprise Quick Actions: Call, Email, SMS, WhatsApp (Glowing Luxury Capsules) -->
               <div class="grid grid-cols-4 gap-2 mb-4" style="transform: translateZ(14px);">
-                <a id="callAction" href="tel:18887222675" onclick="trackEvent('Contact', 'Click', 'Call'); revealStep2Exchange(false, 'Call Selected ✓');"
+                <a id="callAction" href="tel:14073699001" onclick="trackEvent('Contact', 'Click', 'Call'); revealStep2Exchange(false, 'Call Selected ✓');"
                    class="flex flex-col items-center justify-center p-2 rounded-2xl bg-slate-900/70 hover:bg-slate-800/90 border border-white/10 hover:border-emerald-500/40 active:scale-95 transition-all duration-200 group btn-bounce shadow-md">
                   <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/35 flex items-center justify-center mb-1.5 shadow-[0_0_12px_rgba(16,185,129,0.2)] group-hover:scale-110 transition-transform">
                     <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
@@ -568,7 +594,7 @@
                   <span class="text-xs font-semibold text-slate-100 group-hover:text-sky-300 transition-colors">Email</span>
                 </a>
 
-                <a id="smsAction" href="sms:18887222675" onclick="trackEvent('Contact', 'Click', 'SMS'); revealStep2Exchange(false, 'SMS Selected ✓');"
+                <a id="smsAction" href="sms:14073699001" onclick="trackEvent('Contact', 'Click', 'SMS'); revealStep2Exchange(false, 'SMS Selected ✓');"
                    class="flex flex-col items-center justify-center p-2 rounded-2xl bg-slate-900/70 hover:bg-slate-800/90 border border-white/10 hover:border-amber-400/40 active:scale-95 transition-all duration-200 group btn-bounce shadow-md">
                   <div class="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/35 flex items-center justify-center mb-1.5 shadow-[0_0_12px_rgba(251,191,36,0.2)] group-hover:scale-110 transition-transform">
                     <svg class="w-5 h-5 text-amber-300" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
@@ -576,7 +602,7 @@
                   <span class="text-xs font-semibold text-slate-100 group-hover:text-amber-200 transition-colors">SMS / Text</span>
                 </a>
 
-                <a id="whatsappAction" href="https://wa.me/18887222675" target="_blank" onclick="trackEvent('Contact', 'Click', 'WhatsApp'); revealStep2Exchange(false, 'WhatsApp Selected ✓');"
+                <a id="whatsappAction" href="https://wa.me/14073699001" target="_blank" onclick="trackEvent('Contact', 'Click', 'WhatsApp'); revealStep2Exchange(false, 'WhatsApp Selected ✓');"
                    class="flex flex-col items-center justify-center p-2 rounded-2xl bg-slate-900/70 hover:bg-slate-800/90 border border-white/10 hover:border-emerald-500/40 active:scale-95 transition-all duration-200 group btn-bounce shadow-md">
                   <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/35 flex items-center justify-center mb-1.5 shadow-[0_0_12px_rgba(16,185,129,0.2)] group-hover:scale-110 transition-transform">
                     <svg class="w-5 h-5 text-emerald-400 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
@@ -1209,7 +1235,7 @@
     "company": "P-22 Corp Construction Material Solutions LLC",
     "email": "elopez@p22corp.com",
     "phone": "1-888-722-2675",
-    "directPhone": "1-945-218-5896",
+    "directPhone": "1-407-369-9001",
     "avatar": "assets/staff/eduardo-official-1x1.png",
     "badge": "SAM.gov Active Certified Rep",
     "bio": "Directs commercial supply sales, manufacturer allocation, and prime vendor networks. Focuses on competitive project pricing, guaranteed delivery schedules, and dedicated account support.",
@@ -1517,9 +1543,10 @@
 
 
       // Direct Phone & Email (100% Uncropped & Clickable)
-      const cleanPhoneDigits = data.phone.replace(/[^0-9]/g, '');
+      const activePhone = data.directPhone || data.phone;
+      const cleanPhoneDigits = activePhone.replace(/[^0-9]/g, '');
       if (document.getElementById('directPhoneLink')) document.getElementById('directPhoneLink').href = `tel:${cleanPhoneDigits}`;
-      if (document.getElementById('directPhoneVal')) document.getElementById('directPhoneVal').textContent = data.phone;
+      if (document.getElementById('directPhoneVal')) document.getElementById('directPhoneVal').textContent = activePhone;
       if (document.getElementById('directEmailLink')) document.getElementById('directEmailLink').href = `mailto:${data.email}?subject=Procurement%20Inquiry%20-%20P-22%20Corp`;
       if (document.getElementById('directEmailVal')) document.getElementById('directEmailVal').textContent = data.email;
 

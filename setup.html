@@ -8,7 +8,7 @@
   </script>
 
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <!-- Official Favicons extracted from p22corp.com -->
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
   <link rel="icon" type="image/webp" href="/favicon.webp">
@@ -111,6 +111,37 @@
   <script defer src="/_vercel/insights/script.js"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <script defer src="/assets/js/telemetry.js"></script>
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="P-22 Setup">
+
+
+  <style>
+    /* iOS & Android Standalone Native Safe Areas */
+    body {
+      padding-top: max(0.5rem, env(safe-area-inset-top));
+      padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+  </style>
+
+
+  <!-- Standalone Native PWA App Link Handler (Prevents kicking out to browser) -->
+  <script>
+    if (('standalone' in window.navigator) && window.navigator.standalone) {
+      document.addEventListener('click', function(e) {
+        var a = e.target.closest('a');
+        if (a && a.href && a.getAttribute('target') !== '_blank' && !a.href.startsWith('mailto:') && !a.href.startsWith('tel:') && !a.href.startsWith('sms:') && a.origin === window.location.origin) {
+          e.preventDefault();
+          window.location.href = a.href;
+        }
+      }, false);
+    }
+  </script>
+
 </head>
 <body class="min-h-screen relative flex flex-col items-center justify-start p-3 sm:p-6 selection:bg-p22gold selection:text-slate-950">
 
@@ -1070,7 +1101,7 @@
         company: "P-22 Corp Construction Material Solutions LLC",
         email: "sales@p22corp.com",
         phone: "1-888-722-2675",
-        directPhone: "1-945-218-5896",
+        directPhone: "1-407-369-9001",
         avatar: "/assets/staff/eduardo-official-1x1.png",
         calendly: "https://calendly.com/p22corp/sales"
       },
