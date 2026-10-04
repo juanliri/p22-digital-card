@@ -1,5 +1,5 @@
 // P-22 Digital Business Card — Service Worker for Offline Resilience (v3.4 Titanium Edition)
-const CACHE_NAME = 'p22-cache-v4.2';
+const CACHE_NAME = 'p22-cache-v4.3';
 const STATIC_ASSETS = [
   '/',
   '/index.html',

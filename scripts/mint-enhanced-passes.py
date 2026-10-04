@@ -9,7 +9,7 @@ API_URL = "https://api.walletwallet.dev/api/passes"
 REPS = [
     {
         "slug": "pedro",
-        "name": "Pedro Felipe | PMP",
+        "name": "Pedro Felipe",
         "title": "Managing Director & Power Systems Lead",
         "email": "pfelipe@p22corp.com",
         "phone": "1-945-218-5896",

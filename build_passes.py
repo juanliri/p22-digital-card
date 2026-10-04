@@ -35,8 +35,10 @@ cert = (
     .sign(key, hashes.SHA256())
 )
 
-# Prepare shared images
-logo_src = os.path.join(ASSETS_DIR, "branding", "p22-logo-pdf.png")
+# Prepare shared images - High Resolution Clean P-22 Logo
+logo_src = os.path.join(ASSETS_DIR, "branding", "p22-logo-tight.png")
+if not os.path.exists(logo_src):
+    logo_src = os.path.join(ASSETS_DIR, "branding", "p22-logo-pdf.png")
 if not os.path.exists(logo_src):
     logo_src = os.path.join(BASE_DIR, "favicon.png")
 
@@ -88,7 +90,8 @@ team_members = [
         "title": "Managing Director",
         "subtitle": "Government Procurement Lead",
         "email": "pfelipe@p22corp.com",
-        "photo": os.path.join(ASSETS_DIR, "staff", "pedro-felipe.png")
+        "directPhone": "1-945-218-5896",
+        "photo": os.path.join(ASSETS_DIR, "staff", "pedro-official-1x1.png")
     },
     {
         "slug": "eduardo",
@@ -96,7 +99,8 @@ team_members = [
         "title": "Director of Gov Sales",
         "subtitle": "Federal Quotes & Procurement Desk",
         "email": "elopez@p22corp.com",
-        "photo": os.path.join(ASSETS_DIR, "staff", "eduardo-lopez.jpg")
+        "directPhone": "1-407-369-9001",
+        "photo": os.path.join(ASSETS_DIR, "staff", "eduardo-official-1x1.png")
     },
     {
         "slug": "marleni",
@@ -104,7 +108,8 @@ team_members = [
         "title": "Controller & Compliance",
         "subtitle": "WAWF / Accounting Desk",
         "email": "mmendez@p22corp.com",
-        "photo": os.path.join(ASSETS_DIR, "staff", "marleni-mendez.jpg")
+        "directPhone": "1-888-722-2675",
+        "photo": os.path.join(ASSETS_DIR, "staff", "marleni-official-1x1.png")
     },
     {
         "slug": "bids",
@@ -112,6 +117,7 @@ team_members = [
         "title": "Rapid RFQ & Solicitations",
         "subtitle": "24-Hour Bids Desk",
         "email": "bids@p22corp.com",
+        "directPhone": "1-888-722-2675",
         "photo": None
     },
     {
@@ -120,6 +126,7 @@ team_members = [
         "title": "Director of Supply Chain",
         "subtitle": "Material Fulfillment",
         "email": "logistics@p22corp.com",
+        "directPhone": "1-888-722-2675",
         "photo": None
     }
 ]
@@ -180,7 +187,7 @@ for member in team_members:
                 {
                     "key": "phone",
                     "label": "DIRECT PHONE",
-                    "value": "1-888-722-2675"
+                    "value": member.get("directPhone", "1-888-722-2675")
                 },
                 {
                     "key": "email",
@@ -193,6 +200,21 @@ for member in team_members:
                     "key": "company",
                     "label": "Company",
                     "value": "P-22 Corp Construction Material Solutions LLC"
+                },
+                {
+                    "key": "direct_phone",
+                    "label": "Direct Desk / Cell",
+                    "value": member.get("directPhone", "1-888-722-2675")
+                },
+                {
+                    "key": "toll_free",
+                    "label": "Toll-Free HQ",
+                    "value": "1-888-722-2675"
+                },
+                {
+                    "key": "official_email",
+                    "label": "Official Email",
+                    "value": member["email"]
                 },
                 {
                     "key": "cage",

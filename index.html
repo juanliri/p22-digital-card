@@ -1088,8 +1088,8 @@
 
           <div class="p-3 rounded-2xl bg-white/5 border border-white/10 text-left space-y-2 text-[11px]">
             <div class="flex items-center justify-between text-slate-300">
-              <span class="text-slate-400">📹 Video Room:</span>
-              <a id="successMeetLink" href="https://meet.google.com/p22-procurement-desk" target="_blank" class="text-emerald-400 font-semibold hover:underline">Google Meet Room &nearr;</a>
+              <span class="text-slate-400">📹 Video Access:</span>
+              <span class="text-emerald-400 font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Unique Meet Link Dispatched via Calendar</span>
             </div>
             <div class="flex items-center justify-between text-slate-300">
               <span class="text-slate-400">👤 Assigned Rep:</span>
@@ -1958,21 +1958,32 @@
       const modalRepName = document.getElementById('briefingModalRepName');
       if (modalRepName) modalRepName.textContent = rep.name;
 
-      // Auto pre-fill from Step 2 form if attendee already entered info
-      const clientNameEl = document.getElementById('clientName');
-      const clientAgencyEl = document.getElementById('clientAgency');
-      const clientEmailEl = document.getElementById('clientEmail');
-      const clientPhoneEl = document.getElementById('clientPhone');
+      // Auto pre-fill from Step 2 form, last scanned card, or local storage (prevents double typing)
+      const inlineNameVal = (document.getElementById('inlineName')?.value || '').trim();
+      const inlineAgencyVal = (document.getElementById('inlineAgency')?.value || '').trim();
+      const inlineEmailVal = (document.getElementById('inlineEmail')?.value || '').trim();
+      const inlinePhoneVal = (document.getElementById('inlinePhone')?.value || '').trim();
+
+      let savedLead = null;
+      try {
+        const stored = JSON.parse(localStorage.getItem('p22_leads') || '[]');
+        if (stored.length > 0) savedLead = stored[0];
+      } catch (e) {}
 
       const consultName = document.getElementById('consultName');
       const consultAgency = document.getElementById('consultAgency');
       const consultEmail = document.getElementById('consultEmail');
       const consultPhone = document.getElementById('consultPhone');
 
-      if (consultName && clientNameEl && clientNameEl.value) consultName.value = clientNameEl.value;
-      if (consultAgency && clientAgencyEl && clientAgencyEl.value) consultAgency.value = clientAgencyEl.value;
-      if (consultEmail && clientEmailEl && clientEmailEl.value) consultEmail.value = clientEmailEl.value;
-      if (consultPhone && clientPhoneEl && clientPhoneEl.value) consultPhone.value = clientPhoneEl.value;
+      const resolvedName = inlineNameVal || window.p22LastLeadData?.client_name || savedLead?.client_name || '';
+      const resolvedAgency = inlineAgencyVal || window.p22LastLeadData?.client_agency || savedLead?.client_agency || '';
+      const resolvedEmail = inlineEmailVal || window.p22LastLeadData?.client_email || savedLead?.client_email || '';
+      const resolvedPhone = (inlinePhoneVal !== 'N/A' ? inlinePhoneVal : '') || window.p22LastLeadData?.client_phone || savedLead?.client_phone || '';
+
+      if (consultName && !consultName.value && resolvedName) consultName.value = resolvedName;
+      if (consultAgency && !consultAgency.value && resolvedAgency) consultAgency.value = resolvedAgency;
+      if (consultEmail && !consultEmail.value && resolvedEmail) consultEmail.value = resolvedEmail;
+      if (consultPhone && !consultPhone.value && resolvedPhone && resolvedPhone !== 'N/A') consultPhone.value = resolvedPhone;
 
       // Pre-set Date to next business day
       const dateEl = document.getElementById('consultDate');

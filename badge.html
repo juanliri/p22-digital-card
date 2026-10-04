@@ -586,7 +586,7 @@
 
     function getSelectedRep() {
       const params = new URLSearchParams(window.location.search);
-      const pm = location.pathname.match(/^\/badge\/([a-z0-9_-]+)/i);
+      const pm = location.pathname.match(/^\/badge[-/]([a-z0-9_-]+)/i);
       const repKey = ((pm && pm[1]) || params.get('rep') || 'pedro').toLowerCase();
       return TEAM_DATA[repKey] || TEAM_DATA.pedro;
     }
@@ -741,6 +741,26 @@
       const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent) || 
                     (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
       const isAndroid = /Android/i.test(navigator.userAgent);
+      const isInApp = /FBAN|FBAV|Instagram|WhatsApp|Line|MicroMessenger|Snapchat/i.test(navigator.userAgent);
+
+      // In WhatsApp or Instagram in-app webview on iOS/Android:
+      if (isInApp) {
+        if (navigator.canShare && typeof File !== 'undefined') {
+          try {
+            const vcfFile = new File([activeRep.vcf], vcfFilename, { type: 'text/vcard;charset=utf-8' });
+            if (navigator.canShare({ files: [vcfFile] })) {
+              await navigator.share({
+                files: [vcfFile],
+                title: `${activeRep.name} - P-22 Corp Contact Card`,
+                text: `Add ${activeRep.name} (P-22 Corp) to Contacts`
+              });
+              return;
+            }
+          } catch (e) {
+            if (e.name === 'AbortError') return;
+          }
+        }
+      }
 
       // Android: Native Web Share API Level 2 (triggers Contacts app intent)
       if (isAndroid) {
@@ -763,8 +783,9 @@
         return;
       }
 
-      // iOS Safari: immediate synchronous navigation inside user-gesture launches native Contacts sheet directly
+      // iOS Safari: immediate navigation + guidance toast
       if (isIOS) {
+        showIosToast();
         window.location.href = staticVcfUrl;
         return;
       }
