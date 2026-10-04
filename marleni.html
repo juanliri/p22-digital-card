@@ -925,11 +925,6 @@
           </div>
           <p class="text-[11px]">P-22 Corp Construction Material Solutions LLC</p>
           <p class="text-[10px]">18383 Preston Rd, Suite 202, Dallas, TX 75252 &bull; 1-888-722-2675</p>
-          <p class="pt-1">
-            <a href="/badge/marleni" class="text-[10px] text-slate-500 hover:text-p22gold transition underline inline-flex items-center gap-0.5">
-              Staff Digital ID Badge &amp; Apple Wallet &rarr;
-            </a>
-          </p>
         </footer>
 
       </div> <!-- Closes lg:col-span-6 -->
@@ -1332,7 +1327,26 @@
     function trackEvent(category, action, label) {
       try {
         if (window.va) {
-          window.va('event', { name: `${category}_${action}`, data: { label: label, rep: currentRep } });
+          window.va('event', { name: `${category}_${action}`, data: { label: label, rep: typeof currentRep !== 'undefined' ? currentRep : 'general' } });
+        }
+        if (window.p22Track) {
+          let eventName = 'action';
+          if (category === 'Contact') {
+            if (label === 'Call') eventName = 'dial';
+            else if (label === 'Email') eventName = 'email';
+            else if (label === 'SMS') eventName = 'sms';
+            else if (label === 'Save Contact') eventName = 'vcard_saved';
+            else if (label === 'Exchange Contact') eventName = 'step2_toggle';
+          } else if (category === 'Wallet') {
+            eventName = 'wallet_install';
+          } else if (category === 'ExpoQR' || category === 'Badge') {
+            if (label === 'Zoom' || label === 'Share') eventName = 'qr_zoom';
+          } else if (category === 'Capabilities' || category === 'Document') {
+            eventName = 'pdf_view';
+          } else if (category === 'Consultation') {
+            eventName = 'consultation_open';
+          }
+          window.p22Track(eventName, { category, action, label }, typeof currentRep !== 'undefined' ? currentRep : 'general');
         }
         console.log(`[Analytics Event] ${category} > ${action} > ${label}`);
       } catch (err) {}

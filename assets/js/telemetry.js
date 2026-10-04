@@ -147,22 +147,28 @@
         .slice(0, 45);
       const btnId = target.id || '';
 
-      if (href.startsWith('tel:')) {
-        window.p22Track('dial', { phone: href.replace('tel:', ''), label: btnText });
-      } else if (href.startsWith('mailto:')) {
-        window.p22Track('email', { email: href.replace('mailto:', ''), label: btnText });
-      } else if (href.includes('.vcf') || target.id === 'saveContactBtn' || target.classList.contains('save-contact-btn')) {
-        window.p22Track('vcard_saved', { href, label: btnText });
-      } else if (href.includes('.pkpass') || target.classList.contains('wallet-btn')) {
-        window.p22Track('wallet_install', { type: 'apple_pkpass', label: btnText });
-      } else if (target.id === 'qrZoomBtn' || target.closest('#qrModal') || target.classList.contains('qr-zoom-trigger')) {
-        window.p22Track('qr_zoom', { label: btnText });
+      const onclickAttr = target.getAttribute('onclick') || '';
+
+      if (href.startsWith('tel:') || btnId === 'callAction' || onclickAttr.includes("'Call'")) {
+        window.p22Track('dial', { phone: href.replace('tel:', '') || '18887222675', label: btnText || 'Call' });
+      } else if (href.startsWith('mailto:') || btnId === 'emailAction' || onclickAttr.includes("'Email'")) {
+        window.p22Track('email', { email: href.replace('mailto:', '').split('?')[0] || 'pfelipe@p22corp.com', label: btnText || 'Email' });
+      } else if (href.startsWith('sms:') || btnId === 'smsAction' || onclickAttr.includes("'SMS'")) {
+        window.p22Track('sms', { phone: href.replace('sms:', '') || '18887222675', label: btnText || 'SMS' });
+      } else if (href.includes('.vcf') || btnId === 'saveContactBtn' || target.classList.contains('save-contact-btn') || onclickAttr.includes('downloadActiveVCard') || btnText.includes('Save Contact')) {
+        window.p22Track('vcard_saved', { href, label: btnText || 'Save Contact' });
+      } else if (href.includes('.pkpass') || btnId.includes('Wallet') || btnId === 'cardGoogleWalletBtn' || href.includes('wallet') || onclickAttr.includes('downloadActivePass') || onclickAttr.includes('GoogleWalletPass')) {
+        window.p22Track('wallet_install', { label: btnText || 'Digital Wallet Pass' });
+      } else if (btnId === 'qrZoomBtn' || btnId === 'qrZoomToggleBtn' || onclickAttr.includes('toggleExpoQrZoom') || target.closest('#qrModal') || target.classList.contains('qr-zoom-trigger')) {
+        window.p22Track('qr_zoom', { label: btnText || 'Enlarge QR' });
+      } else if (onclickAttr.includes('openConsultationModal') || btnId.includes('consultation')) {
+        window.p22Track('consultation_open', { label: btnText || 'Book Consultation' });
       } else if (href.includes('.pdf') || href.includes('capability-statement')) {
-        window.p22Track('pdf_view', { file: href, label: btnText });
-      } else if (btnId.includes('step2') || target.closest('#step2TriggerBar')) {
-        window.p22Track('step2_toggle', { label: btnText });
-      } else if (target.hasAttribute('onclick') && target.getAttribute('onclick').includes('triggerCardScan')) {
-        window.p22Track('card_scan_trigger', { label: btnText });
+        window.p22Track('pdf_view', { file: href, label: btnText || 'Capability Statement' });
+      } else if (btnId.includes('step2') || target.closest('#step2TriggerBar') || onclickAttr.includes('revealStep2Exchange')) {
+        window.p22Track('step2_toggle', { label: btnText || 'Exchange Contact' });
+      } else if (onclickAttr.includes('triggerCardScan')) {
+        window.p22Track('card_scan_trigger', { label: btnText || 'Scan Card' });
       } else if (btnId.includes('staffTab') || target.classList.contains('staff-tab-btn')) {
         window.p22Track('staff_tab_switch', { label: btnText });
       } else if (target.tagName.toLowerCase() === 'button' || (target.tagName.toLowerCase() === 'a' && href && !href.startsWith('#'))) {
