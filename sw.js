@@ -1,9 +1,19 @@
 // P-22 Digital Business Card — Service Worker for Offline Resilience (v3.4 Titanium Edition)
-const CACHE_NAME = 'p22-cache-v4.3';
+const CACHE_NAME = 'p22-cache-v4.4';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
+  '/pedro.html',
+  '/eduardo.html',
+  '/marleni.html',
+  '/bids.html',
+  '/logistics.html',
   '/badge.html',
+  '/badge-pedro.html',
+  '/badge-eduardo.html',
+  '/badge-marleni.html',
+  '/badge-bids.html',
+  '/badge-logistics.html',
   '/setup.html',
   '/manifest.json',
   '/manifest-badge.json',

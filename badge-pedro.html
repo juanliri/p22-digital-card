@@ -23,10 +23,13 @@
         window.location.replace('https://card.p22corp.com' + window.location.pathname + window.location.search + window.location.hash);
         return;
       }
-      var names = { pedro: 'Pedro', eduardo: 'Eduardo', marleni: 'Marleni' };
-      var pm = location.pathname.match(/^\/badge[-/]([a-z0-9_-]+)/i);
+      var names = { pedro: 'Pedro', eduardo: 'Eduardo', marleni: 'Marleni', bids: 'Bids Desk', logistics: 'Logistics' };
+      var qRep = (new URLSearchParams(location.search).get('rep') || '').toLowerCase();
+      if (qRep && qRep !== 'pedro' && names[qRep]) {
+        window.location.replace('/badge/' + qRep + window.location.search);
+        return;
+      }
       var rep = 'pedro';
-      if (!names[rep]) rep = 'pedro';
       document.getElementById('badgeManifest').href = '/manifest-badge-' + rep + '.json';
       document.getElementById('badgeAppTitle').content = names[rep];
       var appleIcon = document.getElementById('badgeAppleIcon');
