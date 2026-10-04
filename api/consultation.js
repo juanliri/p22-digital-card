@@ -54,7 +54,7 @@ module.exports = async function handler(req, res) {
     const notes = payload.notes || `Booked via Digital Card for ${repName}`;
 
     const formattedMeetingTime = `${meetingDate} at ${meetingSlot} (Business Hours CST)`;
-    const meetLink = `https://meet.google.com/p22-procurement-desk`;
+    let meetLink = `Google Meet (Private Session Link Dispatched via Calendar)`;
 
     const consultEntry = {
       timestamp: new Date().toISOString(),
