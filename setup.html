@@ -157,11 +157,11 @@
         <img src="logo.webp" alt="P-22 Corp Logo" class="w-full h-full object-contain" onerror="this.src='assets/branding/p22-logo-tight.png'">
       </div>
       <span class="px-3 py-1 rounded-full bg-p22gold/20 text-p22gold text-[10px] font-mono font-bold tracking-widest uppercase border border-p22gold/30">
-        P-22 Corp Executive Portal
+        P-22 Corp Team Portal
       </span>
       <h2 class="text-lg font-montserrat font-extrabold text-white mt-3 mb-1">Staff Setup &amp; Asset Studio</h2>
       <p class="text-xs text-slate-300 mb-5 leading-relaxed">
-        Select your representative identity to load your personalized digital passes, NFC tools, and lead vault.
+        Select your representative identity to load your personalized digital passes, NFC tools, and saved contacts.
       </p>
 
       <form id="pinAuthForm" onsubmit="verifyStaffPin(event)" class="space-y-4 text-left">
@@ -176,7 +176,7 @@
             <option value="marleni">Marleni Méndez — Director of Finance &amp; Compliance</option>
             <option value="bids">Government Procurement Desk — Federal RFQ Desk</option>
             <option value="logistics">Dallas Logistics Hub — Fleet &amp; Staging</option>
-            <option value="admin">🛡️ Executive Master Admin — Full Multi-Profile Access</option>
+            <option value="admin">🛡️ Admin — All Team Profiles</option>
           </select>
         </div>
 
@@ -263,7 +263,7 @@
           <div class="p-3 bg-white rounded-xl flex items-center justify-center">
             <div id="appleWalletQrCode"></div>
           </div>
-          <p class="text-[10px] text-center font-mono text-slate-400">Scan at Booth &bull; Direct Agency Intake</p>
+          <p class="text-[10px] text-center font-mono text-slate-400">Scan at Booth • Collect Contacts</p>
         </div>
 
         <!-- Native Installation Actions -->
@@ -563,7 +563,7 @@
       </button>
       <button type="button" onclick="switchSetupTab('telemetry')" id="tabBtn-telemetry"
               class="tab-btn flex-1 min-w-[120px] py-2.5 px-3 rounded-xl text-xs font-montserrat font-medium text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 transition flex items-center justify-center gap-1.5">
-        <span>📊 Telemetry &amp; Vault</span>
+        <span>📊 Activity &amp; Contacts</span>
       </button>
     </nav>
 
@@ -597,7 +597,7 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 text-[11px] leading-relaxed">
             <div class="p-3 rounded-xl bg-slate-900/80 border border-white/10 space-y-1">
               <p class="font-bold text-sky-300 flex items-center gap-1">
-                <span>🍎 Apple Wallet & Apple Watch Sync</span>
+                <span>🍎 Apple Wallet &amp; Apple Watch</span>
               </p>
               <p class="text-slate-400">
                 Adding your pass to Apple Wallet on your iPhone <strong>automatically mirrors onto your Apple Watch</strong>. Double-clicking the watch side button pulls up your QR pass on your wrist—no photos or wallpapers needed!
@@ -665,7 +665,7 @@
             </div>
             <div>
               <h2 class="text-sm font-montserrat font-bold text-white">Physical NFC Card Programming (Austin Expo)</h2>
-              <p class="text-xs text-slate-400">Byte-optimized URLs for NTAG213 / NTAG215 chips with in-flight telemetry attribution.</p>
+              <p class="text-xs text-slate-400">Byte-optimized URLs for NTAG213 / NTAG215 chips with tap tracking.</p>
             </div>
           </div>
           <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-mono font-bold border border-amber-500/30">
@@ -683,7 +683,7 @@
             <span class="text-[10px] text-emerald-400 font-mono font-semibold">✓ Zero Cookies / NIST AU-2</span>
           </div>
           <p class="text-slate-300 leading-relaxed text-[11px]">
-            Adding <code class="text-p22gold">?src=nfc</code> allows our Google Sheets telemetry router to automatically identify that the visit originated from a physical card tap rather than a QR scan or email signature.
+            Adding <code class="text-p22gold">?src=nfc</code> allows our Google Sheets report to automatically identify that the visit originated from a physical card tap rather than a QR scan or email signature.
           </p>
 
           <!-- Dynamic URL Box with 1-Click Copy -->
@@ -747,7 +747,7 @@
 
     <!-- TAB PANEL 2: DIGITAL VISUALS -->
     <div id="panel-visuals" class="tab-panel hidden space-y-6">
-      <!-- Tool 2: Offline Failsafe Lock Screen Poster (NanoBanana AI Designed) -->
+      <!-- Tool 2: Offline Backup Lock Screen Poster (NanoBanana AI Designed) -->
     <section class="glass-panel rounded-3xl p-6 shadow-2xl space-y-4">
       <div class="flex items-center justify-between border-b border-white/10 pb-3">
         <div class="flex items-center gap-2.5">
@@ -755,7 +755,7 @@
             <svg class="w-4 h-4 text-p22gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
           </div>
           <div>
-            <h2 class="text-sm font-montserrat font-bold text-white">Offline Failsafe Lock Screen Wallpaper</h2>
+            <h2 class="text-sm font-montserrat font-bold text-white">Backup Lock Screen Wallpaper</h2>
             <p class="text-xs text-slate-400">AI-composited vertical 9:16 blueprint background with instant QR plaque for zero-connectivity situations.</p>
           </div>
         </div>
@@ -767,14 +767,14 @@
       <div class="flex flex-col sm:flex-row items-center gap-6">
         <!-- Phone Mockup Preview -->
         <div class="shrink-0 relative w-44 h-80 rounded-[34px] p-2 bg-gradient-to-b from-slate-700 via-slate-900 to-black border-4 border-slate-700 shadow-2xl overflow-hidden flex flex-col justify-between">
-          <img id="lockscreenPreviewImg" src="/assets/failsafe_lockscreen_pedro.png" alt="Failsafe Lock Screen" class="w-full h-full object-cover rounded-[26px]" onerror="this.src='/assets/failsafe_lockscreen_corporate.png'">
+          <img id="lockscreenPreviewImg" src="/assets/failsafe_lockscreen_pedro.png" alt="Backup Lock Screen" class="w-full h-full object-cover rounded-[26px]" onerror="this.src='/assets/failsafe_lockscreen_corporate.png'">
         </div>
 
         <div class="space-y-3.5 w-full">
           <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 text-xs space-y-1.5">
             <p class="font-bold text-white flex items-center gap-1.5">
               <span class="w-2 h-2 rounded-full bg-p22gold"></span>
-              The 100% Offline Expo Failsafe:
+              Works With No Signal:
             </p>
             <p class="text-slate-300 leading-relaxed">
               When convention hall Wi-Fi drops or cellular networks jam at crowded expos, web pages can stutter. With this wallpaper saved to your phone's lock screen, you don't even need to unlock your phone—just tap your screen and let contractors scan your QR code immediately!
@@ -913,7 +913,7 @@
           </div>
           <div>
             <h2 class="text-sm font-montserrat font-extrabold text-white flex items-center gap-2">
-              <span>Live Telemetry &amp; Google Sheets Analytics Hub</span>
+              <span>Live Activity &amp; Google Sheets Reports</span>
               <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
             </h2>
             <p class="text-xs text-slate-400">Real-time edge event logging, NFC/QR scan metrics, and conversion tracking.</p>
@@ -956,7 +956,7 @@
         <button type="button" onclick="sendTestBeacon()" id="testBeaconBtn"
                 class="w-full sm:w-auto py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-white/20 text-white font-montserrat font-bold text-xs tracking-wide transition btn-bounce flex items-center justify-center gap-2">
           <svg class="w-4 h-4 text-p22gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-          <span id="testBeaconText">Send Test Telemetry Beacon</span>
+          <span id="testBeaconText">Send Test Activity</span>
         </button>
       </div>
       <p id="beaconStatusNotice" class="text-xs text-center text-emerald-400 font-semibold hidden"></p>
@@ -969,8 +969,8 @@
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
           </div>
           <div>
-            <h2 class="text-sm font-montserrat font-bold text-white">Expo Lead Capture Vault &amp; Live Google Sheet Sync</h2>
-            <p class="text-xs text-slate-400">Archived locally in browser &amp; automatically synced to Google Sheets <strong class="text-emerald-300">Leads_Vault</strong> tab.</p>
+            <h2 class="text-sm font-montserrat font-bold text-white">Expo Contacts &amp; Live Google Sheet</h2>
+            <p class="text-xs text-slate-400">Saved on this device and sent to Google Sheets automatically <strong class="text-emerald-300">Leads_Vault</strong> tab.</p>
           </div>
         </div>
         <div class="flex items-center gap-2">
@@ -979,7 +979,7 @@
           </span>
           <a href="https://docs.google.com/spreadsheets/d/1Xfwmr7iPtV3YaAO6GIJW-Ekx5WM1sR92YZGnD2Qubl0/edit#gid=1696212718" target="_blank"
              class="px-2.5 py-1 rounded-full bg-emerald-500/10 hover:bg-emerald-500/25 text-emerald-300 text-[11px] font-mono font-bold border border-emerald-500/30 transition flex items-center gap-1">
-            <span>Leads_Vault Tab ↗</span>
+            <span>Contacts Tab ↗</span>
           </a>
         </div>
       </div>
@@ -994,14 +994,14 @@
             <button type="button" onclick="triggerCardScan('setup')"
                     class="py-2.5 px-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:brightness-110 active:scale-95 text-white font-montserrat font-bold text-xs tracking-wide transition shadow-lg flex items-center gap-1.5">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
-              <span>Scan Card (OCR)</span>
+              <span>Scan Their Card</span>
             </button>
 
             <!-- ☁️ Sync All Offline Leads to Google Sheet -->
             <button type="button" id="syncAllLeadsBtn" onclick="syncAllLeadsToGoogleSheet()"
                     class="py-2.5 px-3.5 rounded-xl bg-blue-600/30 hover:bg-blue-600/50 text-sky-200 border border-blue-400/40 text-xs font-bold font-montserrat transition flex items-center gap-1.5">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
-              <span>Sync All to Sheet</span>
+              <span>Send All to Sheet</span>
             </button>
 
             <!-- Download CSV -->
@@ -1037,7 +1037,7 @@
                 <th class="p-2.5">Email</th>
                 <th class="p-2.5">Phone</th>
                 <th class="p-2.5 text-center">Card Photo</th>
-                <th class="p-2.5">Scope / Notes</th>
+                <th class="p-2.5">Notes</th>
               </tr>
             </thead>
             <tbody id="leadsTableBody" class="divide-y divide-white/5">
@@ -1243,7 +1243,7 @@
           setTimeout(() => notice.classList.add('hidden'), 5000);
         }
         setTimeout(() => {
-          text.innerText = 'Send Test Telemetry Beacon';
+          text.innerText = 'Send Test Activity';
           btn.disabled = false;
         }, 2500);
       } catch (err) {
@@ -1763,7 +1763,7 @@
       if (!tbody) return;
 
       if (stored.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8" class="p-4 text-center text-slate-500 italic">No leads stored in this browser session yet. Tap "Scan Card (OCR)" to intake cards.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="8" class="p-4 text-center text-slate-500 italic">No leads stored in this browser session yet. Tap "Scan Their Card" to intake cards.</td></tr>';
         return;
       }
 
@@ -1864,7 +1864,7 @@
           btn.disabled = false;
           btn.innerHTML = `
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
-            <span>Sync All to Sheet</span>
+            <span>Send All to Sheet</span>
           `;
         }
         renderLeadsTable();

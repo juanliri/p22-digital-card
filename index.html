@@ -516,7 +516,7 @@
                          onerror="this.src='logo.webp'">
                   </div>
                 </div>
-                <div class="absolute bottom-2 right-2 z-50 bg-p22gold text-slate-950 p-2 rounded-full shadow-2xl border-2 border-slate-950 flex items-center justify-center pointer-events-none" style="transform: translateZ(45px);" title="Verified SAM.gov Credential">
+                <div class="absolute bottom-2 right-2 z-50 bg-p22gold text-slate-950 p-2 rounded-full shadow-2xl border-2 border-slate-950 flex items-center justify-center pointer-events-none" style="transform: translateZ(45px);" title="SAM.gov Verified">
                   <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
                 </div>
               </div>
@@ -560,7 +560,7 @@
                   <span>Save Contact to Phone</span>
                 </button>
                 <p class="text-[10px] text-slate-400 font-medium text-center">
-                  1-Tap Save &bull; Instant sync to Apple &amp; Android address book
+                  One tap to save to your contacts
                 </p>
 
                 <!-- Dual Fast-Pass Action Bar (Apple Wallet & Google Wallet) -->
@@ -635,7 +635,7 @@
                       <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-mono font-bold uppercase border border-emerald-500/30">Step 2 &bull; Connect</span>
                       <span class="text-[10px] text-slate-400 font-mono">24-Hr Response</span>
                     </div>
-                    <span class="text-[10.5px] text-sky-400 font-semibold font-mono">Reciprocal Exchange</span>
+                    <span class="text-[10.5px] text-sky-400 font-semibold font-mono">Share Your Details</span>
                   </div>
 
                   <p class="text-xs text-slate-200 font-montserrat font-bold">
@@ -647,7 +647,7 @@
                     <button type="button" onclick="triggerCardScan('inline')"
                             class="py-2.5 px-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:brightness-110 active:scale-95 text-white font-montserrat font-bold text-xs tracking-wide shadow-lg transition flex items-center justify-center gap-1.5 btn-bounce">
                       <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
-                      <span class="truncate">Scan Card (OCR)</span>
+                      <span class="truncate">Scan Their Card</span>
                     </button>
 
                     <!-- Action 2: Manual Form Entry -->
@@ -670,7 +670,7 @@
                       </div>
                       <div>
                         <div class="flex items-center gap-1.5">
-                          <span class="text-[10px] font-mono font-bold text-emerald-400 uppercase tracking-wider">Step 2 of 2</span>
+                          <span class="text-[10px] font-mono font-bold text-emerald-400 uppercase tracking-wider">Final Step</span>
                           <span id="step2ActionBadge" class="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 font-mono hidden">Action Saved ✓</span>
                         </div>
                         <h3 class="font-montserrat font-bold text-xs sm:text-sm text-white">Exchange Details with <span id="inlineExchRepName">Pedro</span></h3>
@@ -682,7 +682,7 @@
                   </div>
 
                   <p class="text-[11px] text-slate-300 leading-snug">
-                    Send your agency or company credentials for immediate 24-hr follow-up and formal Capability Statement delivery.
+                    Share your company details and we'll follow up within 24 hours with our Capability Statement.
                   </p>
 
                   <!-- Scanned Card Preview (Shows if photo was captured via scanner) -->
@@ -989,7 +989,7 @@
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
           </div>
           <div>
-            <h3 class="font-montserrat font-bold text-sm text-white">Executive Consultation</h3>
+            <h3 class="font-montserrat font-bold text-sm text-white">Book a Meeting</h3>
             <p class="text-[10px] text-p22gold font-mono">15-Min Capabilities &amp; RFQ Briefing</p>
           </div>
         </div>
@@ -1055,7 +1055,7 @@
           </div>
 
           <div>
-            <label class="block text-[11px] font-semibold text-slate-300 mb-1">Briefing Scope / Priority Topic</label>
+            <label class="block text-[11px] font-semibold text-slate-300 mb-1">What would you like to discuss?</label>
             <select id="consultTopic" class="w-full bg-slate-900 border border-white/20 rounded-xl px-2.5 py-2 text-white text-xs focus:border-p22gold focus:outline-none">
               <option value="Rapid RFQ Pricing & Supply Agreement">Rapid RFQ Pricing &amp; Supply Agreement</option>
               <option value="Concrete, Cement & Aggregate Materials">Concrete, Cement &amp; Aggregate Materials</option>
@@ -1475,7 +1475,7 @@
         client_website: sanitizeLeadInput(rawWebsite),
         photo_url: window.p22LastScannedPhoto || '',
         interest: 'Executive Digital Card Exchange',
-        source: 'Step 2 Reciprocal Exchange',
+        source: 'Step 2 Share Your Details',
         rep_slug: rep.slug,
         rep_name: rep.name
       };

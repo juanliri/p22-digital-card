@@ -321,8 +321,8 @@
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3"/></svg>
             </div>
             <div>
-              <h3 class="text-sm font-montserrat font-bold text-white">Physical Card &amp; Badge Scanner</h3>
-              <p class="text-[10px] text-slate-400">Instant AI Contact &amp; Badge Recognition</p>
+              <h3 class="text-sm font-montserrat font-bold text-white">Card &amp; Badge Scanner</h3>
+              <p class="text-[10px] text-slate-400">Snap a card or badge to add the contact</p>
             </div>
           </div>
           <button type="button" onclick="closeCardScannerModal()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-white/10 transition" aria-label="Close Scanner">
@@ -354,8 +354,8 @@
         <!-- Processing State -->
         <div id="scannerProcessingState" class="hidden text-center py-6 space-y-3">
           <div class="inline-block animate-spin w-8 h-8 border-3 border-p22gold border-t-transparent rounded-full"></div>
-          <p class="text-xs font-bold text-white" id="scannerProgressText">Extracting Contact Credentials...</p>
-          <p class="text-[10px] text-slate-400">Processing credentials with AI Vision &amp; OCR.</p>
+          <p class="text-xs font-bold text-white" id="scannerProgressText">Reading the card...</p>
+          <p class="text-[10px] text-slate-400">This only takes a few seconds.</p>
         </div>
 
         <!-- Scoped High-Contrast Style Injection (Prevents iOS Safari / Autofill White-on-White) -->
@@ -419,13 +419,13 @@
             </div>
           </div>
           <div>
-            <label class="block text-[10.5px] font-semibold text-slate-300 mb-0.5">Title / Scope / Procurement Notes</label>
+            <label class="block text-[10.5px] font-semibold text-slate-300 mb-0.5">Title / Notes</label>
             <textarea id="scanNotes" rows="2" style="background-color:#0B132B!important;color:#FFFFFF!important;-webkit-text-fill-color:#FFFFFF!important;" class="w-full px-3 py-2 rounded-xl text-white text-xs font-mono"></textarea>
           </div>
 
           <div class="pt-2 flex items-center gap-2">
             <button type="submit" id="scanSubmitBtn" class="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-montserrat font-bold text-xs hover:brightness-110 active:scale-95 transition shadow">
-              <span>Confirm &amp; Connect Contact &rarr;</span>
+              <span>Save Contact →</span>
             </button>
             <button type="button" onclick="resetCardScanner()" class="py-2.5 px-3 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs transition">
               Retake
@@ -438,8 +438,8 @@
           <div class="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-300 mx-auto flex items-center justify-center">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
           </div>
-          <h4 class="font-montserrat font-bold text-white text-sm">Contact Successfully Connected!</h4>
-          <p class="text-xs text-emerald-200/90">Your credentials have been securely registered with P-22 Corp.</p>
+          <h4 class="font-montserrat font-bold text-white text-sm">Contact Saved!</h4>
+          <p class="text-xs text-emerald-200/90">Thank you. Your details have been shared with P-22 Corp.</p>
           <div class="pt-2">
             <button type="button" onclick="closeCardScannerModal()" class="py-2 px-5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition">
               Done
@@ -498,7 +498,7 @@
     const progText = document.getElementById('scannerProgressText');
     if (upload) upload.classList.add('hidden');
     if (proc) proc.classList.remove('hidden');
-    if (progText) progText.textContent = 'Optimizing Image for OCR...';
+    if (progText) progText.textContent = 'Preparing your photo...';
 
     const reader = new FileReader();
     reader.onload = function (event) {
@@ -513,7 +513,7 @@
           if (imgWrap) imgWrap.classList.remove('hidden');
         }
 
-        if (progText) progText.textContent = 'Transcribing Card with AI Vision...';
+        if (progText) progText.textContent = 'Reading the card...';
 
         (async function () {
           // 1. Try Cloud AI Vision first
@@ -535,7 +535,7 @@
                 if (document.getElementById('scanWebsite')) {
                   document.getElementById('scanWebsite').value = d.website || '';
                 }
-                document.getElementById('scanNotes').value = (d.title ? d.title + '\n' : '') + (d.notes || d.raw_text || 'AI Transcribed Card');
+                document.getElementById('scanNotes').value = (d.title ? d.title + '\n' : '') + (d.notes || d.raw_text || 'Scanned Card');
                 aiSuccess = true;
               }
             }
@@ -545,7 +545,7 @@
 
           // 2. If AI vision was not active or fell back, run on-device neural Tesseract with safety timeout
           if (!aiSuccess) {
-            if (progText) progText.textContent = 'Running On-Device Neural OCR...';
+            if (progText) progText.textContent = 'Still reading the card...';
 
             let tesseractHandled = false;
             // 8-second safety fallback: never leave user stuck on spinner
@@ -617,8 +617,8 @@
       client_website: scanWebEl ? scanWebEl.value.trim() : '',
       notes: document.getElementById('scanNotes').value.trim(),
       photo_url: capturedImageDataUrl || window.p22LastScannedPhoto || 'Attached Thumbnail',
-      interest: 'Expo Business Card / Badge OCR Intake',
-      source: 'Physical Card / Badge OCR Scan',
+      interest: 'Expo Business Card / Badge Scan',
+      source: 'Card / Badge Scan',
     };
 
     // If on a staff profile or badge, attach rep
