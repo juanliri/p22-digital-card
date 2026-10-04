@@ -179,66 +179,46 @@
       </a>
     </div>
 
-    <!-- Mode Switcher: 1-Tap Toggle between ID Card & Instant QR inside the badge -->
-    <div class="w-full flex items-center justify-center p-0.5 mb-2 bg-slate-950/70 border border-slate-800 rounded-xl text-[10.5px] font-montserrat font-semibold">
-      <button id="tabBadgeId" onclick="switchBadgeFace('id')" class="flex-1 py-1 px-2 rounded-lg bg-p22gold text-slate-950 font-bold transition duration-150 flex items-center justify-center gap-1 shadow">
-        <span>🪪 ID View</span>
-      </button>
-      <button id="tabBadgeQr" onclick="switchBadgeFace('qr')" class="flex-1 py-1 px-2 rounded-lg text-slate-400 hover:text-white transition duration-150 flex items-center justify-center gap-1">
-        <span>⚡ Instant QR</span>
-      </button>
-    </div>
-
-    <!-- FACE 1: Verified Staff ID View -->
-    <div id="badgeFaceId" class="w-full flex flex-col items-center">
-      <!-- Portrait & Verified Identification -->
-      <div class="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full p-1 border-2 border-p22gold mb-1.5 bg-[#060B14]/90 shadow-2xl gold-glow">
+    <!-- Staff Identification: Photo, Name, and Role -->
+    <div class="w-full flex flex-col items-center text-center">
+      <!-- Portrait & Verified Indicator -->
+      <div class="relative w-20 h-20 sm:w-22 sm:h-22 rounded-full p-1 border-2 border-p22gold mb-1.5 bg-[#060B14]/90 shadow-2xl gold-glow">
         <img id="staffPhoto" src="/assets/staff/pedro-official-1x1.png" alt="Staff Portrait" class="w-full h-full object-cover rounded-full">
-        <div class="absolute bottom-0 right-0 bg-p22gold text-slate-950 p-1 sm:p-1.5 rounded-full shadow-lg border-2 border-slate-950" title="SAM.gov Active Certified Rep">
-          <svg class="w-3 h-3 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+        <div class="absolute bottom-0 right-0 bg-p22gold text-slate-950 p-1 rounded-full shadow-lg border-2 border-slate-950" title="SAM.gov Active Certified Rep">
+          <svg class="w-2.5 h-2.5 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
         </div>
       </div>
 
-      <h1 id="staffName" class="text-lg sm:text-xl font-montserrat font-extrabold tracking-tight text-white text-center mt-0.5">Pedro Felipe</h1>
-      <p id="staffTitle" class="text-[11px] sm:text-xs text-p22gold font-bold text-center uppercase tracking-wide px-1 mt-0.5">Managing Director &amp; Federal Contract Lead</p>
-      <p id="staffDivision" class="text-[9.5px] text-slate-300 text-center font-medium mb-1 mt-0.5">P-22 Corp Construction Material Solutions LLC</p>
+      <h1 id="staffName" class="text-lg sm:text-xl font-montserrat font-extrabold tracking-tight text-white leading-tight">Pedro Felipe</h1>
+      <p id="staffTitle" class="text-[11px] text-p22gold font-bold uppercase tracking-wide mt-0.5 px-2">Managing Director &amp; Federal Contract Lead</p>
+      
+      <!-- Federal Credentials Pill -->
+      <div class="inline-flex items-center gap-2 mt-1 px-2.5 py-0.5 rounded-full bg-black/60 border border-slate-800 text-[9.5px] font-mono">
+        <span class="text-slate-400">CAGE: <strong id="cageCode" class="text-sky-300">169D8</strong></span>
+        <span class="text-slate-600">&bull;</span>
+        <span class="text-slate-400">UEI: <strong id="ueiCode" class="text-slate-200">X3HUQZ66P6N3</strong></span>
+      </div>
     </div>
 
-    <!-- FACE 2: Fast Embedded QR Code View Directly within the Badge -->
-    <div id="badgeFaceQr" class="w-full hidden flex flex-col items-center">
-      <div class="bg-white p-2.5 rounded-2xl shadow-2xl border-2 border-p22gold/50 my-1 cursor-pointer active:scale-95 transition hover:brightness-105" onclick="toggleExpoQr(true)" title="Tap to expand fullscreen kiosk view">
+    <!-- Permanent Instant QR Code Section (Always visible under ID Photo & Info) -->
+    <div class="w-full flex flex-col items-center mt-2.5 mb-2">
+      <div class="bg-white p-2 sm:p-2.5 rounded-2xl shadow-2xl border-2 border-p22gold/60 cursor-pointer active:scale-95 transition hover:brightness-105" onclick="toggleExpoQr(true)" title="Tap to expand fullscreen kiosk view">
         <div id="badgeInternalQr" class="flex items-center justify-center"></div>
       </div>
-      <p id="badgeQrRepName" class="text-xs sm:text-sm font-montserrat font-bold text-white text-center mt-0.5">Pedro Felipe</p>
-      <p class="text-[9.5px] text-p22gold font-mono uppercase tracking-wider text-center mb-1">Fast Scan Terminal &bull; Tap to Enlarge</p>
+      <p class="text-[9.5px] text-p22gold font-mono uppercase tracking-wider text-center mt-1 flex items-center justify-center gap-1">
+        <span>⚡ Tap QR to Enlarge</span>
+        <span class="text-slate-600">&bull;</span>
+        <span class="text-slate-300">Scan to Connect</span>
+      </p>
     </div>
 
-    <!-- Federal Identification Tokens -->
-    <div class="w-full grid grid-cols-2 gap-2 my-1 py-1 px-3 bg-black/50 rounded-xl border border-slate-800 text-[10px] font-mono">
-      <div>
-        <span class="text-slate-500 block text-[8px] uppercase tracking-wider">CAGE Code</span>
-        <span id="cageCode" class="text-sky-300 font-bold">169D8</span>
-      </div>
-      <div>
-        <span class="text-slate-500 block text-[8px] uppercase tracking-wider">UEI Number</span>
-        <span id="ueiCode" class="text-slate-200 font-bold truncate block">X3HUQZ66P6N3</span>
-      </div>
-    </div>
-
-    <!-- Quick Action Triggers: 3 Compact Actions (Share Pass, Display QR, Scan Client Card) -->
-    <div class="w-full grid grid-cols-3 gap-1.5 my-2">
+    <!-- Quick Action Triggers: 3 Actions (Save Pass, Instant OCR Scan, Public Card) -->
+    <div class="w-full grid grid-cols-3 gap-1.5 my-1.5">
       <button onclick="downloadBadgeVCard()" class="flex flex-col items-center justify-center py-2 px-1 bg-p22gold hover:bg-p22goldHover text-slate-950 font-montserrat font-bold rounded-xl text-[10.5px] transition duration-150 shadow-md active:scale-95 btn-bounce">
         <svg class="w-3.5 h-3.5 mb-0.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
         </svg>
         <span>Save Pass</span>
-      </button>
-
-      <button id="btnToggleBadgeQr" onclick="toggleInternalQr()" class="flex flex-col items-center justify-center py-2 px-1 bg-slate-900/90 hover:bg-slate-800 text-slate-100 border border-slate-700/80 font-montserrat font-bold rounded-xl text-[10.5px] transition duration-150 active:scale-95 btn-bounce shadow-md">
-        <svg class="w-3.5 h-3.5 text-p22gold mb-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/>
-        </svg>
-        <span id="btnToggleBadgeQrText">Display QR</span>
       </button>
 
       <!-- 📷 Instant Client Card OCR Scanner Shortcut -->
@@ -248,6 +228,13 @@
         </svg>
         <span>Scan Card</span>
       </button>
+
+      <a id="btnPublicCardDirect" href="/pedro" class="flex flex-col items-center justify-center py-2 px-1 bg-slate-900/90 hover:bg-slate-800 text-slate-100 border border-slate-700/80 font-montserrat font-bold rounded-xl text-[10.5px] transition duration-150 active:scale-95 btn-bounce shadow-md">
+        <svg class="w-3.5 h-3.5 text-sky-400 mb-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+        </svg>
+        <span>Public Card</span>
+      </a>
     </div>
 
     <!-- Direct Communication Links (Compact 2-Column Row) -->
@@ -488,39 +475,6 @@
       return TEAM_DATA[repKey] || TEAM_DATA.pedro;
     }
 
-    function switchBadgeFace(face) {
-      currentBadgeFace = face;
-      const faceId = document.getElementById('badgeFaceId');
-      const faceQr = document.getElementById('badgeFaceQr');
-      const tabId = document.getElementById('tabBadgeId');
-      const tabQr = document.getElementById('tabBadgeQr');
-      const btnToggleText = document.getElementById('btnToggleBadgeQrText');
-
-      if (face === 'qr') {
-        if (faceId) faceId.classList.add('hidden');
-        if (faceQr) faceQr.classList.remove('hidden');
-
-        if (tabId) tabId.className = 'flex-1 py-1 px-2 rounded-lg text-slate-400 hover:text-white transition duration-150 flex items-center justify-center gap-1';
-        if (tabQr) tabQr.className = 'flex-1 py-1 px-2 rounded-lg bg-p22gold text-slate-950 font-bold transition duration-150 flex items-center justify-center gap-1 shadow';
-
-        if (btnToggleText) btnToggleText.textContent = 'Show ID';
-
-        renderInternalBadgeQr();
-      } else {
-        if (faceQr) faceQr.classList.add('hidden');
-        if (faceId) faceId.classList.remove('hidden');
-
-        if (tabQr) tabQr.className = 'flex-1 py-1 px-2 rounded-lg text-slate-400 hover:text-white transition duration-150 flex items-center justify-center gap-1';
-        if (tabId) tabId.className = 'flex-1 py-1 px-2 rounded-lg bg-p22gold text-slate-950 font-bold transition duration-150 flex items-center justify-center gap-1 shadow';
-
-        if (btnToggleText) btnToggleText.textContent = 'Display QR';
-      }
-    }
-
-    function toggleInternalQr() {
-      switchBadgeFace(currentBadgeFace === 'id' ? 'qr' : 'id');
-    }
-
     function renderInternalBadgeQr() {
       const container = document.getElementById('badgeInternalQr');
       if (!container || !activeRep) return;
@@ -528,8 +482,8 @@
       container.innerHTML = '';
       internalQrObj = new QRCode(container, {
         text: targetUrl,
-        width: 140,
-        height: 140,
+        width: 130,
+        height: 130,
         colorDark: '#060B14',
         colorLight: '#FFFFFF',
         correctLevel: QRCode.CorrectLevel.M
@@ -566,13 +520,15 @@
       // Text and Link assignments
       document.getElementById('pageTitle').textContent = `P-22 Staff Badge | ${activeRep.name}`;
       document.getElementById('staffName').textContent = activeRep.name;
-      const qrRepName = document.getElementById('badgeQrRepName');
-      if (qrRepName) qrRepName.textContent = activeRep.name;
       document.getElementById('modalRepName').textContent = activeRep.name;
       document.getElementById('staffTitle').textContent = activeRep.title;
-      document.getElementById('staffDivision').textContent = activeRep.company || 'P-22 Corp Construction Material Solutions LLC';
       document.getElementById('staffPhoto').src = activeRep.avatar || '/assets/staff/pedro-official-1x1.png';
       
+      const cageEl = document.getElementById('cageCode');
+      if (cageEl) cageEl.textContent = activeRep.cage || '169D8';
+      const ueiEl = document.getElementById('ueiCode');
+      if (ueiEl) ueiEl.textContent = activeRep.uei || 'X3HUQZ66P6N3';
+
       document.getElementById('staffEmail').textContent = activeRep.email;
       document.getElementById('emailLink').href = `mailto:${activeRep.email}?subject=Procurement%20Inquiry%20-%20P-22%20Corp`;
       
@@ -580,7 +536,10 @@
       const cleanPhone = activeRep.phone.replace(/[^0-9+]/g, '');
       document.getElementById('phoneLink').href = `tel:${cleanPhone}`;
 
-      // Public card link
+      // Public card direct button & modal links
+      const btnPublicCardDirect = document.getElementById('btnPublicCardDirect');
+      if (btnPublicCardDirect) btnPublicCardDirect.href = `/${activeRep.slug}`;
+
       const publicCardLink = document.getElementById('publicCardLink');
       const modalCardLink = document.getElementById('modalPublicCardLink');
       if (modalCardLink) modalCardLink.href = `/${activeRep.slug}`;
@@ -589,7 +548,7 @@
         publicCardLink.textContent = `View ${activeRep.name.split(' ')[0]}'s Public Digital Card →`;
       }
 
-      // Pre-render internal QR and start DFW live clock
+      // Render internal QR code directly under photo and start DFW clock
       renderInternalBadgeQr();
       initBadgeDallasClock();
     }
