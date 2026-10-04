@@ -4,8 +4,13 @@
   "short_name": "Marleni",
   "description": "P-22 Corp Staff ID Badge - Marleni Mendez",
   "start_url": "/badge/marleni",
-  "scope": "/badge/marleni",
+  "scope": "/",
   "display": "standalone",
+  "display_override": [
+    "standalone",
+    "window-controls-overlay",
+    "fullscreen"
+  ],
   "background_color": "#060B14",
   "theme_color": "#060B14",
   "orientation": "portrait-primary",

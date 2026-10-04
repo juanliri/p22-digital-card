@@ -2,10 +2,15 @@
   "id": "/badge/logistics",
   "name": "P-22 Badge - Dallas Logistics Hub",
   "short_name": "Logistics",
-  "description": "P-22 Corp Staff ID Badge - Central Logistics Desk",
+  "description": "P-22 Corp Staff ID Badge - Dallas Logistics Hub",
   "start_url": "/badge/logistics",
-  "scope": "/badge/logistics",
+  "scope": "/",
   "display": "standalone",
+  "display_override": [
+    "standalone",
+    "window-controls-overlay",
+    "fullscreen"
+  ],
   "background_color": "#060B14",
   "theme_color": "#060B14",
   "orientation": "portrait-primary",

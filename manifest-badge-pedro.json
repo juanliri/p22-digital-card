@@ -4,8 +4,13 @@
   "short_name": "Pedro",
   "description": "P-22 Corp Staff ID Badge - Pedro Felipe",
   "start_url": "/badge/pedro",
-  "scope": "/badge/pedro",
+  "scope": "/",
   "display": "standalone",
+  "display_override": [
+    "standalone",
+    "window-controls-overlay",
+    "fullscreen"
+  ],
   "background_color": "#060B14",
   "theme_color": "#060B14",
   "orientation": "portrait-primary",

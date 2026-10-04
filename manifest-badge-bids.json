@@ -4,8 +4,13 @@
   "short_name": "Bids Desk",
   "description": "P-22 Corp Staff ID Badge - Federal Procurement Desk",
   "start_url": "/badge/bids",
-  "scope": "/badge/bids",
+  "scope": "/",
   "display": "standalone",
+  "display_override": [
+    "standalone",
+    "window-controls-overlay",
+    "fullscreen"
+  ],
   "background_color": "#060B14",
   "theme_color": "#060B14",
   "orientation": "portrait-primary",

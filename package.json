@@ -12,6 +12,7 @@
     "test:ios": "node scripts/test-ios-webkit.js",
     "test:ios:open": "npx playwright open --device=\"iPhone 15 Pro\" https://card.p22corp.com/pedro",
     "test": "node scripts/test-telemetry.js",
+    "test:expo": "node tests/expo-suite.mjs && node scripts/headless-tour.mjs",
     "backup:sheets": "node scripts/backup-sheets-live.js",
     "push:signatures": "node scripts/push-signatures.js",
     "push:signatures:dry": "node scripts/push-signatures.js --dry-run"
@@ -33,6 +34,7 @@
     "googleapis": "^183.0.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.63.0"
+    "@playwright/test": "^1.63.0",
+    "glob": "^13.0.6"
   }
 }

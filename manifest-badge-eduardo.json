@@ -4,8 +4,13 @@
   "short_name": "Eduardo",
   "description": "P-22 Corp Staff ID Badge - Eduardo Lopez",
   "start_url": "/badge/eduardo",
-  "scope": "/badge/eduardo",
+  "scope": "/",
   "display": "standalone",
+  "display_override": [
+    "standalone",
+    "window-controls-overlay",
+    "fullscreen"
+  ],
   "background_color": "#060B14",
   "theme_color": "#060B14",
   "orientation": "portrait-primary",
