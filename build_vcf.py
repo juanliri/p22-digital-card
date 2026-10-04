@@ -1,7 +1,7 @@
 import os, io, base64, json, datetime
 from PIL import Image
 
-def optimize_photo(src_path, size=(140, 140), quality=72):
+def optimize_photo(src_path, size=(400, 400), quality=88):
     img = Image.open(src_path)
     if img.mode in ('RGBA', 'LA') or (img.mode == 'P' and 'transparency' in img.info):
         bg = Image.new('RGB', img.size, (13, 24, 41))
@@ -153,22 +153,14 @@ for s in staff_definitions:
     raw_lines = [
         'BEGIN:VCARD',
         'VERSION:3.0',
-        f"UID:urn:uuid:{s['uuid']}",
         f"N:{s['last']};{s['first']};;;",
         f"FN:{s['fn']}",
-        f"ORG:{s['org']};{s['title']}",
+        f"ORG:{s['org']}",
         f"TITLE:{s['title']}",
+        f"TEL;TYPE=WORK,VOICE:{s['tel']}",
     ]
-    
-    # 100% UNIQUE direct phone number per contact (NEVER share a number between contacts,
-    # otherwise iOS Contacts deduplication engine will auto-link/merge them into one card)
     if s.get('directPhone') and s['directPhone'] != s['tel']:
-        raw_lines.append(f"TEL;TYPE=CELL,PREF;VOICE:{s['directPhone']}")
-    else:
-        # Desk / Department direct extension numbers
-        ext_map = {'marleni': '1-888-722-2675,3', 'bids': '1-888-722-2675,1', 'logistics': '1-888-722-2675,2'}
-        phone_val = ext_map.get(s['slug'], s['tel'])
-        raw_lines.append(f"TEL;TYPE=WORK,PREF;VOICE:{phone_val}")
+        raw_lines.append(f"TEL;TYPE=CELL,VOICE:{s['directPhone']}")
     
     # Primary Direct Executive Email
     raw_lines.append(f"EMAIL;TYPE=PREF,INTERNET:{s['email']}")
