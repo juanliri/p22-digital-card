@@ -1725,8 +1725,7 @@
       }
     }
 
-    function renderLeadsTable() {
-      const stored = getAllStoredLeads();
+    function renderLocalLeadsTable(stored) {
       const badge = document.getElementById('leadCountBadge');
       const tbody = document.getElementById('leadsTableBody');
       if (badge) badge.textContent = `${stored.length} Leads`;
@@ -1768,6 +1767,45 @@
           </tr>
         `;
       }).join('');
+    }
+
+    let isFetchingServerLeads = false;
+    async function fetchServerLeads() {
+      if (isFetchingServerLeads) return;
+      isFetchingServerLeads = true;
+      try {
+        const res = await fetch('/api/lead');
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data && data.ok && Array.isArray(data.leads) && data.leads.length > 0) {
+          const localLeads = getAllStoredLeads();
+          let merged = false;
+          for (const sLead of data.leads) {
+            const exists = localLeads.some(l => 
+              (l.timestamp && sLead.timestamp && l.timestamp === sLead.timestamp) ||
+              (l.client_name && sLead.client_name && l.client_name === sLead.client_name && l.client_agency === sLead.client_agency)
+            );
+            if (!exists) {
+              localLeads.push(sLead);
+              merged = true;
+            }
+          }
+          if (merged) {
+            localStorage.setItem('p22_leads', JSON.stringify(localLeads));
+            renderLocalLeadsTable(localLeads);
+          }
+        }
+      } catch (e) {
+        console.warn('[-] Offline or server leads fetch deferred:', e);
+      } finally {
+        isFetchingServerLeads = false;
+      }
+    }
+
+    function renderLeadsTable() {
+      const stored = getAllStoredLeads();
+      renderLocalLeadsTable(stored);
+      fetchServerLeads();
     }
 
     async function syncAllLeadsToGoogleSheet() {

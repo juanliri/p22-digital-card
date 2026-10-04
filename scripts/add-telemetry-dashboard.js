@@ -47,28 +47,28 @@ async function main() {
     dashboardSheetId = meta.data.sheets.find((s) => s.properties.title === 'Dashboard').properties.sheetId;
   }
 
-  // 2. Populate Dashboard with KPI Formulas
+  // 2. Populate Dashboard with KPI Formulas (Wrapped in INDIRECT to prevent row-deletion shifts)
   const dashboardValues = [
     ['P-22 CORP EXECUTIVE TELEMETRY DASHBOARD', '', '', ''],
     ['Metric', 'Current Count', 'Percentage of Total', 'Benchmark / Notes'],
-    ['Total Events Logged', '=COUNTA(Sheet1!A2:A)', '100.0%', 'All edge routing + user actions'],
-    ['Total NFC Card Taps', '=COUNTIF(Sheet1!E2:E, "*nfc*")', '=B4/B3', 'Direct physical badge taps'],
-    ['Total Expo QR Scans', '=COUNTIF(Sheet1!E2:E, "*expo_qr*")', '=B5/B3', 'Printed/badge QR code scans'],
-    ['Email Signature Clicks', '=COUNTIF(Sheet1!E2:E, "*email_sig*")', '=B6/B3', 'Inbound email signature links'],
+    ['Total Events Logged', '=COUNTA(INDIRECT("Sheet1!A2:A"))', '100.0%', 'All edge routing + user actions'],
+    ['Total NFC Card Taps', '=COUNTIF(INDIRECT("Sheet1!E2:E"), "*nfc*")', '=IFERROR(B4/B3, 0)', 'Direct physical badge taps'],
+    ['Total Expo QR Scans', '=COUNTIF(INDIRECT("Sheet1!E2:E"), "*expo_qr*")', '=IFERROR(B5/B3, 0)', 'Printed/badge QR code scans'],
+    ['Email Signature Clicks', '=COUNTIF(INDIRECT("Sheet1!E2:E"), "*email_sig*")', '=IFERROR(B6/B3, 0)', 'Inbound email signature links'],
     ['', '', '', ''],
     ['KEY CONVERSION INTERACTIONS', '', '', ''],
-    ['Contacts Saved (.vcf)', '=COUNTIF(Sheet1!C2:C, "vcard_saved")', '=B9/B3', 'Downloaded full federal contact card'],
-    ['Phone Calls Initiated', '=COUNTIF(Sheet1!C2:C, "dial")', '=B10/B3', 'Direct click-to-dial taps'],
-    ['Email Inquiries Clicked', '=COUNTIF(Sheet1!C2:C, "email")', '=B11/B3', 'Direct mailto clicks to rep'],
-    ['Wallet Passes Installed', '=COUNTIF(Sheet1!C2:C, "*wallet*")', '=B12/B3', 'Apple / Google Wallet installs'],
-    ['QR Code Enlarged/Zoomed', '=COUNTIF(Sheet1!C2:C, "qr_zoom")', '=B13/B3', 'Badge screen shared at booth/expo'],
+    ['Contacts Saved (.vcf)', '=COUNTIF(INDIRECT("Sheet1!C2:C"), "*vcard*")', '=IFERROR(B9/B3, 0)', 'Downloaded full federal contact card'],
+    ['Phone Calls Initiated', '=COUNTIF(INDIRECT("Sheet1!C2:C"), "*dial*")', '=IFERROR(B10/B3, 0)', 'Direct click-to-dial taps'],
+    ['Email Inquiries Clicked', '=COUNTIF(INDIRECT("Sheet1!C2:C"), "*email*")', '=IFERROR(B11/B3, 0)', 'Direct mailto clicks to rep'],
+    ['Wallet Passes Installed', '=COUNTIF(INDIRECT("Sheet1!C2:C"), "*wallet*")', '=IFERROR(B12/B3, 0)', 'Apple / Google Wallet installs'],
+    ['QR Code Enlarged/Zoomed', '=COUNTIF(INDIRECT("Sheet1!C2:C"), "*qr_zoom*")', '=IFERROR(B13/B3, 0)', 'Badge screen shared at booth/expo'],
     ['', '', '', ''],
     ['ACTIVITY BY REPRESENTATIVE', '', '', ''],
-    ['Pedro Felipe (Managing Director)', '=COUNTIF(Sheet1!B2:B, "pedro")', '=B16/B3', 'Federal procurement & primes'],
-    ['Eduardo López (Operations)', '=COUNTIF(Sheet1!B2:B, "eduardo")', '=B17/B3', 'Field operations & materials'],
-    ['Marleni Méndez (Client Relations)', '=COUNTIF(Sheet1!B2:B, "marleni")', '=B18/B3', 'Supply administration & inquiries'],
-    ['Bids / Estimating Division', '=COUNTIF(Sheet1!B2:B, "bids")', '=B19/B3', 'Direct RFQ / Solicitations'],
-    ['Logistics / DFW Fleet', '=COUNTIF(Sheet1!B2:B, "logistics")', '=B20/B3', 'Material delivery & tracking'],
+    ['Pedro Felipe (Managing Director)', '=COUNTIF(INDIRECT("Sheet1!B2:B"), "pedro")', '=IFERROR(B16/B3, 0)', 'Federal procurement & primes'],
+    ['Eduardo López (Operations)', '=COUNTIF(INDIRECT("Sheet1!B2:B"), "eduardo")', '=IFERROR(B17/B3, 0)', 'Field operations & materials'],
+    ['Marleni Méndez (Client Relations)', '=COUNTIF(INDIRECT("Sheet1!B2:B"), "marleni")', '=IFERROR(B18/B3, 0)', 'Supply administration & inquiries'],
+    ['Bids / Estimating Division', '=COUNTIF(INDIRECT("Sheet1!B2:B"), "bids")', '=IFERROR(B19/B3, 0)', 'Direct RFQ / Solicitations'],
+    ['Logistics / DFW Fleet', '=COUNTIF(INDIRECT("Sheet1!B2:B"), "logistics")', '=IFERROR(B20/B3, 0)', 'Material delivery & tracking'],
   ];
 
   console.log('[*] Writing KPI formulas to "Dashboard"...');

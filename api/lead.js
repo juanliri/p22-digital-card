@@ -11,21 +11,30 @@
  * Appends directly to Google Sheets 'Leads_Vault' tab.
  */
 
-const { appendLeadRow } = require('../lib/google-sheets');
+const { appendLeadRow, getLeadsVaultRows } = require('../lib/google-sheets');
 const { notifyStaffOfLead } = require('../lib/notifications');
 
 module.exports = async function handler(req, res) {
   // CORS configuration
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
 
+  if (req.method === 'GET') {
+    try {
+      const leads = await getLeadsVaultRows();
+      return res.status(200).json({ ok: true, count: leads.length, leads });
+    } catch (err) {
+      return res.status(500).json({ ok: false, error: err.message });
+    }
+  }
+
   if (req.method !== 'POST') {
-    return res.status(405).json({ ok: false, error: 'Method not allowed. Use POST.' });
+    return res.status(405).json({ ok: false, error: 'Method not allowed. Use GET or POST.' });
   }
 
   try {
