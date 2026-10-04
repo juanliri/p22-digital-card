@@ -127,7 +127,12 @@
       return json;
     } catch (err) {
       console.warn('Lead submit deferred to offline:', err.message);
-      return { ok: false, offline: true, error: err.message };
+      try {
+        const q = JSON.parse(localStorage.getItem('p22_offline_queue') || '[]');
+        q.push(sanitized);
+        localStorage.setItem('p22_offline_queue', JSON.stringify(q));
+      } catch (e) {}
+      return { ok: false, offline: true, queued: true, error: err.message };
     }
   };
 

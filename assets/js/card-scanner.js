@@ -177,10 +177,11 @@
     const ctx = canvas.getContext('2d');
     ctx.drawImage(img, 0, 0, width, height);
 
-    // 1. High-res optimized image for AI Vision & OCR (~250-400KB, safely below Vercel limits)
-    ocrImageDataUrl = canvas.toDataURL('image/jpeg', 0.85);
+    // 1. High-res pre-processed image with contrast boost & grayscale for OCR (~250-400KB)
+    const contrastCanvas = preprocessCardImage(canvas);
+    ocrImageDataUrl = contrastCanvas.toDataURL('image/jpeg', 0.85);
 
-    // 2. Compact thumbnail for lead record / local storage / preview
+    // 2. Compact natural-color thumbnail for lead record / local storage / preview
     const thumbCanvas = document.createElement('canvas');
     const thumbWidth = 360;
     const thumbHeight = Math.round((height * thumbWidth) / width);
@@ -191,7 +192,7 @@
     capturedImageDataUrl = thumbCanvas.toDataURL('image/jpeg', 0.7);
     window.p22LastScannedPhoto = capturedImageDataUrl;
 
-    return canvas;
+    return contrastCanvas;
   }
 
   // Canvas grayscale + contrast stretch to improve Tesseract accuracy under glare / dim light
@@ -223,6 +224,7 @@
     }
     return out;
   }
+  window.preprocessCardImage = preprocessCardImage;
 
   // JSON schema validation for extraction outputs (AI or OCR) - never trust raw model output
   function validateExtraction(d) {

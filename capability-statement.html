@@ -237,6 +237,17 @@
                 color-adjust: exact;
             }
         }
+    
+    /* iOS & Android Safe Area Insets for Edge-to-Edge Standalone */
+    @supports (padding-top: env(safe-area-inset-top)) {
+      body {
+        padding-top: max(0.5rem, env(safe-area-inset-top));
+        padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+        padding-left: max(0.5rem, env(safe-area-inset-left));
+        padding-right: max(0.5rem, env(safe-area-inset-right));
+      }
+    }
+
     </style>
   <script defer src="/assets/js/telemetry.js"></script>
 </head>

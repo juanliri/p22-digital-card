@@ -9,23 +9,23 @@ const { appendTelemetryRow } = require('../lib/google-sheets');
 
 const PASS_MAP = {
   pedro: {
-    apple: '/assets/passes/pedro-felipe.pkpass',
+    apple: '/assets/passes/pedro.pkpass',
     card: '/pedro',
   },
   eduardo: {
-    apple: '/assets/passes/eduardo-lopez.pkpass',
+    apple: '/assets/passes/eduardo.pkpass',
     card: '/eduardo',
   },
   marleni: {
-    apple: '/assets/passes/marleni-mendez.pkpass',
+    apple: '/assets/passes/marleni.pkpass',
     card: '/marleni',
   },
   bids: {
-    apple: '/assets/passes/bids-p22.pkpass',
+    apple: '/assets/passes/bids.pkpass',
     card: '/bids',
   },
   logistics: {
-    apple: '/assets/passes/logistics-p22.pkpass',
+    apple: '/assets/passes/logistics.pkpass',
     card: '/logistics',
   },
   juan: {
