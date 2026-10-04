@@ -158,10 +158,24 @@ for s in staff_definitions:
         f"FN:{s['fn']}",
         f"ORG:{s['org']}",
         f"TITLE:{s['title']}",
-        f"TEL;TYPE=WORK,VOICE:{s['tel']}",
     ]
     if s.get('directPhone') and s['directPhone'] != s['tel']:
-        raw_lines.append(f"TEL;TYPE=CELL,VOICE:{s['directPhone']}")
+        # Primary unique mobile / direct line ensures iOS Contacts NEVER auto-merges or overrides cards
+        raw_lines.append(f"TEL;TYPE=CELL,PREF;VOICE:{s['directPhone']}")
+        raw_lines.append(f"TEL;TYPE=WORK,VOICE:{s['tel']}")
+    else:
+        # Desk / Department line with extension or dedicated label
+        if s['slug'] == 'marleni':
+            raw_lines.append(f"TEL;TYPE=WORK,PREF;VOICE:{s['tel']},3")
+            raw_lines.append(f"TEL;TYPE=MAIN,VOICE:{s['tel']}")
+        elif s['slug'] == 'bids':
+            raw_lines.append(f"TEL;TYPE=WORK,PREF;VOICE:{s['tel']},1")
+            raw_lines.append(f"TEL;TYPE=MAIN,VOICE:{s['tel']}")
+        elif s['slug'] == 'logistics':
+            raw_lines.append(f"TEL;TYPE=WORK,PREF;VOICE:{s['tel']},2")
+            raw_lines.append(f"TEL;TYPE=MAIN,VOICE:{s['tel']}")
+        else:
+            raw_lines.append(f"TEL;TYPE=WORK,PREF;VOICE:{s['tel']}")
     
     # Primary Direct Executive Email
     raw_lines.append(f"EMAIL;TYPE=PREF,INTERNET:{s['email']}")
@@ -189,12 +203,20 @@ for s in staff_definitions:
         f.write(vcf_content)
     print(f"Generated RFC 2426 vcf with direct + secondary email: {vcf_filepath}")
 
-    if s['slug'] == 'pedro':
-        # Write root pedro-felipe.vcf and assets/vcf/pedro-felipe.vcf for compatibility
-        with open('pedro-felipe.vcf', 'w', encoding='utf-8', newline='') as f:
+    vcf_aliases = {
+        'pedro': ['pedro-felipe.vcf'],
+        'eduardo': ['eduardo-lopez.vcf'],
+        'marleni': ['marleni-mendez.vcf'],
+        'bids': ['bids-p22.vcf'],
+        'logistics': ['logistics-p22.vcf']
+    }
+    for alias_fn in vcf_aliases.get(s['slug'], []):
+        alias_path = os.path.join('assets', 'vcf', alias_fn)
+        with open(alias_path, 'w', encoding='utf-8', newline='') as f:
             f.write(vcf_content)
-        with open(os.path.join('assets', 'vcf', 'pedro-felipe.vcf'), 'w', encoding='utf-8', newline='') as f:
-            f.write(vcf_content)
+        if s['slug'] == 'pedro':
+            with open('pedro-felipe.vcf', 'w', encoding='utf-8', newline='') as f:
+                f.write(vcf_content)
     
     slug = s['slug']
     if slug not in team_data:

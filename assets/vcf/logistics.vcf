@@ -5,7 +5,8 @@ N:Dallas;Logistics Hub;;;
 FN:Dallas Logistics Hub
 ORG:P-22 Corp Construction Material Solutions LLC
 TITLE:Central Material Staging & Fleet Logistics
-TEL;TYPE=WORK,VOICE:1-888-722-2675
+TEL;TYPE=WORK,PREF;VOICE:1-888-722-2675,2
+TEL;TYPE=MAIN,VOICE:1-888-722-2675
 EMAIL;TYPE=PREF,INTERNET:logistics@p22corp.com
 URL;TYPE=PREF:https://card.p22corp.com/logistics
 URL;TYPE=WORK:https://www.p22corp.com
@@ -13,7 +14,7 @@ ADR;TYPE=WORK:;;18383 Preston Rd, Suite 202;Dallas;TX;75252;USA
 NOTE:CAGE: 169D8 | UEI: X3HUQZ66P6N3\nDallas Logistics Hub - P-22 Corp\n183
  83 Preston Rd, Ste 202, Dallas, TX 75252
 CATEGORIES:Government Contractor,P-22 Corp,Procurement
-REV:2026-10-04T21:30:12Z
+REV:2026-10-04T22:13:18Z
 PHOTO;TYPE=JPEG;ENCODING=b:/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAkGBwgHBgkIBwgK
  CgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5Ojf/2w
  BDAQoKCg0MDRoPDxo3JR8lNzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3
