@@ -1,0 +1,66 @@
+name: Mirror and Uptime Watchdog
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '*/10 * * * *'   # uptime probe every 10 minutes
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  issues: write
+
+jobs:
+  mirror:
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Assemble static mirror (no secrets, no node_modules, no credentials)
+        run: |
+          mkdir _site
+          cp -r *.html *.json *.js *.ico *.png *.webp *.svg *.txt assets _site/ 2>/dev/null || true
+          for r in pedro eduardo marleni bids logistics setup status; do
+            [ -f "$r.html" ] && mkdir -p "_site/$r" && cp "$r.html" "_site/$r/index.html"
+          done
+          rm -rf _site/credentials _site/vault _site/backups _site/.env
+          touch _site/.nojekyll
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deploy
+        uses: actions/deploy-pages@v4
+
+  watchdog:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Probe production (3 attempts)
+        id: probe
+        run: |
+          ok=0
+          for i in 1 2 3; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 https://card.p22corp.com/eduardo || echo 000)
+            echo "attempt $i -> $code"
+            if [ "$code" = "200" ]; then ok=1; break; fi
+            sleep 10
+          done
+          echo "ok=$ok" >> "$GITHUB_OUTPUT"
+      - name: Open incident issue if down
+        if: steps.probe.outputs.ok == '0'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = 'PRODUCTION DOWN: card.p22corp.com';
+            const open = await github.rest.issues.listForRepo({ ...context.repo, state: 'open', labels: 'incident' });
+            if (!open.data.find(i => i.title === title)) {
+              await github.rest.issues.create({ ...context.repo, title, labels: ['incident'],
+                body: 'Watchdog could not reach https://card.p22corp.com/eduardo (3 attempts). Follow docs/VERCEL_LIMITS_FAILOVER_AND_5MIN_FIXES.md. Static mirror: https://juanliri.github.io/p22-digital-card/' });
+            }

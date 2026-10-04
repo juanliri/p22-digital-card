@@ -15,6 +15,8 @@
     }
   ],
   "rewrites": [
+    { "source": "/badge/assets/(.*)", "destination": "/assets/$1" },
+    { "source": "/badge-:rep/assets/(.*)", "destination": "/assets/$1" },
     { "source": "/setup", "destination": "/setup.html" },
     { "source": "/badge/pedro", "destination": "/badge-pedro" },
     { "source": "/badge/eduardo", "destination": "/badge-eduardo" },

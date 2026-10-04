@@ -63,13 +63,41 @@
         return { ok: true, data: json };
       } else {
         console.warn('[-] /api/lead returned non-200:', res.status);
-        return { ok: false, status: res.status };
+        enqueueOfflineLead(sanitized);
+        return { ok: false, status: res.status, queued: true };
       }
     } catch (err) {
       console.warn('[P22-Lead] Network dispatch deferred to offline storage:', err.message);
-      return { ok: false, offline: true, error: err.message };
+      try { enqueueOfflineLead(sanitized); } catch (e) {}
+      return { ok: false, offline: true, queued: true, error: err.message };
     }
   };
+
+  // Offline submission queue (localStorage) - flushed automatically when connectivity returns
+  function enqueueOfflineLead(lead) {
+    const q = JSON.parse(localStorage.getItem('p22_offline_queue') || '[]');
+    q.push(lead);
+    localStorage.setItem('p22_offline_queue', JSON.stringify(q));
+  }
+
+  window.p22FlushOfflineQueue = async function () {
+    try {
+      const q = JSON.parse(localStorage.getItem('p22_offline_queue') || '[]');
+      if (!q.length || navigator.onLine === false) return { count: 0 };
+      const res = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ leads: q }),
+      });
+      if (res.ok) {
+        localStorage.removeItem('p22_offline_queue');
+        return { ok: true, count: q.length };
+      }
+    } catch (e) { /* retry on next trigger */ }
+    return { ok: false };
+  };
+  window.addEventListener('online', () => window.p22FlushOfflineQueue());
+  window.addEventListener('load', () => setTimeout(() => window.p22FlushOfflineQueue(), 3000));
 
   // Sync all local leads that may have been saved while offline
   window.p22SyncOfflineLeads = async function () {
@@ -166,6 +194,56 @@
     return canvas;
   }
 
+  // Canvas grayscale + contrast stretch to improve Tesseract accuracy under glare / dim light
+  function preprocessCardImage(srcCanvas) {
+    const out = document.createElement('canvas');
+    out.width = srcCanvas.width;
+    out.height = srcCanvas.height;
+    const ctx = out.getContext('2d');
+    ctx.drawImage(srcCanvas, 0, 0);
+    try {
+      const img = ctx.getImageData(0, 0, out.width, out.height);
+      const d = img.data;
+      let min = 255, max = 0;
+      for (let i = 0; i < d.length; i += 4) {
+        const g = d[i] * 0.299 + d[i + 1] * 0.587 + d[i + 2] * 0.114;
+        d[i] = d[i + 1] = d[i + 2] = g;
+        if (g < min) min = g;
+        if (g > max) max = g;
+      }
+      const range = Math.max(1, max - min);
+      for (let i = 0; i < d.length; i += 4) {
+        const v = Math.min(255, Math.max(0, ((d[i] - min) / range) * 255));
+        d[i] = d[i + 1] = d[i + 2] = v;
+      }
+      ctx.putImageData(img, 0, 0);
+    } catch (e) {
+      console.warn('[!] preprocessCardImage fallback to raw canvas:', e);
+      return srcCanvas;
+    }
+    return out;
+  }
+
+  // JSON schema validation for extraction outputs (AI or OCR) - never trust raw model output
+  function validateExtraction(d) {
+    const str = v => (typeof v === 'string' ? v.trim() : '');
+    const out = {
+      name: str(d && d.name),
+      agency: str(d && d.agency),
+      title: str(d && d.title),
+      email: str(d && d.email).toLowerCase(),
+      phone: str(d && d.phone),
+      website: str(d && d.website),
+      notes: str((d && (d.notes || d.raw_text || d.raw_ocr)) || ''),
+    };
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(out.email)) out.email = '';
+    if (out.phone.replace(/\D/g, '').length < 7) out.phone = '';
+    out.name = out.name.slice(0, 80);
+    out.agency = out.agency.slice(0, 120);
+    out.notes = out.notes.slice(0, 1200);
+    return out;
+  }
+
   // Regex Heuristics to parse Business Card text
   function parseCardText(rawText) {
     const lines = rawText
@@ -174,7 +252,8 @@
       .filter(l => l.length > 1);
 
     const emailRegex = /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/i;
-    const phoneRegex = /(?:\+?1[-.\s]?)?\(?([0-9]{3})\)?[-.\s]?([0-9]{3})[-.\s]?([0-9]{4})/i;
+    // Tolerant: accepts icons/labels/odd separators ('T. (555) 019-2834', '555·019·2834', '555 019 2834')
+    const phoneRegex = /(?:\+?1[\s.\-·•]*)?\(?([0-9]{3})\)?[\s.\-·•]*([0-9]{3})[\s.\-·•]*([0-9]{4})/i;
 
     let email = '';
     let phone = '';
@@ -448,7 +527,7 @@
             if (aiRes.ok) {
               const aiData = await aiRes.json();
               if (aiData.ok && aiData.data) {
-                const d = aiData.data;
+                const d = validateExtraction(aiData.data);
                 document.getElementById('scanName').value = d.name || '';
                 document.getElementById('scanAgency').value = d.agency || '';
                 document.getElementById('scanEmail').value = d.email || '';
@@ -483,7 +562,7 @@
               let rawText = '';
               if (window.Tesseract) {
                 try {
-                  const res = await window.Tesseract.recognize(processedCanvas, 'eng');
+                  const res = await window.Tesseract.recognize(preprocessCardImage(processedCanvas), 'eng');
                   rawText = res.data.text || '';
                 } catch (err) {
                   console.warn('[!] Tesseract OCR recognition error:', err);
@@ -493,13 +572,13 @@
               if (!tesseractHandled) {
                 tesseractHandled = true;
                 clearTimeout(fallbackTimeout);
-                const parsed = parseCardText(rawText);
+                const parsed = validateExtraction(parseCardText(rawText));
 
                 document.getElementById('scanName').value = parsed.name || '';
                 document.getElementById('scanAgency').value = parsed.agency || '';
                 document.getElementById('scanEmail').value = parsed.email || '';
                 document.getElementById('scanPhone').value = parsed.phone || '';
-                document.getElementById('scanNotes').value = parsed.raw_ocr || 'Scanned Card';
+                document.getElementById('scanNotes').value = parsed.notes || 'Scanned Card';
 
                 if (proc) proc.classList.add('hidden');
                 const form = document.getElementById('scannerReviewForm');
@@ -587,5 +666,63 @@
     const succ = document.getElementById('scannerSuccessCard');
     if (form) form.classList.add('hidden');
     if (succ) succ.classList.remove('hidden');
+  };
+  // QR fallback: Html5Qrcode, back camera by default; parses vCard / MECARD / plain URL
+  window.startQrFallbackScan = function () {
+    const hostId = 'p22QrFallbackHost';
+    let host = document.getElementById(hostId);
+    if (!host) {
+      host = document.createElement('div');
+      host.id = hostId;
+      host.style.cssText = 'width:100%;margin-top:8px;border-radius:12px;overflow:hidden;';
+      const upload = document.getElementById('scannerUploadState');
+      if (upload) upload.appendChild(host);
+    }
+    const run = function () {
+      const qr = new window.Html5Qrcode(hostId);
+      qr.start({ facingMode: 'environment' }, { fps: 10, qrbox: 240 }, function (text) {
+        qr.stop().catch(function () {});
+        const f = { name: '', agency: '', email: '', phone: '', website: '', notes: text };
+        const g = function (re) { const m = text.match(re); return m ? m[1].trim() : ''; };
+        if (/BEGIN:VCARD/i.test(text)) {
+          f.name = g(/^FN:(.+)$/im); f.agency = g(/^ORG:(.+)$/im);
+          f.email = g(/EMAIL[^:]*:(.+)$/im); f.phone = g(/TEL[^:]*:(.+)$/im); f.website = g(/URL[^:]*:(.+)$/im);
+        } else if (/^MECARD:/i.test(text)) {
+          f.name = g(/N:([^;]+)/i).replace(',', ' '); f.email = g(/EMAIL:([^;]+)/i); f.phone = g(/TEL:([^;]+)/i); f.agency = g(/ORG:([^;]+)/i);
+        } else if (/^https?:\/\//i.test(text)) { f.website = text; }
+        const v = validateExtraction(f);
+        document.getElementById('scanName').value = v.name;
+        document.getElementById('scanAgency').value = v.agency;
+        document.getElementById('scanEmail').value = v.email;
+        document.getElementById('scanPhone').value = v.phone;
+        if (document.getElementById('scanWebsite')) document.getElementById('scanWebsite').value = v.website;
+        document.getElementById('scanNotes').value = v.notes;
+        document.getElementById('scannerUploadState').classList.add('hidden');
+        document.getElementById('scannerReviewForm').classList.remove('hidden');
+      }, function () {}).catch(function (err) { console.warn('[!] QR camera unavailable:', err); });
+    };
+    if (window.Html5Qrcode) return run();
+    const s = document.createElement('script');
+    s.src = 'https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js';
+    s.onload = run;
+    document.head.appendChild(s);
+  };
+
+  // Inject QR fallback button next to the card capture inputs
+  const _origEnsure = ensureScannerModal;
+  ensureScannerModal = function () {
+    const m = _origEnsure();
+    if (!m.querySelector('#p22QrBtn')) {
+      const up = m.querySelector('#scannerUploadState');
+      if (up) {
+        const b = document.createElement('button');
+        b.type = 'button'; b.id = 'p22QrBtn';
+        b.className = 'w-full py-3 px-4 rounded-2xl bg-white/5 border border-white/15 text-slate-200 text-xs font-bold';
+        b.textContent = '🔳 Scan QR Code Instead';
+        b.onclick = window.startQrFallbackScan;
+        up.appendChild(b);
+      }
+    }
+    return m;
   };
 })();

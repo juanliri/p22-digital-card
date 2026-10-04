@@ -38,7 +38,7 @@ REPS = [
         "name": "Marleni Méndez",
         "title": "Finance Officer & DCAA Compliance Lead",
         "email": "mmendez@p22corp.com",
-        "phone": "1-945-218-5896",
+        "phone": "1-888-722-2675",
         "tollFree": "1-888-722-2675",
         "header": "SAM.gov ACTIVE",
         "specialization": "DCAA Invoicing, WAWF Military Vouchers, GAAP Defense Accounting, NIST Compliance",

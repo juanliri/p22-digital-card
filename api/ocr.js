@@ -2,12 +2,99 @@
  * P-22 Digital Card - AI Vision OCR Endpoint
  * /api/ocr
  *
- * Uses Google Gemini 1.5 Flash (Free Tier) to transcribe business cards and badges.
- * Extracts structured JSON: name, agency, title, email, phone, website, and raw text.
- * Falls back to client-side Tesseract if no GEMINI_API_KEY is configured.
+ * Uses Google Gemini Vision (Gemini 2.5 / 2.0 / 1.5 Flash) to transcribe business cards and badges.
+ * Extracts structured JSON: name, agency, title, email, phone, website, and raw notes.
+ * Enforces JSON schema validation and heuristic field disambiguation.
+ * Falls back to client-side local neural OCR (Tesseract) if no GEMINI_API_KEY is configured.
  */
 
 const https = require('https');
+
+/**
+ * Robust JSON Schema Validator and Heuristic Disambiguator for Business Card OCR
+ */
+function sanitizeAndValidateCardData(data) {
+  const agencyKeywords = [
+    'inc', 'llc', 'corp', 'corporation', 'co.', 'company', 'ltd', 'agency',
+    'department', 'dept', 'command', 'dla', 'usace', 'navfac', 'group',
+    'services', 'logistics', 'solutions', 'technologies', 'contracting',
+    'associates', 'consulting', 'enterprises', 'holdings', 'systems', 'materials'
+  ];
+
+  const titleKeywords = [
+    'director', 'manager', 'lead', 'officer', 'president', 'vice president',
+    'vp', 'ceo', 'cfo', 'coo', 'pmp', 'pe', 'chfm', 'engineer', 'specialist',
+    'coordinator', 'estimator', 'superintendent', 'administrator', 'consultant',
+    'buyer', 'contracting officer', 'executive', 'representative', 'supervisor'
+  ];
+
+  let name = (data.name || '').trim();
+  let agency = (data.agency || '').trim();
+  let title = (data.title || '').trim();
+  let email = (data.email || '').trim().toLowerCase();
+  let phone = (data.phone || '').trim();
+  let website = (data.website || '').trim();
+  let notes = (data.notes || data.raw_ocr || '').trim();
+
+  // 1. Name vs Agency Inversion Check
+  const nameLower = name.toLowerCase();
+  const agencyLower = agency.toLowerCase();
+
+  const nameIsAgency = agencyKeywords.some(kw => nameLower.includes(kw));
+  const agencyIsPerson = agency.split(/\s+/).length >= 2 && agency.split(/\s+/).length <= 4 &&
+                         !agencyKeywords.some(kw => agencyLower.includes(kw));
+
+  if (nameIsAgency && agencyIsPerson) {
+    // Swap name and agency
+    const temp = name;
+    name = agency;
+    agency = temp;
+  }
+
+  // 2. Title leaking into Name Check
+  for (const tKw of titleKeywords) {
+    if (nameLower.startsWith(tKw + ' ') || nameLower.includes(' ' + tKw)) {
+      if (!title) {
+        title = name;
+        name = '';
+      }
+      break;
+    }
+  }
+
+  // 3. Clean and validate email
+  const emailMatch = email.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+  email = emailMatch ? emailMatch[0] : '';
+
+  // 4. Clean and format phone number
+  if (phone) {
+    phone = phone.replace(/^(?:tel|cell|phone|mobile|office|c:|m:|p:|t:)\s*/i, '').trim();
+    const phoneDigits = phone.replace(/[^0-9]/g, '');
+    if (phoneDigits.length === 10) {
+      phone = `(${phoneDigits.slice(0, 3)}) ${phoneDigits.slice(3, 6)}-${phoneDigits.slice(6)}`;
+    } else if (phoneDigits.length === 11 && phoneDigits.startsWith('1')) {
+      phone = `1-(${phoneDigits.slice(1, 4)}) ${phoneDigits.slice(4, 7)}-${phoneDigits.slice(7)}`;
+    }
+  }
+
+  // 5. Clean website
+  if (website) {
+    website = website.replace(/^(?:web|site|url|w:)\s*/i, '').trim();
+    if (!website.startsWith('http://') && !website.startsWith('https://') && website.includes('.')) {
+      website = 'https://' + website.replace(/^\/+/, '');
+    }
+  }
+
+  return {
+    name,
+    agency,
+    title,
+    email,
+    phone,
+    website,
+    notes,
+  };
+}
 
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -73,17 +160,27 @@ module.exports = async function handler(req, res) {
     }
 
     const promptText = `
-You are an expert AI transcription engine for business cards and conference badges.
-Extract all contact and credential information from this image.
-Return ONLY a valid JSON object without markdown or code fences:
+You are an expert AI vision transcription and extraction engine for physical business cards and conference badges.
+Carefully examine the layout, typography, and visual hierarchy of this card or badge image.
+
+CRITICAL INSTRUCTIONS:
+1. "name": The full personal name of the individual (e.g., "Col. Marcus Vance", "Jane Doe", "Pedro Felipe"). Do NOT put the company name or agency name here.
+2. "agency": The official organization, company, prime contractor, or government department name (e.g., "U.S. Army Corps of Engineers", "Turner Construction", "P-22 Corp"). Do NOT put the person's name here.
+3. "title": The professional role, rank, or job title (e.g., "Director of Commercial Sales", "Lead Estimator", "PMP", "Contracting Officer").
+4. "email": The direct or work email address.
+5. "phone": The primary direct or mobile phone number. Include extension if present.
+6. "website": The official company website URL or domain.
+7. "notes": Verbatim transcription of all additional certifications, CAGE codes, UEI numbers, addresses, and specialties visible on the card.
+
+Return ONLY a strictly valid JSON object matching this schema without markdown, backticks, or preamble:
 {
   "name": "Full Person Name",
   "agency": "Company, Department, or Prime Contractor Name",
-  "title": "Job Title or Military Rank",
-  "email": "Work Email",
+  "title": "Job Title or Rank",
+  "email": "Work Email Address",
   "phone": "Direct Phone Number",
   "website": "Company Website",
-  "notes": "Full verbatim transcription of all text on the card"
+  "notes": "Full verbatim transcription and credentials"
 }
 If any field is missing or illegible, set its value to an empty string "".
 `;
@@ -104,15 +201,17 @@ If any field is missing or illegible, set its value to an empty string "".
       ],
       generationConfig: {
         temperature: 0.1,
-        maxOutputTokens: 800,
+        maxOutputTokens: 1000,
         responseMimeType: 'application/json',
       },
     });
 
     const candidateModels = [
-      'gemini-3.5-flash',
+      'gemini-2.5-flash',
+      'gemini-2.0-flash',
+      'gemini-1.5-flash',
       'gemini-flash-latest',
-      'gemini-flash-lite-latest'
+      'gemini-1.5-pro'
     ];
 
     async function callGemini(modelName) {
@@ -178,18 +277,21 @@ If any field is missing or illegible, set its value to an empty string "".
       throw new Error('Empty AI response from Gemini Vision');
     }
 
-    let structured = {};
+    let rawStructured = {};
     try {
-      structured = JSON.parse(candidateText.trim().replace(/^```json/i, '').replace(/```$/i, ''));
+      rawStructured = JSON.parse(candidateText.trim().replace(/^```json/i, '').replace(/```$/i, ''));
     } catch {
-      structured = { raw_ocr: candidateText };
+      rawStructured = { raw_ocr: candidateText };
     }
+
+    // Apply strict schema validation and heuristics
+    const sanitizedData = sanitizeAndValidateCardData(rawStructured);
 
     return res.status(200).json({
       ok: true,
       ai_powered: true,
       model: aiResult.model,
-      data: structured,
+      data: sanitizedData,
     });
   } catch (err) {
     console.warn('[-] Gemini Vision API failed, falling back:', err.message);
