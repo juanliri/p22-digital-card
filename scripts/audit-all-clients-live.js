@@ -106,7 +106,7 @@ async function runLiveAudit() {
       if (req.url().includes('/assets/vcf/')) triggeredVcard = true;
     };
     page.on('request', requestHandler);
-    await primaryCta.tap();
+    await primaryBtn.tap();
     await page.waitForTimeout(500);
     page.off('request', requestHandler);
     assert(triggeredVcard, `${slug.toUpperCase()}: Primary CTA "Save Contact to Phone" seamlessly dispatches vCard`);
