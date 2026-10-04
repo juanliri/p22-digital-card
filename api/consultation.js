@@ -14,6 +14,7 @@
 
 const { appendConsultationRow } = require('../lib/google-sheets');
 const { notifyStaffOfConsultation } = require('../lib/notifications');
+const { createGoogleCalendarEvent } = require('../lib/google-calendar');
 
 module.exports = async function handler(req, res) {
   // CORS configuration
@@ -83,12 +84,28 @@ module.exports = async function handler(req, res) {
       console.warn('[-] Warning dispatching consultation alert:', notifErr.message);
     }
 
-    // 3. Generate direct Google Calendar Event URL for attendee
+    // 3. Attempt direct Google Calendar API event creation on staff calendar
+    let directCalendarResult = null;
+    try {
+      directCalendarResult = await createGoogleCalendarEvent({
+        ...consultEntry,
+        meeting_date: meetingDate,
+        meeting_slot: meetingSlot,
+      });
+      if (directCalendarResult && directCalendarResult.success && directCalendarResult.meetLink) {
+        meetLink = directCalendarResult.meetLink;
+        consultEntry.meet_link = meetLink;
+      }
+    } catch (calErr) {
+      console.warn('[-] Warning attempting direct Google Calendar API insert:', calErr.message);
+    }
+
+    // 4. Generate direct Google Calendar Event URL for attendee
     const titleEncoded = encodeURIComponent(`15-Min Executive Briefing: P-22 Corp & ${agency}`);
     const detailsEncoded = encodeURIComponent(`15-Minute Executive Briefing with ${repName} (P-22 Corp Construction Material Solutions LLC).\n\nTopic: ${topic}\nClient: ${clientName} (${agency})\nDirect Phone: ${phone}\nGoogle Meet Room: ${meetLink}\n\nDFW Headquarters • Nationwide Federal Infrastructure Response`);
     const googleCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${titleEncoded}&details=${detailsEncoded}&location=${encodeURIComponent(meetLink)}`;
 
-    // 4. Generate universal .ICS calendar file for Outlook / Apple Calendar
+    // 5. Generate universal .ICS calendar file for Outlook / Apple Calendar
     const cleanDate = (meetingDate || '').replace(/-/g, '') || '20261006';
     let startHour = 10;
     if (meetingSlot.includes('09:00')) startHour = 9;
@@ -131,7 +148,8 @@ module.exports = async function handler(req, res) {
         agency,
         meeting_time: formattedMeetingTime,
         meet_link: meetLink,
-        google_cal_url: googleCalUrl,
+        google_cal_url: (directCalendarResult && directCalendarResult.htmlLink) || googleCalUrl,
+        direct_calendar_event: !!(directCalendarResult && directCalendarResult.success),
         ics_url: icsUrl,
       },
     });

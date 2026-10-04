@@ -105,3 +105,91 @@ function onLeadAdded(e) {
     Logger.log("Failed to send notification: " + err.toString());
   }
 }
+
+/**
+ * Automatically creates a Google Calendar event on Pedro / Staff Calendar
+ * and sends official Google Calendar invitations when a consultation is booked.
+ */
+function onConsultationAdded(e) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName("Consultations");
+  if (!sheet) return;
+
+  var lastRow = sheet.getLastRow();
+  if (lastRow <= 1) return; // Only headers
+
+  // Column K: Calendar Sync Flag
+  var syncedFlag = sheet.getRange(lastRow, 11).getValue();
+  if (syncedFlag === "CALENDAR_SYNCED") return;
+
+  var row = sheet.getRange(lastRow, 1, 1, 10).getValues()[0];
+  var timestamp = row[0];
+  var repName = String(row[1] || "Pedro Felipe");
+  var clientName = String(row[2] || "Attendee");
+  var agency = String(row[3] || "Contractor / Agency");
+  var email = String(row[4] || "");
+  var phone = String(row[5] || "");
+  var meetingTimeStr = String(row[6] || "");
+  var meetLink = String(row[7] || "https://meet.google.com/p22-procurement-desk");
+  var status = String(row[8] || "Scheduled");
+  var notes = String(row[9] || "15-Minute Executive Briefing");
+
+  // Determine staff email
+  var repKey = repName.toLowerCase();
+  var recipientEmail = "pfelipe@p22corp.com";
+  for (var key in STAFF_DIRECTORY) {
+    if (repKey.indexOf(key) !== -1) {
+      recipientEmail = STAFF_DIRECTORY[key];
+      break;
+    }
+  }
+
+  // Parse Date & Time (e.g. "2026-10-06 at 10:00 AM CST")
+  var dateMatch = meetingTimeStr.match(/(\d{4}-\d{2}-\d{2})/);
+  var timeMatch = meetingTimeStr.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+
+  var startTime = new Date();
+  if (dateMatch && timeMatch) {
+    var parts = dateMatch[1].split("-");
+    var hour = parseInt(timeMatch[1], 10);
+    var min = parseInt(timeMatch[2], 10);
+    var ampm = timeMatch[3].toUpperCase();
+    if (ampm === "PM" && hour < 12) hour += 12;
+    if (ampm === "AM" && hour === 12) hour = 0;
+    startTime = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10), hour, min, 0);
+  } else {
+    startTime = new Date(Date.now() + 24 * 3600 * 1000);
+  }
+
+  var endTime = new Date(startTime.getTime() + 15 * 60 * 1000); // 15-minute briefing
+
+  var eventTitle = "15-Min Executive Briefing: P-22 Corp & " + agency;
+  var description = "15-Minute Executive Capabilities Briefing with " + repName + " (P-22 Corp Construction Material Solutions LLC).\n\n"
+    + "Client: " + clientName + " (" + agency + ")\n"
+    + "Direct Phone: " + phone + "\n"
+    + "Work Email: " + email + "\n"
+    + "Google Meet Room: " + meetLink + "\n"
+    + "Procurement Scope: " + notes + "\n\n"
+    + "DFW Headquarters • Nationwide Federal Infrastructure Delivery\nCAGE: 169D8 • UEI: X3HUQZ66P6N3";
+
+  try {
+    var cal = CalendarApp.getDefaultCalendar();
+    var guests = recipientEmail;
+    if (email && email.indexOf("@") !== -1) {
+      guests += "," + email;
+    }
+
+    var event = cal.createEvent(eventTitle, startTime, endTime, {
+      description: description,
+      location: meetLink,
+      guests: guests,
+      sendInvites: true
+    });
+
+    sheet.getRange(lastRow, 11).setValue("CALENDAR_SYNCED");
+    Logger.log("Successfully created Google Calendar event: " + event.getId());
+  } catch (calErr) {
+    Logger.log("Error creating Calendar event: " + calErr.toString());
+  }
+}
+
