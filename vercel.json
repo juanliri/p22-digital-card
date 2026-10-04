@@ -1,6 +1,19 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "p22-digital-card.vercel.app"
+        }
+      ],
+      "destination": "https://card.p22corp.com/$1",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     { "source": "/setup", "destination": "/setup.html" },
     { "source": "/badge", "destination": "/badge.html" },
