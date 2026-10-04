@@ -88,6 +88,40 @@ module.exports = async function handler(req, res) {
     const detailsEncoded = encodeURIComponent(`15-Minute Executive Briefing with ${repName} (P-22 Corp Construction Material Solutions LLC).\n\nTopic: ${topic}\nClient: ${clientName} (${agency})\nDirect Phone: ${phone}\nGoogle Meet Room: ${meetLink}\n\nDFW Headquarters • Nationwide Federal Infrastructure Response`);
     const googleCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${titleEncoded}&details=${detailsEncoded}&location=${encodeURIComponent(meetLink)}`;
 
+    // 4. Generate universal .ICS calendar file for Outlook / Apple Calendar
+    const cleanDate = (meetingDate || '').replace(/-/g, '') || '20261006';
+    let startHour = 10;
+    if (meetingSlot.includes('09:00')) startHour = 9;
+    else if (meetingSlot.includes('10:00')) startHour = 10;
+    else if (meetingSlot.includes('11:30')) startHour = 11;
+    else if (meetingSlot.includes('01:30')) startHour = 13;
+    else if (meetingSlot.includes('02:30')) startHour = 14;
+    else if (meetingSlot.includes('03:30')) startHour = 15;
+    else if (meetingSlot.includes('04:30')) startHour = 16;
+    const startHourStr = String(startHour).padStart(2, '0');
+    const startMinStr = meetingSlot.includes(':30') ? '30' : '00';
+    const endMinStr = meetingSlot.includes(':30') ? '45' : '15';
+    const dtStart = `${cleanDate}T${startHourStr}${startMinStr}00`;
+    const dtEnd = `${cleanDate}T${startHourStr}${endMinStr}00`;
+
+    const icsContent = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//P-22 Corp//Executive Briefing//EN',
+      'CALSCALE:GREGORIAN',
+      'METHOD:REQUEST',
+      'BEGIN:VEVENT',
+      `DTSTART:${dtStart}`,
+      `DTEND:${dtEnd}`,
+      `SUMMARY:15-Min Executive Briefing: P-22 Corp & ${agency}`,
+      `DESCRIPTION:15-Minute Executive Capabilities Briefing with ${repName} (P-22 Corp Construction Material Solutions LLC).\\n\\nTopic: ${topic}\\nClient: ${clientName} (${agency})\\nDirect Phone: ${phone}\\nGoogle Meet: ${meetLink}\\n\\nDFW Headquarters • Nationwide Federal Infrastructure Response`,
+      `LOCATION:${meetLink}`,
+      'STATUS:CONFIRMED',
+      'END:VEVENT',
+      'END:VCALENDAR'
+    ].join('\r\n');
+    const icsUrl = `data:text/calendar;charset=utf-8,${encodeURIComponent(icsContent)}`;
+
     return res.status(200).json({
       ok: true,
       message: 'Consultation successfully scheduled and confirmed.',
@@ -98,6 +132,7 @@ module.exports = async function handler(req, res) {
         meeting_time: formattedMeetingTime,
         meet_link: meetLink,
         google_cal_url: googleCalUrl,
+        ics_url: icsUrl,
       },
     });
   } catch (err) {

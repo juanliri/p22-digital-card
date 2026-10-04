@@ -1081,7 +1081,10 @@
             <a id="successGoogleCalBtn" href="#" target="_blank" class="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-p22gold text-slate-950 font-bold text-xs hover:brightness-110 transition shadow">
               <span>📅 Add to Google Calendar</span>
             </a>
-            <button onclick="closeBriefingModal()" class="w-full py-2.5 px-4 rounded-xl bg-white/10 text-white font-semibold text-xs hover:bg-white/20 transition">
+            <a id="successIcsBtn" href="#" download="P22-Executive-Briefing.ics" class="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-white/10 text-white font-semibold text-xs hover:bg-white/20 transition border border-white/10">
+              <span>📥 Apple / Outlook Calendar (.ICS)</span>
+            </a>
+            <button onclick="closeBriefingModal()" class="w-full py-2.5 px-4 rounded-xl bg-white/5 text-slate-400 font-semibold text-xs hover:text-white hover:bg-white/10 transition">
               Done &bull; Close
             </button>
           </div>
@@ -1990,6 +1993,10 @@
         if (calBtn && data.consultation && data.consultation.google_cal_url) {
           calBtn.href = data.consultation.google_cal_url;
         }
+        const icsBtn = document.getElementById('successIcsBtn');
+        if (icsBtn && data.consultation && data.consultation.ics_url) {
+          icsBtn.href = data.consultation.ics_url;
+        }
 
         // Switch to success card
         document.getElementById('consultationForm').classList.add('hidden');
@@ -2000,7 +2007,17 @@
         }
       } catch (err) {
         console.error('[-] Error booking consultation:', err);
-        // Fallback: Show success anyway and open calendar link
+        // Fallback: Build client-side calendar links and show success card
+        const detailsEl = document.getElementById('successMeetingDetails');
+        if (detailsEl) detailsEl.textContent = `${payload.meeting_date} at ${payload.meeting_slot}`;
+        const repEl = document.getElementById('successRepName');
+        if (repEl) repEl.textContent = rep.name;
+        const fallbackCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('15-Min Executive Briefing: P-22 Corp & ' + payload.client_agency)}&details=${encodeURIComponent('15-Minute Executive Briefing with ' + rep.name + ' (P-22 Corp Construction Material Solutions LLC).\n\nGoogle Meet: https://meet.google.com/p22-procurement-desk')}&location=${encodeURIComponent('https://meet.google.com/p22-procurement-desk')}`;
+        const calBtn = document.getElementById('successGoogleCalBtn');
+        if (calBtn) calBtn.href = fallbackCalUrl;
+        const fallbackIcs = 'BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//P-22 Corp//Executive Briefing//EN\r\nBEGIN:VEVENT\r\nSUMMARY:15-Min Executive Briefing: P-22 Corp & ' + payload.client_agency + '\r\nDESCRIPTION:15-Minute Executive Briefing with ' + rep.name + '\\nGoogle Meet: https://meet.google.com/p22-procurement-desk\r\nLOCATION:https://meet.google.com/p22-procurement-desk\r\nSTATUS:CONFIRMED\r\nEND:VEVENT\r\nEND:VCALENDAR';
+        const icsBtn = document.getElementById('successIcsBtn');
+        if (icsBtn) icsBtn.href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(fallbackIcs);
         document.getElementById('consultationForm').classList.add('hidden');
         document.getElementById('consultSuccessCard').classList.remove('hidden');
       } finally {
