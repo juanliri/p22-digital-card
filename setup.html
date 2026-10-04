@@ -980,6 +980,13 @@
               <span>Download (.CSV)</span>
             </button>
 
+            <!-- Backup JSON with Photos -->
+            <button onclick="exportLeadsWithPhotosJSON()"
+                    class="py-2.5 px-3.5 rounded-xl bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 border border-purple-400/40 text-xs font-bold font-montserrat transition flex items-center gap-1.5 shadow" title="Download all leads with full base64 scanned card photos">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+              <span>Backup All + Photos (.JSON)</span>
+            </button>
+
             <button onclick="clearLeadsSetup()"
                     class="py-2.5 px-2.5 rounded-xl bg-white/5 hover:bg-red-500/20 text-slate-400 hover:text-red-400 border border-white/10 text-xs transition" title="Clear local list">
               Clear
@@ -998,6 +1005,7 @@
                 <th class="p-2.5">Agency / Prime</th>
                 <th class="p-2.5">Email</th>
                 <th class="p-2.5">Phone</th>
+                <th class="p-2.5 text-center">Card Photo</th>
                 <th class="p-2.5">Scope / Notes</th>
               </tr>
             </thead>
@@ -1836,6 +1844,66 @@
       document.body.appendChild(link);
       link.click();
       setTimeout(() => document.body.removeChild(link), 500);
+    }
+
+    function exportLeadsWithPhotosJSON() {
+      const stored = getAllStoredLeads();
+      if (stored.length === 0) {
+        alert('No leads recorded yet on this device.');
+        return;
+      }
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({
+        archive_type: "P22_EXPO_LEADS_AND_PHOTOS_ARCHIVE",
+        exported_at: new Date().toISOString(),
+        total_leads: stored.length,
+        device_leads: stored
+      }, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `P22_Leads_With_Photos_${new Date().toISOString().slice(0, 10)}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    }
+
+    function openPhotoLightbox(photoUrl) {
+      if (!photoUrl) return;
+      let modal = document.getElementById('photoLightboxModal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'photoLightboxModal';
+        modal.className = 'fixed inset-0 z-[300] flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md';
+        modal.innerHTML = `
+          <div class="glass-panel w-full max-w-lg rounded-3xl p-5 border border-p22gold/40 shadow-2xl relative text-center space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-white/10">
+              <h3 class="text-sm font-bold text-white font-montserrat flex items-center gap-2">
+                <span class="text-p22gold">🖼️</span> Scanned Business Card / Badge
+              </h3>
+              <button onclick="closePhotoLightbox()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-white/10 text-lg leading-none">&times;</button>
+            </div>
+            <div class="bg-black/60 rounded-2xl p-2 border border-white/10 overflow-hidden flex items-center justify-center">
+              <img id="lightboxImg" src="" class="max-h-[60vh] max-w-full rounded-xl object-contain shadow-lg" alt="Scanned Card">
+            </div>
+            <div class="flex gap-2">
+              <a id="lightboxDownloadBtn" href="" download="scanned-card.jpg" class="flex-1 py-2.5 px-4 rounded-xl bg-p22gold text-slate-950 font-bold text-xs hover:brightness-110 transition shadow flex items-center justify-center gap-1.5">
+                <span>📥 Download High-Res Image</span>
+              </a>
+              <button onclick="closePhotoLightbox()" class="py-2.5 px-4 rounded-xl bg-white/10 text-white font-semibold text-xs hover:bg-white/20 transition">
+                Close
+              </button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+      }
+      document.getElementById('lightboxImg').src = photoUrl;
+      document.getElementById('lightboxDownloadBtn').href = photoUrl;
+      modal.classList.remove('hidden');
+    }
+
+    function closePhotoLightbox() {
+      const modal = document.getElementById('photoLightboxModal');
+      if (modal) modal.classList.add('hidden');
     }
 
     function clearLeadsSetup() {
