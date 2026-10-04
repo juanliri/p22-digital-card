@@ -1,0 +1,38 @@
+# P-22 Corp Digital Card - Robots Policy
+# https://card.p22corp.com
+
+User-agent: *
+Allow: /
+Allow: /pedro
+Allow: /eduardo
+Allow: /marleni
+Allow: /bids
+Allow: /logistics
+Allow: /capability-statement
+Disallow: /assets/*.mp4
+Disallow: /assets/video*
+Disallow: /setup
+Disallow: /badge
+Disallow: /api/
+
+# Block aggressive automated copyright and data scraping crawlers
+User-agent: PicRightsBot
+Disallow: /
+
+User-agent: CopytrackBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
