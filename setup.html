@@ -458,7 +458,7 @@
           <svg class="w-3.5 h-3.5 text-p22gold" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
           <span>Phone Badge &rarr;</span>
         </a>
-        <a id="viewPublicCardBtn" href="/pedro" target="_blank"
+        <a id="viewPublicCardBtnHeader" data-view-card-btn href="/pedro" target="_blank"
            class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-p22gold text-slate-950 font-montserrat font-bold text-xs hover:brightness-110 active:scale-95 transition btn-bounce shadow">
           <span>View Public Card</span>
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
@@ -489,7 +489,7 @@
             <svg class="w-3.5 h-3.5 text-p22gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
             <span>Switch Profile</span>
           </button>
-          <a id="viewPublicCardBtn" href="/pedro" target="_blank"
+          <a id="viewPublicCardBtnBanner" data-view-card-btn href="/pedro" target="_blank"
              class="px-3.5 py-2 rounded-xl bg-p22gold text-slate-950 font-montserrat font-bold text-xs hover:brightness-110 active:scale-95 transition btn-bounce shadow flex items-center gap-1.5">
             <span>View Card</span>
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
@@ -1207,7 +1207,14 @@
       const url = `${getAppBaseUrl()}/${rep.slug}`;
       document.getElementById('personalCardUrl').value = url;
       document.getElementById('nfcUrlText').innerText = url;
-      document.getElementById('viewPublicCardBtn').href = `/${rep.slug}`;
+      // Dynamically update ALL View Card links across the Studio
+      document.querySelectorAll('[data-view-card-btn]').forEach(btn => {
+        btn.href = '/' + rep.slug;
+      });
+      const headerCardBtn = document.getElementById('viewPublicCardBtnHeader');
+      if (headerCardBtn) headerCardBtn.href = '/' + rep.slug;
+      const bannerCardBtn = document.getElementById('viewPublicCardBtnBanner');
+      if (bannerCardBtn) bannerCardBtn.href = '/' + rep.slug;
 
       document.getElementById('bannerName').innerText = rep.name;
       document.getElementById('bannerTitle').innerText = rep.title;
