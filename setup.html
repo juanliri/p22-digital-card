@@ -626,32 +626,91 @@
       </div>
     </section>
       <!-- Tool 4: Physical NFC Card Encoding Guide -->
-    <section class="glass-panel rounded-3xl p-6 shadow-2xl space-y-4">
-      <div class="flex items-center gap-2.5 border-b border-white/10 pb-3">
-        <div class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 18H4v-4h8v4zm0-6H4v-4h8v4zm0-6H4V4h8v4zm8 12h-6v-4h6v4zm0-6h-6v-4h6v4zm0-6h-6V4h6v4z"/></svg>
+      <section class="glass-panel rounded-3xl p-6 shadow-2xl space-y-4">
+        <div class="flex items-center justify-between border-b border-white/10 pb-3">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8 18H4v-4h8v4zm0-6H4v-4h8v4zm0-6H4V4h8v4zm8 12h-6v-4h6v4zm0-6h-6v-4h6v4zm0-6h-6V4h6v4z"/></svg>
+            </div>
+            <div>
+              <h2 class="text-sm font-montserrat font-bold text-white">Physical NFC Card Programming (Austin Expo)</h2>
+              <p class="text-xs text-slate-400">Byte-optimized URLs for NTAG213 / NTAG215 chips with in-flight telemetry attribution.</p>
+            </div>
+          </div>
+          <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-mono font-bold border border-amber-500/30">
+            NTAG213 / NTAG215 &bull; ~36 Bytes
+          </span>
         </div>
-        <div>
-          <h2 class="text-sm font-montserrat font-bold text-white">Physical NFC Card Programming (Austin Expo)</h2>
-          <p class="text-xs text-slate-400">Steps to burn your personal URL into any blank NTAG215 card in 10 seconds.</p>
-        </div>
-      </div>
 
-      <div class="space-y-2.5 text-xs text-slate-300">
-        <div class="flex items-start gap-2.5 p-3 rounded-xl bg-white/5 border border-white/5">
-          <span class="w-5 h-5 rounded-full bg-p22gold text-slate-950 font-bold flex items-center justify-center shrink-0 text-[10px]">1</span>
-          <p>Download the free <strong>NFC Tools</strong> app on your iPhone or Android.</p>
+        <!-- Chip & Attribution Explanation -->
+        <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 text-xs space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-white flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+              Recommended NFC Attribution Link (<code class="text-p22gold">?src=nfc</code>):
+            </span>
+            <span class="text-[10px] text-emerald-400 font-mono font-semibold">✓ Zero Cookies / NIST AU-2</span>
+          </div>
+          <p class="text-slate-300 leading-relaxed text-[11px]">
+            Adding <code class="text-p22gold">?src=nfc</code> allows our Google Sheets telemetry router to automatically identify that the visit originated from a physical card tap rather than a QR scan or email signature.
+          </p>
+
+          <!-- Dynamic URL Box with 1-Click Copy -->
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 pt-1">
+            <div class="flex-1 bg-slate-950/80 border border-white/20 rounded-xl px-3 py-2 font-mono text-[11.5px] text-amber-300 truncate select-all" id="nfcUrlBox">
+              https://card.p22corp.com/pedro?src=nfc
+            </div>
+            <button type="button" onclick="copyNfcUrl()" id="nfcCopyBtn"
+                    class="px-4 py-2 rounded-xl bg-p22gold hover:brightness-110 text-slate-950 font-montserrat font-bold text-xs transition btn-bounce shadow flex items-center justify-center gap-1.5 shrink-0">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+              <span id="nfcCopyBtnText">Copy NFC URL</span>
+            </button>
+          </div>
+
+          <div class="flex items-center justify-between text-[10.5px] text-slate-400 pt-0.5">
+            <span>Bare Clean URL: <code id="nfcUrlCleanText" class="text-slate-300">https://card.p22corp.com/pedro</code></span>
+            <span>Byte footprint: <strong>~36 bytes</strong> (Fits 144B NTAG213 with 75% free space)</span>
+          </div>
         </div>
-        <div class="flex items-start gap-2.5 p-3 rounded-xl bg-white/5 border border-white/5">
-          <span class="w-5 h-5 rounded-full bg-p22gold text-slate-950 font-bold flex items-center justify-center shrink-0 text-[10px]">2</span>
-          <p>Tap <strong>Write</strong> &rarr; <strong>Add a record</strong> &rarr; <strong>URL / URI</strong>.</p>
+
+        <!-- Step-by-Step Programming Guide -->
+        <div class="space-y-2 text-xs text-slate-300">
+          <div class="flex items-start gap-2.5 p-3 rounded-xl bg-white/5 border border-white/5">
+            <span class="w-5 h-5 rounded-full bg-p22gold text-slate-950 font-bold flex items-center justify-center shrink-0 text-[10px]">1</span>
+            <div>
+              <p class="font-bold text-white">Download "NFC Tools" (Free)</p>
+              <p class="text-slate-400 text-[11px]">Install the free <strong>NFC Tools</strong> app from the Apple App Store or Google Play Store.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-2.5 p-3 rounded-xl bg-white/5 border border-white/5">
+            <span class="w-5 h-5 rounded-full bg-p22gold text-slate-950 font-bold flex items-center justify-center shrink-0 text-[10px]">2</span>
+            <div>
+              <p class="font-bold text-white">Select Record Type</p>
+              <p class="text-slate-400 text-[11px]">Tap <strong>Write</strong> &rarr; <strong>Add a record</strong> &rarr; select <strong>URL / URI</strong>.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-2.5 p-3 rounded-xl bg-white/5 border border-white/5">
+            <span class="w-5 h-5 rounded-full bg-p22gold text-slate-950 font-bold flex items-center justify-center shrink-0 text-[10px]">3</span>
+            <div>
+              <p class="font-bold text-white">Paste URL &amp; Verify Prefix</p>
+              <p class="text-slate-400 text-[11px]">Keep the protocol dropdown on <strong>https://</strong> and paste: <code class="text-p22gold font-mono" id="nfcToolsInputPreview">card.p22corp.com/pedro?src=nfc</code></p>
+            </div>
+          </div>
+          <div class="flex items-start gap-2.5 p-3 rounded-xl bg-white/5 border border-white/5">
+            <span class="w-5 h-5 rounded-full bg-p22gold text-slate-950 font-bold flex items-center justify-center shrink-0 text-[10px]">4</span>
+            <div>
+              <p class="font-bold text-white">Burn Tag</p>
+              <p class="text-slate-400 text-[11px]">Tap <strong>Write / 36 Bytes</strong> and touch your physical card or chip to the top edge of your iPhone (or center back of Android).</p>
+            </div>
+          </div>
         </div>
-        <div class="flex items-start gap-2.5 p-3 rounded-xl bg-white/5 border border-white/5">
-          <span class="w-5 h-5 rounded-full bg-p22gold text-slate-950 font-bold flex items-center justify-center shrink-0 text-[10px]">3</span>
-          <p>Paste your exact link: <strong id="nfcUrlText" class="text-p22gold font-mono">https://card.p22corp.com/pedro</strong> and hold your physical card to the top edge of your phone.</p>
+
+        <!-- Corporate Directory Notice -->
+        <div class="p-2.5 rounded-xl bg-blue-500/10 border border-blue-500/20 text-[10.5px] text-blue-200 flex items-center gap-2">
+          <svg class="w-4 h-4 text-blue-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span><strong>Corporate Directory Note:</strong> Eduardo is officially registered as <strong>Eduardo Lopez</strong> (URL slug: <code class="text-white font-mono">/eduardo</code> &bull; Email: <code class="text-white font-mono">elopez@p22corp.com</code>).</span>
         </div>
-      </div>
-    </section>
+      </section>
     </div>
   
 
@@ -1206,13 +1265,42 @@
       renderActiveMember(slug);
     }
 
+    
+    function copyNfcUrl() {
+      const rep = TEAM_DATA[activeSlug] || TEAM_DATA.pedro;
+      const nfcUrl = `${getAppBaseUrl()}/${rep.slug}?src=nfc`;
+      navigator.clipboard.writeText(nfcUrl).then(() => {
+        const btnText = document.getElementById('nfcCopyBtnText');
+        if (btnText) {
+          btnText.innerText = '✓ Copied!';
+          setTimeout(() => { btnText.innerText = 'Copy NFC URL'; }, 2000);
+        }
+      }).catch(() => {
+        const box = document.getElementById('nfcUrlBox');
+        if (box) {
+          const range = document.createRange();
+          range.selectNodeContents(box);
+          const sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+        }
+      });
+    }
+
     function renderActiveMember(slug) {
       const rep = TEAM_DATA[slug] || TEAM_DATA.pedro;
       if (!rep) return;
 
       const url = `${getAppBaseUrl()}/${rep.slug}`;
       document.getElementById('personalCardUrl').value = url;
-      document.getElementById('nfcUrlText').innerText = url;
+      document.getElementById('nfcUrlText') && (document.getElementById('nfcUrlText').innerText = url);
+      const nfcAttributionUrl = `${url}?src=nfc`;
+      const nfcBox = document.getElementById('nfcUrlBox');
+      if (nfcBox) nfcBox.innerText = nfcAttributionUrl;
+      const nfcClean = document.getElementById('nfcUrlCleanText');
+      if (nfcClean) nfcClean.innerText = url;
+      const nfcPreview = document.getElementById('nfcToolsInputPreview');
+      if (nfcPreview) nfcPreview.innerText = nfcAttributionUrl.replace(/^https?:\/\//, '');
       const shortcutEl = document.getElementById('shortcutUrlDisplay');
       if (shortcutEl) shortcutEl.innerText = url;
       // Dynamically update ALL View Card links across the Studio

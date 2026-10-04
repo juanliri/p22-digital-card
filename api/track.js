@@ -51,7 +51,7 @@ module.exports = async function handler(req, res) {
     const platform = payload.platform || detectPlatform(userAgent);
     const rep = (payload.rep || req.query.rep || 'general').toLowerCase();
     const event = payload.event || req.query.event || 'page_view';
-    const source = payload.source || req.query.source || 'direct';
+    const source = payload.source || payload.src || req.query.source || req.query.src || 'direct';
     const rawDetails = payload.details || req.query.details || '';
     
     // Extract Client IP and Session ID for grouping user journeys

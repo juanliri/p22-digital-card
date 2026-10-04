@@ -36,10 +36,10 @@
 
   function getTrafficSource() {
     const params = new URLSearchParams(window.location.search);
-    if (params.get('nfc') === '1' || params.get('source') === 'nfc') return 'nfc';
-    if (params.get('qr') === '1' || params.get('source') === 'expo_qr') return 'expo_qr';
-    if (params.get('sig') === '1' || params.get('source') === 'email_sig') return 'email_sig';
-    return params.get('source') || 'direct';
+    if (params.get('nfc') === '1' || params.get('source') === 'nfc' || params.get('src') === 'nfc') return 'nfc';
+    if (params.get('qr') === '1' || params.get('source') === 'expo_qr' || params.get('src') === 'expo_qr') return 'expo_qr';
+    if (params.get('sig') === '1' || params.get('source') === 'email_sig' || params.get('src') === 'email_sig') return 'email_sig';
+    return params.get('source') || params.get('src') || 'direct';
   }
 
   window.p22Track = function (event, details, customRep) {
