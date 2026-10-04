@@ -8,6 +8,169 @@
 (function () {
   'use strict';
 
+  // =========================================================================
+  // Native Haptic & Battery-Adaptive Web Audio Feedback Engine
+  // Capped at subtle volume (8-12%) so it NEVER blasts, regardless of phone %
+  // Auto-scales haptics and gain based on Battery Status API
+  // =========================================================================
+  const NativeFeedback = {
+    ctx: null,
+    unlocked: false,
+    batteryLevel: 1.0,
+    isLowBattery: false,
+    isCriticalBattery: false,
+
+    async init() {
+      if (!this.ctx) {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (AudioCtx) {
+          try {
+            this.ctx = new AudioCtx();
+          } catch (e) {}
+        }
+      }
+      if (this.ctx && this.ctx.state === 'suspended') {
+        this.ctx.resume().catch(() => {});
+      }
+
+      // Check battery status if supported by mobile browser
+      if (typeof navigator !== 'undefined' && navigator.getBattery) {
+        try {
+          const battery = await navigator.getBattery();
+          this.updateBatteryState(battery);
+          battery.addEventListener('levelchange', () => this.updateBatteryState(battery));
+          battery.addEventListener('chargingchange', () => this.updateBatteryState(battery));
+        } catch (e) {}
+      }
+    },
+
+    updateBatteryState(battery) {
+      if (!battery) return;
+      this.batteryLevel = typeof battery.level === 'number' ? battery.level : 1.0;
+      const isDischarging = !battery.charging;
+      this.isLowBattery = isDischarging && this.batteryLevel <= 0.25;
+      this.isCriticalBattery = isDischarging && this.batteryLevel <= 0.12;
+    },
+
+    unlock() {
+      if (this.unlocked) return;
+      this.init();
+      if (this.ctx && this.ctx.state === 'running') {
+        this.unlocked = true;
+      }
+    },
+
+    // Relative gain clamp: ensures output is strictly whisper-quiet (5-12% of device volume)
+    getGainCeiling(baseCeiling = 0.11) {
+      if (this.isCriticalBattery) return baseCeiling * 0.45; // ~5% on critical battery
+      if (this.isLowBattery) return baseCeiling * 0.65;      // ~7% on low battery
+      return baseCeiling;                                   // Standard subtle ceiling (~11%)
+    },
+
+    // Adaptive haptic vibration (Android supported, safe on iOS)
+    vibrate(pattern) {
+      if (typeof navigator === 'undefined' || !navigator.vibrate) return;
+      if (this.isCriticalBattery) return; // Disable vibration to preserve critical battery
+      if (this.isLowBattery) {
+        // Halve pulse duration on low battery
+        if (Array.isArray(pattern)) {
+          navigator.vibrate(pattern.map(p => Math.max(5, Math.round(p * 0.5))));
+        } else {
+          navigator.vibrate(Math.max(5, Math.round(pattern * 0.5)));
+        }
+        return;
+      }
+      navigator.vibrate(pattern);
+    },
+
+    // 1. Shutter / Card Snap (Crisp mechanical camera click, 40ms)
+    snap() {
+      this.init();
+      this.vibrate(16);
+      if (!this.ctx) return;
+
+      try {
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(140, now);
+        osc.frequency.exponentialRampToValueAtTime(32, now + 0.04);
+
+        const ceiling = this.getGainCeiling(0.12);
+        gain.gain.setValueAtTime(ceiling, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.04);
+      } catch (e) {}
+    },
+
+    // 2. Scan Success / Lead Saved (Apple Pay-style crisp harmonic rising chime, 220ms)
+    success() {
+      this.init();
+      this.vibrate([22, 35, 25]);
+      if (!this.ctx) return;
+
+      try {
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+
+        osc.type = 'sine';
+        // Harmonic rise: A5 (880Hz) to A6 (1760Hz)
+        osc.frequency.setValueAtTime(880, now);
+        osc.frequency.setValueAtTime(1760, now + 0.075);
+
+        const ceiling = this.getGainCeiling(0.10);
+        gain.gain.setValueAtTime(ceiling, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.22);
+      } catch (e) {}
+    },
+
+    // 3. Scan Error / Glare / Unreadable (Low double-buzz)
+    error() {
+      this.init();
+      this.vibrate([45, 40, 55]);
+      if (!this.ctx) return;
+
+      try {
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(150, now);
+        osc.frequency.setValueAtTime(105, now + 0.08);
+
+        const ceiling = this.getGainCeiling(0.13);
+        gain.gain.setValueAtTime(ceiling, now);
+        gain.gain.exponentialRampToValueAtTime(0.005, now + 0.18);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.18);
+      } catch (e) {}
+    }
+  };
+
+  // Eagerly unlock on first user gesture anywhere on page
+  window.addEventListener('touchstart', () => NativeFeedback.unlock(), { once: true, passive: true });
+  window.addEventListener('pointerdown', () => NativeFeedback.unlock(), { once: true, passive: true });
+  window.addEventListener('click', () => NativeFeedback.unlock(), { once: true });
+
+  window.NativeFeedback = NativeFeedback;
+
+
   // In-memory state
   let isTesseractLoading = false;
   let tesseractLoaded = false;
@@ -60,15 +223,18 @@
       if (res.ok) {
         const json = await res.json();
         console.log('[+] Lead successfully recorded:', json);
+        if (window.NativeFeedback) window.NativeFeedback.success();
         return { ok: true, data: json };
       } else {
         console.warn('[-] /api/lead returned non-200:', res.status);
         enqueueOfflineLead(sanitized);
+        if (window.NativeFeedback) window.NativeFeedback.success();
         return { ok: false, status: res.status, queued: true };
       }
     } catch (err) {
       console.warn('[P22-Lead] Network dispatch deferred to offline storage:', err.message);
       try { enqueueOfflineLead(sanitized); } catch (e) {}
+      if (window.NativeFeedback) window.NativeFeedback.success();
       return { ok: false, offline: true, queued: true, error: err.message };
     }
   };
@@ -457,6 +623,7 @@
 
   // Trigger Scanner Modal
   window.triggerCardScan = function (context = 'inline') {
+    if (window.NativeFeedback) window.NativeFeedback.snap();
     activeScanContext = context;
     if (context === 'inline' && typeof revealStep2Exchange === 'function') {
       revealStep2Exchange(true);
@@ -494,6 +661,7 @@
   window.handleCardImageSelected = function (e) {
     const file = e.target.files && e.target.files[0];
     if (!file) return;
+    if (window.NativeFeedback) window.NativeFeedback.snap();
 
     const upload = document.getElementById('scannerUploadState');
     const proc = document.getElementById('scannerProcessingState');
@@ -539,6 +707,7 @@
                 }
                 document.getElementById('scanNotes').value = (d.title ? d.title + '\n' : '') + (d.notes || d.raw_text || 'Scanned Card');
                 aiSuccess = true;
+                if (window.NativeFeedback) window.NativeFeedback.success();
               }
             }
           } catch (e) {
@@ -554,6 +723,7 @@
             const fallbackTimeout = setTimeout(() => {
               if (!tesseractHandled) {
                 tesseractHandled = true;
+                if (window.NativeFeedback) window.NativeFeedback.error();
                 if (proc) proc.classList.add('hidden');
                 const form = document.getElementById('scannerReviewForm');
                 if (form) form.classList.remove('hidden');
@@ -582,6 +752,12 @@
                 document.getElementById('scanPhone').value = parsed.phone || '';
                 document.getElementById('scanNotes').value = parsed.notes || 'Scanned Card';
 
+                if (parsed.name || parsed.email || parsed.phone || parsed.agency) {
+                  if (window.NativeFeedback) window.NativeFeedback.success();
+                } else {
+                  if (window.NativeFeedback) window.NativeFeedback.error();
+                }
+
                 if (proc) proc.classList.add('hidden');
                 const form = document.getElementById('scannerReviewForm');
                 if (form) form.classList.remove('hidden');
@@ -603,6 +779,7 @@
   // Handle Submission from Scanner Form
   window.handleScannerFormSubmit = async function (e) {
     if (e) e.preventDefault();
+    if (window.NativeFeedback) window.NativeFeedback.snap();
     const submitBtn = document.getElementById('scanSubmitBtn');
     if (submitBtn) {
       submitBtn.disabled = true;
@@ -684,6 +861,7 @@
       const qr = new window.Html5Qrcode(hostId);
       qr.start({ facingMode: 'environment' }, { fps: 10, qrbox: 240 }, function (text) {
         qr.stop().catch(function () {});
+        if (window.NativeFeedback) window.NativeFeedback.success();
         const f = { name: '', agency: '', email: '', phone: '', website: '', notes: text };
         const g = function (re) { const m = text.match(re); return m ? m[1].trim() : ''; };
         if (/BEGIN:VCARD/i.test(text)) {

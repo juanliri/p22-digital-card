@@ -145,6 +145,24 @@
       const target = e.target.closest('a, button');
       if (!target) return;
 
+      // Provide native tactile / audio click on interactive buttons
+      if (window.NativeFeedback && typeof window.NativeFeedback.snap === 'function') {
+        const cList = target.classList;
+        const targetId = target.id || '';
+        const targetHref = target.getAttribute('href') || '';
+        const onclk = target.getAttribute('onclick') || '';
+        if (
+          targetId === 'cageCopyBtn' || targetId === 'ueiCopyBtn' || cList.contains('copy-chip') ||
+          targetHref.includes('.vcf') || onclk.includes('downloadActiveVCard') ||
+          targetHref.includes('.pkpass') || targetId.includes('Wallet') || onclk.includes('GoogleWalletPass') ||
+          targetHref.startsWith('tel:') || targetHref.startsWith('sms:') || targetHref.startsWith('mailto:') ||
+          targetId === 'qrZoomBtn' || targetId === 'qrZoomToggleBtn' || onclk.includes('toggleExpoQrZoom') ||
+          cList.contains('btn-bounce') || cList.contains('cta-luxury')
+        ) {
+          window.NativeFeedback.snap();
+        }
+      }
+
       const href = target.getAttribute('href') || '';
       const btnText = (target.innerText || target.getAttribute('aria-label') || target.title || '')
         .trim()
