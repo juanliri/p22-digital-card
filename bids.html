@@ -1602,15 +1602,6 @@
         canopyVid.poster = data.canopyPoster;
       }
 
-      // Update Dual Fast-Pass Action Bar
-      if (document.getElementById('cardAppleWalletBtn')) {
-        document.getElementById('cardAppleWalletBtn').href = `/assets/passes/${data.slug}.pkpass`;
-      }
-      const cardGoogleBtn = document.getElementById('cardGoogleWalletBtn');
-      if (cardGoogleBtn) {
-        cardGoogleBtn.href = data.googleWalletUrl || data.googleUrl || '#';
-      }
-
       trackEvent('Profile', 'Load', data.name);
     }
 

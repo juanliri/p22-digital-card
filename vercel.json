@@ -71,6 +71,15 @@
       ]
     },
     {
+      "source": "/(.*\\.ics)",
+      "headers": [
+        { "key": "Content-Type", "value": "text/calendar; charset=utf-8" },
+        { "key": "Content-Disposition", "value": "inline" },
+        { "key": "Cache-Control", "value": "public, max-age=3600" },
+        { "key": "Access-Control-Allow-Origin", "value": "*" }
+      ]
+    },
+    {
       "source": "/(.*\\.pdf)",
       "headers": [
         { "key": "Content-Type", "value": "application/pdf" },
