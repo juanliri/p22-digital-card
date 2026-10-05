@@ -214,76 +214,83 @@
     renderToggleBtn();
   }
 
+  let isApplyingLanguage = false;
+
   function applyLanguage(lang) {
-    document.documentElement.lang = lang;
-    const dict = DICTIONARY[lang] || {};
+    if (isApplyingLanguage) return;
+    isApplyingLanguage = true;
+    try {
+      document.documentElement.lang = lang;
+      const dict = DICTIONARY[lang] || {};
 
-    // 1. Translate Standard Text Elements
-    const elements = document.querySelectorAll('button, a, span, p, h1, h2, h3, h4, h5, h6, label, div, figcaption, option');
-    elements.forEach(el => {
-      // Store original text if not already stored
-      if (!el.hasAttribute('data-orig-en')) {
-        // Skip elements with deep children (we only want leaf nodes or simple wrappers like SVG + SPAN)
-        if (el.children.length > 2 && el.tagName !== 'OPTION') return; 
+      // 1. Translate Standard Text Elements
+      const elements = document.querySelectorAll('button, a, span, p, h1, h2, h3, h4, h5, h6, label, div, figcaption, option');
+      elements.forEach(el => {
+        if (el.id === 'p22LangToggleBtn' || el.closest('#p22LangToggleBtn')) return;
 
-        // If it contains only text or exactly one span with text
-        let textNode = el;
-        
-        let textContent = '';
-        if (el.children.length === 0) {
-            textContent = el.textContent.replace(/\s+/g, ' ').trim();
-        } else {
-            // Find text content disregarding SVG or spans
-            Array.from(el.childNodes).forEach(node => {
-                if(node.nodeType === 3 && node.textContent.trim().length > 0) {
-                   textContent = node.textContent.replace(/\s+/g, ' ').trim();
-                }
-            });
-            if(!textContent && el.querySelector('span')) {
-               textContent = el.querySelector('span').textContent.replace(/\s+/g, ' ').trim();
-            }
+        // Store original text if not already stored
+        if (!el.hasAttribute('data-orig-en')) {
+          if (el.children.length > 2 && el.tagName !== 'OPTION') return; 
+
+          let textContent = '';
+          if (el.children.length === 0) {
+              textContent = el.textContent.replace(/\s+/g, ' ').trim();
+          } else {
+              Array.from(el.childNodes).forEach(node => {
+                  if(node.nodeType === 3 && node.textContent.trim().length > 0) {
+                     textContent = node.textContent.replace(/\s+/g, ' ').trim();
+                  }
+              });
+              if(!textContent && el.querySelector('span')) {
+                 textContent = el.querySelector('span').textContent.replace(/\s+/g, ' ').trim();
+              }
+          }
+
+          if (textContent && DICTIONARY.es[textContent]) {
+            el.setAttribute('data-orig-en', textContent);
+          }
         }
 
-        if (textContent && DICTIONARY.es[textContent]) {
-          el.setAttribute('data-orig-en', textContent);
+        const orig = el.getAttribute('data-orig-en');
+        if (orig) {
+          if (lang === 'es' && dict[orig]) {
+              replaceTextOrChild(el, orig, dict[orig]);
+          } else if (lang === 'en') {
+              replaceTextOrChild(el, DICTIONARY.es[orig] || 'something else', orig);
+          }
         }
-      }
+      });
 
-      const orig = el.getAttribute('data-orig-en');
-      if (orig) {
-        if (lang === 'es' && dict[orig]) {
-            replaceTextOrChild(el, orig, dict[orig]);
-        } else if (lang === 'en') {
-            replaceTextOrChild(el, DICTIONARY.es[orig] || 'something else', orig); // Go back to original
+      // 2. Translate Input Placeholders
+      const inputs = document.querySelectorAll('input[placeholder], textarea[placeholder]');
+      inputs.forEach(input => {
+        if (!input.hasAttribute('data-orig-en-placeholder')) {
+          const placeholderText = input.getAttribute('placeholder').trim();
+          if (DICTIONARY.es[placeholderText]) {
+            input.setAttribute('data-orig-en-placeholder', placeholderText);
+          }
         }
-      }
-    });
 
-    // 2. Translate Input Placeholders
-    const inputs = document.querySelectorAll('input[placeholder], textarea[placeholder]');
-    inputs.forEach(input => {
-      if (!input.hasAttribute('data-orig-en-placeholder')) {
-        const placeholderText = input.getAttribute('placeholder').trim();
-        if (DICTIONARY.es[placeholderText]) {
-          input.setAttribute('data-orig-en-placeholder', placeholderText);
+        const origPlaceholder = input.getAttribute('data-orig-en-placeholder');
+        if (origPlaceholder) {
+          if (lang === 'es' && dict[origPlaceholder]) {
+            input.setAttribute('placeholder', dict[origPlaceholder]);
+          } else if (lang === 'en') {
+            input.setAttribute('placeholder', origPlaceholder);
+          }
         }
-      }
-
-      const origPlaceholder = input.getAttribute('data-orig-en-placeholder');
-      if (origPlaceholder) {
-        if (lang === 'es' && dict[origPlaceholder]) {
-          input.setAttribute('placeholder', dict[origPlaceholder]);
-        } else if (lang === 'en') {
-          input.setAttribute('placeholder', origPlaceholder);
-        }
-      }
-    });
+      });
+    } finally {
+      isApplyingLanguage = false;
+    }
   }
 
   // Helper to replace text without destroying SVGs
   function replaceTextOrChild(el, orig, newText) {
     if (el.children.length === 0) {
-        el.textContent = newText;
+        if (el.textContent !== newText) {
+          el.textContent = newText;
+        }
         return;
     }
     // If it has children, search for the child node containing the text
@@ -291,7 +298,9 @@
     if (span) {
         let sText = span.textContent.replace(/\s+/g, ' ').trim();
         if (sText === orig || sText === DICTIONARY.es[orig] || sText === DICTIONARY.es[newText] || sText === newText) {
-            span.textContent = newText;
+            if (span.textContent !== newText) {
+              span.textContent = newText;
+            }
             return;
         }
     }
@@ -302,7 +311,9 @@
         if (node.nodeType === 3) {
             let nText = node.textContent.replace(/\s+/g, ' ').trim();
             if (nText === orig || nText === DICTIONARY.es[orig] || nText === newText || (DICTIONARY.es[newText] && nText === DICTIONARY.es[newText])) {
-                node.textContent = newText;
+                if (node.textContent !== newText) {
+                  node.textContent = newText;
+                }
                 return;
             }
         }
@@ -321,7 +332,7 @@
         btn.onclick = toggleLanguage;
         btn.className = 'px-2.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white active:scale-95 transition shadow text-xs font-montserrat font-bold flex items-center gap-1 shrink-0';
         // Insert right before the Share button
-        const shareBtn = header.querySelector('button');
+        const shareBtn = header.querySelector('button:not(#p22LangToggleBtn)');
         if (shareBtn) {
           header.insertBefore(btn, shareBtn);
         } else {
@@ -331,8 +342,8 @@
     }
     if (btn) {
       btn.innerHTML = currentLang === 'en' 
-        ? '<span class="text-sm">🇲🇽</span><span>ES</span>' 
-        : '<span class="text-sm">🇺🇸</span><span>EN</span>';
+        ? '<span class="text-sm">🇺🇸</span><span>EN</span>' 
+        : '<span class="text-sm">🇲🇽</span><span>ES</span>';
       btn.title = currentLang === 'en' ? 'Cambiar a Español' : 'Switch to English';
     }
   }
@@ -340,14 +351,21 @@
   // Handle dynamic DOM changes (like modals opening and showing new text)
   function setupMutationObserver() {
     const observer = new MutationObserver((mutations) => {
+      if (isApplyingLanguage) return;
       let shouldReapply = false;
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-            shouldReapply = true;
-        } else if (mutation.type === 'attributes' && mutation.attributeName !== 'data-orig-en' && mutation.attributeName !== 'data-orig-en-placeholder' && mutation.attributeName !== 'placeholder' && mutation.attributeName !== 'class' && mutation.attributeName !== 'style' && mutation.attributeName !== 'lang') {
-            shouldReapply = true;
+      for (let i = 0; i < mutations.length; i++) {
+        const mutation = mutations[i];
+        if (mutation.type === 'childList') {
+          for (let j = 0; j < mutation.addedNodes.length; j++) {
+            const node = mutation.addedNodes[j];
+            if (node.nodeType === 1 && node.id !== 'p22LangToggleBtn') {
+              shouldReapply = true;
+              break;
+            }
+          }
         }
-      });
+        if (shouldReapply) break;
+      }
       if (shouldReapply) {
         if(window._i18nTimeout) clearTimeout(window._i18nTimeout);
         window._i18nTimeout = setTimeout(() => {
@@ -358,9 +376,7 @@
 
     observer.observe(document.body, {
       childList: true,
-      subtree: true,
-      attributes: true,
-      attributeFilter: ['style', 'class'] 
+      subtree: true
     });
   }
 
