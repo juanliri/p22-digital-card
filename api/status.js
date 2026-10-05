@@ -57,7 +57,7 @@ async function statuspage(name, url) {
 
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Cache-Control', 'no-store');
+  res.setHeader('Cache-Control', 'public, max-age=15, s-maxage=60, stale-while-revalidate=120');
 
   const env = (k) => !!process.env[k];
   const host = req.headers?.host || 'card.p22corp.com';

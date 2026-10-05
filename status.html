@@ -51,30 +51,110 @@
   <a class="btn" href="https://docs.google.com/spreadsheets/d/1Xfwmr7iPtV3YaAO6GIJW-Ekx5WM1sR92YZGnD2Qubl0" target="_blank" rel="noopener">Leads Sheet</a>
   <a class="btn" href="/setup">Staff Setup Hub</a>
 </nav>
+<div id="idleToast" style="display:none;position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:rgba(13,22,38,0.95);border:1px solid #C9A227;color:#e8eefc;padding:10px 18px;border-radius:999px;font-size:12px;font-weight:600;box-shadow:0 8px 30px rgba(0,0,0,0.85);cursor:pointer;z-index:999;backdrop-filter:blur(10px);letter-spacing:0.3px;">
+  ⏸️ Auto-refresh pausado por inactividad. Toca para reanudar.
+</div>
 <script>
-const grid=document.getElementById('grid');
-async function load(){
-  try{
-    const t0=performance.now();
-    const r=await fetch('/api/status',{cache:'no-store'});
-    const d=await r.json();
-    const lat=Math.round(performance.now()-t0);
-    const o=document.getElementById('overall');
-    o.textContent=d.overall;
-    o.className='pill '+(d.overall==='OPERATIONAL'?'ok':d.overall==='DEGRADED'?'warn':'bad');
-    document.getElementById('sub').textContent=`Deploy ${d.deployment} · region ${d.region} · API ${lat}ms`;
-    document.getElementById('stamp').textContent='Checked '+new Date(d.checkedAt).toLocaleTimeString();
-    document.getElementById('counts').textContent=`${d.summary.passing}/${d.summary.total} passing`;
-    const groups={};
-    d.checks.forEach(c=>(groups[c.group]=groups[c.group]||[]).push(c));
-    grid.innerHTML=Object.entries(groups).map(([g,items])=>`<section class="card"><h2>${g}</h2>${items.map(c=>`<div class="row"><span><span class="dot ${c.ok?'ok':''}"></span>${c.name}</span><span class="mut">${c.detail||''}${c.ms!=null?' · '+c.ms+'ms':''}</span></div>`).join('')}</section>`).join('');
-  }catch(e){
-    const o=document.getElementById('overall');o.textContent='API UNREACHABLE';o.className='pill bad';
-    document.getElementById('sub').textContent='Primary host not answering - open the failover mirror (see runbook).';
+const grid = document.getElementById('grid');
+let pollTimer = null;
+let lastInteraction = Date.now();
+let isIdle = false;
+const IDLE_LIMIT = 5 * 60 * 1000; // 5 minutes
+
+async function load() {
+  if (document.hidden || isIdle) return;
+  try {
+    const t0 = performance.now();
+    const r = await fetch('/api/status');
+    const d = await r.json();
+    const lat = Math.round(performance.now() - t0);
+    const o = document.getElementById('overall');
+    o.textContent = d.overall;
+    o.className = 'pill ' + (d.overall === 'OPERATIONAL' ? 'ok' : d.overall === 'DEGRADED' ? 'warn' : 'bad');
+    document.getElementById('sub').textContent = `Deploy ${d.deployment} · region ${d.region} · API ${lat}ms`;
+    document.getElementById('stamp').textContent = 'Checked ' + new Date(d.checkedAt).toLocaleTimeString();
+    document.getElementById('counts').textContent = `${d.summary.passing}/${d.summary.total} passing`;
+    const groups = {};
+    d.checks.forEach(c => (groups[c.group] = groups[c.group] || []).push(c));
+    grid.innerHTML = Object.entries(groups).map(([g, items]) => `<section class="card"><h2>${g}</h2>${items.map(c => `<div class="row"><span><span class="dot ${c.ok ? 'ok' : ''}"></span>${c.name}</span><span class="mut">${c.detail || ''}${c.ms != null ? ' · ' + c.ms + 'ms' : ''}</span></div>`).join('')}</section>`).join('');
+  } catch (e) {
+    const o = document.getElementById('overall');
+    o.textContent = 'API UNREACHABLE';
+    o.className = 'pill bad';
+    document.getElementById('sub').textContent = 'Primary host not answering - open the failover mirror (see runbook).';
   }
 }
-document.getElementById('refreshBtn').onclick=load;
-load();setInterval(load,30000);
+
+function showIdleToast(show) {
+  const toast = document.getElementById('idleToast');
+  if (toast) toast.style.display = show ? 'block' : 'none';
+}
+
+function resetIdle() {
+  lastInteraction = Date.now();
+  if (isIdle) {
+    isIdle = false;
+    showIdleToast(false);
+    load();
+    startPolling();
+  }
+}
+
+function checkIdle() {
+  if (!isIdle && Date.now() - lastInteraction >= IDLE_LIMIT) {
+    isIdle = true;
+    stopPolling();
+    showIdleToast(true);
+  }
+}
+
+function startPolling() {
+  stopPolling();
+  pollTimer = setInterval(() => {
+    checkIdle();
+    if (!isIdle && !document.hidden) {
+      load();
+    }
+  }, 30000);
+}
+
+function stopPolling() {
+  if (pollTimer) {
+    clearInterval(pollTimer);
+    pollTimer = null;
+  }
+}
+
+// Layer 1: Page Visibility API (Freezes/kills polling when tab hidden or phone locked)
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    stopPolling();
+  } else {
+    resetIdle();
+    load();
+    startPolling();
+  }
+});
+
+// Layer 2: Idle Timeout Auto-Pause (5 minutes inactivity)
+['mousemove', 'mousedown', 'keydown', 'touchstart', 'scroll'].forEach(evt => {
+  window.addEventListener(evt, () => {
+    lastInteraction = Date.now();
+  }, { passive: true });
+});
+
+setInterval(checkIdle, 10000);
+
+document.getElementById('refreshBtn').onclick = () => {
+  resetIdle();
+  load();
+};
+
+const idleToast = document.getElementById('idleToast');
+if (idleToast) idleToast.onclick = resetIdle;
+
+load();
+startPolling();
 </script>
 </body>
 </html>
