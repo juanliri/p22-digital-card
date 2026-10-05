@@ -183,9 +183,10 @@ for s in staff_definitions:
     folded_lines = [fold_vcard_line(line) for line in raw_lines]
     vcf_content = '\r\n'.join(folded_lines) + '\r\n'
     
+    vcf_bytes = vcf_content.encode('utf-8')
     vcf_filepath = os.path.join('assets', 'vcf', s['filename'])
-    with open(vcf_filepath, 'w', encoding='utf-8', newline='') as f:
-        f.write(vcf_content)
+    with open(vcf_filepath, 'wb') as f:
+        f.write(vcf_bytes)
     print(f"Generated RFC 2426 vcf with direct + secondary email: {vcf_filepath}")
 
     vcf_aliases = {
@@ -197,11 +198,11 @@ for s in staff_definitions:
     }
     for alias_fn in vcf_aliases.get(s['slug'], []):
         alias_path = os.path.join('assets', 'vcf', alias_fn)
-        with open(alias_path, 'w', encoding='utf-8', newline='') as f:
-            f.write(vcf_content)
+        with open(alias_path, 'wb') as f:
+            f.write(vcf_bytes)
         if s['slug'] == 'pedro':
-            with open('pedro-felipe.vcf', 'w', encoding='utf-8', newline='') as f:
-                f.write(vcf_content)
+            with open('pedro-felipe.vcf', 'wb') as f:
+                f.write(vcf_bytes)
     
     slug = s['slug']
     if slug not in team_data:
