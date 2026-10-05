@@ -595,7 +595,7 @@
       const container = document.getElementById('badgeInternalQr');
       if (!container || !activeRep) return;
       const baseUrl = (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) ? window.location.origin : 'https://card.p22corp.com';
-      const targetUrl = `${baseUrl}/${activeRep.slug}`;
+      const targetUrl = `${baseUrl}/badge/${activeRep.slug}`;
       container.innerHTML = '';
       internalQrObj = new QRCode(container, {
         text: targetUrl,
@@ -691,7 +691,7 @@
       if (show) {
         modal.classList.remove('hidden');
         const baseUrl = (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) ? window.location.origin : 'https://card.p22corp.com';
-        const targetUrl = `${baseUrl}/${activeRep.slug}`;
+        const targetUrl = `${baseUrl}/badge/${activeRep.slug}`;
         document.getElementById('modalTargetUrl').textContent = targetUrl;
         
         const container = document.getElementById('modalQrCodeContainer');
