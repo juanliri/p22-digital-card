@@ -162,7 +162,19 @@
       'View Fullscreen in Browser': 'Ver Pantalla Completa en Navegador',
       'Exchange Contact': 'Intercambiar Contacto',
       'Exchange Contact Info': 'Intercambiar Contacto'
-    },
+    ,
+      'Agency or Prime Contractor *': 'Agencia o Contratista Principal *',
+      'USACE / NAVFAC / Balfour Beatty / TxDOT': 'Ej. USACE / NAVFAC / Balfour Beatty / TxDOT',
+      'Collapse Detailed Supply Matrix & Readiness': 'Ocultar Matriz Detallada de Suministro y Capacidades',
+      'View Detailed Supply Matrix &amp; Agency Readiness': 'Ver Matriz Detallada de Suministro y Capacidades',
+      'Div 26 Electrical': 'División 26 Eléctrico',
+      'Government-Ready Supply': 'Suministro Preparado para el Gobierno',
+      'MRO Supplies': 'Suministros MRO',
+      'SBA Certified': 'Certificado por SBA',
+      'Direct Phone *': 'Teléfono Directo *',
+      'Exchange Details with': 'Intercambiar Detalles con',
+      'Share Your Details with': 'Comparte tus Datos con',
+      'Send My Contact to': 'Enviar mi Contacto a'},
     en: {} // Default English
   };
 
