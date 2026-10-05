@@ -174,7 +174,17 @@
       'Direct Phone *': 'Teléfono Directo *',
       'Exchange Details with': 'Intercambiar Detalles con',
       'Share Your Details with': 'Comparte tus Datos con',
-      'Send My Contact to': 'Enviar mi Contacto a'},
+      'Send My Contact to': 'Enviar mi Contacto a',
+      'Government Procurement Desk': 'Mesa de Adquisiciones Gubernamentales',
+      'Government Procurement Desk • P-22 Corp': 'Mesa de Adquisiciones Gubernamentales • P-22 Corp',
+      'Logistics & DFW Fleet Desk': 'Centro de Logística y Flota de DFW',
+      'Logistics & DFW Fleet Desk • P-22 Corp': 'Centro de Logística y Flota de DFW • P-22 Corp',
+      'Dallas Logistics Hub': 'Centro Logístico de Dallas',
+      'Logistics Desk': 'Mesa de Logística',
+      'Exchange Details with Logistics Desk': 'Intercambiar Detalles con Mesa de Logística',
+      'Send My Contact to Logistics Desk →': 'Enviar mi Contacto a Logística →',
+      'Book 15-Min Briefing with Logistics Desk': 'Agendar Reunión de 15 min con Logística',
+      'Share Your Details with Dallas Logistics Hub:': 'Comparte tus Detalles con Centro Logístico de Dallas:'},
     en: {} // Default English
   };
 
